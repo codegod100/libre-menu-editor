@@ -46,7 +46,7 @@ MimeType=application/x-desktop
 Categories=GNOME;GTK;Utility
 
 StartupNotify=true
-StartupWMClass=libre-menu-editor
+StartupWMClass=page.codeberg.libre_menu_editor.LibreMenuEditor
 X-GNOME-SingleWindow=true
 X-Purism-FormFactor=Workstation;Mobile;
 X-Flatpak=page.codeberg.libre_menu_editor.LibreMenuEditor

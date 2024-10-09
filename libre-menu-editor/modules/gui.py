@@ -969,6 +969,18 @@ class EntryRow(Adw.EntryRow):
 
         self._events.trigger("text-changed", self, text)
 
+    def get_placeholder_image(self):
+
+        placeholder_gizmo = self.get_child().get_first_child().get_next_sibling()
+
+        placeholder_image = placeholder_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
+
+        return placeholder_image
+
+    def set_placeholder_image(self, icon_name):
+
+        self.get_placeholder_image().set_from_icon_name(icon_name)
+
     def hook(self, event, callback, *args):
 
         self._events.hook(event, callback, *args)
@@ -1030,6 +1042,8 @@ class PathChooserRow(EntryRow):
 
             self._file_chooser_dialog.set_default_response(Gtk.ResponseType.ACCEPT)
 
+        self._file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
+
         self._file_chooser_dialog.connect("response", self._on_file_chooser_dialog_response)
 
         self._file_chooser_dialog.set_transient_for(self._application_window)
@@ -1040,11 +1054,7 @@ class PathChooserRow(EntryRow):
 
         try:
 
-            self._edit_gizmo = self.get_child().get_first_child().get_next_sibling()
-
-            self._edit_image = self._edit_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
-
-            self._edit_image.unparent()
+            self.get_placeholder_image().unparent()
 
         except AttributeError:
 
@@ -1624,18 +1634,6 @@ class ComboRow(Adw.ActionRow):
         self._flow_row = None
 
         self._buttons = {}
-
-        try:
-
-            self._edit_gizmo = self.get_child().get_first_child().get_next_sibling()
-
-            self._edit_image = self._edit_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
-
-            self._edit_image.unparent()
-
-        except AttributeError:
-
-            pass
 
         self._list_box = Gtk.ListBox()
 

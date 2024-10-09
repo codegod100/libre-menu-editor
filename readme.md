@@ -56,7 +56,7 @@ sudo gtk-update-icon-cache -f /usr/share/icons/hicolor
 
 ### Option 1: Improving the translation
 
-If you want to improve a translation, it is recommended to do so through the [weblate](https://translate.codeberg.org/projects/libre-menu-editor/libre-menu-editor). Alternatively, you can edit the [translation files](libre-menu-editor/locales) directly and contribute your changes in a pull request.
+If you want to improve a translation, it is recommended to do so through the [weblate](https://translate.codeberg.org/projects/libre-menu-editor). Alternatively, you can edit the [translation files](libre-menu-editor/locales) directly and contribute your changes in a pull request.
 
 ### Option 2: Reporting bugs and giving feedback
 

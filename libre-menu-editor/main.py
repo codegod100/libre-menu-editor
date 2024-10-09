@@ -1177,7 +1177,7 @@ class SettingsPage(Gtk.Box):
 
         self._events = basic.EventManager()
 
-        self._events.add("changed", bool, bool)
+        self._events.add("changed-changed", bool, bool)
 
         self._locale_manager = app.get_locale_manager()
 
@@ -1311,7 +1311,9 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
-        self._keywords_entry_row = Adw.EntryRow()
+        self._keywords_entry_row = gui.EntryRow(app)
+
+        self._keywords_entry_row.set_placeholder_image(self._icon_finder.get_name("list-add-symbolic"))
 
         self._keywords_entry_row.set_title(self._locale_manager.get("KEYWORDS_ENTRY_ROW_TITLE"))
 
@@ -1735,7 +1737,7 @@ class SettingsPage(Gtk.Box):
 
         if not value == self._changed:
 
-            self._events.trigger("changed", self._changed, bool(value))
+            self._events.trigger("changed-changed", self._changed, bool(value))
 
         self._changed = bool(value)
 
@@ -1933,9 +1935,11 @@ class SettingsPage(Gtk.Box):
 
     def _update_action_children_sensitive(self, value=True, skip_reload_button=False):
 
+        input_children_changed = self._get_input_children_changed()
+
         if not self._loading_desktop_starter:
 
-            if value and not self._get_input_children_changed():
+            if value and not input_children_changed:
 
                 value = False
 
@@ -2224,6 +2228,12 @@ class Application(gui.Application):
 
         ###############################################################################################################
 
+        self._back_button_fade_timeout_id = None
+
+        self._back_button_fade_duration = 45
+
+        ###############################################################################################################
+
         ignore_prefix = "page.codeberg.libre_menu_editor.LibreMenuEditor.fallback."
 
         self._icon_finder.set_ignore_prefix(ignore_prefix)
@@ -2478,7 +2488,7 @@ class Application(gui.Application):
 
         self._settings_page = SettingsPage(self)
 
-        self._settings_page.hook("changed", self._on_settings_page_changed)
+        self._settings_page.hook("changed-changed", self._on_settings_page_changed_changed)
 
         ###############################################################################################################
 
@@ -3258,11 +3268,33 @@ class Application(gui.Application):
 
         self._update_menu_button()
 
-    def _on_settings_page_changed(self, event, previous_value, current_value):
+    def _on_settings_page_changed_changed(self, event, previous_value, current_value):
 
         if hasattr(self, "_split_view_content"):
 
-            self._split_view_content.set_can_pop(current_value == False)
+            if self._back_button_fade_timeout_id:
+
+                GLib.source_remove(self._back_button_fade_timeout_id)
+
+                self._back_button_fade_timeout_id = None
+
+            if current_value:
+
+                self._split_view_content.set_can_pop(False)
+
+            else:
+
+                self._back_button_fade_timeout_id = GLib.timeout_add(self._back_button_fade_duration, self._after_settings_page_changed_changed)
+
+    def _after_settings_page_changed_changed(self):
+
+        if hasattr(self, "_split_view_content"):
+
+            self._split_view_content.set_can_pop(True)
+
+            self._back_button_fade_timeout_id = None
+
+            return GLib.SOURCE_REMOVE
 
     def _on_main_stack_visible_child_changed(self, stack, gparam):
 
