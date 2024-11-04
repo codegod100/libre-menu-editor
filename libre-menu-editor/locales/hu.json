@@ -81,6 +81,10 @@
   "ACTIONS_GROUP_TITLE": "Műveletek",
   "VISIBLE_GROUP_TITLE": "Láthatóság",
 
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Keresési kifejezések",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Keresés ikonok között",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Módosítsa a keresési kifejezéseket, hogy javaslatokat kapjon",
+
   "ICON_CHOOSER_ROW_TITLE": "Ikon",
   "NAME_ENTRY_ROW_TITLE": "Név",
   "COMMENT_ENTRY_ROW_TITLE": "Megjegyzés",

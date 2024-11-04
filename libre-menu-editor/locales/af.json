@@ -81,6 +81,10 @@
   "ACTIONS_GROUP_TITLE": "Aksies",
   "VISIBLE_GROUP_TITLE": "Sigbaarheid",
 
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Soekwoorde",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Soek na ikone",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Verander die soekwoorde om voorstelle te kry",
+
   "ICON_CHOOSER_ROW_TITLE": "Ikoon",
   "NAME_ENTRY_ROW_TITLE": "Naam",
   "COMMENT_ENTRY_ROW_TITLE": "Kommentaar",

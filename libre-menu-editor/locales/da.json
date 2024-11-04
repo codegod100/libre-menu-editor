@@ -81,6 +81,10 @@
   "ACTIONS_GROUP_TITLE": "Handlinger",
   "VISIBLE_GROUP_TITLE": "Synlighed",
 
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Søgeord",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Søg efter ikoner",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Ændr søgeordene for at få forslag",
+
   "ICON_CHOOSER_ROW_TITLE": "Ikon",
   "NAME_ENTRY_ROW_TITLE": "Navn",
   "COMMENT_ENTRY_ROW_TITLE": "Kommentar",

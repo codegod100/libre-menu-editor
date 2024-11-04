@@ -329,6 +329,87 @@ class IconFinder():
         self._events.release(id)
 
 
+class IconView(Gtk.CenterBox):
+
+    def __init__(self, app, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._update_successful = None
+
+        self._events = basic.EventManager()
+
+        self._events.add("updated", bool)
+
+        self._icon_finder = app.get_icon_finder()
+
+        self._icon_finder.hook("changed", self._on_icon_finder_changed)
+
+        self._previous_text = ""
+
+        self.set_image(Gtk.Image())
+
+        self.set_hexpand(True)
+
+        self.add_css_class("view")
+
+    def _on_icon_finder_changed(self, event, icon_finder):
+
+        self.update(self._previous_text)
+
+    def _update_idle_target(self, text):
+
+        try:
+
+            self._icon_finder.set_image(self._icon_image, text, missing_ok=False, use_alternatives=False)
+
+            update_successful = True
+
+        except IconNotFoundError:
+
+            self._icon_image.clear()
+
+            update_successful = False
+
+        self._update_successful = update_successful
+
+        self._events.trigger("updated", update_successful)
+
+    def get_image(self):
+
+        return self._icon_image
+
+    def set_image(self, image):
+
+        self._icon_image = image
+
+        self._icon_image.set_pixel_size(128)
+
+        self._icon_image.set_margin_top(Margin.LARGER)
+
+        self._icon_image.set_margin_bottom(Margin.LARGER)
+
+        self.set_center_widget(self._icon_image)
+
+    def get_update_successful(self):
+
+        return self._update_successful
+
+    def update(self, text):
+
+        self._previous_text = text
+
+        GLib.idle_add(self._update_idle_target, text)
+
+    def hook(self, event, callback, *args):
+
+        self._events.hook(event, callback, *args)
+
+    def release(self, id):
+
+        self._events.release(id)
+
+
 class IconName(GObject.Object):
 
     name = GObject.Property(type=str)
@@ -340,7 +421,7 @@ class IconName(GObject.Object):
         self.name = name
 
 
-class IconBrowserRow(Adw.PreferencesRow):
+class IconBrowser(Gtk.ScrolledWindow):
 
     def __init__(self, app, *args, **kwargs):
 
@@ -350,9 +431,9 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._events = basic.EventManager()
 
-        self._events.add("search-completed", object)
+        self._events.add("updated", object)
 
-        self._events.add("active-changed", bool)
+        self._events.add("item-selected", str)
 
         self._icon_names = []
 
@@ -368,19 +449,9 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._results_key = None
 
-        self._min_keywords_length = 0
-
         self._lower_string = ""
 
-        self._can_set_active = False
-
-        self._default_text = None
-
-        self._default_text_changed = False
-
-        self._entry = {}
-
-        self._entry_timeout_id = None
+        self._search_timeout_id = None
 
         self._search_delay = 60
 
@@ -393,8 +464,6 @@ class IconBrowserRow(Adw.PreferencesRow):
         self._slice_length = 90
 
         self._slice_call_id = None
-
-        self._delay_entry_changed = False
 
         self._list_store = Gio.ListStore()
 
@@ -410,7 +479,9 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._grid_view = Gtk.GridView()
 
-        self._grid_view.set_max_columns(48)
+        self._grid_view.set_max_columns(150)
+
+        self._grid_view.set_halign(Gtk.Align.FILL)
 
         self._grid_view.set_margin_top(Margin.DEFAULT)
 
@@ -428,55 +499,11 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._grid_view.set_factory(self._factory)
 
-        self._scrolled_window = Gtk.ScrolledWindow()
+        self.set_child(self._grid_view)
 
-        self._scrolled_window.set_child(self._grid_view)
-
-        self._scrolled_window.set_size_request(-1, 240)
-
-        self._revealer = Gtk.Revealer()
-
-        self._revealer.set_reveal_child(False)
-
-        self._revealer.set_child(self._scrolled_window)
-
-        self._revealer.connect("notify::reveal-child", self._on_revealer_reveal_child_changed)
-
-        self._revealer.connect("notify::child-revealed", self._on_revealer_child_revealed_changed)
-
-        self._entry_event_controller_focus = Gtk.EventControllerFocus()
-
-        self._entry_event_controller_focus.connect_after("enter", self._on_event_controller_focus_enter)
-
-        self._entry_event_controller_focus.connect_after("leave", self._on_event_controller_focus_leave)
-
-        self._entry_event_controller_key = Gtk.EventControllerKey()
-
-        self._entry_event_controller_key.connect("key-pressed", self._on_event_controller_key_pressed)
-
-        self._main_event_controller_focus = Gtk.EventControllerFocus()
-
-        self._main_event_controller_focus.connect_after("enter", self._on_event_controller_focus_enter)
-
-        self._main_event_controller_focus.connect_after("leave", self._on_event_controller_focus_leave)
-
-        self._main_event_controller_key = Gtk.EventControllerKey()
-
-        self._main_event_controller_key.connect("key-pressed", self._on_event_controller_key_pressed)
-
-        self.set_margin_top(1)
-
-        self.set_activatable(False)
+        self.set_size_request(-1, 175)
 
         self.add_css_class("view")
-
-        self.add_controller(self._main_event_controller_focus)
-
-        self.add_controller(self._main_event_controller_key)
-
-        self.set_child(self._revealer)
-
-        self.set_visible(False)
 
         GLib.idle_add(self._update_search_data)
 
@@ -492,64 +519,6 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._start_search_thread()
 
-        self._entry["widget"].set_text(self._entry["widget"].get_text())
-
-    def _on_event_controller_focus_enter(self, controller):
-
-        GLib.idle_add(self._after_event_controller_focus_enter)
-
-    def _after_event_controller_focus_enter(self):
-
-        text = self._entry["widget"].get_text()
-
-        if not self._icon_finder.has_name(text, use_alternatives=False):
-
-            if self.get_parent().get_focus_child():
-
-                self.set_active(True)
-
-    def _on_event_controller_focus_leave(self, controller):
-
-        GLib.idle_add(self._after_event_controller_focus_leave)
-
-    def _after_event_controller_focus_leave(self):
-
-        text = self._entry["widget"].get_text()
-
-        if self._icon_finder.has_name(text, use_alternatives=False):
-
-            if not self.get_parent().get_focus_child():
-
-                self.set_active(False)
-
-    def _on_event_controller_key_pressed(self, controller, keyval, keycode, state):
-
-        if keyval == Keyval.ESCAPE:
-
-            if self.get_active():
-
-                self._entry["widget"].grab_focus()
-
-            self._toggle_set_active()
-
-    def _on_revealer_reveal_child_changed(self, revealer, gparam):
-
-        if self._revealer.get_reveal_child():
-
-            self.show()
-
-    def _on_revealer_child_revealed_changed(self, revealer, gparam):
-
-        if not self._revealer.get_child_revealed():
-
-            self.hide()
-
-            if self._delay_entry_changed:
-
-                self._delay_entry_changed = False
-
-                self._entry["widget"].set_text(self._entry["widget"].get_text())
-
     def _on_factory_setup(self, factory, list_item):
 
         image = Gtk.Image()
@@ -564,43 +533,23 @@ class IconBrowserRow(Adw.PreferencesRow):
 
     def _on_grid_view_activate(self, grid_view, position):
 
-        self.set_active(False)
+        self._events.trigger("item-selected", self._list_store[position].name)
 
-        self._delay_entry_changed = True
+    def _on_search_started(self, text, exclude=[]):
 
-        self.set_default_text(self._list_store[position].name)
+        if self._search_timeout_id:
 
-        self._entry["widget"].grab_focus()
+            GLib.source_remove(self._search_timeout_id)
 
-    def _on_entry_changed(self, entry):
+        self._search_timeout_id = GLib.timeout_add(self._search_delay, self._after_search_started, text, exclude=exclude)
 
-        if not self._delay_entry_changed:
+    def _after_search_started(self, text, exclude=[]):
 
-            if self._entry_timeout_id:
+        self._start_search_thread(text, exclude=exclude)
 
-                GLib.source_remove(self._entry_timeout_id)
-
-            self._entry_timeout_id = GLib.timeout_add(self._search_delay, self._after_entry_changed)
-
-    def _after_entry_changed(self):
-
-        self._start_search_thread()
-
-        self._entry_timeout_id = None
+        self._search_timeout_id = None
 
         return GLib.SOURCE_REMOVE
-
-    def _toggle_set_active(self):
-
-        if not self.get_active():
-
-            self._entry["widget"].grab_focus()
-
-            self.set_active(True)
-
-        else:
-
-            self.set_active(False)
 
     def _connect_icon_finder_changed(self):
 
@@ -614,9 +563,7 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         self._lower_string = self._search_string.lower()
 
-    def _start_search_thread(self):
-
-        text = self._entry["widget"].get_text()
+    def _start_search_thread(self, text, exclude=[]):
 
         keywords = set(filter(None, text.lower().replace(self._string_separator, self._keyword_separator).split(self._keyword_separator)))
 
@@ -624,27 +571,25 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         if not results_key == self._results_key:
 
-            self._results_key = results_key
-
             self._stop_search_thread()
 
-            self._list_store.remove_all()
-
-            self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key])
+            self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key], kwargs={"exclude": exclude})
 
             self._search_thread.start()
 
         else:
 
-            self._after_search_thread_finished()
+            self._after_search_finished()
 
     def _stop_search_thread(self):
 
-        if self._entry_timeout_id:
+        self._search_interrupted = True
 
-            GLib.source_remove(self._entry_timeout_id)
+        if self._search_timeout_id:
 
-            self._entry_timeout_id = None
+            GLib.source_remove(self._search_timeout_id)
+
+            self._search_timeout_id = None
 
         if self._slice_call_id:
 
@@ -654,17 +599,15 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         if self._search_thread:
 
-            self._search_interrupted = True
-
             self._search_thread.join()
-
-            self._search_interrupted = False
 
             self._search_thread = None
 
-            return True
+        self._search_interrupted = False
 
-    def _search_thread_target(self, text, keywords, results_key):
+        # return True #FIXME
+
+    def _search_thread_target(self, text, keywords, results_key, exclude=[]):
 
         try:
 
@@ -672,95 +615,97 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         except KeyError:
 
-            if not len(keywords) >= self._min_keywords_length:
+            if not len(keywords):
 
-                names = []
+                names = [] #FIXME self._icon_names
 
             else:
 
-                if not len(keywords):
-
-                    names = [IconName(name) for name in self._icon_names]
-
-                else:
-
-                    names = self._get_names(keywords, exclude=[text])
-
-                try:
-
-                    del self._results_cache[list(self._results_cache.keys())[-self._max_cached_results]]
-
-                except IndexError:
-
-                    pass
-
-                self._results_cache[results_key] = names
-
-        if len(names):
-
-            self._name_slices = [names[i:i+self._slice_length] for i in range(0, len(names), self._slice_length)]
-
-            self._slice_call_id = GLib.idle_add(self._add_next_slice)
-
-            self._can_set_active = True
-
-            GLib.idle_add(self._after_search_thread_finished)
-
-        else:
-
-            self._can_set_active = False
-
-            GLib.idle_add(self._after_search_thread_finished)
-
-        self._search_thread = None
-
-    def _after_search_thread_finished(self):
-
-        text = self._entry["widget"].get_text()
-
-        if not self._icon_finder.has_name(text, use_alternatives=False):
-
-            self._default_text_changed = False
-
-            self.set_active(True)
-
-        elif self._default_text_changed:
-
-            self._default_text_changed = False
-
-            self.set_active(False)
-
-        elif len(self._list_store):
-
-            self._default_text_changed = False
-
-            self.set_active(True)
-
-        else:
-
-            self._default_text_changed = False
-
-            self.set_active(True)
-
-        self._events.trigger("search-completed", self._list_store)
-
-    def _add_next_slice(self):
+                names = self._get_names(keywords, exclude=exclude)
 
         try:
 
-            self._list_store.splice(len(self._list_store), 0, self._name_slices.pop(0))
+            del self._results_cache[list(self._results_cache.keys())[-self._max_cached_results]]
 
         except IndexError:
 
-            self._slice_call_id = None
+            pass
 
-            return GLib.SOURCE_REMOVE
+        if self._results_key and self._results_key in self._results_cache and names == self._results_cache[self._results_key]:
+
+            self._results_cache[results_key] = names
+
+            if not self._search_interrupted:
+
+                self._slice_call_id = GLib.idle_add(self._after_search_finished)
 
         else:
 
-            self._slice_call_id = GLib.idle_add(self._add_next_slice)
+            self._results_cache[results_key] = names
 
-            return GLib.SOURCE_REMOVE
+            if len(names):
+
+                icon_names = [IconName(name) for name in names]
+
+                self._name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names), self._slice_length)]
+
+                if not self._search_interrupted:
+
+                    self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key, True)
+
+            elif not self._search_interrupted:
+
+                self._slice_call_id = GLib.idle_add(self._after_search_finished, True)
+
+        self._search_thread = None
+
+    def _after_search_finished(self, clear_store=False):
+
+        if not self._search_interrupted:
+
+            self._stop_search_thread()
+
+            if clear_store:
+
+                self._results_key = None
+
+                self._list_store.remove_all()
+
+            self._events.trigger("updated", self._list_store)
+
+    def _add_next_slice(self, results_key, first_run=False):
+
+        if not self._search_interrupted:
+
+            if first_run:
+
+                self._results_key = None
+
+                self._list_store.remove_all()
+
+                self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key)
+
+                return GLib.SOURCE_REMOVE
+
+            try:
+
+                self._list_store.splice(len(self._list_store), 0, self._name_slices.pop(0))
+
+            except IndexError:
+
+                self._slice_call_id = None
+
+                self._results_key = results_key
+
+                GLib.idle_add(self._after_search_finished)
+
+                return GLib.SOURCE_REMOVE
+
+            else:
+
+                self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key)
+
+                return GLib.SOURCE_REMOVE
 
     def _get_names(self, keywords, exclude=[]):
 
@@ -834,7 +779,7 @@ class IconBrowserRow(Adw.PreferencesRow):
 
         else:
 
-            return [IconName(name) for name in self._get_matching_names(names)]
+            return self._get_matching_names(names)
 
     def _get_matching_names(self, lists):
 
@@ -850,69 +795,17 @@ class IconBrowserRow(Adw.PreferencesRow):
 
             return first_list
 
-    def get_search_entry(self):
+    def get_results(self):
 
-        return self._entry["widget"]
+        return self._list_store
 
-    def set_search_entry(self, entry):
+    def update(self, text, exclude=[]):
 
-        try:
+        self._on_search_started(text, exclude=exclude)
 
-            self._entry["widget"].remove_controller(self._entry_event_controller_focus)
+    def clear(self):
 
-            self._entry["widget"].remove_controller(self._entry_event_controller_key)
-
-            self._entry["widget"].disconnect(self._entry["changed-event-id"])
-
-        except KeyError:
-
-            pass
-
-        entry.add_controller(self._entry_event_controller_focus)
-
-        entry.add_controller(self._entry_event_controller_key)
-
-        self._entry["changed-event-id"] = entry.connect("changed", self._on_entry_changed)
-
-        self._entry["widget"] = entry
-
-    def get_default_text(self):
-
-        return self._default_text
-
-    def set_default_text(self, text):
-
-        self._default_text = text
-
-        self._default_text_changed = True
-
-        if not text == self._entry["widget"].get_text():
-
-            self._entry["widget"].set_text(text)
-
-        elif not self._default_text and not len(text):
-
-            self._start_search_thread()
-
-    def get_active(self):
-
-        return self._revealer.get_reveal_child()
-
-    def set_active(self, value, check=True):
-
-        if not self._default_text_changed:
-
-            if check and not self._can_set_active:
-
-                value = False
-
-            elif not self.get_parent().get_focus_child():
-
-                value = False
-
-            self._revealer.set_reveal_child(value)
-
-            self._events.trigger("active-changed", value)
+        self._after_search_finished(clear_store=True)
 
     def hook(self, event, callback, *args):
 
@@ -921,6 +814,177 @@ class IconBrowserRow(Adw.PreferencesRow):
     def release(self, id):
 
         self._events.release(id)
+
+
+class RevealerRow(Adw.PreferencesRow):
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._ignore_toggle_button_toggled = False
+
+        self._toggle_button = Gtk.ToggleButton()
+
+        self._toggle_button.connect("toggled", self._on_toggle_button_toggled)
+
+        self._stack = Gtk.Stack()
+
+        self._stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
+
+        self._stack.set_transition_duration(90)
+
+        self._revealer = Gtk.Revealer()
+
+        self._revealer.set_transition_duration(300)
+
+        self._revealer.connect("notify::reveal-child", self._on_revealer_reveal_child_changed)
+
+        self._revealer.connect("notify::child-revealed", self._on_revealer_child_revealed_changed)
+
+        self._revealer.set_child(self._stack)
+
+        self.set_activatable(False)
+
+        self.set_active(True)
+
+        self.set_child(self._revealer)
+
+    def _on_toggle_button_toggled(self, toggle_button):
+
+        if not self._ignore_toggle_button_toggled:
+
+            self._revealer.set_reveal_child(toggle_button.get_active())
+
+    def _on_revealer_reveal_child_changed(self, revealer, gparam):
+
+        self._ignore_toggle_button_toggled = True
+
+        self._toggle_button.set_active(self._revealer.get_reveal_child())
+
+        self._ignore_toggle_button_toggled = False
+
+        if self._revealer.get_reveal_child():
+
+            self.show()
+
+    def _on_revealer_child_revealed_changed(self, revealer, gparam):
+
+        if not self._revealer.get_child_revealed():
+
+            self.hide()
+
+    def get_active(self):
+
+        return self._revealer.get_reveal_child()
+
+    def set_active(self, value):
+
+        self._revealer.set_reveal_child(value)
+
+    def get_page(self):
+
+        self._stack.get_visible_child()
+
+    def set_page(self, child):
+
+        if isinstance(child, Gtk.StackPage):
+
+            child = child.get_child()
+
+        self._stack.set_visible_child(child)
+
+    def add_page(self, child):
+
+        self._stack.add_named(child, str(child))
+
+    def remove_page(self, child):
+
+        self._stack.remove(child)
+
+    def get_revealer(self):
+
+        return self._revealer
+
+    def get_stack(self):
+
+        return self._stack
+
+    def get_toggle_button(self):
+
+        return self._toggle_button
+
+
+class IconViewRow(RevealerRow):
+
+    def __init__(self, app, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._icon_view = IconView(app)
+
+        self._prefix_box = Gtk.Box()
+
+        self._suffix_box = Gtk.Box()
+
+        for box in [self._prefix_box, self._suffix_box]:
+
+            box.set_margin_top(Margin.LARGE)
+
+            box.set_margin_bottom(Margin.LARGE)
+
+            box.set_margin_start(Margin.LARGE)
+
+            box.set_margin_end(Margin.LARGE)
+
+            box.set_spacing(Spacing.DEFAULT)
+
+        self._revealer.set_child(None)
+
+        self._center_box = Gtk.CenterBox()
+
+        self._center_box.set_start_widget(self._prefix_box)
+
+        self._center_box.set_end_widget(self._suffix_box)
+
+        self._center_box.set_center_widget(self._stack)
+
+        self._revealer.set_child(self._center_box)
+
+        self.add_css_class("view")
+
+        self.add_page(self._icon_view)
+
+    def get_icon_view(self):
+
+        return self._icon_view
+
+    def add_prefix(self, child):
+
+        self._prefix_box.append(child)
+
+    def add_suffix(self, child):
+
+        self._suffix_box.append(child)
+
+
+class IconBrowserRow(RevealerRow):
+
+    def __init__(self, app, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._icon_finder = app.get_icon_finder()
+
+        self._icon_browser = IconBrowser(app)
+
+        self.add_page(self._icon_browser)
+
+        self.add_css_class("view")
+
+    def get_icon_browser(self):
+
+        return self._icon_browser
 
 
 class EntryRow(Adw.EntryRow):
@@ -969,17 +1033,41 @@ class EntryRow(Adw.EntryRow):
 
         self._events.trigger("text-changed", self, text)
 
-    def get_placeholder_image(self):
+    def get_placeholder_image(self, ignore_errors=True):
 
-        placeholder_gizmo = self.get_child().get_first_child().get_next_sibling()
+        #FIXME: this might stop working in future versions
 
-        placeholder_image = placeholder_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
+        try:
 
-        return placeholder_image
+            placeholder_gizmo = self.get_child().get_first_child().get_next_sibling()
 
-    def set_placeholder_image(self, icon_name):
+            placeholder_image = placeholder_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
 
-        self.get_placeholder_image().set_from_icon_name(icon_name)
+            if isinstance(placeholder_image, Gtk.Image):
+
+                return placeholder_image
+
+            else:
+
+                raise AttributeError()
+
+        except Exception as e:
+
+            if not ignore_errors:
+
+                raise e
+
+    def set_placeholder_image(self, icon_name, ignore_errors=True):
+
+        try:
+
+            self.get_placeholder_image().set_from_icon_name(icon_name)
+
+        except Exception as e:
+
+            if not ignore_errors:
+
+                raise e
 
     def hook(self, event, callback, *args):
 
@@ -992,7 +1080,7 @@ class EntryRow(Adw.EntryRow):
 
 class PathChooserRow(EntryRow):
 
-    def __init__(self, app, action, *args, **kwargs):
+    def __init__(self, app, action, show_placeholder_image=False, *args, **kwargs):
 
         super().__init__(app, *args, **kwargs)
 
@@ -1044,6 +1132,16 @@ class PathChooserRow(EntryRow):
 
         self._file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
 
+        try:
+
+            self._file_chooser_dialog.connect("show", self._on_file_chooser_dialog_show)
+
+            self._file_chooser_dialog.connect("close-request", self._on_file_chooser_dialog_close_request)
+
+        except TypeError:
+
+            pass
+
         self._file_chooser_dialog.connect("response", self._on_file_chooser_dialog_response)
 
         self._file_chooser_dialog.set_transient_for(self._application_window)
@@ -1052,13 +1150,15 @@ class PathChooserRow(EntryRow):
 
         self.add_suffix(self._chooser_button)
 
-        try:
+        if not show_placeholder_image:
 
-            self.get_placeholder_image().unparent()
+            try:
 
-        except AttributeError:
+                self.get_placeholder_image().unparent()
 
-            pass
+            except: #FIXME AttributeError:
+
+                pass
 
     def _on_chooser_button_event_controller_key_pressed(self, controller, keyval, keycode, state):
 
@@ -1074,6 +1174,10 @@ class PathChooserRow(EntryRow):
 
             return True
 
+    def _on_file_chooser_dialog_show(self, dialog):
+
+        self._file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
+
     def _on_file_chooser_dialog_response(self, dialog, response):
 
         self._file_chooser_dialog.hide()
@@ -1081,6 +1185,12 @@ class PathChooserRow(EntryRow):
         if response == Gtk.ResponseType.ACCEPT:
 
             self.set_text(self._file_chooser_dialog.get_file().get_path())
+
+    def _on_file_chooser_dialog_close_request(self, dialog):
+
+        self._file_chooser_dialog.hide()
+
+        return True
 
     def _on_chooser_button_clicked(self, button):
 
@@ -1147,6 +1257,293 @@ class DirectoryChooserRow(PathChooserRow):
         else:
 
             self.remove_css_class("error")
+
+
+class IconChooserRow(FileChooserRow):
+
+    def __init__(self, app, *args, **kwargs):
+
+        super().__init__(app, show_placeholder_image=True, *args, **kwargs)
+
+        self._icon_finder = app.get_icon_finder()
+
+        self._default_entry_title = None
+
+        self._search_entry_title = None
+
+        self._ignore_first_empty_text = False
+
+        self._group_has_focus = False
+
+        self._search_mode = False
+
+        self._previous_text = ""
+
+        self._status_page = Adw.StatusPage()
+
+        self._status_page.set_can_focus(False)
+
+        #FIXME: self._status_page.set_size_request(-1, 200)
+
+        self._icon_view_row = IconViewRow(app)
+
+        self._icon_view_row.set_active(True)
+
+        self._icon_view_row.set_visible(True)
+
+        self._icon_view = self._icon_view_row.get_icon_view()
+
+        self._icon_view.hook("updated", self._on_icon_view_updated)
+
+        self._icon_browser_row = IconBrowserRow(app)
+
+        self._icon_browser_row.set_active(False)
+
+        self._icon_browser_row.set_visible(False)
+
+        self._icon_browser = self._icon_browser_row.get_icon_browser()
+
+        self._icon_browser.hook("updated", self._on_icon_browser_updated)
+
+        self._icon_browser.hook("item-selected", self._on_icon_browser_item_selected)
+
+        self._icon_browser_row.add_page(self._status_page)
+
+        self.remove(self._chooser_button)
+
+        self._chooser_button.set_valign(Gtk.Align.START)
+
+        self._chooser_button.set_focus_on_click(False)
+
+        self._chooser_button.connect("clicked", self._on_chooser_button_clicked)
+
+        self._toggle_button = self._icon_browser_row.get_toggle_button()
+
+        self._toggle_button.set_focus_on_click(False)
+
+        self._toggle_button.connect("toggled", self._on_toggle_button_toggled)
+
+        self._toggle_button.set_icon_name(self._icon_finder.get_name("system-search-symbolic"))
+
+        self._toggle_button.set_valign(Gtk.Align.START)
+
+        self._toggle_button.add_css_class("flat")
+
+        self._icon_view_row.add_prefix(self._chooser_button)
+
+        self._icon_view_row.add_suffix(self._toggle_button)
+
+        self._entry_event_controller_key = Gtk.EventControllerKey()
+
+        self._entry_event_controller_key.connect("key-pressed", self._on_event_controllers_key_pressed)
+
+        self._view_event_controller_key = Gtk.EventControllerKey()
+
+        self._view_event_controller_key.connect("key-pressed", self._on_event_controllers_key_pressed)
+
+        self._browser_event_controller_key = Gtk.EventControllerKey()
+
+        self._browser_event_controller_key.connect("key-pressed", self._on_event_controllers_key_pressed)
+
+        self._icon_view_row.add_controller(self._view_event_controller_key)
+
+        self._icon_browser_row.add_controller(self._browser_event_controller_key)
+
+        self.add_controller(self._entry_event_controller_key)
+
+        self.get_delegate().connect("activate", self._on_activate)
+
+    def _on_chooser_button_clicked(self, button):
+
+        self.set_search_mode(False)
+
+        FileChooserRow._on_chooser_button_clicked(self, button)
+
+    def _on_event_controllers_key_pressed(self, controller, keyval, keycode, state):
+
+        if keyval == Keyval.ESCAPE:
+
+            self.set_search_mode(self.get_search_mode() == False)
+
+            self.grab_focus_without_selecting()
+
+            return True
+
+    def _on_toggle_button_toggled(self, toggle_button):
+
+        self.set_search_mode(self._toggle_button.get_active())
+
+        self.grab_focus_without_selecting()
+
+    def _on_activate(self, entry):
+
+        if not self.get_search_mode():
+
+            self.set_search_mode(True)
+
+        else:
+
+            if len(self._icon_browser.get_results()):
+
+                self._icon_browser_row.grab_focus()
+
+            else:
+
+                self.set_search_mode(False)
+
+    def _on_changed(self, entry):
+
+        text = entry.get_text()
+
+        if not len(text) and self._ignore_first_empty_text:
+
+            self._ignore_first_empty_text = False
+
+            return
+
+        if not self._search_mode:
+
+            self._previous_text = text
+
+            self._events.trigger("text-changed", self, text)
+
+            self._icon_view.update(text)
+
+        else:
+
+            if len(text):
+
+                self._icon_browser.update(text)
+
+            else:
+
+                self._icon_browser.clear()
+
+    def _on_icon_view_updated(self, event, update_successful):
+
+        if self._icon_view.get_update_successful():
+
+            self.remove_css_class("warning")
+
+        else:
+
+            self.add_css_class("warning")
+
+    def _on_icon_browser_updated(self, event, results):
+
+        if len(results):
+
+            self.remove_css_class("warning")
+
+            self._icon_browser_row.set_page(self._icon_browser)
+
+        else:
+
+            if len(self.get_text()):
+
+                self.add_css_class("warning")
+
+            else:
+
+                self.remove_css_class("warning")
+
+            self._icon_browser_row.set_page(self._status_page)
+
+    def _on_icon_browser_item_selected(self, event, text):
+
+        self._previous_text = text
+
+        self.set_search_mode(False)
+
+        self.grab_focus_without_selecting()
+
+    def get_search_mode(self):
+
+        return self._search_mode
+
+    def set_search_mode(self, value):
+
+        self._search_mode = value
+
+        if value:
+
+            self.set_text("") #FIXME
+
+            if self._search_entry_title:
+
+                self.set_title(self._search_entry_title)
+
+            self._icon_browser_row.set_page(self._status_page)
+
+            self._icon_browser_row.set_active(True)
+
+        else:
+
+            if self._default_entry_title:
+
+                self.set_title(self._default_entry_title)
+
+            self._icon_browser_row.set_active(False)
+
+            self.set_text(self._previous_text)
+
+    def get_default_entry_title(self):
+
+        return self._default_entry_title
+
+    def set_default_entry_title(self, text):
+
+        self._default_entry_title = text
+
+        if not self._search_mode:
+
+            self.set_title(text)
+
+    def get_search_entry_title(self):
+
+        return self._search_entry_title
+
+    def set_search_entry_title(self, text):
+
+        self._search_entry_title = text
+
+        if self._search_mode:
+
+            self.set_title(text)
+
+    def get_icon_view_row(self):
+
+        return self._icon_view_row
+
+    def get_icon_browser_row(self):
+
+        return self._icon_browser_row
+
+    def get_status_page(self):
+
+        return self._status_page
+
+    def set_text(self, text):
+
+        if len(text):
+
+            self._ignore_first_empty_text = True
+
+        EntryRow.set_text(self, text)
+
+        self._ignore_first_empty_text = False
+
+    def grab_focus_without_selecting(self):
+
+        self.grab_focus()
+
+        self.set_position(-1)
+
+    def reset(self):
+
+        self._previous_text = ""
+
+        self.set_search_mode(False)
 
 
 class LinkConverterRow(Gtk.Box):
@@ -1373,120 +1770,6 @@ class CommandChooserRow(FileChooserRow):
         else:
 
             self.remove_css_class("error")
-
-
-class IconChooserRow(FileChooserRow):
-
-    def __init__(self, app, *args, **kwargs):
-
-        super().__init__(app, *args, **kwargs)
-
-        self.add_css_class("warning")
-
-        self._default_icon_image = self.get_chooser_button().get_child()
-
-        self._default_icon_image.get_parent().set_child(None)
-
-        self._search_icon_image = self._icon_finder.get_image("system-search-symbolic")
-
-        self._icon_image_stack = Gtk.Stack()
-
-        self._icon_image_stack.set_transition_type(Gtk.StackTransitionType.CROSSFADE)
-
-        self._icon_image_stack.set_transition_duration(int(self._icon_image_stack.get_transition_duration() / 2))
-
-        self._icon_image_stack.add_child(self._search_icon_image)
-
-        self._icon_image_stack.add_child(self._default_icon_image)
-
-        self.get_chooser_button().set_child(self._icon_image_stack)
-
-    def _on_changed(self, editable):
-
-        text = self.get_text()
-
-        self._events.trigger("text-changed", self, text)
-
-        GLib.idle_add(self._update_image)
-
-    def _update_image(self):
-
-        text = self.get_text()
-
-        try:
-
-            self._icon_finder.set_image(self._icon_image, text, missing_ok=False, use_alternatives=False)
-
-        except IconNotFoundError:
-
-            self.add_css_class("warning")
-
-            self._icon_image.clear()
-
-        else:
-
-            self.remove_css_class("warning")
-
-    def get_show_search_icon(self):
-
-        return self._icon_image_stack.get_visible_child() == self._search_icon_image
-
-    def set_show_search_icon(self, value):
-
-        if value:
-
-            self._icon_image_stack.set_visible_child(self._search_icon_image)
-
-        else:
-
-            self._icon_image_stack.set_visible_child(self._default_icon_image)
-
-    def get_image(self):
-
-        return self._icon_image
-
-    def set_image(self, image):
-
-        self._icon_image = image
-
-        self._update_image()
-
-
-class IconViewRow(Adw.PreferencesRow):
-
-    def __init__(self, *args, **kwargs):
-
-        super().__init__(*args, **kwargs)
-
-        icon_image = Gtk.Image()
-
-        self.set_image(icon_image)
-
-        self.set_activatable(False)
-
-        self.set_can_focus(False)
-
-        self.set_can_target(False)
-
-        self.add_css_class("view")
-
-    def get_image(self):
-
-        return self.get_child()
-
-    def set_image(self, image):
-
-        self.set_child(image)
-
-        image.set_pixel_size(128)
-
-        image.set_margin_top(Margin.LARGER)
-
-        image.set_margin_bottom(Margin.LARGER)
-
-        image.set_margin_start(Margin.LARGER)
-
-        image.set_margin_end(Margin.LARGER)
 
 
 class DeleteRow(Adw.ActionRow):
@@ -1908,11 +2191,11 @@ class ScrolledSqueezer(Gtk.Box):
 
     def _on_drawing_area_realize(self, drawing_area):
 
-        self._update_conrent_height()
+        self._update_content_height()
 
     def _on_drawing_area_resize(self, drawing_area, width, height):
 
-        self._update_conrent_height()
+        self._update_content_height()
 
     def _after_update_content_height(self):
 
@@ -1936,7 +2219,7 @@ class ScrolledSqueezer(Gtk.Box):
 
                 self._overlay.set_property("height-request", max_height)
 
-    def _update_conrent_height(self):
+    def _update_content_height(self):
 
         self._after_update_content_height()
 
@@ -1950,7 +2233,7 @@ class ScrolledSqueezer(Gtk.Box):
 
         self._max_height = value
 
-        self._update_conrent_height()
+        self._update_content_height()
 
     def get_child(self):
 
@@ -1974,7 +2257,7 @@ class ScrolledSqueezer(Gtk.Box):
 
         self._scrolled_window.set_child(widget)
 
-        self._update_conrent_height()
+        self._update_content_height()
 
 
 class TaggedRowTag(Gtk.FlowBoxChild):
@@ -2851,6 +3134,24 @@ class SearchList(Gtk.Box):
         return self._search_entry
 
     def get_visible_items(self):
+
+        children = []
+
+        child = self._list_box.get_first_child()
+
+        while True:
+
+            if not child == None:
+
+                children.append(child)
+
+                child = children[-1].get_next_sibling()
+
+            else:
+
+                break
+
+        return [self._names[child] for child in children if child.get_visible()]
 
         items = []
 

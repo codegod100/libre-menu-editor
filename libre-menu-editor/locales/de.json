@@ -81,6 +81,10 @@
   "ACTIONS_GROUP_TITLE": "Aktionen",
   "VISIBLE_GROUP_TITLE": "Sichtbarkeit",
 
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Suchbegriffe",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Symbole suchen",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Ändern Sie die Suchbegriffe um Vorschläge zu erhalten",
+
   "ICON_CHOOSER_ROW_TITLE": "Symbol",
   "NAME_ENTRY_ROW_TITLE": "Name",
   "COMMENT_ENTRY_ROW_TITLE": "Kommentar",

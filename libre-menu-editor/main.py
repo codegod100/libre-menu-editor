@@ -1221,10 +1221,6 @@ class SettingsPage(Gtk.Box):
 
         self._reload_button = Gtk.Button()
 
-        self._top_event_controller_key = Gtk.EventControllerKey()
-
-        self._top_event_controller_key.connect("key-pressed", self._on_top_controller_key_pressed)
-
         ###############################################################################################################
 
         if hasattr(Adw, "Banner"):
@@ -1247,19 +1243,11 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
-        self._icon_view_row = gui.IconViewRow()
+        self._icon_chooser_row = gui.IconChooserRow(app)
 
-        self._icon_view_preferences_group = Adw.PreferencesGroup()
+        self._icon_chooser_row.set_default_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_TITLE"))
 
-        self._icon_view_preferences_group.set_title(self._locale_manager.get("APPEARANCE_GROUP_TITLE"))
-
-        self._icon_view_preferences_group.add(self._icon_view_row)
-
-        ###############################################################################################################
-
-        self._icon_chooser_row = gui.IconChooserRow(self._application)
-
-        self._icon_chooser_row.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_TITLE"))
+        self._icon_chooser_row.set_search_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_SEARCH_MODE_TITLE"))
 
         self._icon_chooser_row.set_dialog_title(self._locale_manager.get("ICON_CHOOSER_ROW_DIALOG_TITLE"))
 
@@ -1267,25 +1255,39 @@ class SettingsPage(Gtk.Box):
 
         self._icon_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
 
-        self._icon_chooser_row.add_controller(self._top_event_controller_key)
-
         self._icon_chooser_row.hook("text-changed", self._on_input_child_data_changed)
 
-        self._icon_chooser_row.set_image(self._icon_view_row.get_image())
+        ###############################################################################################################
 
-        self._icon_browser_row = gui.IconBrowserRow(self._application)
+        self._icon_browser_row = self._icon_chooser_row.get_icon_browser_row()
 
-        self._icon_browser_row.set_search_entry(self._icon_chooser_row)
+        self._icon_browser_row.set_margin_top(1)
 
-        self._icon_browser_row.hook("search-completed", self._on_icon_browser_row_search_completed)
+        self._icon_view_row = self._icon_chooser_row.get_icon_view_row()
 
-        self._icon_browser_row.hook("active-changed", self._on_icon_browser_row_active_changed)
+        ###############################################################################################################
 
-        self._icon_chooser_preferences_group = Adw.PreferencesGroup()
+        self._icon_browser_status_page = self._icon_chooser_row.get_status_page()
 
-        self._icon_chooser_preferences_group.add(self._icon_chooser_row)
+        self._icon_browser_status_page.add_css_class("compact")
 
-        self._icon_chooser_preferences_group.add(self._icon_browser_row)
+        # self._icon_browser_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
+
+        self._icon_browser_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HEAD"))
+
+        self._icon_browser_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_BODY"))
+
+        ###############################################################################################################
+
+        self._appearance_preferences_group = Adw.PreferencesGroup()
+
+        self._appearance_preferences_group.set_title(self._locale_manager.get("APPEARANCE_GROUP_TITLE"))
+
+        self._appearance_preferences_group.add(self._icon_view_row)
+
+        self._appearance_preferences_group.add(self._icon_chooser_row)
+
+        self._appearance_preferences_group.add(self._icon_browser_row)
 
         ###############################################################################################################
 
@@ -1491,9 +1493,7 @@ class SettingsPage(Gtk.Box):
 
         self._top_box.set_orientation(Gtk.Orientation.VERTICAL)
 
-        self._top_box.append(self._icon_view_preferences_group)
-
-        self._top_box.append(self._icon_chooser_preferences_group)
+        self._top_box.append(self._appearance_preferences_group)
 
         self._top_box.append(self._description_preferences_group)
 
@@ -1561,16 +1561,6 @@ class SettingsPage(Gtk.Box):
 
         self._update_action_children_sensitive(False)
 
-    def _on_icon_browser_row_active_changed(self, event, revealed):
-
-        self._icon_chooser_row.set_show_search_icon(not revealed)
-
-    def _on_icon_browser_row_search_completed(self, event, model):
-
-        if self._icon_browser_row.get_active():
-
-            self._icon_chooser_row.set_show_search_icon(not len(model))
-
     def _on_page_controller_key_pressed(self, controller, keyval, keycode, state):
 
         if keyval == gui.Keyval.ESCAPE:
@@ -1612,24 +1602,6 @@ class SettingsPage(Gtk.Box):
         elif keyval == gui.Keyval.ESCAPE:
 
             self.set_delete_mode_enabled(False)
-
-    def _on_top_controller_key_pressed(self, controller, keyval, keycode, state):
-
-        if keyval == gui.Keyval.UP or keyval == gui.Keyval.PAGEUP:
-
-            if self._icon_chooser_row.get_chooser_button().has_focus():
-
-                self._icon_chooser_row.child_focus(Gtk.DirectionType.LEFT)
-
-            elif self._save_button.get_sensitive():
-
-                self._save_button.grab_focus()
-
-            else:
-
-                self.child_focus(Gtk.DirectionType.UP)
-
-            return True
 
     def _on_primary_controller_key_pressed(self, controller, keyval, keycode, state):
 
@@ -2033,6 +2005,8 @@ class SettingsPage(Gtk.Box):
 
             self._add_desktop_action(action)
 
+        self._icon_chooser_row.reset()
+
         self._icon_chooser_row.set_text(self._current_parser.get_icon())
 
         self._name_entry_row.set_text(self._current_parser.get_name())
@@ -2050,8 +2024,6 @@ class SettingsPage(Gtk.Box):
         self._notify_switch_row.set_active(self._current_parser.get_notify())
 
         self._terminal_switch_row.set_active(self._current_parser.get_terminal())
-
-        self._icon_browser_row.set_default_text(self._icon_chooser_row.get_text())
 
         self._loading_desktop_starter = False
 
@@ -2087,6 +2059,8 @@ class SettingsPage(Gtk.Box):
 
                 self._current_parser.set_action_command(action, desktop_action_group.get_command())
 
+        self._icon_chooser_row.reset()
+
         self._current_parser.set_icon(self._icon_chooser_row.get_text())
 
         self._current_parser.set_name(self._name_entry_row.get_text())
@@ -2104,8 +2078,6 @@ class SettingsPage(Gtk.Box):
         self._current_parser.set_notify(self._notify_switch_row.get_active())
 
         self._current_parser.set_terminal(self._terminal_switch_row.get_active())
-
-        self._icon_browser_row.set_default_text(self._icon_chooser_row.get_text())
 
         self._current_parser.save()
 
@@ -2155,11 +2127,11 @@ class SettingsPage(Gtk.Box):
 
             self._terminal_switch_row.set_active(False)
 
-            self._icon_browser_row.set_default_text("")
-
             self._keywords_filter.reset()
 
             self._categories_filter.reset()
+
+            self._icon_chooser_row.reset()
 
         self._keywords_entry_row.set_text("")
 
@@ -2187,7 +2159,7 @@ class SettingsPage(Gtk.Box):
 
         elif not self.get_focus_child():
 
-            self._icon_chooser_row.grab_focus()
+            self._icon_view_row.grab_focus()
 
 
 class StarterAlreadyExistingError(Exception):
@@ -4560,7 +4532,11 @@ class Application(gui.Application):
 
                     try:
 
-                        next_index = items.index(name) - 1
+                        next_index = items.index(name) + 1
+
+                        if not next_index < len(items):
+
+                            next_index = items.index(name) - 1
 
                     except ValueError:
 

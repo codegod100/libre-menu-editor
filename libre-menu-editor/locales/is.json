@@ -81,6 +81,10 @@
   "ACTIONS_GROUP_TITLE": "Aðgerðir",
   "VISIBLE_GROUP_TITLE": "Sjáanleiki",
 
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Leitarorð",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Leita að táknmyndum",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Breyttu leitarorðunum til að fá tillögur",
+
   "ICON_CHOOSER_ROW_TITLE": "Tákn",
   "NAME_ENTRY_ROW_TITLE": "Nafn",
   "COMMENT_ENTRY_ROW_TITLE": "Athugasemd",
