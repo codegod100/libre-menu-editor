@@ -1991,7 +1991,7 @@ class SettingsPage(Gtk.Box):
 
         self._loading_desktop_starter = True
 
-        self.reset(reset_children=False)
+        self.reset(reset_data=False)
 
         self._current_name = name
 
@@ -2004,8 +2004,6 @@ class SettingsPage(Gtk.Box):
         for action in self._current_parser.get_actions():
 
             self._add_desktop_action(action)
-
-        self._icon_chooser_row.reset()
 
         self._icon_chooser_row.set_text(self._current_parser.get_icon())
 
@@ -2059,8 +2057,6 @@ class SettingsPage(Gtk.Box):
 
                 self._current_parser.set_action_command(action, desktop_action_group.get_command())
 
-        self._icon_chooser_row.reset()
-
         self._current_parser.set_icon(self._icon_chooser_row.get_text())
 
         self._current_parser.set_name(self._name_entry_row.get_text())
@@ -2081,7 +2077,7 @@ class SettingsPage(Gtk.Box):
 
         self._current_parser.save()
 
-        self.reset(reset_children=False)
+        self.reset(reset_data=False)
 
     def get_always_show_save_button(self):
 
@@ -2105,15 +2101,13 @@ class SettingsPage(Gtk.Box):
 
         return self._changed
 
-    def reset(self, reset_children=True):
+    def reset(self, reset_data=True):
 
-        if reset_children:
+        if reset_data:
 
             for action in list(self._current_desktop_actions):
 
                 self._remove_desktop_action(action)
-
-            self._icon_chooser_row.set_text("")
 
             self._name_entry_row.set_text("")
 
@@ -2132,6 +2126,8 @@ class SettingsPage(Gtk.Box):
             self._categories_filter.reset()
 
             self._icon_chooser_row.reset()
+
+        self._icon_chooser_row.set_search_mode(False)
 
         self._keywords_entry_row.set_text("")
 
@@ -3288,7 +3284,7 @@ class Application(gui.Application):
 
             if self._settings_page.get_changed():
 
-                self._settings_page.reset(reset_children=False)
+                self._settings_page.reset(reset_data=False)
 
         else:
 
