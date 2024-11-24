@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Näkyvyys",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Hakusanat",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Etsi kuvakkeita",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Muuta hakusanat saadaksesi ehdotuksia",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Etsi kuvakkeita",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Muuta hakusanat saadaksesi ehdotuksia",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Ei tuloksia",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Tälle syötteelle ei löytynyt hakutuloksia",
 
   "ICON_CHOOSER_ROW_TITLE": "Kuvake",
   "NAME_ENTRY_ROW_TITLE": "Nimi",

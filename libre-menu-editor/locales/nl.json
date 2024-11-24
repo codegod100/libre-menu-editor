@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Zichtbaarheid",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Zoektermen",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Zoek naar pictogrammen",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Wijzig de zoektermen om suggesties te krijgen",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Zoek naar pictogrammen",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Wijzig de zoektermen om suggesties te krijgen",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Geen resultaten",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Er zijn geen zoekresultaten gevonden voor deze invoer",
 
   "ICON_CHOOSER_ROW_TITLE": "Icoon",
   "NAME_ENTRY_ROW_TITLE": "Naam",

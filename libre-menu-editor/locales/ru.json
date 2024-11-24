@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Обзор",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Поисковые запросы",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Поиск иконок",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Измените поисковые запросы, чтобы получить предложения",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Поиск иконок",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Измените поисковые запросы, чтобы получить предложения",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Нет результатов",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Для этого ввода не найдены результаты поиска",
 
   "ICON_CHOOSER_ROW_TITLE": "Иконка",
   "NAME_ENTRY_ROW_TITLE": "Имя",

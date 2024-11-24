@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Sichtbarkeit",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Suchbegriffe",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Symbole suchen",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Ändern Sie die Suchbegriffe um Vorschläge zu erhalten",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Symbole suchen",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Ändern Sie die Suchbegriffe um Vorschläge zu erhalten",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Keine Ergebnisse",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Für diese Eingabe wurden keine Suchergebnisse gefunden",
 
   "ICON_CHOOSER_ROW_TITLE": "Symbol",
   "NAME_ENTRY_ROW_TITLE": "Name",

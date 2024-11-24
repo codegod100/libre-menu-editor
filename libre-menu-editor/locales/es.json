@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Visibilidad",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Términos de búsqueda",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Buscar iconos",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Cambia los términos de búsqueda para obtener sugerencias",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Buscar iconos",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Cambia los términos de búsqueda para obtener sugerencias",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Sin resultados",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "No se encontraron resultados de búsqueda para esta entrada",
 
   "ICON_CHOOSER_ROW_TITLE": "Icono",
   "NAME_ENTRY_ROW_TITLE": "Nombre",

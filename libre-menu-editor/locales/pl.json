@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Wyświetlanie",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Słowa kluczowe",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Wyszukaj ikony",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Zmień słowa kluczowe, aby uzyskać sugestie",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Wyszukaj ikony",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Zmień słowa kluczowe, aby uzyskać sugestie",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Brak wyników",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Nie znaleziono wyników wyszukiwania dla tego wejścia",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikona",
   "NAME_ENTRY_ROW_TITLE": "Nazwa",

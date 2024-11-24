@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Sigbaarheid",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Soekwoorde",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Soek na ikone",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Verander die soekwoorde om voorstelle te kry",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Soek na ikone",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Verander die soekwoorde om voorstelle te kry",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Geen resultate",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Geen soekresultate is vir hierdie inset gevind",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikoon",
   "NAME_ENTRY_ROW_TITLE": "Naam",

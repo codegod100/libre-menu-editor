@@ -28,8 +28,6 @@ gi.require_version("Gio", "2.0")
 
 gi.require_version("GLib", "2.0")
 
-gi.require_version("Pango", "1.0")
-
 from gi.repository import Adw
 
 from gi.repository import Gtk
@@ -39,8 +37,6 @@ from gi.repository import Gdk
 from gi.repository import Gio
 
 from gi.repository import GLib
-
-from gi.repository import Pango
 
 from configparser import ConfigParser
 
@@ -1267,15 +1263,27 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
-        self._icon_browser_status_page = self._icon_chooser_row.get_status_page()
+        self._icon_browser_help_status_page = self._icon_chooser_row.get_help_status_page()
 
-        self._icon_browser_status_page.add_css_class("compact")
+        self._icon_browser_help_status_page.add_css_class("compact")
 
-        # self._icon_browser_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
+        # self._icon_browser_help_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
 
-        self._icon_browser_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HEAD"))
+        self._icon_browser_help_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD"))
 
-        self._icon_browser_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_BODY"))
+        self._icon_browser_help_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY"))
+
+        ###############################################################################################################
+
+        self._icon_browser_none_status_page = self._icon_chooser_row.get_none_status_page()
+
+        self._icon_browser_none_status_page.add_css_class("compact")
+
+        # self._icon_browser_none_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
+
+        self._icon_browser_none_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD"))
+
+        self._icon_browser_none_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY"))
 
         ###############################################################################################################
 

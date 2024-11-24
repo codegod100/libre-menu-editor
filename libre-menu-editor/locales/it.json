@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Mostra",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Termini di ricerca",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Cerca icone",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Cambia i termini di ricerca per ottenere suggerimenti",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Cerca icone",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Cambia i termini di ricerca per ottenere suggerimenti",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Nessun risultato",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Non sono stati trovati risultati di ricerca per questo input",
 
   "ICON_CHOOSER_ROW_TITLE": "Icona",
   "NAME_ENTRY_ROW_TITLE": "Nome",

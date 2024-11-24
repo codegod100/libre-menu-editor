@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Viditelnost",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Hledané výrazy",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Hledat ikony",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Změňte hledané výrazy, abyste získali návrhy",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Hledat ikony",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Změňte hledané výrazy, abyste získali návrhy",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Žádné výsledky",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Pro tento vstup nebyly nalezeny žádné výsledky vyhledávání",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikona",
   "NAME_ENTRY_ROW_TITLE": "Název",

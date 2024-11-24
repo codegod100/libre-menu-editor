@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Видимість",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Пошукові запити",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Пошук іконок",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Змініть пошукові запити, щоб отримати пропозиції",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пошук іконок",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Змініть пошукові запити, щоб отримати пропозиції",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Немає результатів",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Для цього введення не знайдено жодних результатів пошуку",
 
   "ICON_CHOOSER_ROW_TITLE": "Іконка",
   "NAME_ENTRY_ROW_TITLE": "Ім'я",

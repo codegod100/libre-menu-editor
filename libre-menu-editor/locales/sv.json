@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Synlighet",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Söktermer",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Sök ikoner",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Ändra söktermer för att få förslag",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Sök ikoner",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Ändra söktermer för att få förslag",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Inga resultat",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Inga sökresultat hittades för denna inmatning",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikon",
   "NAME_ENTRY_ROW_TITLE": "Namn",

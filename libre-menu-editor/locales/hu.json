@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Láthatóság",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Keresési kifejezések",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Keresés ikonok között",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Módosítsa a keresési kifejezéseket, hogy javaslatokat kapjon",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Keresés ikonok között",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Módosítsa a keresési kifejezéseket, hogy javaslatokat kapjon",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Nincs találat",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Ehhez a bemenethez nem találtunk keresési eredményeket",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikon",
   "NAME_ENTRY_ROW_TITLE": "Név",

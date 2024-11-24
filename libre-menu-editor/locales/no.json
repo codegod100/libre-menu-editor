@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Synlighet",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Søkeord",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Søk etter ikoner",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Endre søkeordene for å få forslag",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Søk etter ikoner",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Endre søkeordene for å få forslag",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Ingen resultater",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Det ble ikke funnet noen søkeresultater for denne innmatningen",
 
   "ICON_CHOOSER_ROW_TITLE": "Ikon",
   "NAME_ENTRY_ROW_TITLE": "Navn",

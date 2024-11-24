@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Göster",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Arama terimleri",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Simge ara",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Öneriler almak için arama terimlerini değiştirin",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Simge ara",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Öneriler almak için arama terimlerini değiştirin",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Sonuç yok",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Bu girişe ait hiçbir arama sonucu bulunamadı",
 
   "ICON_CHOOSER_ROW_TITLE": "Simge",
   "NAME_ENTRY_ROW_TITLE": "Ad",

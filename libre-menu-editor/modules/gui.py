@@ -541,7 +541,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             GLib.source_remove(self._search_timeout_id)
 
-        self._search_timeout_id = GLib.timeout_add(self._search_delay, self._after_search_started, text, exclude=exclude)
+        self._search_timeout_id = GLib.timeout_add(self._search_delay, self._after_search_started, text, exclude)
 
     def _after_search_started(self, text, exclude=[]):
 
@@ -1279,11 +1279,13 @@ class IconChooserRow(FileChooserRow):
 
         self._previous_text = ""
 
-        self._status_page = Adw.StatusPage()
+        self._help_status_page = Adw.StatusPage()
 
-        self._status_page.set_can_focus(False)
+        self._help_status_page.set_can_focus(False)
 
-        #FIXME: self._status_page.set_size_request(-1, 200)
+        self._none_status_page = Adw.StatusPage()
+
+        self._none_status_page.set_can_focus(False)
 
         self._icon_view_row = IconViewRow(app)
 
@@ -1307,7 +1309,9 @@ class IconChooserRow(FileChooserRow):
 
         self._icon_browser.hook("item-selected", self._on_icon_browser_item_selected)
 
-        self._icon_browser_row.add_page(self._status_page)
+        self._icon_browser_row.add_page(self._help_status_page)
+
+        self._icon_browser_row.add_page(self._none_status_page)
 
         self.remove(self._chooser_button)
 
@@ -1443,11 +1447,13 @@ class IconChooserRow(FileChooserRow):
 
                 self.add_css_class("warning")
 
+                self._icon_browser_row.set_page(self._none_status_page)
+
             else:
 
                 self.remove_css_class("warning")
 
-            self._icon_browser_row.set_page(self._status_page)
+                self._icon_browser_row.set_page(self._help_status_page)
 
     def _on_icon_browser_item_selected(self, event, text):
 
@@ -1473,7 +1479,7 @@ class IconChooserRow(FileChooserRow):
 
                 self.set_title(self._search_entry_title)
 
-            self._icon_browser_row.set_page(self._status_page)
+            self._icon_browser_row.set_page(self._help_status_page)
 
             self._icon_browser_row.set_active(True)
 
@@ -1519,9 +1525,13 @@ class IconChooserRow(FileChooserRow):
 
         return self._icon_browser_row
 
-    def get_status_page(self):
+    def get_help_status_page(self):
 
-        return self._status_page
+        return self._help_status_page
+
+    def get_none_status_page(self):
+
+        return self._none_status_page
 
     def set_text(self, text):
 

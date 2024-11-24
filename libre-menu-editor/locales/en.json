@@ -82,8 +82,10 @@
   "VISIBLE_GROUP_TITLE": "Visibility",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Keywords",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HEAD": "Icon search",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_BODY": "Change keywords to recieve suggestions",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Icon search",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Change keywords to recieve suggestions",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "No Results",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "No search results were found for this input",
 
   "ICON_CHOOSER_ROW_TITLE": "Icon",
   "NAME_ENTRY_ROW_TITLE": "Name",
