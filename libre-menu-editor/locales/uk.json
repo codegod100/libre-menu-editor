@@ -65,7 +65,7 @@
   "FIND_SHORTCUT_GROUP_TITLE": "Знайти",
   "GENERAL_SHORTCUT_GROUP_TITLE": "Загальні",
 
-  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Виберіть іконку",
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Виберіть значок",
   "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Виберіть виконуваний файл",
   "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Виберіть стартер",
 
@@ -82,12 +82,12 @@
   "VISIBLE_GROUP_TITLE": "Видимість",
 
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Пошукові запити",
-  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пошук іконок",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пошук значків",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Змініть пошукові запити, щоб отримати пропозиції",
   "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Немає результатів",
   "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Для цього введення не знайдено жодних результатів пошуку",
 
-  "ICON_CHOOSER_ROW_TITLE": "Іконка",
+  "ICON_CHOOSER_ROW_TITLE": "Значок",
   "NAME_ENTRY_ROW_TITLE": "Ім'я",
   "COMMENT_ENTRY_ROW_TITLE": "Коментар",
   "KEYWORDS_ENTRY_ROW_TITLE": "Ключові слова",
