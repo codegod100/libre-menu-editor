@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Zobrazit terminál během provádění",
 
   "LINK_CONVERTER_ROW_LABEL": "Převést odkaz na příkaz",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Výchozí příkaz",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Název akce",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimédia",
   "DEVELOPMENT_CATEGORY_LABEL": "Vývoj",

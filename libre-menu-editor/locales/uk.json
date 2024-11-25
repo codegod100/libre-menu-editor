@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Показати вікно консолі під час виконання",
 
   "LINK_CONVERTER_ROW_LABEL": "Перетворити посилання на команду",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Стандартна команда",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Ім'я дії",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Мультимедіа",
   "DEVELOPMENT_CATEGORY_LABEL": "Розробка",

@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Visa en terminalfönster under körning",
 
   "LINK_CONVERTER_ROW_LABEL": "Konvertera länk till kommando",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardkommando",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Åtgärdsnamn",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
   "DEVELOPMENT_CATEGORY_LABEL": "Utveckling",

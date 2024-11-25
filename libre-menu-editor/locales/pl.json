@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Pokaż okno terminala podczas wykonywania",
 
   "LINK_CONVERTER_ROW_LABEL": "Zamień łącze na polecenie",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Domyślny polecenie",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Nazwa akcji",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
   "DEVELOPMENT_CATEGORY_LABEL": "Narzędzia programistów",

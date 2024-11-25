@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Показывать окно терминала во время выполнения",
 
   "LINK_CONVERTER_ROW_LABEL": "Преобразовать ссылку в команду",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Стандартная команда",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Имя действия",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Мультимедия",
   "DEVELOPMENT_CATEGORY_LABEL": "Разработка",

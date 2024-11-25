@@ -706,7 +706,7 @@ class DesktopActionGroup(Adw.PreferencesGroup):
 
         self._entry_row = gui.EntryRow(app)
 
-        self._entry_row.set_title(self._locale_manager.get("NAME_ENTRY_ROW_TITLE"))
+        self._entry_row.set_title(self._locale_manager.get("ACTION_NAME_ENTRY_ROW_TITLE"))
 
         self._entry_row.hook("text-changed", self._on_child_row_text_changed)
 
@@ -1201,8 +1201,6 @@ class SettingsPage(Gtk.Box):
 
         self._always_show_save_button = False
 
-        self._placeholder_action_visible = True
-
         self._desktop_action_groups_cache = []
 
         self._current_desktop_actions = []
@@ -1351,7 +1349,7 @@ class SettingsPage(Gtk.Box):
 
         self._command_chooser_row = gui.CommandChooserRow(self._application)
 
-        self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_TITLE"))
+        self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
 
         self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
 
@@ -1409,6 +1407,10 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
+        self._execution_preferences_group.set_header_suffix(self._primary_header_suffix_box)
+
+        ###############################################################################################################
+
         self._placeholder_event_controller_key = Gtk.EventControllerKey()
 
         self._placeholder_event_controller_key.connect("key-pressed", self._on_placeholder_controller_key_pressed)
@@ -1422,12 +1424,6 @@ class SettingsPage(Gtk.Box):
         self._placeholder_action_create_button.connect("clicked", self._on_action_create_button_clicked)
 
         self._placeholder_action_create_button.add_controller(self._placeholder_event_controller_key)
-
-        self._placeholder_action_group = Adw.PreferencesGroup()
-
-        self._placeholder_action_group.set_title(self._locale_manager.get("ACTIONS_GROUP_TITLE"))
-
-        self._placeholder_action_group.set_header_suffix(self._placeholder_action_create_button)
 
         ###############################################################################################################
 
@@ -1515,8 +1511,6 @@ class SettingsPage(Gtk.Box):
 
         self._action_box.set_orientation(Gtk.Orientation.VERTICAL)
 
-        self._action_box.append(self._placeholder_action_group)
-
         self._bottom_box = Gtk.Box()
 
         self._bottom_box.set_spacing(gui.Spacing.LARGER)
@@ -1568,6 +1562,8 @@ class SettingsPage(Gtk.Box):
         ###############################################################################################################
 
         self._update_action_children_sensitive(False)
+
+        self._update_top_desktop_action_group_header()
 
     def _on_page_controller_key_pressed(self, controller, keyval, keycode, state):
 
@@ -1787,22 +1783,6 @@ class SettingsPage(Gtk.Box):
 
                     return True
 
-    def _show_placeholder_desktop_action(self):
-
-        if not self._placeholder_action_visible:
-
-            self._action_box.append(self._placeholder_action_group)
-
-            self._placeholder_action_visible = True
-
-    def _hide_placeholder_desktop_action(self):
-
-        if self._placeholder_action_visible:
-
-            self._action_box.remove(self._placeholder_action_group)
-
-            self._placeholder_action_visible = False
-
     def _create_new_desktop_action_group(self):
 
         try:
@@ -1843,8 +1823,6 @@ class SettingsPage(Gtk.Box):
 
         self._update_top_desktop_action_group_header()
 
-        self._hide_placeholder_desktop_action()
-
         self._update_action_children_sensitive()
 
     def _remove_desktop_action(self, action, set_focus=False):
@@ -1858,8 +1836,6 @@ class SettingsPage(Gtk.Box):
         self._current_desktop_actions.remove(action)
 
         if not len(self._current_desktop_actions):
-
-            self._show_placeholder_desktop_action()
 
             self.set_delete_mode_enabled(False)
 
@@ -1889,15 +1865,9 @@ class SettingsPage(Gtk.Box):
 
     def _update_top_desktop_action_group_header(self):
 
-        if len(self._current_desktop_actions):
+        self._primary_action_delete_button.set_sensitive(len(self._current_desktop_action_groups))
 
-            desktop_action_group = self._current_desktop_action_groups[self._current_desktop_actions[0]]
-
-            if desktop_action_group.get_header_suffix() == None:
-
-                desktop_action_group.set_title(self._locale_manager.get("ACTIONS_GROUP_TITLE"))
-
-                desktop_action_group.set_header_suffix(self._primary_header_suffix_box)
+        self._action_box.set_visible(len(self._current_desktop_action_groups))
 
     def _update_input_children_sensitive(self, value=True):
 

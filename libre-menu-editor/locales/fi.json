@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Näytä päätelaite, kun sovellus on käynnissä",
 
   "LINK_CONVERTER_ROW_LABEL": "Muunna linkki komennoksi",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Oletuskomento",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Toiminnon nimi",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
   "DEVELOPMENT_CATEGORY_LABEL": "Kehitys",

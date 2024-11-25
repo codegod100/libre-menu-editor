@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Konsolenfenster während der Ausführung anzeigen",
 
   "LINK_CONVERTER_ROW_LABEL": "Verweis in Befehl umwandeln",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardbefehl",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Aktionsname",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
   "DEVELOPMENT_CATEGORY_LABEL": "Entwicklung",

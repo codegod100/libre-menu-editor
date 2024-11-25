@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Afficher une fenêtre de terminal pendant l'exécution",
 
   "LINK_CONVERTER_ROW_LABEL": "Convertir le lien en commande",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Commande par défaut",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Nom de l'action",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimédia",
   "DEVELOPMENT_CATEGORY_LABEL": "Développement",

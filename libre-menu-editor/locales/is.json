@@ -98,6 +98,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Sýna flugstöðvarglugga meðan á framkvæmd stendur",
 
   "LINK_CONVERTER_ROW_LABEL": "Umbreyta hlekk í skipun",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Sjálfgefið skipun",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Nafn á aðgerð",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Margmiðlun",
   "DEVELOPMENT_CATEGORY_LABEL": "Þróun",
