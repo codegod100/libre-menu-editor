@@ -1499,8 +1499,6 @@ class SettingsPage(Gtk.Box):
 
         self._top_box.append(self._execution_preferences_group)
 
-        self._top_box.append(self._keywords_preferences_group)
-
         self._action_box = Gtk.Box()
 
         self._action_box.set_spacing(gui.Spacing.LARGER)
@@ -1512,6 +1510,8 @@ class SettingsPage(Gtk.Box):
         self._bottom_box.set_spacing(gui.Spacing.LARGER)
 
         self._bottom_box.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self._bottom_box.append(self._keywords_preferences_group)
 
         self._bottom_box.append(self._visible_preferences_group)
 
