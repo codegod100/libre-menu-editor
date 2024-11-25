@@ -1265,8 +1265,6 @@ class SettingsPage(Gtk.Box):
 
         self._icon_browser_help_status_page.add_css_class("compact")
 
-        # self._icon_browser_help_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
-
         self._icon_browser_help_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD"))
 
         self._icon_browser_help_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY"))
@@ -1276,8 +1274,6 @@ class SettingsPage(Gtk.Box):
         self._icon_browser_none_status_page = self._icon_chooser_row.get_none_status_page()
 
         self._icon_browser_none_status_page.add_css_class("compact")
-
-        # self._icon_browser_none_status_page.set_icon_name(self._icon_finder.get_name("system-search-symbolic")) #FIXME
 
         self._icon_browser_none_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD"))
 
