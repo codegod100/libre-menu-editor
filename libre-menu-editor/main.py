@@ -1319,34 +1319,6 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
-        self._keywords_entry_row = gui.EntryRow(app)
-
-        self._keywords_entry_row.set_placeholder_image(self._icon_finder.get_name("list-add-symbolic"))
-
-        self._keywords_entry_row.set_title(self._locale_manager.get("KEYWORDS_ENTRY_ROW_TITLE"))
-
-        self._keywords_flow_row = gui.TaggedFlowRow(app)
-
-        self._keywords_flow_row.hook("text-changed", self._on_input_child_data_changed)
-
-        self._keywords_flow_row.set_entry_row(self._keywords_entry_row)
-
-        self._keywords_filter = KeywordsFilter(app)
-
-        self._keywords_filter.set_flow_row(self._keywords_flow_row)
-
-        self._keywords_filter.hook("text-changed", self._on_input_child_data_changed)
-
-        self._keywords_preferences_group = Adw.PreferencesGroup()
-
-        self._keywords_preferences_group.set_title(self._locale_manager.get("DISCOVERY_GROUP_TITLE"))
-
-        self._keywords_preferences_group.add(self._keywords_entry_row)
-
-        self._keywords_preferences_group.add(self._keywords_flow_row)
-
-        ###############################################################################################################
-
         self._command_chooser_row = gui.CommandChooserRow(self._application)
 
         self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
@@ -1372,6 +1344,34 @@ class SettingsPage(Gtk.Box):
         self._execution_preferences_group.add(self._command_chooser_row)
 
         self._execution_preferences_group.add(self._link_converter_row)
+
+        ###############################################################################################################
+
+        self._keywords_entry_row = gui.EntryRow(app)
+
+        self._keywords_entry_row.set_placeholder_image(self._icon_finder.get_name("list-add-symbolic"))
+
+        self._keywords_entry_row.set_title(self._locale_manager.get("KEYWORDS_ENTRY_ROW_TITLE"))
+
+        self._keywords_flow_row = gui.TaggedFlowRow(app)
+
+        self._keywords_flow_row.hook("text-changed", self._on_input_child_data_changed)
+
+        self._keywords_flow_row.set_entry_row(self._keywords_entry_row)
+
+        self._keywords_filter = KeywordsFilter(app)
+
+        self._keywords_filter.set_flow_row(self._keywords_flow_row)
+
+        self._keywords_filter.hook("text-changed", self._on_input_child_data_changed)
+
+        self._keywords_preferences_group = Adw.PreferencesGroup()
+
+        self._keywords_preferences_group.set_title(self._locale_manager.get("DISCOVERY_GROUP_TITLE"))
+
+        self._keywords_preferences_group.add(self._keywords_entry_row)
+
+        self._keywords_preferences_group.add(self._keywords_flow_row)
 
         ###############################################################################################################
 
@@ -1501,9 +1501,9 @@ class SettingsPage(Gtk.Box):
 
         self._top_box.append(self._description_preferences_group)
 
-        self._top_box.append(self._keywords_preferences_group)
-
         self._top_box.append(self._execution_preferences_group)
+
+        self._top_box.append(self._keywords_preferences_group)
 
         self._action_box = Gtk.Box()
 
