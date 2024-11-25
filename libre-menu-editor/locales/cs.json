@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Zobrazit animaci, dokud aplikace není viditelná",
   "TERMINAL_SWITCH_ROW_TITLE": "Zobrazit terminál během provádění",
 
+  "ADVANCED_GROUP_TITLE": "Pokročilé",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Otevřít konfigurace v textovém editoru",
+
   "LINK_CONVERTER_ROW_LABEL": "Převést odkaz na příkaz",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Výchozí příkaz",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Název akce",

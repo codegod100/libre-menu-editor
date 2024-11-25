@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Wys 'n animasie tot die toepassing sigbaar is",
   "TERMINAL_SWITCH_ROW_TITLE": "Wys 'n terminaal-venster tydens uitvoering",
 
+  "ADVANCED_GROUP_TITLE": "Geavanceerd",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Instellingen openen in teksteditor",
+
   "LINK_CONVERTER_ROW_LABEL": "Verander skakel na bevel",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standaardopdrag",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Aksienaam",

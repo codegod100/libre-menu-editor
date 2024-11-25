@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Toon een animatie totdat de applicatie zichtbaar is",
   "TERMINAL_SWITCH_ROW_TITLE": "Toon een terminalvenster tijdens executie",
 
+  "ADVANCED_GROUP_TITLE": "Geavanceerd",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Instellingen openen in teksteditor",
+
   "LINK_CONVERTER_ROW_LABEL": "Link omzetten naar commando",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standaardopdracht",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Actienaam",

@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Uygulama görününceye kadar canlandırma göster",
   "TERMINAL_SWITCH_ROW_TITLE": "Yürütme sırasında uçbirim penceresi göster",
 
+  "ADVANCED_GROUP_TITLE": "Gelişmiş",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Metin düzenleyicide ayarları aç",
+
   "LINK_CONVERTER_ROW_LABEL": "Bağlantıyı bir komuta dönüştürün",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Varsayılan komut",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Eylem adı",

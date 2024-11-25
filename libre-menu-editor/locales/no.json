@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Vis en animasjon til applikasjonen er synlig",
   "TERMINAL_SWITCH_ROW_TITLE": "Vis et terminalvindu under utførelse",
 
+  "ADVANCED_GROUP_TITLE": "Avansert",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Åpne innstillinger i teksteditor",
+
   "LINK_CONVERTER_ROW_LABEL": "Konverter lenke til kommando",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardkommando",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Handlingens navn",

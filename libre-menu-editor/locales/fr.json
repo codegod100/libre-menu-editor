@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Afficher une animation jusqu'à ce que l'application soit visible",
   "TERMINAL_SWITCH_ROW_TITLE": "Afficher une fenêtre de terminal pendant l'exécution",
 
+  "ADVANCED_GROUP_TITLE": "Avancé",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Ouvrir les paramètres dans l'éditeur de texte",
+
   "LINK_CONVERTER_ROW_LABEL": "Convertir le lien en commande",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Commande par défaut",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Nom de l'action",

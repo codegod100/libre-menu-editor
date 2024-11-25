@@ -1481,6 +1481,36 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
+        self._edit_file_action_row_image = self._icon_finder.get_image("adw-external-link-symbolic")
+
+        self._edit_file_action_row_button = Gtk.Button()
+
+        self._edit_file_action_row_button.add_css_class("flat")
+
+        self._edit_file_action_row_button.set_valign(Gtk.Align.CENTER)
+
+        self._edit_file_action_row_button.set_child(self._edit_file_action_row_image)
+
+        self._edit_file_action_row_button.set_can_focus(False)
+
+        self._edit_file_action_row_button.set_can_target(False)
+
+        self._edit_file_action_row = Adw.ActionRow()
+
+        self._edit_file_action_row.set_activatable(True)
+
+        self._edit_file_action_row.set_title(self._locale_manager.get("EDIT_FILE_ACTION_ROW_TITLE"))
+
+        self._edit_file_action_row.add_suffix(self._edit_file_action_row_button)
+
+        self._advanced_preferences_group = Adw.PreferencesGroup()
+
+        self._advanced_preferences_group.set_title(self._locale_manager.get("ADVANCED_GROUP_TITLE"))
+
+        self._advanced_preferences_group.add(self._edit_file_action_row)
+
+        ###############################################################################################################
+
         self._page_event_controller_key = Gtk.EventControllerKey()
 
         self._page_event_controller_key.connect("key-pressed", self._on_page_controller_key_pressed)
@@ -1518,6 +1548,8 @@ class SettingsPage(Gtk.Box):
         self._bottom_box.append(self._categories_preferences_group)
 
         self._bottom_box.append(self._display_preferences_group)
+
+        self._bottom_box.append(self._advanced_preferences_group)
 
         self._main_box = Gtk.Box()
 
@@ -2063,6 +2095,10 @@ class SettingsPage(Gtk.Box):
 
         self._update_action_children_sensitive(skip_reload_button=True)
 
+    def get_edit_file_action_row(self):
+
+        return self._edit_file_action_row
+
     def get_save_button(self):
 
         return self._save_button
@@ -2432,6 +2468,8 @@ class Application(gui.Application):
 
         self._settings_page.hook("changed-changed", self._on_settings_page_changed_changed)
 
+        self._settings_page.get_edit_file_action_row().connect("activated", self._on_edit_file_button_clicked)
+
         ###############################################################################################################
 
         self._search_list = gui.SearchList(self)
@@ -2490,11 +2528,11 @@ class Application(gui.Application):
 
         self._discard_starter_menu_section = gui.Menu(self)
 
-        for section in (self._reset_starter_menu_section, self._delete_starter_menu_section, self._discard_starter_menu_section):
+        #FIXME for section in (self._reset_starter_menu_section, self._delete_starter_menu_section, self._discard_starter_menu_section):
 
-            section.add_button("edit_file", self._locale_manager.get("EDIT_FILE_MENU_BUTTON_LABEL"))
+            #FIXME section.add_button("edit_file", self._locale_manager.get("EDIT_FILE_MENU_BUTTON_LABEL"))
 
-            section.hook("edit_file", self._on_edit_file_button_clicked)
+            #FIXME section.hook("edit_file", self._on_edit_file_button_clicked)
 
         self._reset_starter_menu_section.add_button("reset_starter", self._locale_manager.get("RESET_STARTER_MENU_BUTTON_LABEL"))
 
@@ -3656,9 +3694,9 @@ class Application(gui.Application):
 
                 "&lt;ctrl&gt;n", self._locale_manager.get("NEW_STARTER_SHORTCUT_TEXT"),
 
-                "&lt;ctrl&gt;e", self._locale_manager.get("EDIT_FILE_SHORTCUT_TEXT"),
+                "&lt;ctrl&gt;o", self._locale_manager.get("OPEN_FILE_SHORTCUT_TEXT"),
 
-                "&lt;ctrl&gt;o", self._locale_manager.get("OPEN_FILE_SHORTCUT_TEXT")
+                "&lt;ctrl&gt;e", self._locale_manager.get("EDIT_FILE_SHORTCUT_TEXT")
 
             ), -1)
 

@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Startanimation abspielen bis die Anwendung sichtbar ist",
   "TERMINAL_SWITCH_ROW_TITLE": "Konsolenfenster während der Ausführung anzeigen",
 
+  "ADVANCED_GROUP_TITLE": "Erweitert",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Konfigurationen im Textbearbeitungsprogramm öffnen",
+
   "LINK_CONVERTER_ROW_LABEL": "Webseiten-Adresse in Befehl umwandeln",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardbefehl",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Aktionsname",

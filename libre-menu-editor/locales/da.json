@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Vis en animation, indtil applikationen er synlig",
   "TERMINAL_SWITCH_ROW_TITLE": "Vis et terminalvindue under udførelsen",
 
+  "ADVANCED_GROUP_TITLE": "Avanceret",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Åbn indstillinger i teksteditor",
+
   "LINK_CONVERTER_ROW_LABEL": "Konverter link til kommando",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardkommando",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Handlingens navn",

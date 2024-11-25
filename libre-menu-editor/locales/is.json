@@ -97,6 +97,9 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Sýna animation þar til forritið er sjáanlegt",
   "TERMINAL_SWITCH_ROW_TITLE": "Sýna flugstöðvarglugga meðan á framkvæmd stendur",
 
+  "ADVANCED_GROUP_TITLE": "Ítarlegt",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Opna stillingar í textaritli",
+
   "LINK_CONVERTER_ROW_LABEL": "Umbreyta hlekk í skipun",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Sjálfgefið skipun",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Nafn á aðgerð",
