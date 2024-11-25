@@ -57,8 +57,8 @@
       <li xml:lang="de">Suchbegriffe hinzufügen und entfernen</li>
       <li>make launchers execute a specific file or command</li>
       <li xml:lang="de">bestimmte Dateien oder Befehle zur Ausführung verwenden</li>
-      <li>convert entered weblinks into valid commands</li>
-      <li xml:lang="de">eingegebene Verweisadressen zu gültigen Befehlen umwandeln</li>
+      <li>convert weblinks into valid commands</li>
+      <li xml:lang="de">gültige Befehle für Webseiten-Verknüpfungen generieren</li>
       <li>change launcher names and comments</li>
       <li xml:lang="de">Namen und Kommentare von Startern ändern</li>
       <li>create, edit, and remove launcher-actions</li>

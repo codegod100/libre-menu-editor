@@ -97,7 +97,7 @@
   "NOTIFY_SWITCH_ROW_TITLE": "Startanimation abspielen bis die Anwendung sichtbar ist",
   "TERMINAL_SWITCH_ROW_TITLE": "Konsolenfenster während der Ausführung anzeigen",
 
-  "LINK_CONVERTER_ROW_LABEL": "Verweis in Befehl umwandeln",
+  "LINK_CONVERTER_ROW_LABEL": "Webseiten-Adresse in Befehl umwandeln",
   "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standardbefehl",
   "ACTION_NAME_ENTRY_ROW_TITLE": "Aktionsname",
 
