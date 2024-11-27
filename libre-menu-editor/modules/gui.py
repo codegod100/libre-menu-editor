@@ -1273,8 +1273,6 @@ class IconChooserRow(FileChooserRow):
 
         self._ignore_first_empty_text = False
 
-        self._group_has_focus = False
-
         self._search_mode = False
 
         self._previous_text = ""
@@ -1570,6 +1568,83 @@ class IconChooserRow(FileChooserRow):
         self.set_search_mode(False)
 
 
+class FocusGroup():
+
+    def __init__(self):
+
+        self._events = basic.EventManager()
+
+        self._events.add("changed", bool)
+
+        self._focused = False
+
+        self._widgets = {}
+
+    def _on_focus_enter(self, controller):
+
+        GLib.idle_add(self._after_focus_event)
+
+    def _on_focus_leave(self, controller):
+
+        GLib.idle_add(self._after_focus_event)
+
+    def _after_focus_event(self):
+
+        for widget in self._widgets:
+
+            if widget.get_focus_child():
+
+                focused = True
+
+                break
+
+        else:
+
+            focused = False
+
+        state_changed = not focused == self._focused
+
+        self._focused = focused
+
+        if state_changed:
+
+            self._events.trigger("changed", focused)
+
+    def get_focused(self):
+
+        return self._focused
+
+    def add(self, *widgets):
+
+        for widget in widgets:
+
+            self._widgets[widget] = {}
+
+            controller = Gtk.EventControllerFocus()
+
+            controller.connect("enter", self._on_focus_enter)
+
+            controller.connect("leave", self._on_focus_leave)
+
+            widget.add_controller(controller)
+
+            self._widgets[widget]["controller"] = controller
+
+    def remove(self, *widgets):
+
+        for widget in widgets:
+
+            del self._widgets[widget]
+
+    def hook(self, event, callback, *args):
+
+        self._events.hook(event, callback, *args)
+
+    def release(self, id):
+
+        self._events.release(id)
+
+
 class LinkConverterRow(Gtk.Box):
 
     def __init__(self, app, *args, **kwargs):
@@ -1579,6 +1654,8 @@ class LinkConverterRow(Gtk.Box):
         self._application = app
 
         self._icon_finder = app.get_icon_finder()
+
+        self._group_focused = False
 
         self._entry_connection_id = None
 
@@ -1642,6 +1719,8 @@ class LinkConverterRow(Gtk.Box):
 
         self._button.add_css_class("circular")
 
+        self._button.set_focus_on_click(False)
+
         self._button.connect("clicked", self._on_button_clicked)
 
         self._button.set_child(self._center_box)
@@ -1662,31 +1741,33 @@ class LinkConverterRow(Gtk.Box):
 
         self._revealer.connect("notify::child-revealed", self._on_revealer_child_revealed_changed)
 
+        self._focus_group = FocusGroup()
+
+        self._focus_group.hook("changed", self._on_focus_group_changed)
+
+        self._focus_group.add(self)
+
         self.set_visible(False)
 
         self.set_orientation(Gtk.Orientation.VERTICAL)
 
         self.append(self._revealer)
 
+    def _on_focus_group_changed(self, event, focused):
+
+        self._group_focused = focused
+
+        self._update_widgets()
+
     def _on_button_clicked(self, button):
 
         self._convert_url_to_command()
 
+        self._update_widgets()
+
     def _on_entry_changed(self, entry):
 
-        if self._url_open_command and self._get_string_is_valid_url(entry.get_text().strip()):
-
-            entry.add_css_class("warning")
-
-            entry.remove_css_class("error")
-
-            self._revealer.set_reveal_child(True)
-
-        else:
-
-            entry.remove_css_class("warning")
-
-            self._revealer.set_reveal_child(False)
+        self._update_widgets()
 
     def _on_revealer_reveal_child_changed(self, revealer, gparam):
 
@@ -1699,6 +1780,46 @@ class LinkConverterRow(Gtk.Box):
         if not self._revealer.get_child_revealed():
 
             self.hide()
+
+    def _update_widgets(self):
+
+        if self._url_open_command:
+
+            text = self._entry.get_text()
+
+            if self._application.get_command_exists(text):
+
+                self._revealer.set_reveal_child(False)
+
+                self._entry.remove_css_class("error")
+
+                if not text.split(" ")[0] in self._url_open_commands and self._group_focused:
+
+                    self._revealer.set_reveal_child(True)
+
+            else:
+
+                self._revealer.set_reveal_child(True)
+
+                self._entry.add_css_class("error")
+
+            if self._get_string_is_valid_url(text.strip()):
+
+                self._entry.add_css_class("warning")
+
+                self._entry.remove_css_class("error")
+
+                self._button.add_css_class("accent")
+
+                self.set_sensitive(True)
+
+            else:
+
+                self._entry.remove_css_class("warning")
+
+                self._button.remove_css_class("accent")
+
+                self.set_sensitive(False)
 
     def _convert_url_to_command(self):
 
@@ -1747,6 +1868,10 @@ class LinkConverterRow(Gtk.Box):
         self._entry = entry
 
         self._entry_connection_id = self._entry.connect("changed", self._on_entry_changed)
+
+        self._focus_group.add(entry)
+
+        self._on_entry_changed(self._entry)
 
     def get_label(self):
 
