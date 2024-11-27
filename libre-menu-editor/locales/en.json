@@ -101,8 +101,8 @@
   "EDIT_FILE_ACTION_ROW_TITLE": "Open settings in text editor",
 
   "LINK_CONVERTER_ROW_LABEL": "Convert link to command",
-  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Default Command",
-  "ACTION_NAME_ENTRY_ROW_TITLE": "Action Name",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Default command",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Action name",
 
   "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
   "DEVELOPMENT_CATEGORY_LABEL": "Development",
@@ -116,8 +116,8 @@
   "SYSTEM_CATEGORY_LABEL": "System",
   "UTILITY_CATEGORY_LABEL": "Accessories",
 
-  "LOAD_MULTIPLE_ERROR_TEXT": "Failed to load %s Files",
-  "LOAD_SINGLE_ERROR_TEXT": "Failed to load File '%s'",
+  "LOAD_MULTIPLE_ERROR_TEXT": "Failed to load %s files",
+  "LOAD_SINGLE_ERROR_TEXT": "Failed to load file '%s'",
   "OPEN_FILE_ERROR_TEXT": "Failed to open configurations",
 
   "STARTER_SAVE_MESSAGE_TEXT": "Configurations for '%s' have been saved",
