@@ -2930,6 +2930,18 @@ class Application(gui.Application):
 
             self._open_file_chooser_dialog.set_default_response(Gtk.ResponseType.ACCEPT)
 
+        self._open_file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
+
+        try:
+
+            self._open_file_chooser_dialog.connect("show", self._on_open_file_chooser_dialog_show)
+
+            self._open_file_chooser_dialog.connect("close-request", self._on_open_file_chooser_dialog_close_request)
+
+        except TypeError:
+
+            pass
+
         self._open_file_chooser_dialog.set_title(self._locale_manager.get("OPEN_FILE_CHOOSER_DIALOG_TITLE"))
 
         self._open_file_chooser_dialog.connect("response", self._on_open_file_chooser_dialog_response)
@@ -3179,6 +3191,16 @@ class Application(gui.Application):
         elif control_modifier_pressed and keyval == 113: # Q
 
             self._application_window.close()
+
+    def _on_open_file_chooser_dialog_show(self, dialog):
+
+        self._open_file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
+
+    def _on_open_file_chooser_dialog_close_request(self, dialog):
+
+        self._open_file_chooser_dialog.hide()
+
+        return True
 
     def _on_open_file_chooser_dialog_response(self, dialog, response):
 
