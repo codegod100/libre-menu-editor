@@ -1441,7 +1441,7 @@ class SettingsPage(Gtk.Box):
 
         self._categories_preferences_group = Adw.PreferencesGroup()
 
-        self._categories_preferences_group.set_title("Menu") #FIXME
+        self._categories_preferences_group.set_title(self._locale_manager.get("MENU_GROUP_TITLE"))
 
         self._categories_preferences_group.add(self._categories_combo_row)
 
