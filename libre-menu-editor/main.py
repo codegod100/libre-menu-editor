@@ -1315,34 +1315,6 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
-        self._command_chooser_row = gui.CommandChooserRow(self._application)
-
-        self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
-
-        self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
-
-        self._command_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
-
-        self._command_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
-
-        self._command_chooser_row.hook("text-changed", self._on_input_child_data_changed)
-
-        self._link_converter_row = gui.LinkConverterRow(self._application)
-
-        self._link_converter_row.set_entry(self._command_chooser_row)
-
-        self._link_converter_row.set_label(self._locale_manager.get("LINK_CONVERTER_ROW_LABEL"))
-
-        self._execution_preferences_group = Adw.PreferencesGroup()
-
-        self._execution_preferences_group.set_title(self._locale_manager.get("EXECUTION_GROUP_TITLE"))
-
-        self._execution_preferences_group.add(self._command_chooser_row)
-
-        self._execution_preferences_group.add(self._link_converter_row)
-
-        ###############################################################################################################
-
         self._keywords_entry_row = gui.EntryRow(app)
 
         self._keywords_entry_row.set_placeholder_image(self._icon_finder.get_name("list-add-symbolic"))
@@ -1368,6 +1340,26 @@ class SettingsPage(Gtk.Box):
         self._keywords_preferences_group.add(self._keywords_entry_row)
 
         self._keywords_preferences_group.add(self._keywords_flow_row)
+
+        ###############################################################################################################
+
+        self._command_chooser_row = gui.CommandChooserRow(self._application)
+
+        self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
+
+        self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
+
+        self._command_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+
+        self._command_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
+
+        self._command_chooser_row.hook("text-changed", self._on_input_child_data_changed)
+
+        self._link_converter_row = gui.LinkConverterRow(self._application)
+
+        self._link_converter_row.set_entry(self._command_chooser_row)
+
+        self._link_converter_row.set_label(self._locale_manager.get("LINK_CONVERTER_ROW_LABEL"))
 
         ###############################################################################################################
 
@@ -1403,6 +1395,14 @@ class SettingsPage(Gtk.Box):
 
         ###############################################################################################################
 
+        self._execution_preferences_group = Adw.PreferencesGroup()
+
+        self._execution_preferences_group.set_title(self._locale_manager.get("EXECUTION_GROUP_TITLE"))
+
+        self._execution_preferences_group.add(self._command_chooser_row)
+
+        self._execution_preferences_group.add(self._link_converter_row)
+
         self._execution_preferences_group.set_header_suffix(self._primary_header_suffix_box)
 
         ###############################################################################################################
@@ -1420,20 +1420,6 @@ class SettingsPage(Gtk.Box):
         self._placeholder_action_create_button.connect("clicked", self._on_action_create_button_clicked)
 
         self._placeholder_action_create_button.add_controller(self._placeholder_event_controller_key)
-
-        ###############################################################################################################
-
-        self._visible_switch_row = gui.SwitchRow()
-
-        self._visible_switch_row.set_title(self._locale_manager.get("VISIBLE_SWITCH_ROW_TITLE"))
-
-        self._visible_switch_row.hook("value-changed", self._on_input_child_data_changed)
-
-        self._visible_preferences_group = Adw.PreferencesGroup()
-
-        self._visible_preferences_group.set_title(self._locale_manager.get("VISIBLE_GROUP_TITLE"))
-
-        self._visible_preferences_group.add(self._visible_switch_row)
 
         ###############################################################################################################
 
@@ -1455,17 +1441,13 @@ class SettingsPage(Gtk.Box):
 
         self._categories_preferences_group = Adw.PreferencesGroup()
 
+        self._categories_preferences_group.set_title("Menu") #FIXME
+
         self._categories_preferences_group.add(self._categories_combo_row)
 
         self._categories_preferences_group.add(self._categories_flow_row)
 
         ###############################################################################################################
-
-        self._notify_switch_row = gui.SwitchRow()
-
-        self._notify_switch_row.set_title(self._locale_manager.get("NOTIFY_SWITCH_ROW_TITLE"))
-
-        self._notify_switch_row.hook("value-changed", self._on_input_child_data_changed)
 
         self._terminal_switch_row = gui.SwitchRow()
 
@@ -1473,11 +1455,27 @@ class SettingsPage(Gtk.Box):
 
         self._terminal_switch_row.hook("value-changed", self._on_input_child_data_changed)
 
-        self._display_preferences_group = Adw.PreferencesGroup()
+        self._notify_switch_row = gui.SwitchRow()
 
-        self._display_preferences_group.add(self._notify_switch_row)
+        self._notify_switch_row.set_title(self._locale_manager.get("NOTIFY_SWITCH_ROW_TITLE"))
 
-        self._display_preferences_group.add(self._terminal_switch_row)
+        self._notify_switch_row.hook("value-changed", self._on_input_child_data_changed)
+
+        self._visible_switch_row = gui.SwitchRow()
+
+        self._visible_switch_row.set_title(self._locale_manager.get("VISIBLE_SWITCH_ROW_TITLE"))
+
+        self._visible_switch_row.hook("value-changed", self._on_input_child_data_changed)
+
+        self._visible_preferences_group = Adw.PreferencesGroup()
+
+        self._visible_preferences_group.set_title(self._locale_manager.get("VISIBLE_GROUP_TITLE"))
+
+        self._visible_preferences_group.add(self._terminal_switch_row)
+
+        self._visible_preferences_group.add(self._notify_switch_row)
+
+        self._visible_preferences_group.add(self._visible_switch_row)
 
         ###############################################################################################################
 
@@ -1546,8 +1544,6 @@ class SettingsPage(Gtk.Box):
         self._bottom_box.append(self._visible_preferences_group)
 
         self._bottom_box.append(self._categories_preferences_group)
-
-        self._bottom_box.append(self._display_preferences_group)
 
         self._bottom_box.append(self._advanced_preferences_group)
 
