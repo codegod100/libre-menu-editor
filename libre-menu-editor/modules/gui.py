@@ -443,6 +443,8 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._keyword_separator = " "
 
+        self._last_text = ""
+
         self._search_string = ""
 
         self._results_cache = {}
@@ -515,11 +517,13 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._results_key = None
 
+        self._list_store.remove_all()
+
         self._results_cache.clear()
 
         self._update_search_data()
 
-        self._start_search_thread()
+        self._start_search(self._last_text)
 
     def _on_factory_setup(self, factory, list_item):
 
@@ -537,7 +541,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._events.trigger("item-selected", self._list_store[position].name)
 
-    def _on_search_started(self, text, exclude=[]):
+    def _start_search(self, text, exclude=[]):
 
         self._stop_search_thread()
 
@@ -803,11 +807,15 @@ class IconBrowser(Gtk.ScrolledWindow):
 
     def update(self, text, exclude=[]):
 
-        self._on_search_started(text, exclude=exclude)
+        self._last_text = text
+
+        self._start_search(text, exclude=exclude)
 
     def clear(self):
 
         self._after_search_finished(clear_store=True)
+
+        self._last_text = ""
 
     def hook(self, event, callback, *args):
 
@@ -1435,25 +1443,27 @@ class IconChooserRow(FileChooserRow):
 
     def _on_icon_browser_updated(self, event, results):
 
-        if len(results):
+        if self._search_mode:
 
-            self.remove_css_class("warning")
-
-            self._icon_browser_row.set_page(self._icon_browser)
-
-        else:
-
-            if len(self.get_text()):
-
-                self.add_css_class("warning")
-
-                self._icon_browser_row.set_page(self._none_status_page)
-
-            else:
+            if len(results):
 
                 self.remove_css_class("warning")
 
-                self._icon_browser_row.set_page(self._help_status_page)
+                self._icon_browser_row.set_page(self._icon_browser)
+
+            else:
+
+                if len(self.get_text()):
+
+                    self.add_css_class("warning")
+
+                    self._icon_browser_row.set_page(self._none_status_page)
+
+                else:
+
+                    self.remove_css_class("warning")
+
+                    self._icon_browser_row.set_page(self._help_status_page)
 
     def _on_icon_browser_drawing_icons(self, event):
 
