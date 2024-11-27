@@ -1365,8 +1365,6 @@ class SettingsPage(Gtk.Box):
 
         self._primary_event_controller_key = Gtk.EventControllerKey()
 
-        self._primary_event_controller_key.connect("key-pressed", self._on_primary_controller_key_pressed)
-
         self._primary_action_create_button = Gtk.Button()
 
         self._primary_action_create_button.set_icon_name(self._icon_finder.get_name("list-add-symbolic"))
@@ -1404,22 +1402,6 @@ class SettingsPage(Gtk.Box):
         self._execution_preferences_group.add(self._link_converter_row)
 
         self._execution_preferences_group.set_header_suffix(self._primary_header_suffix_box)
-
-        ###############################################################################################################
-
-        self._placeholder_event_controller_key = Gtk.EventControllerKey()
-
-        self._placeholder_event_controller_key.connect("key-pressed", self._on_placeholder_controller_key_pressed)
-
-        self._placeholder_action_create_button = Gtk.Button()
-
-        self._placeholder_action_create_button.set_icon_name(self._icon_finder.get_name("list-add-symbolic"))
-
-        self._placeholder_action_create_button.add_css_class("flat")
-
-        self._placeholder_action_create_button.connect("clicked", self._on_action_create_button_clicked)
-
-        self._placeholder_action_create_button.add_controller(self._placeholder_event_controller_key)
 
         ###############################################################################################################
 
@@ -1631,52 +1613,6 @@ class SettingsPage(Gtk.Box):
 
             self.set_delete_mode_enabled(False)
 
-    def _on_primary_controller_key_pressed(self, controller, keyval, keycode, state):
-
-        return #FIXME
-
-        if keyval == gui.Keyval.TAB or keyval == gui.Keyval.DOWN or keyval == gui.Keyval.PAGEDOWN:
-
-            if self._primary_action_create_button.has_focus():
-
-                self._primary_action_delete_button.grab_focus()
-
-                return True
-
-            else:
-
-                self.child_focus(Gtk.DirectionType.DOWN)
-
-                return True
-
-        elif keyval == gui.Keyval.UP or keyval == gui.Keyval.PAGEUP:
-
-            if self._primary_action_delete_button.has_focus():
-
-                self._primary_action_create_button.grab_focus()
-
-                return True
-
-            else:
-
-                self.child_focus(Gtk.DirectionType.UP)
-
-                return True
-
-    def _on_placeholder_controller_key_pressed(self, controller, keyval, keycode, state):
-
-        if keyval == gui.Keyval.TAB or keyval == gui.Keyval.DOWN or keyval == gui.Keyval.PAGEDOWN:
-
-            self._visible_switch_row.grab_focus()
-
-            return True
-
-        elif keyval == gui.Keyval.UP or keyval == gui.Keyval.PAGEUP:
-
-            self.child_focus(Gtk.DirectionType.UP)
-
-            return True
-
     def _on_desktop_action_group_row_deleted(self, event, desktop_action_group):
 
         index = list(self._current_desktop_action_groups.values()).index(desktop_action_group)
@@ -1869,7 +1805,7 @@ class SettingsPage(Gtk.Box):
 
             if not len(self._current_desktop_actions):
 
-                self._placeholder_action_create_button.grab_focus()
+                self._primary_action_create_button.grab_focus()
 
             elif index < len(self._current_desktop_actions):
 
@@ -2525,12 +2461,6 @@ class Application(gui.Application):
         self._delete_starter_menu_section = gui.Menu(self)
 
         self._discard_starter_menu_section = gui.Menu(self)
-
-        #FIXME for section in (self._reset_starter_menu_section, self._delete_starter_menu_section, self._discard_starter_menu_section):
-
-            #FIXME section.add_button("edit_file", self._locale_manager.get("EDIT_FILE_MENU_BUTTON_LABEL"))
-
-            #FIXME section.hook("edit_file", self._on_edit_file_button_clicked)
 
         self._reset_starter_menu_section.add_button("reset_starter", self._locale_manager.get("RESET_STARTER_MENU_BUTTON_LABEL"))
 
