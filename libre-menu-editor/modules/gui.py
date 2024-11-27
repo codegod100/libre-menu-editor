@@ -431,6 +431,8 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._events = basic.EventManager()
 
+        self._events.add("drawing-icons")
+
         self._events.add("updated", object)
 
         self._events.add("item-selected", str)
@@ -537,9 +539,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
     def _on_search_started(self, text, exclude=[]):
 
-        if self._search_timeout_id:
-
-            GLib.source_remove(self._search_timeout_id)
+        self._stop_search_thread()
 
         self._search_timeout_id = GLib.timeout_add(self._search_delay, self._after_search_started, text, exclude)
 
@@ -570,8 +570,6 @@ class IconBrowser(Gtk.ScrolledWindow):
         results_key = self._keyword_separator.join(keywords)
 
         if not results_key == self._results_key:
-
-            self._stop_search_thread()
 
             self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key], kwargs={"exclude": exclude})
 
@@ -605,8 +603,6 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._search_interrupted = False
 
-        # return True #FIXME
-
     def _search_thread_target(self, text, keywords, results_key, exclude=[]):
 
         try:
@@ -617,7 +613,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             if not len(keywords):
 
-                names = [] #FIXME self._icon_names
+                names = []
 
             else:
 
@@ -651,6 +647,8 @@ class IconBrowser(Gtk.ScrolledWindow):
 
                 if not self._search_interrupted:
 
+                    GLib.idle_add(self._events.trigger, "drawing-icons")
+
                     self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key, True)
 
             elif not self._search_interrupted:
@@ -663,15 +661,19 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         if not self._search_interrupted:
 
-            self._stop_search_thread()
-
             if clear_store:
 
-                self._results_key = None
+                self._stop_search_thread()
 
                 self._list_store.remove_all()
 
+                self._results_key = None
+
             self._events.trigger("updated", self._list_store)
+
+            self._slice_call_id = None
+
+            return GLib.SOURCE_REMOVE
 
     def _add_next_slice(self, results_key, first_run=False):
 
@@ -697,7 +699,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
                 self._results_key = results_key
 
-                GLib.idle_add(self._after_search_finished)
+                self._slice_call_id = GLib.idle_add(self._after_search_finished)
 
                 return GLib.SOURCE_REMOVE
 
@@ -884,7 +886,7 @@ class RevealerRow(Adw.PreferencesRow):
 
     def get_page(self):
 
-        self._stack.get_visible_child()
+        return self._stack.get_visible_child()
 
     def set_page(self, child):
 
@@ -1035,8 +1037,6 @@ class EntryRow(Adw.EntryRow):
 
     def get_placeholder_image(self, ignore_errors=True):
 
-        #FIXME: this might stop working in future versions
-
         try:
 
             placeholder_gizmo = self.get_child().get_first_child().get_next_sibling()
@@ -1156,7 +1156,7 @@ class PathChooserRow(EntryRow):
 
                 self.get_placeholder_image().unparent()
 
-            except: #FIXME AttributeError:
+            except:
 
                 pass
 
@@ -1305,6 +1305,8 @@ class IconChooserRow(FileChooserRow):
 
         self._icon_browser = self._icon_browser_row.get_icon_browser()
 
+        self._icon_browser.hook("drawing-icons", self._on_icon_browser_drawing_icons)
+
         self._icon_browser.hook("updated", self._on_icon_browser_updated)
 
         self._icon_browser.hook("item-selected", self._on_icon_browser_item_selected)
@@ -1387,7 +1389,7 @@ class IconChooserRow(FileChooserRow):
 
         else:
 
-            if len(self._icon_browser.get_results()):
+            if self._icon_browser_row.get_page() == self._icon_browser and len(self._icon_browser.get_results()):
 
                 self._icon_browser_row.grab_focus()
 
@@ -1455,6 +1457,12 @@ class IconChooserRow(FileChooserRow):
 
                 self._icon_browser_row.set_page(self._help_status_page)
 
+    def _on_icon_browser_drawing_icons(self, event):
+
+        self.remove_css_class("warning")
+
+        self._icon_browser_row.set_page(self._icon_browser)
+
     def _on_icon_browser_item_selected(self, event, text):
 
         self._previous_text = text
@@ -1473,7 +1481,9 @@ class IconChooserRow(FileChooserRow):
 
         if value:
 
-            self.set_text("") #FIXME
+            self.set_text("")
+
+            self.remove_css_class("warning")
 
             if self._search_entry_title:
 
@@ -1484,6 +1494,10 @@ class IconChooserRow(FileChooserRow):
             self._icon_browser_row.set_active(True)
 
         else:
+
+            if not len(self.get_text()):
+
+                self.add_css_class("warning")
 
             if self._default_entry_title:
 
