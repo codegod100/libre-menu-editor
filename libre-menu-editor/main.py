@@ -1633,6 +1633,8 @@ class SettingsPage(Gtk.Box):
 
     def _on_primary_controller_key_pressed(self, controller, keyval, keycode, state):
 
+        return #FIXME
+
         if keyval == gui.Keyval.TAB or keyval == gui.Keyval.DOWN or keyval == gui.Keyval.PAGEDOWN:
 
             if self._primary_action_create_button.has_focus():
