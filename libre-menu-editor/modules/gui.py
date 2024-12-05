@@ -1108,6 +1108,8 @@ class PathChooserRow(EntryRow):
 
         self._chooser_button = Gtk.Button()
 
+        self._chooser_button.set_focus_on_click(False)
+
         self._chooser_button.add_css_class("flat")
 
         self._chooser_button.set_valign(Gtk.Align.CENTER)
@@ -1324,8 +1326,6 @@ class IconChooserRow(FileChooserRow):
         self.remove(self._chooser_button)
 
         self._chooser_button.set_valign(Gtk.Align.START)
-
-        self._chooser_button.set_focus_on_click(False)
 
         self._chooser_button.connect("clicked", self._on_chooser_button_clicked)
 
