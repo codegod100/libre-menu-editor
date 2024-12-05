@@ -1140,17 +1140,15 @@ class PathChooserRow(EntryRow):
 
             self._file_chooser_dialog.set_default_response(Gtk.ResponseType.ACCEPT)
 
-        self._file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
+            try:
 
-        try:
+                self._file_chooser_dialog.connect("show", self._on_file_chooser_dialog_show)
 
-            self._file_chooser_dialog.connect("show", self._on_file_chooser_dialog_show)
+                self._file_chooser_dialog.connect("close-request", self._on_file_chooser_dialog_close_request)
 
-            self._file_chooser_dialog.connect("close-request", self._on_file_chooser_dialog_close_request)
+            except TypeError:
 
-        except TypeError:
-
-            pass
+                pass
 
         self._file_chooser_dialog.connect("response", self._on_file_chooser_dialog_response)
 
