@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "मुख्य मेनू",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "अनाम एप्लिकेशन",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "अनाम क्रिया",
+
+  "GREETER_PAGE_HEAD": "जानकारी",
+  "GREETER_PAGE_BODY": "यह प्रोग्राम उपयोगकर्ता द्वारा संपादित नहीं किए जाने वाले कॉन्फ़िगरेशन फ़ाइलों को बदलता है. कुछ सिस्टम पर यह हो सकता है कि कुछ परिवर्तन लंबे समय के बाद या उपयोगकर्ता लॉगिन करने के बाद ही दिखाई दें",
+  "GREETER_PAGE_BUTTON_LABEL": "जारी रखें",
+
+  "START_PAGE_HEAD": "मेनू कस्टमाइज़ करें",
+  "START_PAGE_BODY": "एक नया एप्लिकेशन लॉन्चर बनाएं या साइडबार से मौजूदा एक का चयन करें",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "खोलें",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "रद्द करें",
+
+  "INSTALL_DIALOG_HEAD": "इन्स्टॉलेशन",
+  "INSTALL_DIALOG_BODY": "क्या आप इस एप्लिकेशन को मुख्य मेनू में जोड़ना चाहते हैं?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "पीछे",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "सहेजें",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "इन्स्टॉल करें",
+
+  "DISCARD_DIALOG_HEAD": "अनसेव्ड परिवर्तन",
+  "DISCARD_DIALOG_BODY": "क्या आप परिवर्तन को रद्द करना चाहते हैं?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "वापस",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "सहेजें",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "रद्द करें",
+
+  "RESET_DIALOG_HEAD": "रीसेट",
+  "RESET_DIALOG_BODY": "क्या आप इस एप्लिकेशन को रीसेट करना चाहते हैं? यह क्रिया वापस नहीं की जा सकती",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "वापस",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "जारी रखें",
+
+  "DELETE_DIALOG_HEAD": "डिलीट",
+  "DELETE_DIALOG_BODY": "क्या आप इस एप्लिकेशन को डिलीट करना चाहते हैं? यह क्रिया वापस नहीं की जा सकती",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "वापस",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "जारी रखें",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "छिपे हुए दिखाएं",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "नया लॉन्चर",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "लॉन्चर खोलें",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "डॉक्यूमेंट संपादित करें",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "लॉन्चर रीसेट करें",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "लॉन्चर डिलीट करें",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "लॉन्चर रद्द करें",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "कीबोर्ड शॉर्टकट्स",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "इस एप्प के बारे में",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "लॉन्चर्स खोजें",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "छिपे हुए दिखाएं",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "एप्लिकेशन बंद करें",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "शॉर्टकट्स दिखाएं",
+  "SHOW_MENU_SHORTCUT_TEXT": "मेनू खोलें",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "परिवर्तन सहेजें",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "परिवर्तन रद्द करें",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "परिवर्तन हटाएं",
+  "NEW_STARTER_SHORTCUT_TEXT": "नया लॉन्चर",
+  "EDIT_FILE_SHORTCUT_TEXT": "डॉक्यूमेंट संपादित करें",
+  "OPEN_FILE_SHORTCUT_TEXT": "लॉन्चर खोलें",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "संपादित करें",
+  "FIND_SHORTCUT_GROUP_TITLE": "खोजें",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "सामान्य",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "आइकन चुनें",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "कमांड फ़ाइल चुनें",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "लॉन्चर चुनें",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "सहेजें",
+
+  "BANNER_LABEL_TEXT": "कृपया हटाने के लिए क्रियाएं चुनें",
+  "BANNER_CANCEL_BUTTON_LABEL": "हटाएं",
+
+  "APPEARANCE_GROUP_TITLE": "रूपरेखा",
+  "DESCRIPTION_GROUP_TITLE": "विवरण",
+  "EXECUTION_GROUP_TITLE": "निष्पादन",
+  "DISCOVERY_GROUP_TITLE": "खोज",
+  "VISIBLE_GROUP_TITLE": "दृश्यता",
+  "MENU_GROUP_TITLE": "मेनू",
+  "ADVANCED_GROUP_TITLE": "उन्नत",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "खोज मोड",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "आइकन खोज",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "सुझाव प्राप्त करने के लिए कीवर्ड दर्ज करें",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "कोई परिणाम नहीं",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "इस इनपुट के लिए कोई खोज परिणाम नहीं मिले",
+
+  "ICON_CHOOSER_ROW_TITLE": "आइकन",
+  "NAME_ENTRY_ROW_TITLE": "नाम",
+  "COMMENT_ENTRY_ROW_TITLE": "टिप्पणी",
+  "COMMAND_CHOOSER_ROW_TITLE": "कमांड",
+  "KEYWORDS_ENTRY_ROW_TITLE": "कीवर्ड",
+  "TERMINAL_SWITCH_ROW_TITLE": "निष्पादन के दौरान टर्मिनल विंडो दिखाएं",
+  "NOTIFY_SWITCH_ROW_TITLE": "एप्लिकेशन दृश्य होने तक एनिमेशन दिखाएं",
+  "VISIBLE_SWITCH_ROW_TITLE": "मुख्य मेनू में इस एप्लिकेशन को दिखाएं",
+  "CATEGORIES_COMBO_ROW_TITLE": "एप्लिकेशन की पारंपरिक मेनू श्रेणियां",
+  "EDIT_FILE_ACTION_ROW_TITLE": "सेटिंग्स को टेक्स्ट एडिटर में खोलें",
+
+  "LINK_CONVERTER_ROW_LABEL": "लिंक को कमांड में बदलें",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "डिफ़ॉल्ट कमांड",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "क्रिया नाम",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "मल्टीमीडिया",
+  "DEVELOPMENT_CATEGORY_LABEL": "विकास",
+  "EDUCATION_CATEGORY_LABEL": "शिक्षा",
+  "GAME_CATEGORY_LABEL": "गेम्स",
+  "GRAPHICS_CATEGORY_LABEL": "ग्राफ़िक्स",
+  "NETWORK_CATEGORY_LABEL": "इंटरनेट",
+  "OFFICE_CATEGORY_LABEL": "ऑफ़िस",
+  "SCIENCE_CATEGORY_LABEL": "विज्ञान",
+  "SETTINGS_CATEGORY_LABEL": "सेटिंग्स",
+  "SYSTEM_CATEGORY_LABEL": "सिस्टम",
+  "UTILITY_CATEGORY_LABEL": "एक्सेसरीज़",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "%s फ़ाइलें लोड नहीं हुईं",
+  "LOAD_SINGLE_ERROR_TEXT": "फ़ाइल '%s' लोड नहीं हुई",
+  "OPEN_FILE_ERROR_TEXT": "कॉन्फ़िगरेशन खोलने में विफल",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "'%s' के लिए कॉन्फ़िगरेशन सहेजे गए",
+  "STARTER_SAVE_ERROR_TEXT": "'%s' के लिए कॉन्फ़िगरेशन सहेजने में विफल",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "'%s' के लिए लॉन्चर बनाया गया",
+  "STARTER_CREATE_ERROR_TEXT": "'%s' के लिए लॉन्चर बनाने में विफल",
+
+  "STARTER_RESET_MESSAGE_TEXT": "'%s' के लिए लॉन्चर रीसेट किया गया",
+  "STARTER_RESET_ERROR_TEXT": "'%s' के लिए लॉन्चर रीसेट करने में विफल",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "'%s' के लिए लॉन्चर डिलीट किया गया",
+  "STARTER_DELETE_ERROR_TEXT": "'%s' के लिए लॉन्चर डिलीट करने में विफल",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "'%s' के लिए लॉन्चर हटाया गया"
+
+}
