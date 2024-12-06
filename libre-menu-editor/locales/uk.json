@@ -82,7 +82,7 @@
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Просунутий",
 
-  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Пошукові запити",
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Ключові слова",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пошук значків",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Введіть ключові слова, щоб отримати пропозиції",
   "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Немає результатів",
@@ -116,21 +116,21 @@
   "UTILITY_CATEGORY_LABEL": "Утиліти",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Не вдалося завантажити %s файлів",
-  "LOAD_SINGLE_ERROR_TEXT": "Не вдалося завантажити файл '%s'",
+  "LOAD_SINGLE_ERROR_TEXT": "Не вдалося завантажити файл «%s»",
   "OPEN_FILE_ERROR_TEXT": "Не вдалося відкрити конфігурації",
 
-  "STARTER_SAVE_MESSAGE_TEXT": "Конфігурації для '%s' збережено",
+  "STARTER_SAVE_MESSAGE_TEXT": "Конфігурації для «%s» збережено",
   "STARTER_SAVE_ERROR_TEXT": "Не вдалося зберегти конфігурації",
 
-  "STARTER_CREATE_MESSAGE_TEXT": "Стартер для '%s' створено",
+  "STARTER_CREATE_MESSAGE_TEXT": "Стартер для «%s» створено",
   "STARTER_CREATE_ERROR_TEXT": "Не вдалося створити стартер",
 
-  "STARTER_RESET_MESSAGE_TEXT": "Стартер для '%s' скинуто",
+  "STARTER_RESET_MESSAGE_TEXT": "Стартер для «%s» скинуто",
   "STARTER_RESET_ERROR_TEXT": "Не вдалося скинути стартер",
 
-  "STARTER_DELETE_MESSAGE_TEXT": "Стартер для '%s' видалено",
+  "STARTER_DELETE_MESSAGE_TEXT": "Стартер для «%s» видалено",
   "STARTER_DELETE_ERROR_TEXT": "Не вдалося видалити стартер",
 
-  "STARTER_REMOVE_MESSAGE_TEXT": "Стартер для '%s' видалено"
+  "STARTER_REMOVE_MESSAGE_TEXT": "Стартер для «%s» видалено"
 
 }
