@@ -22,6 +22,28 @@
   <name xml:lang="sv">Huvudmeny</name>
   <name xml:lang="tr">Ana Menü</name>
   <name xml:lang="uk">Головне меню</name>
+  <name xml:lang="hr">Glavni izbornik</name>
+  <name xml:lang="vi">Menu Chính</name>
+  <name xml:lang="az">Əsas Menyu</name>
+  <name xml:lang="lv">Galvenais izvēlne</name>
+  <name xml:lang="uz">Asosiy Menyu</name>
+  <name xml:lang="sk">Hlavné menu</name>
+  <name xml:lang="id">Menu Utama</name>
+  <name xml:lang="ms">Menu Utama</name>
+  <name xml:lang="et">Põhimenüü</name>
+  <name xml:lang="el">Κύριο Μενού</name>
+  <name xml:lang="th">เมนูหลัก</name>
+  <name xml:lang="lt">Pagrindinis meniu</name>
+  <name xml:lang="ro">Meniu Principal</name>
+  <name xml:lang="ar">القائمة الرئيسية</name>
+  <name xml:lang="sq">Menu kryesor</name>
+  <name xml:lang="kk">Басты Меню</name>
+  <name xml:lang="fa">منو اصلی</name>
+  <name xml:lang="bg">Главно меню</name>
+  <name xml:lang="mk">Главно Мени</name>
+  <name xml:lang="sw">Menyu Kuu</name>
+  <name xml:lang="sl">Glavno meni</name>
+  <name xml:lang="be">Галоўнае меню</name>
   <summary>Customize the menu</summary>
   <summary xml:lang="af">Pas die menu aan</summary>
   <summary xml:lang="cs">Přizpůsobit menu</summary>
@@ -42,6 +64,28 @@
   <summary xml:lang="sv">Anpassa menyn</summary>
   <summary xml:lang="tr">Menüyü Özelleştir</summary>
   <summary xml:lang="uk">Налаштування меню</summary>
+  <summary xml:lang="hr">Prilagodi izbornik</summary>
+  <summary xml:lang="vi">Tùy chỉnh menu ứng dụng</summary>
+  <summary xml:lang="az">Menyunu özəlləşdir</summary>
+  <summary xml:lang="lv">Pielāgot izvēlni</summary>
+  <summary xml:lang="uz">Menyuni moslashtiring</summary>
+  <summary xml:lang="sk">Prispôsobte si menu</summary>
+  <summary xml:lang="id">Kustomisasi Menu</summary>
+  <summary xml:lang="ms">Kustomisasi Menu</summary>
+  <summary xml:lang="et">Menüü kohandamine</summary>
+  <summary xml:lang="el">Προσαρμόστε το μενού</summary>
+  <summary xml:lang="th">ปรับแต่งเมนู</summary>
+  <summary xml:lang="lt">Tinkinkite meniu</summary>
+  <summary xml:lang="ro">Personalizează meniul</summary>
+  <summary xml:lang="ar">تخصيص قائمة التطبيق</summary>
+  <summary xml:lang="sq">Personalizoj menunë</summary>
+  <summary xml:lang="kk">Мәзірді теңшеңіз</summary>
+  <summary xml:lang="fa">سفارشی کردن منو</summary>
+  <summary xml:lang="bg">Персонализиране на менюто</summary>
+  <summary xml:lang="mk">Прилагодување на менијата</summary>
+  <summary xml:lang="sw">Badilisha menyu</summary>
+  <summary xml:lang="sl">Prilagodi meni</summary>
+  <summary xml:lang="be">Наладка меню</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0</project_license>
   <developer_name>LibreMenuEditor Contributors</developer_name>
