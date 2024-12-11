@@ -1043,27 +1043,71 @@ class EntryRow(Adw.EntryRow):
 
         self._events.trigger("text-changed", self, text)
 
-    def get_placeholder_image(self, ignore_errors=True):
+    def _get_placeholder_image_hack_1(self):
 
         try:
 
-            placeholder_gizmo = self.get_child().get_first_child().get_next_sibling()
+            gizmo = self.get_child().get_first_child().get_next_sibling()
 
-            placeholder_image = placeholder_gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
+            if type(gizmo).__name__ == "AdwGizmo":
 
-            if isinstance(placeholder_image, Gtk.Image):
+                image = gizmo.get_next_sibling().get_next_sibling().get_next_sibling()
 
-                return placeholder_image
+                if isinstance(image, Gtk.Image):
 
-            else:
+                    return image
 
-                raise AttributeError()
+        except:
 
-        except Exception as e:
+            pass
 
-            if not ignore_errors:
+    def _get_placeholder_image_hack_2(self):
 
-                raise e
+        try:
+
+            gizmo = self.get_child().get_first_child().get_next_sibling()
+
+            if type(gizmo).__name__ == "AdwGizmo":
+
+                child = gizmo.get_first_child()
+
+                for n in range(100):
+
+                    if not child == None:
+
+                        if isinstance(child, Gtk.Image):
+
+                            return child
+
+                        else:
+
+                            child = child.get_next_sibling()
+
+                    else:
+
+                        break
+
+        except:
+
+            pass
+
+    def get_placeholder_image(self):
+
+        methods = [
+
+            self._get_placeholder_image_hack_1,
+
+            self._get_placeholder_image_hack_2
+
+            ]
+
+        for method in methods:
+
+            image = method()
+
+            if not image == None:
+
+                return image
 
     def set_placeholder_image(self, icon_name, ignore_errors=True):
 
@@ -1161,6 +1205,8 @@ class PathChooserRow(EntryRow):
         if not show_placeholder_image:
 
             try:
+
+                self.get_placeholder_image().unparent()
 
                 self.get_placeholder_image().unparent()
 
