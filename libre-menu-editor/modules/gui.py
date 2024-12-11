@@ -1003,18 +1003,6 @@ class EntryRow(Adw.EntryRow):
 
         super().__init__(*args, **kwargs)
 
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-        try:
-
-            self.add_css_class(os.getenv("CUSTOM_ROW_STYLE"))
-
-        except TypeError:
-
-            pass
-
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
         self._icon_finder = app.get_icon_finder()
 
         self._events = basic.EventManager()
@@ -1981,18 +1969,6 @@ class DeleteRow(Adw.ActionRow):
 
         super().__init__(*args, **kwargs)
 
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-        try:
-
-            self.add_css_class(os.getenv("CUSTOM_ROW_STYLE"))
-
-        except TypeError:
-
-            pass
-
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
         self._icon_finder = app.get_icon_finder()
 
         self._delete_button = Gtk.Button()
@@ -2035,18 +2011,6 @@ class SwitchRow(Adw.ActionRow):
     def __init__(self, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
-
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-        try:
-
-            self.add_css_class(os.getenv("CUSTOM_ROW_STYLE"))
-
-        except TypeError:
-
-            pass
-
-        # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
         self._events = basic.EventManager()
 
