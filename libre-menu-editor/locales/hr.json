@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Glavni izbornik",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Neimenovana aplikacija",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Neimenovana akcija",
+
+  "GREETER_PAGE_HEAD": "Informacije",
+  "GREETER_PAGE_BODY": "Ovaj program mijenja konfiguracijske datoteke koje nisu namijenjene za uređivanje korisnika. Na nekim sustavima može se dogoditi da se neke promjene vide tek nakon dugog vremena ili nakon što se korisnik ponovno prijavi",
+  "GREETER_PAGE_BUTTON_LABEL": "Nastavi",
+
+  "START_PAGE_HEAD": "Prilagodi izbornik",
+  "START_PAGE_BODY": "Stvori novi lanser aplikacije ili izaberi postojeći iz bočnog izbornika",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Otvori",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Odustani",
+
+  "INSTALL_DIALOG_HEAD": "Instalacija",
+  "INSTALL_DIALOG_BODY": "Želite li dodati ovu aplikaciju u glavni izbornik?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Nazad",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Spremi",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Instaliraj",
+
+  "DISCARD_DIALOG_HEAD": "Nespremljene promjene",
+  "DISCARD_DIALOG_BODY": "Želite li odbaciti promjene?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Nazad",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Spremi",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Odbaci",
+
+  "RESET_DIALOG_HEAD": "Resetiranje",
+  "RESET_DIALOG_BODY": "Želite li resetirati ovu aplikaciju? Ova akcija se ne može poništiti",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Nazad",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Nastavi",
+
+  "DELETE_DIALOG_HEAD": "Brisanje",
+  "DELETE_DIALOG_BODY": "Želite li izbrisati ovu aplikaciju? Ova akcija se ne može poništiti",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Nazad",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Nastavi",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Prikaži skrivene",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Novi lanser",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Otvori lanser",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Uredi dokument",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Resetiraj lanser",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Izbriši lanser",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Odbaci lanser",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Kratak puta",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "O aplikaciji",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Pretraži lansere",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Prikaži skrivene",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Izadji iz aplikacije",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Prikaži kratke putove",
+  "SHOW_MENU_SHORTCUT_TEXT": "Otvori izbornik",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Spremi promjene",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Odbaci promjene",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Poništi promjene",
+  "NEW_STARTER_SHORTCUT_TEXT": "Novi lanser",
+  "EDIT_FILE_SHORTCUT_TEXT": "Uredi dokument",
+  "OPEN_FILE_SHORTCUT_TEXT": "Otvori lanser",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Uredi",
+  "FIND_SHORTCUT_GROUP_TITLE": "Pretraži",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Opće",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Izaberi ikonu",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Izaberi izvršni file",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Izaberi lanser",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Spremi",
+
+  "BANNER_LABEL_TEXT": "Odaberite akcije koje želite izbrisati",
+  "BANNER_CANCEL_BUTTON_LABEL": "Gotovo",
+
+  "APPEARANCE_GROUP_TITLE": "Izgled",
+  "DESCRIPTION_GROUP_TITLE": "Opis",
+  "EXECUTION_GROUP_TITLE": "Izvršenje",
+  "DISCOVERY_GROUP_TITLE": "Pretraživanje",
+  "VISIBLE_GROUP_TITLE": "Vidljivost",
+  "MENU_GROUP_TITLE": "Izbornik",
+  "ADVANCED_GROUP_TITLE": "Napredno",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Ključne riječi",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Pretraga ikona",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Unesite ključne riječi za primanje prijedloga",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Nema rezultata",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Za ovaj unos nije pronađeno nikakvo pretraživanje",
+
+  "ICON_CHOOSER_ROW_TITLE": "Ikona",
+  "NAME_ENTRY_ROW_TITLE": "Ime",
+  "COMMENT_ENTRY_ROW_TITLE": "Komentar",
+  "COMMAND_CHOOSER_ROW_TITLE": "Naredba",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Ključne riječi",
+  "TERMINAL_SWITCH_ROW_TITLE": "Prikaži terminalski prozor tijekom izvršenja",
+  "NOTIFY_SWITCH_ROW_TITLE": "Prikaži animaciju dok se aplikacija ne pojavi",
+  "VISIBLE_SWITCH_ROW_TITLE": "Prikaži ovu aplikaciju u glavnom izborniku",
+  "CATEGORIES_COMBO_ROW_TITLE": "Tradicionalne kategorije aplikacije u izborniku",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Otvorite postavke u tekstualnom uređivaču",
+
+  "LINK_CONVERTER_ROW_LABEL": "Pretvori link u naredbu",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Zadana naredba",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Ime akcije",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimedija",
+  "DEVELOPMENT_CATEGORY_LABEL": "Razvoj",
+  "EDUCATION_CATEGORY_LABEL": "Obrazovanje",
+  "GAME_CATEGORY_LABEL": "Igre",
+  "GRAPHICS_CATEGORY_LABEL": "Grafika",
+  "NETWORK_CATEGORY_LABEL": "Internet",
+  "OFFICE_CATEGORY_LABEL": "Ured",
+  "SCIENCE_CATEGORY_LABEL": "Znanost",
+  "SETTINGS_CATEGORY_LABEL": "Postavke",
+  "SYSTEM_CATEGORY_LABEL": "Sustav",
+  "UTILITY_CATEGORY_LABEL": "Pomoćne alatke",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Neuspješno učitavanje %s datoteka",
+  "LOAD_SINGLE_ERROR_TEXT": "Neuspješno učitavanje datoteke '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Neuspješno otvaranje konfiguracija",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Konfiguracije za '%s' su spremljene",
+  "STARTER_SAVE_ERROR_TEXT": "Neuspješno spremanje konfiguracija",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Lanser za '%s' je stvoren",
+  "STARTER_CREATE_ERROR_TEXT": "Neuspješno stvaranje lansera",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Lanser za '%s' je resetiran",
+  "STARTER_RESET_ERROR_TEXT": "Neuspješno resetiranje lansera",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Lanser za '%s' je izbrisan",
+  "STARTER_DELETE_ERROR_TEXT": "Neuspješno brisanje lansera",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Lanser za '%s' je uklonjen"
+
+}

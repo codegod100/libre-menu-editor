@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Главно Мени",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Непоименувана Апликација",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Непоименувана Акција",
+
+  "GREETER_PAGE_HEAD": "Информации",
+  "GREETER_PAGE_BODY": "Ова програма менува конфигурациски датотеки кои не се дизајнирани да се уредуваат од страна на корисникот. На некои системи може да се случи дека некои промени ќе бидат видливи само после долго време или после корисникот се најави повторно",
+  "GREETER_PAGE_BUTTON_LABEL": "Продолжи",
+
+  "START_PAGE_HEAD": "Прилагодување на менијата",
+  "START_PAGE_BODY": "Креирај нов лансирач или избери постоечки од страничната лента",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Отвори",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Откажи",
+
+  "INSTALL_DIALOG_HEAD": "Инсталација",
+  "INSTALL_DIALOG_BODY": "Дали сакате да го додадете овој апликација во главното мени?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Зачувај",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Инсталирај",
+
+  "DISCARD_DIALOG_HEAD": "Незачувани промени",
+  "DISCARD_DIALOG_BODY": "Дали сакате да ги отфрлите промените?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Зачувај",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Отфрли",
+
+  "RESET_DIALOG_HEAD": "Ресетирање",
+  "RESET_DIALOG_BODY": "Дали сакате да го ресетирате овој апликација? Оваа акција не може да се поврати",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Продолжи",
+
+  "DELETE_DIALOG_HEAD": "Бришење",
+  "DELETE_DIALOG_BODY": "Дали сакате да го избришете овој апликација? Оваа акција не може да се поврати",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Продолжи",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Покажи скриени",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Нов лансирач",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Отвори лансирач",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Уреди документ",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Ресетирај лансирач",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Избриши лансирач",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Отфрли лансирач",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Кратки патеки",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "За оваа апликација",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Пребарај лансирачи",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Покажи скриени",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Испадни од апликацијата",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Покажи кратки патеки",
+  "SHOW_MENU_SHORTCUT_TEXT": "Отвори мени",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Зачувај промени",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Отфрли промени",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Врати промени",
+  "NEW_STARTER_SHORTCUT_TEXT": "Нов лансирач",
+  "EDIT_FILE_SHORTCUT_TEXT": "Уреди документ",
+  "OPEN_FILE_SHORTCUT_TEXT": "Отвори лансирач",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Уреди",
+  "FIND_SHORTCUT_GROUP_TITLE": "Пребарај",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Општо",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Избери икона",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Избери извршна датотека",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Избери лансирач",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Зачувај",
+
+  "BANNER_LABEL_TEXT": "Изберете ги акциите кои сакате да ги избришете",
+  "BANNER_CANCEL_BUTTON_LABEL": "Готово",
+
+  "APPEARANCE_GROUP_TITLE": "Изглед",
+  "DESCRIPTION_GROUP_TITLE": "Опис",
+  "EXECUTION_GROUP_TITLE": "Извршување",
+  "DISCOVERY_GROUP_TITLE": "Пребарај",
+  "VISIBLE_GROUP_TITLE": "Видливост",
+  "MENU_GROUP_TITLE": "Мени",
+  "ADVANCED_GROUP_TITLE": "Напредно",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Клучни зборови",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пребарување на икони",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Внесете клучни зборови за да добиете предлози",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Нема резултати",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Не се пронајдени резултати за овој влез",
+
+  "ICON_CHOOSER_ROW_TITLE": "Икона",
+  "NAME_ENTRY_ROW_TITLE": "Име",
+  "COMMENT_ENTRY_ROW_TITLE": "Коментар",
+  "COMMAND_CHOOSER_ROW_TITLE": "Команда",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Клучни зборови",
+  "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминал прозорец за време на извршување",
+  "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимација додека апликацијата не е видлива",
+  "VISIBLE_SWITCH_ROW_TITLE": "Покажи ја оваа апликација во главното мени",
+  "CATEGORIES_COMBO_ROW_TITLE": "Традиционални менуетки категории на апликацијата",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Отвори ги поставките во текстуален уредник",
+
+  "LINK_CONVERTER_ROW_LABEL": "Претвори линк во команда",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Стандардна команда",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Име на акција",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Мултимедија",
+  "DEVELOPMENT_CATEGORY_LABEL": "Развој",
+  "EDUCATION_CATEGORY_LABEL": "Образование",
+  "GAME_CATEGORY_LABEL": "Игри",
+  "GRAPHICS_CATEGORY_LABEL": "Графика",
+  "NETWORK_CATEGORY_LABEL": "Интернет",
+  "OFFICE_CATEGORY_LABEL": "Канцеларија",
+  "SCIENCE_CATEGORY_LABEL": "Наука",
+  "SETTINGS_CATEGORY_LABEL": "Поставки",
+  "SYSTEM_CATEGORY_LABEL": "Систем",
+  "UTILITY_CATEGORY_LABEL": "Прилози",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Неуспешно читање на %s датотеки",
+  "LOAD_SINGLE_ERROR_TEXT": "Неуспешно читање на датотека '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Неуспешно отворање на конфигурациски датотеки",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Конфигурациите за '%s' се зачувани",
+  "STARTER_SAVE_ERROR_TEXT": "Неуспешно зачувување на конфигурациите",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Лансирачот за '%s' е креиран",
+  "STARTER_CREATE_ERROR_TEXT": "Неуспешно креирање на лансирач",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Лансирачот за '%s' е ресетiran",
+  "STARTER_RESET_ERROR_TEXT": "Неуспешно ресетирање на лансирач",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Лансирачот за '%s' е избришан",
+  "STARTER_DELETE_ERROR_TEXT": "Неуспешно бришење на лансирач",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Лансирачот за '%s' е отстранет"
+
+}

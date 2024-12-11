@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Menyu Kuu",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Tafadhali Chagua",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Kitendo Kisichojulikana",
+
+  "GREETER_PAGE_HEAD": "Maelezo",
+  "GREETER_PAGE_BODY": "Programu hii inabadilisha faili za mawasiliano ambazo hazijapangwa kubadilishwa na mtumiaji. Kwa mfano, kwenye mfumo mwingine, mabadiliko haya yataonekana baada ya muda mrefu au baada ya mtumiaji kujiunga tena",
+  "GREETER_PAGE_BUTTON_LABEL": "Endelea",
+
+  "START_PAGE_HEAD": "Badilisha menyu",
+  "START_PAGE_BODY": "Tengeneza launcher mpya au chagua launcher iliyopo kwenye sidebar",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Fungua",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Gonga",
+
+  "INSTALL_DIALOG_HEAD": "Usanidi",
+  "INSTALL_DIALOG_BODY": "Unaomba kuongeza programu hii kwenye menyu kuu?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Rudi",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Hifadhi",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Weka",
+
+  "DISCARD_DIALOG_HEAD": "Mabadiliko hayajahifadhiwa",
+  "DISCARD_DIALOG_BODY": "Unaomba kuacha mabadiliko?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Rudi",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Hifadhi",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Acha",
+
+  "RESET_DIALOG_HEAD": "Rudisha",
+  "RESET_DIALOG_BODY": "Unaomba kurudisha programu hii? Hatua hii haiwezi kurudishwa",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Rudi",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Endelea",
+
+  "DELETE_DIALOG_HEAD": "Futa",
+  "DELETE_DIALOG_BODY": "Unaomba kufuta programu hii? Hatua hii haiwezi kurudishwa",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Rudi",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Endelea",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Onyesha yaliyofichwa",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Launcher mpya",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Fungua launcher",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Hariri dokimenti",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Rudisha launcher",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Futa launcher",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Acha launcher",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Vifurushi vya keyboard",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Kuhusu programu hii",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Tafuta launcheri",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Onyesha yaliyofichwa",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Toka programu",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Onyesha vifurushi",
+  "SHOW_MENU_SHORTCUT_TEXT": "Fungua menyu",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Hifadhi mabadiliko",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Acha mabadiliko",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Rudisha mabadiliko",
+  "NEW_STARTER_SHORTCUT_TEXT": "Launcher mpya",
+  "EDIT_FILE_SHORTCUT_TEXT": "Hariri dokimenti",
+  "OPEN_FILE_SHORTCUT_TEXT": "Fungua launcher",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Hariri",
+  "FIND_SHORTCUT_GROUP_TITLE": "Tafuta",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Jumla",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Chagua picha",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Chagua faili la kazi",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Chagua launcher",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Hifadhi",
+
+  "BANNER_LABEL_TEXT": "Tafadhali chagua vitendo unaomba kufuta",
+  "BANNER_CANCEL_BUTTON_LABEL": "Imekamilika",
+
+  "APPEARANCE_GROUP_TITLE": "Mwonekano",
+  "DESCRIPTION_GROUP_TITLE": "Maelezo",
+  "EXECUTION_GROUP_TITLE": "Utekelezaji",
+  "DISCOVERY_GROUP_TITLE": "Tafuta",
+  "VISIBLE_GROUP_TITLE": "Uonekano",
+  "MENU_GROUP_TITLE": "Menyu",
+  "ADVANCED_GROUP_TITLE": "Kuongeza",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Maneno ya utafutaji",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Tafuta picha",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Ingiza maneno ya utafutaji kupata mapendekezo",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Hakuna Matokeo",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Hakuna matokeo ya utafutaji yaliyopatikana kwa ingizo hili",
+
+  "ICON_CHOOSER_ROW_TITLE": "Picha",
+  "NAME_ENTRY_ROW_TITLE": "Jina",
+  "COMMENT_ENTRY_ROW_TITLE": "Maoni",
+  "COMMAND_CHOOSER_ROW_TITLE": "Amri",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Maneno ya msingi",
+  "TERMINAL_SWITCH_ROW_TITLE": "Onyesha dirisha la terminali wakati wa utekelezaji",
+  "NOTIFY_SWITCH_ROW_TITLE": "Onyesha animesheni hadi programu iwe naonekana",
+  "VISIBLE_SWITCH_ROW_TITLE": "Onyesha programu hii kwenye menyu kuu",
+  "CATEGORIES_COMBO_ROW_TITLE": "Jamii za menyu za kawaida za programu",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Fungua mipangilio katika haririo la maandishi",
+
+  "LINK_CONVERTER_ROW_LABEL": "Badilisha kiungo kuwa amri",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Amri la kawaida",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Jina la hatua",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Vipindi vya multimedia",
+  "DEVELOPMENT_CATEGORY_LABEL": "Maendeleo",
+  "EDUCATION_CATEGORY_LABEL": "Elimu",
+  "GAME_CATEGORY_LABEL": "Michezo",
+  "GRAPHICS_CATEGORY_LABEL": "Sanaa",
+  "NETWORK_CATEGORY_LABEL": "Mtandao",
+  "OFFICE_CATEGORY_LABEL": "Ofisi",
+  "SCIENCE_CATEGORY_LABEL": "Saidia",
+  "SETTINGS_CATEGORY_LABEL": "Mipangilio",
+  "SYSTEM_CATEGORY_LABEL": "Mfumo",
+  "UTILITY_CATEGORY_LABEL": "Vifaa vya kuwasaidia",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Kushindwa kufanya %s faili",
+  "LOAD_SINGLE_ERROR_TEXT": "Kushindwa kufanya faili '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Kushindwa kufungua mipangilio",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Mipangilio ya '%s' imehifadhiwa",
+  "STARTER_SAVE_ERROR_TEXT": "Kushindwa kuhifadhi mipangilio",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Launcher ya '%s' imeundwa",
+  "STARTER_CREATE_ERROR_TEXT": "Kushindwa kuunda launcher",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Launcher ya '%s' imekurudishwa",
+  "STARTER_RESET_ERROR_TEXT": "Kushindwa kurudisha launcher",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Launcher ya '%s' imefutwa",
+  "STARTER_DELETE_ERROR_TEXT": "Kushindwa kufuta launcher",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Launcher ya '%s' imeondolewa"
+
+}

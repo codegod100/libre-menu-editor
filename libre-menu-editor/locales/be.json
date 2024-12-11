@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Галоўнае меню",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Безыменнае прыкладанне",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Безыменнае дзеянне",
+
+  "GREETER_PAGE_HEAD": "Інфармацыя",
+  "GREETER_PAGE_BODY": "Гэта праграма змяняе файлы канфігурацыі, якія не прызначаны для рэдагавання карыстачом. На некаторых сістэмах магчыма, што некаторыя змены стану відныя толькі праз доўгі час або пасля паўторнага ўваходу ў сістэму",
+  "GREETER_PAGE_BUTTON_LABEL": "Працягнуць",
+
+  "START_PAGE_HEAD": "Наладка меню",
+  "START_PAGE_BODY": "Стварыце новы лаўнчер прыкладання або выберыце існуючы з бакавой панэлі",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Адкрыць",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Адмена",
+
+  "INSTALL_DIALOG_HEAD": "Устаноўка",
+  "INSTALL_DIALOG_BODY": "Вы хочаце дадаць гэта прыкладанне ў галоўнае меню?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Захаваць",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Усталяваць",
+
+  "DISCARD_DIALOG_HEAD": "Незахаваныя змены",
+  "DISCARD_DIALOG_BODY": "Вы хочаце адмяніць змены?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Захаваць",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Адмяніць",
+
+  "RESET_DIALOG_HEAD": "Сброс",
+  "RESET_DIALOG_BODY": "Вы хочаце сбрасці гэта прыкладанне? Гэта дзеянне не можа быць адменена",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Працягнуць",
+
+  "DELETE_DIALOG_HEAD": "Выдаленне",
+  "DELETE_DIALOG_BODY": "Вы хочаце выдаліць гэта прыкладанне? Гэта дзеянне не можа быць адменена",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Працягнуць",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Паказаць схаваныя",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Новы лаўнчер",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Адкрыць лаўнчер",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Рэдагаваць дакумент",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Сброс лаўнчера",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Выдаліць лаўнчер",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Адмяніць лаўнчер",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Клавішныя скарачэнні",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Аб праграме",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Пошук стартераў",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Паказаць схаваныя",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Выхад з прыкладання",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Паказаць клавішныя скарачэнні",
+  "SHOW_MENU_SHORTCUT_TEXT": "Адкрыць меню",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Захаваць змены",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Адмяніць змены",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Выдаліць змены",
+  "NEW_STARTER_SHORTCUT_TEXT": "Новы лаўнчер",
+  "EDIT_FILE_SHORTCUT_TEXT": "Рэдагаваць дакумент",
+  "OPEN_FILE_SHORTCUT_TEXT": "Адкрыць лаўнчер",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Рэдагаваць",
+  "FIND_SHORTCUT_GROUP_TITLE": "Знайсці",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Агульныя",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Выберыце іконку",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Выберыце выканальны файл",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Выберыце лаўнчер",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Захаваць",
+
+  "BANNER_LABEL_TEXT": "Выберыце дзеянні, якія вы хочаце выдаліць",
+  "BANNER_CANCEL_BUTTON_LABEL": "Гатова",
+
+  "APPEARANCE_GROUP_TITLE": "Знешні выгляд",
+  "DESCRIPTION_GROUP_TITLE": "Апісанне",
+  "EXECUTION_GROUP_TITLE": "Выкананне",
+  "DISCOVERY_GROUP_TITLE": "Пошук",
+  "VISIBLE_GROUP_TITLE": "Відымасць",
+  "MENU_GROUP_TITLE": "Меню",
+  "ADVANCED_GROUP_TITLE": "Пашыраны",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Ключавыя словы",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Пошук іконак",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Увядзіце ключавыя словы для атрымання прапаноў",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Няма вынікаў",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Па гэтым уваходзе пошукавыя вынікі не знойдзены",
+
+  "ICON_CHOOSER_ROW_TITLE": "Іконка",
+  "NAME_ENTRY_ROW_TITLE": "Імя",
+  "COMMENT_ENTRY_ROW_TITLE": "Каментар",
+  "COMMAND_CHOOSER_ROW_TITLE": "Каманда",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Ключавыя словы",
+  "TERMINAL_SWITCH_ROW_TITLE": "Паказаць тэрмінальнае акно падчас выканання",
+  "NOTIFY_SWITCH_ROW_TITLE": "Паказаць анімацыю да таго, як прыкладанне стане відным",
+  "VISIBLE_SWITCH_ROW_TITLE": "Паказаць гэта прыкладанне ў галоўным меню",
+  "CATEGORIES_COMBO_ROW_TITLE": "Традыцыйныя катэгорыі меню прыкладання",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Адкрыць параметры ў тэкставым рэдактары",
+
+  "LINK_CONVERTER_ROW_LABEL": "Пераўтварыць спасылку ў каманду",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Паўторны каманд",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Імя дзеяння",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Мультымедыя",
+  "DEVELOPMENT_CATEGORY_LABEL": "Развіццё",
+  "EDUCATION_CATEGORY_LABEL": "Адукацыя",
+  "GAME_CATEGORY_LABEL": "Гульні",
+  "GRAPHICS_CATEGORY_LABEL": "Графіка",
+  "NETWORK_CATEGORY_LABEL": "Інтернет",
+  "OFFICE_CATEGORY_LABEL": "Офіс",
+  "SCIENCE_CATEGORY_LABEL": "Навука",
+  "SETTINGS_CATEGORY_LABEL": "Наладка",
+  "SYSTEM_CATEGORY_LABEL": "Сістэма",
+  "UTILITY_CATEGORY_LABEL": "Утыліты",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Не ўдалося загрузіць %s файлаў",
+  "LOAD_SINGLE_ERROR_TEXT": "Не ўдалося загрузіць файл '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Не ўдалося адкрыць канфігурацыі",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Канфігурацыі для '%s' захаваныя",
+  "STARTER_SAVE_ERROR_TEXT": "Не ўдалося захаваць канфігурацыі",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "лаўнчер для '%s' створаны",
+  "STARTER_CREATE_ERROR_TEXT": "Не ўдалося стварыць лаўнчер",
+
+  "STARTER_RESET_MESSAGE_TEXT": "лаўнчер для '%s' сброшаны",
+  "STARTER_RESET_ERROR_TEXT": "Не ўдалося сбрасці лаўнчер",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "лаўнчер для '%s' выдалены",
+  "STARTER_DELETE_ERROR_TEXT": "Не ўдалося выдаліць лаўнчер",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "лаўнчер для '%s' выдалены"
+
+}

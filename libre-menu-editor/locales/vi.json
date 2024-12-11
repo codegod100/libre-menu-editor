@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Menu Chính",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Ứng dụng không tên",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Hành động không tên",
+
+  "GREETER_PAGE_HEAD": "Thông tin",
+  "GREETER_PAGE_BODY": "Chương trình này thay đổi các tệp cấu hình không được thiết kế để người dùng sửa đổi. Trên một số hệ thống, điều này có thể xảy ra là một số thay đổi sẽ chỉ trở nên rõ ràng sau một thời gian dài hoặc sau khi người dùng đăng nhập lại",
+  "GREETER_PAGE_BUTTON_LABEL": "Tiếp tục",
+
+  "START_PAGE_HEAD": "Tùy chỉnh menu ứng dụng",
+  "START_PAGE_BODY": "Tạo một ứng dụng launcher mới hoặc chọn một ứng dụng launcher hiện có từ thanh bên",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Mở",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Hủy",
+
+  "INSTALL_DIALOG_HEAD": "Cài đặt",
+  "INSTALL_DIALOG_BODY": "Bạn có muốn thêm ứng dụng này vào menu chính?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Quay lại",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Lưu",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Cài đặt",
+
+  "DISCARD_DIALOG_HEAD": "Thay đổi chưa lưu",
+  "DISCARD_DIALOG_BODY": "Bạn có muốn hủy bỏ các thay đổi?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Quay lại",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Lưu",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Hủy bỏ",
+
+  "RESET_DIALOG_HEAD": "Đặt lại",
+  "RESET_DIALOG_BODY": "Bạn có muốn đặt lại ứng dụng này? Hành động này không thể hoàn tác",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Quay lại",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Tiếp tục",
+
+  "DELETE_DIALOG_HEAD": "Xóa",
+  "DELETE_DIALOG_BODY": "Bạn có muốn xóa ứng dụng này? Hành động này không thể hoàn tác",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Quay lại",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Tiếp tục",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Hiển thị ẩn",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Launcher mới",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Mở launcher",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Sửa tài liệu",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Đặt lại launcher",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Xóa launcher",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Hủy launcher",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Phím tắt bàn phím",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Thông tin về ứng dụng",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Tìm kiếm launcher",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Hiển thị ẩn",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Thoát ứng dụng",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Hiển thị phím tắt",
+  "SHOW_MENU_SHORTCUT_TEXT": "Mở menu",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Lưu thay đổi",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Hủy thay đổi",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Hoàn tác thay đổi",
+  "NEW_STARTER_SHORTCUT_TEXT": "Launcher mới",
+  "EDIT_FILE_SHORTCUT_TEXT": "Sửa tài liệu",
+  "OPEN_FILE_SHORTCUT_TEXT": "Mở launcher",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Sửa",
+  "FIND_SHORTCUT_GROUP_TITLE": "Tìm",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Chung",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Chọn biểu tượng",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Chọn tệp thực thi",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Chọn launcher",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Lưu",
+
+  "BANNER_LABEL_TEXT": "Vui lòng chọn các hành động bạn muốn xóa",
+  "BANNER_CANCEL_BUTTON_LABEL": "Hoàn tất",
+
+  "APPEARANCE_GROUP_TITLE": "Giao diện",
+  "DESCRIPTION_GROUP_TITLE": "Mô tả",
+  "EXECUTION_GROUP_TITLE": "Thực thi",
+  "DISCOVERY_GROUP_TITLE": "Tìm kiếm",
+  "VISIBLE_GROUP_TITLE": "Hiển thị",
+  "MENU_GROUP_TITLE": "Thực đơn",
+  "ADVANCED_GROUP_TITLE": "Nâng cao",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Tìm kiếm biểu tượng",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Tìm kiếm biểu tượng",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Nhập từ khóa để nhận gợi ý",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Không có kết quả",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Không tìm thấy kết quả tìm kiếm cho đầu vào này",
+
+  "ICON_CHOOSER_ROW_TITLE": "Biểu tượng",
+  "NAME_ENTRY_ROW_TITLE": "Tên",
+  "COMMENT_ENTRY_ROW_TITLE": "Bình luận",
+  "COMMAND_CHOOSER_ROW_TITLE": "Lệnh",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Từ khóa",
+  "TERMINAL_SWITCH_ROW_TITLE": "Hiển thị một cửa sổ terminal trong quá trình thực thi",
+  "NOTIFY_SWITCH_ROW_TITLE": "Hiển thị một hiệu ứng động cho đến khi ứng dụng trở nên rõ ràng",
+  "VISIBLE_SWITCH_ROW_TITLE": "Hiển thị ứng dụng này trong menu chính",
+  "CATEGORIES_COMBO_ROW_TITLE": "Danh mục menu truyền thống của ứng dụng",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Mở cài đặt trong trình soạn thảo văn bản",
+
+  "LINK_CONVERTER_ROW_LABEL": "Chuyển đổi liên kết thành lệnh",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Lệnh mặc định",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Tên hành động",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Truyền thông",
+  "DEVELOPMENT_CATEGORY_LABEL": "Phát triển",
+  "EDUCATION_CATEGORY_LABEL": "Giáo dục",
+  "GAME_CATEGORY_LABEL": "Trò chơi",
+  "GRAPHICS_CATEGORY_LABEL": "Đồ họa",
+  "NETWORK_CATEGORY_LABEL": "Mạng",
+  "OFFICE_CATEGORY_LABEL": "Văn phòng",
+  "SCIENCE_CATEGORY_LABEL": "Khoa học",
+  "SETTINGS_CATEGORY_LABEL": "Cài đặt",
+  "SYSTEM_CATEGORY_LABEL": "Hệ thống",
+  "UTILITY_CATEGORY_LABEL": "Tiện ích",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Không thể tải %s tệp",
+  "LOAD_SINGLE_ERROR_TEXT": "Không thể tải tệp '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Không thể mở cấu hình",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Cấu hình cho '%s' đã được lưu",
+  "STARTER_SAVE_ERROR_TEXT": "Không thể lưu cấu hình",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Launcher cho '%s' đã được tạo",
+  "STARTER_CREATE_ERROR_TEXT": "Không thể tạo launcher",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Launcher cho '%s' đã được đặt lại",
+  "STARTER_RESET_ERROR_TEXT": "Không thể đặt lại launcher",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Launcher cho '%s' đã được xóa",
+  "STARTER_DELETE_ERROR_TEXT": "Không thể xóa launcher",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Launcher cho '%s' đã được xóa"
+
+}

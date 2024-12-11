@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Басты Меню",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Атаусыз Қосымша",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Атаусыз Әрекет",
+
+  "GREETER_PAGE_HEAD": "Ақпарат",
+  "GREETER_PAGE_BODY": "Бұл бағдарлама пайдаланушы өңдеуге арналмаған конфигурация файлдарын өзгертеді. Сондықтан кейбір жүйелерде кейбір өзгерістер ұзақ уақыттан кейін немесе пайдаланушы қайта кіргеннен кейін ғана көрінетін болуы мүмкін",
+  "GREETER_PAGE_BUTTON_LABEL": "Жалғастыру",
+
+  "START_PAGE_HEAD": "Мәзірді теңшеңіз",
+  "START_PAGE_BODY": "Жаңа қосымша лаунчерді жасаңыз немесе жақтағы таңдаумен бұрынғы лаунчерді таңдаңыз",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Ашу",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Болдырмау",
+
+  "INSTALL_DIALOG_HEAD": "Орнату",
+  "INSTALL_DIALOG_BODY": "Бұл қосымшаны басты менюге қосқыңыз келе ме?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Артқа",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Сақтау",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Орнату",
+
+  "DISCARD_DIALOG_HEAD": "Сақталмаған өзгерістер",
+  "DISCARD_DIALOG_BODY": "Өзгерістерді сақтамаңыз келе ме?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Артқа",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Сақтау",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Сақтамау",
+
+  "RESET_DIALOG_HEAD": "Қайта орнату",
+  "RESET_DIALOG_BODY": "Бұл қосымшаны қайта орнатуға келе ме? Бұл әрекеттің кері қайтарылмайтынына көңіл бөліңіз",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Артқа",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Жалғастыру",
+
+  "DELETE_DIALOG_HEAD": "Жою",
+  "DELETE_DIALOG_BODY": "Бұл қосымшаны жоюға келе ме? Бұл әрекеттің кері қайтарылмайтынына көңіл бөліңіз",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Артқа",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Жалғастыру",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Жасырынған көрсету",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Жаңа лаунчер",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Лаунчерді ашу",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Құжатты өзгерту",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Лаунчерді қайта орнату",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Лаунчерді жою",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Лаунчерді сақтамау",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Пернелік қысқартпалар",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Бұл бағдарлама туралы",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Лаунчерлерді іздеу",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Жасырынған көрсету",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Бағдарламаны тоқтату",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Пернелік қысқартпаларды көрсету",
+  "SHOW_MENU_SHORTCUT_TEXT": "Менюді ашу",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Өзгерістерді сақтау",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Өзгерістерді сақтамау",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Өзгерістерді кері қайтару",
+  "NEW_STARTER_SHORTCUT_TEXT": "Жаңа лаунчер",
+  "EDIT_FILE_SHORTCUT_TEXT": "Құжатты өзгерту",
+  "OPEN_FILE_SHORTCUT_TEXT": "Лаунчерді ашу",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Өзгерту",
+  "FIND_SHORTCUT_GROUP_TITLE": "Іздеу",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Жалпы",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Иконканы таңдау",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Орындау файлын таңдау",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Лаунчерді таңдау",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Сақтау",
+
+  "BANNER_LABEL_TEXT": "Өшіруге арналған әрекеттерді таңдаңыз",
+  "BANNER_CANCEL_BUTTON_LABEL": "Бітіру",
+
+  "APPEARANCE_GROUP_TITLE": "Көрініс",
+  "DESCRIPTION_GROUP_TITLE": "Сипаттама",
+  "EXECUTION_GROUP_TITLE": "Орындау",
+  "DISCOVERY_GROUP_TITLE": "Іздеу",
+  "VISIBLE_GROUP_TITLE": "Көріну",
+  "MENU_GROUP_TITLE": "Меню",
+  "ADVANCED_GROUP_TITLE": "Өркендеу",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Сөздер",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Сурет іздеу",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Ұсыныстарды алу үшін сөздерді енгізіңіз",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Нәтиже жоқ",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Бұл енгізілгенге сәйкес іздеу нәтижелері табылмады",
+
+  "ICON_CHOOSER_ROW_TITLE": "Иконка",
+  "NAME_ENTRY_ROW_TITLE": "Атау",
+  "COMMENT_ENTRY_ROW_TITLE": "Түсініктеме",
+  "COMMAND_CHOOSER_ROW_TITLE": "Орындау",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Кілт сөздер",
+  "TERMINAL_SWITCH_ROW_TITLE": "Орындау кезінде терминалдық жүйені көрсету",
+  "NOTIFY_SWITCH_ROW_TITLE": "Қосымшаның көрінуіне дейін анимация көрсету",
+  "VISIBLE_SWITCH_ROW_TITLE": "Бұл қосымшаны басты менюде көрсету",
+  "CATEGORIES_COMBO_ROW_TITLE": "Традициялық меню категориялары",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Параметрлерді мәтіндік редакторда ашу",
+
+  "LINK_CONVERTER_ROW_LABEL": "Сілтемені орындауға ауыстыру",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Әдеттегі команда",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Әрекет аты",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Мультимедиа",
+  "DEVELOPMENT_CATEGORY_LABEL": "Даму",
+  "EDUCATION_CATEGORY_LABEL": "Білім",
+  "GAME_CATEGORY_LABEL": "Ойындар",
+  "GRAPHICS_CATEGORY_LABEL": "Графика",
+  "NETWORK_CATEGORY_LABEL": "Интернет",
+  "OFFICE_CATEGORY_LABEL": "Офис",
+  "SCIENCE_CATEGORY_LABEL": "Ғылым",
+  "SETTINGS_CATEGORY_LABEL": "Параметрлер",
+  "SYSTEM_CATEGORY_LABEL": "Жүйе",
+  "UTILITY_CATEGORY_LABEL": "Қосымша құралдар",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "%s Файлдарды жүктеу сәтсіз болды",
+  "LOAD_SINGLE_ERROR_TEXT": "'%s' Файлын жүктеу сәтсіз болды",
+  "OPEN_FILE_ERROR_TEXT": "Конфигурацияларды ашу сәтсіз болды",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "'%s' үшін конфигурациялар сақталды",
+  "STARTER_SAVE_ERROR_TEXT": "'%s' үшін конфигурацияларды сақтау сәтсіз болды",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "'%s' үшін лаунчер жасалды",
+  "STARTER_CREATE_ERROR_TEXT": "'%s' үшін лаунчерді жасау сәтсіз болды",
+
+  "STARTER_RESET_MESSAGE_TEXT": "'%s' үшін лаунчер қайта орнатылды",
+  "STARTER_RESET_ERROR_TEXT": "'%s' үшін лаунчерді қайта орнату сәтсіз болды",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "'%s' үшін лаунчер жойылды",
+  "STARTER_DELETE_ERROR_TEXT": "'%s' үшін лаунчерді жою сәтсіз болды",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "'%s' үшін лаунчер алынып тасталды"
+
+}

@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Galvenais izvēlne",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Bez nosaukuma lietotne",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Bez nosaukuma darbība",
+
+  "GREETER_PAGE_HEAD": "Informācija",
+  "GREETER_PAGE_BODY": "Šis programma maina konfigurācijas failus, kas nav paredzēti lietotāja rediģēšanai. Tāpēc dažos sistēmos var notikt, ka dažas izmaiņas kļūs redzamas tikai pēc ilga laika vai pēc lietotāja ielogošanās atkal",
+  "GREETER_PAGE_BUTTON_LABEL": "Turpināt",
+
+  "START_PAGE_HEAD": "Pielāgot izvēlni",
+  "START_PAGE_BODY": "Izveido jaunu lietotņu palaišanas saiti vai atlasiet esošo no sānu joslas",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Atvērt",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Atcelt",
+
+  "INSTALL_DIALOG_HEAD": "Instalācija",
+  "INSTALL_DIALOG_BODY": "Vai vēlaties pievienot šo lietotni galvenajai izvēlnei?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Atpakaļ",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Saglabāt",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Instalēt",
+
+  "DISCARD_DIALOG_HEAD": "Nesaglabātas izmaiņas",
+  "DISCARD_DIALOG_BODY": "Vai vēlaties atcelt izmaiņas?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Atpakaļ",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Saglabāt",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Atcelt",
+
+  "RESET_DIALOG_HEAD": "Atjaunot",
+  "RESET_DIALOG_BODY": "Vai vēlaties atjaunot šo lietotni? Šī darbība nevar tikt atcelta",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Atpakaļ",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Turpināt",
+
+  "DELETE_DIALOG_HEAD": "Dzēst",
+  "DELETE_DIALOG_BODY": "Vai vēlaties dzēst šo lietotni? Šī darbība nevar tikt atcelta",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Atpakaļ",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Turpināt",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Rādīt slēptos",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Jauns palaišanas saite",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Atvērt palaišanas saiti",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Rediģēt dokumentu",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Atjaunot palaišanas saiti",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Dzēst palaišanas saiti",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Atcelt palaišanas saiti",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Tastatūras saīsinājumi",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Par šo programmu",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Meklēt palaišanas saites",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Rādīt slēptos",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Iziet no programmas",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Rādīt saīsinājumus",
+  "SHOW_MENU_SHORTCUT_TEXT": "Atvērt izvēlni",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Saglabāt izmaiņas",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Atcelt izmaiņas",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Atcelt izmaiņas",
+  "NEW_STARTER_SHORTCUT_TEXT": "Jauns palaišanas saite",
+  "EDIT_FILE_SHORTCUT_TEXT": "Rediģēt dokumentu",
+  "OPEN_FILE_SHORTCUT_TEXT": "Atvērt palaišanas saiti",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Rediģēt",
+  "FIND_SHORTCUT_GROUP_TITLE": "Meklēt",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Vispārīgi",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Izvēlēties ikonu",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Izvēlēties izpildes failu",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Izvēlēties palaišanas saiti",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Saglabāt",
+
+  "BANNER_LABEL_TEXT": "Lūdzu, atlasiet darbības, kurus vēlaties dzēst",
+  "BANNER_CANCEL_BUTTON_LABEL": "Pabeigt",
+
+  "APPEARANCE_GROUP_TITLE": "Izskats",
+  "DESCRIPTION_GROUP_TITLE": "Apraksts",
+  "EXECUTION_GROUP_TITLE": "Izpilde",
+  "DISCOVERY_GROUP_TITLE": "Meklēšana",
+  "VISIBLE_GROUP_TITLE": "Redzamība",
+  "MENU_GROUP_TITLE": "Iestatījumu sadaļa",
+  "ADVANCED_GROUP_TITLE": "Papildu",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Meklēšanas vārdi",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Piktogrammu meklēšana",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Ievadiet meklēšanas vārdus, lai saņemtu ieteikumus",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Rezultātu nav",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Šīs ievades rezultātu nav atrasts",
+
+  "ICON_CHOOSER_ROW_TITLE": "Ikona",
+  "NAME_ENTRY_ROW_TITLE": "Nosaukums",
+  "COMMENT_ENTRY_ROW_TITLE": "Komentārs",
+  "COMMAND_CHOOSER_ROW_TITLE": "Komanda",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Atslēgvārdi",
+  "TERMINAL_SWITCH_ROW_TITLE": "Rādīt terminālu logu izpildes laikā",
+  "NOTIFY_SWITCH_ROW_TITLE": "Rādīt animāciju līdz lietotne kļūst redzama",
+  "VISIBLE_SWITCH_ROW_TITLE": "Rādīt šo lietotni galvenajā izvēlnei",
+  "CATEGORIES_COMBO_ROW_TITLE": "Tradicionālās izvēlnes kategorijas",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Atvērt iestatījumus teksta redaktorā",
+
+  "LINK_CONVERTER_ROW_LABEL": "Pārveidot saiti uz komandu",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Normālais komanda",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Darbības nosaukums",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimēdija",
+  "DEVELOPMENT_CATEGORY_LABEL": "Izstrāde",
+  "EDUCATION_CATEGORY_LABEL": "Izglītība",
+  "GAME_CATEGORY_LABEL": "Spēles",
+  "GRAPHICS_CATEGORY_LABEL": "Grafika",
+  "NETWORK_CATEGORY_LABEL": "Internets",
+  "OFFICE_CATEGORY_LABEL": "Birojs",
+  "SCIENCE_CATEGORY_LABEL": "Zinātne",
+  "SETTINGS_CATEGORY_LABEL": "Iestatījumi",
+  "SYSTEM_CATEGORY_LABEL": "Sistēma",
+  "UTILITY_CATEGORY_LABEL": "Pielietojumi",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Neizdevās ielādēt %s failus",
+  "LOAD_SINGLE_ERROR_TEXT": "Neizdevās ielādēt failu '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Neizdevās atvērt konfigurācijas",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Konfigurācijas '%s' ir saglabātas",
+  "STARTER_SAVE_ERROR_TEXT": "Neizdevās saglabāt konfigurācijas",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Palaišanas saite '%s' ir izveidota",
+  "STARTER_CREATE_ERROR_TEXT": "Neizdevās izveidot palaišanas saiti",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Palaišanas saite '%s' ir atjaunota",
+  "STARTER_RESET_ERROR_TEXT": "Neizdevās atjaunot palaišanas saiti",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Palaišanas saite '%s' ir dzēsta",
+  "STARTER_DELETE_ERROR_TEXT": "Neizdevās dzēst palaišanas saiti",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Palaišanas saite '%s' ir noņemta"
+
+}

@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Põhimenüü",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Nimetu rakendus",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Nimetu tegevus",
+
+  "GREETER_PAGE_HEAD": "Teave",
+  "GREETER_PAGE_BODY": "See programm muudab konfiguratsioonifaili, mis ei ole mõeldud kasutaja poolt muudetavaks. Mõnel süsteemil võib juhtuda, et mõned muudatused hakkavad kehtima alles pärast pikka aega või pärast kasutaja sisselogimist",
+  "GREETER_PAGE_BUTTON_LABEL": "Jätka",
+
+  "START_PAGE_HEAD": "Menüü kohandamine",
+  "START_PAGE_BODY": "Loo uus rakenduse starter või vali olemasolev starter kõrvalpaanilt",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Ava",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Tühista",
+
+  "INSTALL_DIALOG_HEAD": "Installimine",
+  "INSTALL_DIALOG_BODY": "Kas soovite lisada selle rakenduse põhimenüüsse?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Tagasi",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Salvesta",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Installeeri",
+
+  "DISCARD_DIALOG_HEAD": "Salvestamata muudatused",
+  "DISCARD_DIALOG_BODY": "Kas soovite loobuda muudatustest?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Tagasi",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Salvesta",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Loobu",
+
+  "RESET_DIALOG_HEAD": "Lähtesta",
+  "RESET_DIALOG_BODY": "Kas soovite lähtestada selle rakenduse? See tegevus ei ole tagasi võtav",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Tagasi",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Jätka",
+
+  "DELETE_DIALOG_HEAD": "Kustuta",
+  "DELETE_DIALOG_BODY": "Kas soovite kustutada selle rakenduse? See tegevus ei ole tagasi võtav",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Tagasi",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Jätka",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Näita varjatud",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Uus starter",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Ava starter",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Muuda dokumenti",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Lähtesta starter",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Kustuta starter",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Loobu starter",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Klaviatuurilühendid",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Info rakenduse kohta",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Otsi startereid",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Näita varjatud",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Sulge rakendus",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Näita lühendeid",
+  "SHOW_MENU_SHORTCUT_TEXT": "Ava menüü",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Salvesta muudatused",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Loobu muudatustest",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Tagasi võta muudatused",
+  "NEW_STARTER_SHORTCUT_TEXT": "Uus starter",
+  "EDIT_FILE_SHORTCUT_TEXT": "Muuda dokumenti",
+  "OPEN_FILE_SHORTCUT_TEXT": "Ava starter",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Muuda",
+  "FIND_SHORTCUT_GROUP_TITLE": "Otsi",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Üldine",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Vali ikoon",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Vali käivitamise fail",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Vali starter",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Salvesta",
+
+  "BANNER_LABEL_TEXT": "Valige tegevused, mida soovite kustutada",
+  "BANNER_CANCEL_BUTTON_LABEL": "Valmis",
+
+  "APPEARANCE_GROUP_TITLE": "Välimus",
+  "DESCRIPTION_GROUP_TITLE": "Kirjeldus",
+  "EXECUTION_GROUP_TITLE": "Käivitamine",
+  "DISCOVERY_GROUP_TITLE": "Otsing",
+  "VISIBLE_GROUP_TITLE": "Nähtavus",
+  "MENU_GROUP_TITLE": "Menüü",
+  "ADVANCED_GROUP_TITLE": "Täpsemalt",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Võtmesõnad",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Ikoonide otsing",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Sisestage võtmesõnad, et saada soovitusi",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Tulemusi pole",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Selle sisestuse jaoks otsingutulemusi ei leitud",
+
+  "ICON_CHOOSER_ROW_TITLE": "Ikoon",
+  "NAME_ENTRY_ROW_TITLE": "Nimi",
+  "COMMENT_ENTRY_ROW_TITLE": "Kommentaar",
+  "COMMAND_CHOOSER_ROW_TITLE": "Käivitamise käsk",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Võtmesõnad",
+  "TERMINAL_SWITCH_ROW_TITLE": "Näita terminali akent käivitamise ajal",
+  "NOTIFY_SWITCH_ROW_TITLE": "Näita animatsiooni, kuni rakendus on nähtav",
+  "VISIBLE_SWITCH_ROW_TITLE": "Näita seda rakendust põhimenüüs",
+  "CATEGORIES_COMBO_ROW_TITLE": "Rakenduse traditsioonilised menükategooriad",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Ava seaded tekstiredaktoris",
+
+  "LINK_CONVERTER_ROW_LABEL": "Muuda link käivitamiseks",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Vaikimisi käsk",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Tegevuse nimi",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimeedia",
+  "DEVELOPMENT_CATEGORY_LABEL": "Areng",
+  "EDUCATION_CATEGORY_LABEL": "Haridus",
+  "GAME_CATEGORY_LABEL": "Mängud",
+  "GRAPHICS_CATEGORY_LABEL": "Graafika",
+  "NETWORK_CATEGORY_LABEL": "Internet",
+  "OFFICE_CATEGORY_LABEL": "Kontor",
+  "SCIENCE_CATEGORY_LABEL": "Teadus",
+  "SETTINGS_CATEGORY_LABEL": "Seaded",
+  "SYSTEM_CATEGORY_LABEL": "Süsteem",
+  "UTILITY_CATEGORY_LABEL": "Abivahendid",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Ei õnnestunud laadida %s faile",
+  "LOAD_SINGLE_ERROR_TEXT": "Ei õnnestunud laadida faili '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Ei õnnestunud avada konfiguratsioone",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Konfiguratsioonid '%s' on salvestatud",
+  "STARTER_SAVE_ERROR_TEXT": "Ei õnnestunud salvestada konfiguratsioone",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Starter '%s' on loodud",
+  "STARTER_CREATE_ERROR_TEXT": "Ei õnnestunud luua starterit",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Starter '%s' on lähtestatud",
+  "STARTER_RESET_ERROR_TEXT": "Ei õnnestunud lähtestada starterit",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Starter '%s' on kustutatud",
+  "STARTER_DELETE_ERROR_TEXT": "Ei õnnestunud kustutada starterit",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Starter '%s' on eemaldatud"
+
+}

@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Главно меню",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Безименно приложение",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Безименно действие",
+
+  "GREETER_PAGE_HEAD": "Информация",
+  "GREETER_PAGE_BODY": "Тази програма променя файловете на конфигурация, които не са предназначени за редактиране от потребителя. Във някои системи може да се получи така, че някои промени ще станат видими едва след дълго време или след повторно влизане в системата",
+  "GREETER_PAGE_BUTTON_LABEL": "Продължи",
+
+  "START_PAGE_HEAD": "Персонализиране на менюто",
+  "START_PAGE_BODY": "Създайте нов стартър на приложение или избере съществуващ от страничната панел",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Отвори",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Отказ",
+
+  "INSTALL_DIALOG_HEAD": "Инсталиране",
+  "INSTALL_DIALOG_BODY": "Искате ли да добавите това приложение в главното меню?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Запази",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Инсталирай",
+
+  "DISCARD_DIALOG_HEAD": "Незапазени промени",
+  "DISCARD_DIALOG_BODY": "Искате ли да отмените промените?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Запази",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Отмени",
+
+  "RESET_DIALOG_HEAD": "Възстановяване",
+  "RESET_DIALOG_BODY": "Искате ли да възстановите това приложение? Това действие не може да бъде отменено",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Продължи",
+
+  "DELETE_DIALOG_HEAD": "Изтриване",
+  "DELETE_DIALOG_BODY": "Искате ли да изтриете това приложение? Това действие не може да бъде отменено",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Назад",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Продължи",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Покажи скрити",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Нов стартър",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Отвори стартър",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Редактирай документ",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Възстанови стартър",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Изтрий стартър",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Отмени стартър",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Клавишни комбинации",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "За програмата",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Търсене на стартъри",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Покажи скрити",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Изход от приложението",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Покажи клавишни комбинации",
+  "SHOW_MENU_SHORTCUT_TEXT": "Отвори менюто",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Запази промените",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Отмени промените",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Изтрий промените",
+  "NEW_STARTER_SHORTCUT_TEXT": "Нов стартър",
+  "EDIT_FILE_SHORTCUT_TEXT": "Редактирай документ",
+  "OPEN_FILE_SHORTCUT_TEXT": "Отвори стартър",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Редактирай",
+  "FIND_SHORTCUT_GROUP_TITLE": "Намери",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Общи",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Изберете икона",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Изберете изпълним файл",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Изберете стартър",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Запази",
+
+  "BANNER_LABEL_TEXT": "Изберете действията, които искате да изтриете",
+  "BANNER_CANCEL_BUTTON_LABEL": "Готово",
+
+  "APPEARANCE_GROUP_TITLE": "Външен вид",
+  "DESCRIPTION_GROUP_TITLE": "Описание",
+  "EXECUTION_GROUP_TITLE": "Изпълнение",
+  "DISCOVERY_GROUP_TITLE": "Търсене",
+  "VISIBLE_GROUP_TITLE": "Видимост",
+  "MENU_GROUP_TITLE": "Меню",
+  "ADVANCED_GROUP_TITLE": "Напреднали",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Ключови думи",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Търсене на икони",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Въведете ключови думи, за да получите предложения",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Няма резултати",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Не са намерени резултати от търсенето за този вход",
+
+  "ICON_CHOOSER_ROW_TITLE": "Икона",
+  "NAME_ENTRY_ROW_TITLE": "Име",
+  "COMMENT_ENTRY_ROW_TITLE": "Коментар",
+  "COMMAND_CHOOSER_ROW_TITLE": "Команда",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Ключови думи",
+  "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминално окно по време на изпълнение",
+  "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимация до това приложението да стане видимо",
+  "VISIBLE_SWITCH_ROW_TITLE": "Покажи това приложение в главното меню",
+  "CATEGORIES_COMBO_ROW_TITLE": "Традиционни категории на менюто на приложението",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Отворете настройките в текстов редактор",
+
+  "LINK_CONVERTER_ROW_LABEL": "Преобразувайте връзката в команда",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Първична команда",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Име на действие",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Мултимедия",
+  "DEVELOPMENT_CATEGORY_LABEL": "Разработка",
+  "EDUCATION_CATEGORY_LABEL": "Образование",
+  "GAME_CATEGORY_LABEL": "Игри",
+  "GRAPHICS_CATEGORY_LABEL": "Графика",
+  "NETWORK_CATEGORY_LABEL": "Интернет",
+  "OFFICE_CATEGORY_LABEL": "Офис",
+  "SCIENCE_CATEGORY_LABEL": "Наука",
+  "SETTINGS_CATEGORY_LABEL": "Настройки",
+  "SYSTEM_CATEGORY_LABEL": "Система",
+  "UTILITY_CATEGORY_LABEL": "Утилити",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Неуспешно зареждане на %s файлове",
+  "LOAD_SINGLE_ERROR_TEXT": "Неуспешно зареждане на файла '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Неуспешно отваряне на конфигурацията",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Конфигурациите за '%s' са запазени",
+  "STARTER_SAVE_ERROR_TEXT": "Неуспешно запазване на конфигурациите",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Стартърът за '%s' е създаден",
+  "STARTER_CREATE_ERROR_TEXT": "Неуспешно създаване на стартър",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Стартърът за '%s' е възстановен",
+  "STARTER_RESET_ERROR_TEXT": "Неуспешно възстановяване на стартър",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Стартърът за '%s' е изтрит",
+  "STARTER_DELETE_ERROR_TEXT": "Неуспешно изтриване на стартър",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Стартърът за '%s' е изтрит"
+
+}

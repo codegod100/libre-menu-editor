@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Κύριο Μενού",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Εφαρμογή χωρίς όνομα",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Ενέργεια χωρίς όνομα",
+
+  "GREETER_PAGE_HEAD": "Πληροφορίες",
+  "GREETER_PAGE_BODY": "Το πρόγραμμα αυτό αλλάζει αρχεία ρυθμίσεων που δεν προορίζονται να επεξεργάζονται από τον χρήστη. Σε ορισμένα συστήματα μπορεί να συμβεί ότι ορισμένες αλλαγές θα γίνουν ορατές μόνο μετά από μεγάλο χρονικό διάστημα ή μετά τη σύνδεση του χρήστη ξανά",
+  "GREETER_PAGE_BUTTON_LABEL": "Συνέχεια",
+
+  "START_PAGE_HEAD": "Προσαρμόστε το μενού",
+  "START_PAGE_BODY": "Δημιουργήστε ένα νέο εκκινητή εφαρμογής ή επιλέξτε έναν υπάρχοντα από τη σाइडμπαρ",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Άνοιγμα",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Ακύρωση",
+
+  "INSTALL_DIALOG_HEAD": "Εγκατάσταση",
+  "INSTALL_DIALOG_BODY": "Θέλετε να προσθέσετε αυτήν την εφαρμογή στο κύριο μενού;",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Πίσω",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Αποθήκευση",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Εγκατάσταση",
+
+  "DISCARD_DIALOG_HEAD": "Ανεπιθύμητες αλλαγές",
+  "DISCARD_DIALOG_BODY": "Θέλετε να απορρίψετε τις αλλαγές;",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Πίσω",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Αποθήκευση",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Απόρριψη",
+
+  "RESET_DIALOG_HEAD": "Επαναφορά",
+  "RESET_DIALOG_BODY": "Θέλετε να επαναφέρετε αυτήν την εφαρμογή; Αυτή η ενέργεια δεν μπορεί να ανακληθεί",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Πίσω",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Συνέχεια",
+
+  "DELETE_DIALOG_HEAD": "Διαγραφή",
+  "DELETE_DIALOG_BODY": "Θέλετε να διαγράψετε αυτήν την εφαρμογή; Αυτή η ενέργεια δεν μπορεί να ανακληθεί",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Πίσω",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Συνέχεια",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Εμφάνιση κρυφών",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Νέος εκκινητής",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Άνοιγμα εκκινητή",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Επεξεργασία εγγράφου",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Επαναφορά εκκινητή",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Διαγραφή εκκινητή",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Απόρριψη εκκινητή",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Συντομεύσεις πληκτρολογίου",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Σχετικά με αυτήν την εφαρμογή",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Αναζήτηση εκκινητών",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Εμφάνιση κρυφών",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Έξοδος από την εφαρμογή",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Εμφάνιση συντομεύσεων",
+  "SHOW_MENU_SHORTCUT_TEXT": "Άνοιγμα μενού",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Αποθήκευση αλλαγών",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Απόρριψη αλλαγών",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Ακύρωση αλλαγών",
+  "NEW_STARTER_SHORTCUT_TEXT": "Νέος εκκινητής",
+  "EDIT_FILE_SHORTCUT_TEXT": "Επεξεργασία εγγράφου",
+  "OPEN_FILE_SHORTCUT_TEXT": "Άνοιγμα εκκινητή",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Επεξεργασία",
+  "FIND_SHORTCUT_GROUP_TITLE": "Αναζήτηση",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Γενικά",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Επιλογή εικονιδίου",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Επιλογή εκτελέσιμου αρχείου",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Επιλογή εκκινητή",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Αποθήκευση",
+
+  "BANNER_LABEL_TEXT": "Παρακαλώ επιλέξτε τις ενέργειες που θέλετε να διαγράψετε",
+  "BANNER_CANCEL_BUTTON_LABEL": "Ολοκλήρωση",
+
+  "APPEARANCE_GROUP_TITLE": "Εμφάνιση",
+  "DESCRIPTION_GROUP_TITLE": "Περιγραφή",
+  "EXECUTION_GROUP_TITLE": "Εκτέλεση",
+  "DISCOVERY_GROUP_TITLE": "Αναζήτηση",
+  "VISIBLE_GROUP_TITLE": "Ορατότητα",
+  "MENU_GROUP_TITLE": "Μενού",
+  "ADVANCED_GROUP_TITLE": "Προηγμένα",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Λέξεις-κλειδιά",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Αναζήτηση εικονιδίων",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Εισάγετε λέξεις-κλειδιά για να λάβετε προτάσεις",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Δεν υπάρχουν αποτελέσματα",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Δεν βρέθηκαν αποτελέσματα αναζήτησης για αυτή την είσοδο",
+
+  "ICON_CHOOSER_ROW_TITLE": "Εικονίδιο",
+  "NAME_ENTRY_ROW_TITLE": "Όνομα",
+  "COMMENT_ENTRY_ROW_TITLE": "Σχόλιο",
+  "COMMAND_CHOOSER_ROW_TITLE": "Εντολή",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Λέξεις-κλειδιά",
+  "TERMINAL_SWITCH_ROW_TITLE": "Εμφάνιση παραθύρου τερματικού κατά την εκτέλεση",
+  "NOTIFY_SWITCH_ROW_TITLE": "Εμφάνιση animation μέχρι να γίνει ορατή η εφαρμογή",
+  "VISIBLE_SWITCH_ROW_TITLE": "Εμφάνιση αυτής της εφαρμογής στο κύριο μενού",
+  "CATEGORIES_COMBO_ROW_TITLE": "Παραδοσιακές κατηγορίες μενού της εφαρμογής",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Άνοιγμα παραμέτρων σε επεξεργαστή κειμένου",
+
+  "LINK_CONVERTER_ROW_LABEL": "Μετατροπή σύνδεσμου σε εντολή",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Προεπιλεγμένη εντολή",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Όνομα ενέργειας",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Πολυμέσα",
+  "DEVELOPMENT_CATEGORY_LABEL": "Ανάπτυξη",
+  "EDUCATION_CATEGORY_LABEL": "Εκπαίδευση",
+  "GAME_CATEGORY_LABEL": "Παιχνίδια",
+  "GRAPHICS_CATEGORY_LABEL": "Γραφικά",
+  "NETWORK_CATEGORY_LABEL": "Δίκτυο",
+  "OFFICE_CATEGORY_LABEL": "Γραφείο",
+  "SCIENCE_CATEGORY_LABEL": "Επιστήμη",
+  "SETTINGS_CATEGORY_LABEL": "Ρυθμίσεις",
+  "SYSTEM_CATEGORY_LABEL": "Σύστημα",
+  "UTILITY_CATEGORY_LABEL": "Εργαλεία",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Απέτυχε η φόρτωση %s Αρχείων",
+  "LOAD_SINGLE_ERROR_TEXT": "Απέτυχε η φόρτωση Αρχείου '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Απέτυχε η άνοιγμα των ρυθμίσεων",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Οι ρυθμίσεις για '%s' έχουν αποθηκευτεί",
+  "STARTER_SAVE_ERROR_TEXT": "Απέτυχε η αποθήκευση των ρυθμίσεων",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Ο εκκινητής για '%s' έχει δημιουργηθεί",
+  "STARTER_CREATE_ERROR_TEXT": "Απέτυχε η δημιουργία εκκινητή",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Ο εκκινητής για '%s' έχει επαναφερθεί",
+  "STARTER_RESET_ERROR_TEXT": "Απέτυχε η επαναφορά εκκινητή",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Ο εκκινητής για '%s' έχει διαγραφεί",
+  "STARTER_DELETE_ERROR_TEXT": "Απέτυχε η διαγραφή εκκινητή",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Ο εκκινητής για '%s' έχει αφαιρεθεί"
+
+}

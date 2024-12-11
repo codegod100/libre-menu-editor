@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Pagrindinis meniu",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Neįvardintas programa",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Neįvardinta veiksmas",
+
+  "GREETER_PAGE_HEAD": "Informacija",
+  "GREETER_PAGE_BODY": "Ši programa keičia konfigūracijos failus, kurie nėra skirti vartotojų redagavimui. Kai kuriose sistemose gali užtrukti, kol keitimai taps matomi, arba reikės prisijungti vėl",
+  "GREETER_PAGE_BUTTON_LABEL": "Tęsti",
+
+  "START_PAGE_HEAD": "Tinkinkite meniu",
+  "START_PAGE_BODY": "Sukurkite naują programos paleidėją arba pasirinkite esamą iš šoninės juostos",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Atidaryti",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Atšaukti",
+
+  "INSTALL_DIALOG_HEAD": "Diegimas",
+  "INSTALL_DIALOG_BODY": "Ar norite įtraukti šią programą į pagrindinį meniu?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Atgal",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Išsaugoti",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Diegti",
+
+  "DISCARD_DIALOG_HEAD": "Nesaugoti pakeitimai",
+  "DISCARD_DIALOG_BODY": "Ar norite atsisakyti pakeitimų?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Atgal",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Išsaugoti",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Atsisakyti",
+
+  "RESET_DIALOG_HEAD": "Atstatyti",
+  "RESET_DIALOG_BODY": "Ar norite atstatyti šią programą? Šis veiksmas negali būti atšauktas",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Atgal",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Tęsti",
+
+  "DELETE_DIALOG_HEAD": "Ištrinti",
+  "DELETE_DIALOG_BODY": "Ar norite ištrinti šią programą? Šis veiksmas negali būti atšauktas",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Atgal",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Tęsti",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Rodyti paslėptus",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Naujas paleidėjas",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Atidaryti paleidėją",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Redaguoti dokumentą",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Atstatyti paleidėją",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Ištrinti paleidėją",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Atsisakyti paleidėjo",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Klaviatūros pėdsakai",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Apie šią programą",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Ieškoti paleidėjų",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Rodyti paslėptus",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Uždaryti programą",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Rodyti pėdsakus",
+  "SHOW_MENU_SHORTCUT_TEXT": "Atidaryti meniu",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Išsaugoti pakeitimus",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Atsisakyti pakeitimų",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Atšaukti pakeitimus",
+  "NEW_STARTER_SHORTCUT_TEXT": "Naujas paleidėjas",
+  "EDIT_FILE_SHORTCUT_TEXT": "Redaguoti dokumentą",
+  "OPEN_FILE_SHORTCUT_TEXT": "Atidaryti paleidėją",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Redaguoti",
+  "FIND_SHORTCUT_GROUP_TITLE": "Rasti",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Bendras",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Pasirinkti ikoną",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Pasirinkti vykdytį failą",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Pasirinkti paleidėją",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Išsaugoti",
+
+  "BANNER_LABEL_TEXT": "Pasirinkite veiksmus, kuriuos norite ištrinti",
+  "BANNER_CANCEL_BUTTON_LABEL": "Baigti",
+
+  "APPEARANCE_GROUP_TITLE": "Išvaizda",
+  "DESCRIPTION_GROUP_TITLE": "Aprašymas",
+  "EXECUTION_GROUP_TITLE": "Vykdyti",
+  "DISCOVERY_GROUP_TITLE": "Paieška",
+  "VISIBLE_GROUP_TITLE": "Matomumas",
+  "MENU_GROUP_TITLE": "Meniu",
+  "ADVANCED_GROUP_TITLE": "Pažangus",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Raktažodžiai",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Piktogramų paieška",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Įveskite raktažodžius, kad gautumėte pasiūlymus",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Rezultatų nėra",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Šio įvesties rezultatų nebuvo rasta",
+
+  "ICON_CHOOSER_ROW_TITLE": "Ikona",
+  "NAME_ENTRY_ROW_TITLE": "Pavadinimas",
+  "COMMENT_ENTRY_ROW_TITLE": "Komentaras",
+  "COMMAND_CHOOSER_ROW_TITLE": "Vykdyti",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Raktažodžiai",
+  "TERMINAL_SWITCH_ROW_TITLE": "Rodyti terminalo langą vykdyti metu",
+  "NOTIFY_SWITCH_ROW_TITLE": "Rodyti animaciją, kol programa bus matoma",
+  "VISIBLE_SWITCH_ROW_TITLE": "Rodyti šią programą pagrindiniame meniu",
+  "CATEGORIES_COMBO_ROW_TITLE": "Tradicioniniai meniu kategorijos",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Atverti nustatymus teksto redaktoriuje",
+
+  "LINK_CONVERTER_ROW_LABEL": "Konvertuoti nuorodą į vykdytį",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Numatytasis komandas",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Veiksmo pavadinimas",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimedija",
+  "DEVELOPMENT_CATEGORY_LABEL": "Kūrimas",
+  "EDUCATION_CATEGORY_LABEL": "Švietimas",
+  "GAME_CATEGORY_LABEL": "Žaidimai",
+  "GRAPHICS_CATEGORY_LABEL": "Grafika",
+  "NETWORK_CATEGORY_LABEL": "Internetas",
+  "OFFICE_CATEGORY_LABEL": "Biuras",
+  "SCIENCE_CATEGORY_LABEL": "Mokslas",
+  "SETTINGS_CATEGORY_LABEL": "Nustatymai",
+  "SYSTEM_CATEGORY_LABEL": "Sistema",
+  "UTILITY_CATEGORY_LABEL": "Priedai",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Nepavyko įkelti %s failų",
+  "LOAD_SINGLE_ERROR_TEXT": "Nepavyko įkelti failo '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Nepavyko atidaryti konfigūracijų",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Konfigūracijos '%s' išsaugotos",
+  "STARTER_SAVE_ERROR_TEXT": "Nepavyko išsaugoti konfigūracijų",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Paleidėjas '%s' sukurtas",
+  "STARTER_CREATE_ERROR_TEXT": "Nepavyko sukurti paleidėjo",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Paleidėjas '%s' atstatytas",
+  "STARTER_RESET_ERROR_TEXT": "Nepavyko atstatyti paleidėjo",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Paleidėjas '%s' ištrintas",
+  "STARTER_DELETE_ERROR_TEXT": "Nepavyko ištrinti paleidėjo",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Paleidėjas '%s' pašalintas"
+
+}

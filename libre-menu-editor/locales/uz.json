@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Asosiy Menyu",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Nomsiz Ilkova",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Nomsiz Amal",
+
+  "GREETER_PAGE_HEAD": "Ma'lumot",
+  "GREETER_PAGE_BODY": "Ushbu dastur foydalanuvchi tomonidan tahrirlash uchun mo'ljallanmagan konfiguratsiya fayllarini o'zgartiradi. Ba'zi tizimlarda bu o'zgarishlar faqat uzoq vaqtdan keyin yoki foydalanuvchi qayta kirgandan keyin ko'rinadi",
+  "GREETER_PAGE_BUTTON_LABEL": "Davom etish",
+
+  "START_PAGE_HEAD": "Menyuni moslashtiring",
+  "START_PAGE_BODY": "Yangi ilkova yaratish yoki sidebar'dan mavjud ilkovani tanlang",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Ochish",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Bekor qilish",
+
+  "INSTALL_DIALOG_HEAD": "O'rnatish",
+  "INSTALL_DIALOG_BODY": "Bu ilkovani asosiy menyuga qo'shishni xohlaymisiz?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Orqaga",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Saqlash",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "O'rnatish",
+
+  "DISCARD_DIALOG_HEAD": "Saqlanmagan o'zgarishlar",
+  "DISCARD_DIALOG_BODY": "O'zgarishlarni bekor qilishni xohlaymisiz?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Orqaga",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Saqlash",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Bekor qilish",
+
+  "RESET_DIALOG_HEAD": "Qayta tiklash",
+  "RESET_DIALOG_BODY": "Bu ilkovani qayta tiklashni xohlaymisiz? Bu amal qaytarib bo'lmaydi",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Orqaga",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Davom etish",
+
+  "DELETE_DIALOG_HEAD": "O'chirish",
+  "DELETE_DIALOG_BODY": "Bu ilkovani o'chirishni xohlaymisiz? Bu amal qaytarib bo'lmaydi",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Orqaga",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Davom etish",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Yashirin ko'rsatish",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Yangi starter",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Fayl ochish",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Hujjat tahrirlash",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Starter qayta tiklash",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Starter o'chirish",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Starter bekor qilish",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Klaviatura qisqartirishlari",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Bu dastur haqida",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Starterlarni qidirish",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Yashirin ko'rsatish",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Dasturni to'xtatish",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Klaviatura qisqartirishlari",
+  "SHOW_MENU_SHORTCUT_TEXT": "Menyu ochish",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "O'zgarishlarni saqlash",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "O'zgarishlarni bekor qilish",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "O'zgarishlarni qaytarish",
+  "NEW_STARTER_SHORTCUT_TEXT": "Yangi starter",
+  "EDIT_FILE_SHORTCUT_TEXT": "Hujjat tahrirlash",
+  "OPEN_FILE_SHORTCUT_TEXT": "Fayl ochish",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Tahrirlash",
+  "FIND_SHORTCUT_GROUP_TITLE": "Qidirish",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Umumiy",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Rasm tanlash",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Buyruq fayli tanlash",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Fayl ochish",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Saqlash",
+
+  "BANNER_LABEL_TEXT": "O'chirishni xohlaydigan amallarni tanlang",
+  "BANNER_CANCEL_BUTTON_LABEL": "Tugallash",
+
+  "APPEARANCE_GROUP_TITLE": "Ko'rinish",
+  "DESCRIPTION_GROUP_TITLE": "Tavsif",
+  "EXECUTION_GROUP_TITLE": "Bajarilish",
+  "DISCOVERY_GROUP_TITLE": "Qidirish",
+  "VISIBLE_GROUP_TITLE": "Ko'rinish",
+  "MENU_GROUP_TITLE": "Menyu",
+  "ADVANCED_GROUP_TITLE": "Ishlab chiqilgan",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Kalit so'zlar",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Ikonani qidirish",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Kalit so'zlarni kiriting tavsiyalar olish uchun",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Natijalar yo'q",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Ushbu kirish uchun hech qanday qidiruv natijalari topilmadi",
+
+  "ICON_CHOOSER_ROW_TITLE": "Rasm",
+  "NAME_ENTRY_ROW_TITLE": "Nomi",
+  "COMMENT_ENTRY_ROW_TITLE": "Izoh",
+  "COMMAND_CHOOSER_ROW_TITLE": "Buyruq",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Kalit so'zlar",
+  "TERMINAL_SWITCH_ROW_TITLE": "Bajarilish paytida terminal oynasini ko'rsatish",
+  "NOTIFY_SWITCH_ROW_TITLE": "Ilkova ko'rinishga kelguncha animatsiya ko'rsatish",
+  "VISIBLE_SWITCH_ROW_TITLE": "Bu ilkovani asosiy menyuda ko'rsatish",
+  "CATEGORIES_COMBO_ROW_TITLE": "Ilkova an'anaviy kategoriyalari",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Sozlamalarni matn muharriri orqali ochish",
+
+  "LINK_CONVERTER_ROW_LABEL": "Havolani buyruqqa aylantirish",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Standart buyruq",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Harakat nomi",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
+  "DEVELOPMENT_CATEGORY_LABEL": "Rivojlanish",
+  "EDUCATION_CATEGORY_LABEL": "Ta'lim",
+  "GAME_CATEGORY_LABEL": "O'yinlar",
+  "GRAPHICS_CATEGORY_LABEL": "Grafika",
+  "NETWORK_CATEGORY_LABEL": "Internet",
+  "OFFICE_CATEGORY_LABEL": "Ofis",
+  "SCIENCE_CATEGORY_LABEL": "Fan",
+  "SETTINGS_CATEGORY_LABEL": "Sozlash",
+  "SYSTEM_CATEGORY_LABEL": "Tizim",
+  "UTILITY_CATEGORY_LABEL": "Qo'llanmalar",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "%s Fayllarni yuklashda xatolik",
+  "LOAD_SINGLE_ERROR_TEXT": "'%s' Faylini yuklashda xatolik",
+  "OPEN_FILE_ERROR_TEXT": "Konfiguratsiyalarni ochishda xatolik",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "'%s' uchun konfiguratsiyalar saqlandi",
+  "STARTER_SAVE_ERROR_TEXT": "'%s' uchun konfiguratsiyalarni saqlashda xatolik",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "'%s' uchun starter yaratildi",
+  "STARTER_CREATE_ERROR_TEXT": "'%s' uchun starter yaratishda xatolik",
+
+  "STARTER_RESET_MESSAGE_TEXT": "'%s' uchun starter qayta tiklandi",
+  "STARTER_RESET_ERROR_TEXT": "'%s' uchun starter qayta tiklashda xatolik",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "'%s' uchun starter o'chirildi",
+  "STARTER_DELETE_ERROR_TEXT": "'%s' uchun starter o'chirishda xatolik",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "'%s' uchun starter olib tashlandi"
+
+}

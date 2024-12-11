@@ -1,0 +1,136 @@
+{
+
+  "APPLICATION_NAME": "Menu Utama",
+
+  "UNNAMED_APPLICATION_PLACEHOLDER_TEXT": "Aplikasi Tidak Bernama",
+  "UNNAMED_ACTION_PLACEHOLDER_TEXT": "Tindakan Tidak Bernama",
+
+  "GREETER_PAGE_HEAD": "Maklumat",
+  "GREETER_PAGE_BODY": "Atur cara ini menukar fail konfigurasi yang tidak direka bentuk untuk diedit oleh pengguna. Oleh itu, pada sesetengah sistem boleh berlaku bahawa beberapa perubahan hanya akan kelihatan selepas masa yang lama atau selepas pengguna log masuk semula",
+  "GREETER_PAGE_BUTTON_LABEL": "Teruskan",
+
+  "START_PAGE_HEAD": "Kustomisasi Menu",
+  "START_PAGE_BODY": "Cipta pelancar aplikasi baru atau pilih salah satu yang sedia ada dari sidebar",
+
+  "PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL": "Buka",
+  "PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL": "Batal",
+
+  "INSTALL_DIALOG_HEAD": "Pemasangan",
+  "INSTALL_DIALOG_BODY": "Adakah anda ingin menambah aplikasi ini ke menu utama?",
+  "INSTALL_DIALOG_BACK_BUTTON_LABEL": "Kembali",
+  "INSTALL_DIALOG_SAVE_BUTTON_LABEL": "Simpan",
+  "INSTALL_DIALOG_INSTALL_BUTTON_LABEL": "Pasang",
+
+  "DISCARD_DIALOG_HEAD": "Perubahan Tidak Disimpan",
+  "DISCARD_DIALOG_BODY": "Adakah anda ingin membuang perubahan?",
+  "DISCARD_DIALOG_BACK_BUTTON_LABEL": "Kembali",
+  "DISCARD_DIALOG_SAVE_BUTTON_LABEL": "Simpan",
+  "DISCARD_DIALOG_DISCARD_BUTTON_LABEL": "Buang",
+
+  "RESET_DIALOG_HEAD": "Reset",
+  "RESET_DIALOG_BODY": "Adakah anda ingin reset aplikasi ini? Tindakan ini tidak dapat dibatalkan",
+  "RESET_DIALOG_BACK_BUTTON_LABEL": "Kembali",
+  "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Teruskan",
+
+  "DELETE_DIALOG_HEAD": "Padam",
+  "DELETE_DIALOG_BODY": "Adakah anda ingin memadam aplikasi ini? Tindakan ini tidak dapat dibatalkan",
+  "DELETE_DIALOG_BACK_BUTTON_LABEL": "Kembali",
+  "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Teruskan",
+
+  "SHOW_HIDDEN_SWITCH_LABEL": "Tunjukkan Tersembunyi",
+  "NEW_STARTER_MENU_BUTTON_LABEL": "Pelancar Baru",
+  "OPEN_FILE_MENU_BUTTON_LABEL": "Buka Pelancar",
+  "EDIT_FILE_MENU_BUTTON_LABEL": "Edit Dokumen",
+  "RESET_STARTER_MENU_BUTTON_LABEL": "Reset Pelancar",
+  "DELETE_STARTER_MENU_BUTTON_LABEL": "Padam Pelancar",
+  "DISCARD_STARTER_MENU_BUTTON_LABEL": "Buang Pelancar",
+  "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Pintasan Papan Kekunci",
+  "SHOW_ABOUT_MENU_BUTTON_LABEL": "Tentang Aplikasi Ini",
+
+  "TOGGLE_SEARCH_SHORTCUT_TEXT": "Cari Pelancar",
+  "SHOW_HIDDEN_SHORTCUT_TEXT": "Tunjukkan Tersembunyi",
+
+  "QUIT_APPLICATION_SHORTCUT_TEXT": "Keluar Aplikasi",
+  "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Tunjukkan Pintasan",
+  "SHOW_MENU_SHORTCUT_TEXT": "Buka Menu",
+
+  "SAVE_SETTINGS_SHORTCUT_TEXT": "Simpan Perubahan",
+  "RELOAD_SETTINGS_SHORTCUT_TEXT": "Buang Perubahan",
+  "REVERT_CHANGES_SHORTCUT_TEXT": "Buang Perubahan",
+  "NEW_STARTER_SHORTCUT_TEXT": "Pelancar Baru",
+  "EDIT_FILE_SHORTCUT_TEXT": "Edit Dokumen",
+  "OPEN_FILE_SHORTCUT_TEXT": "Buka Pelancar",
+
+  "EDIT_SHORTCUT_GROUP_TITLE": "Edit",
+  "FIND_SHORTCUT_GROUP_TITLE": "Cari",
+  "GENERAL_SHORTCUT_GROUP_TITLE": "Umum",
+
+  "ICON_CHOOSER_ROW_DIALOG_TITLE": "Pilih Ikon",
+  "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Pilih Fail Eksekusi",
+  "OPEN_FILE_CHOOSER_DIALOG_TITLE": "Pilih Pelancar",
+
+  "SAVE_SETTINGS_BUTTON_LABEL": "Simpan",
+
+  "BANNER_LABEL_TEXT": "Sila pilih tindakan yang ingin dipadam",
+  "BANNER_CANCEL_BUTTON_LABEL": "Selesai",
+
+  "APPEARANCE_GROUP_TITLE": "Penampilan",
+  "DESCRIPTION_GROUP_TITLE": "Penerangan",
+  "EXECUTION_GROUP_TITLE": "Pelaksanaan",
+  "DISCOVERY_GROUP_TITLE": "Carian",
+  "VISIBLE_GROUP_TITLE": "Ketaraan",
+  "MENU_GROUP_TITLE": "Menu",
+  "ADVANCED_GROUP_TITLE": "Maju",
+
+  "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Kata kunci",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Carian ikon",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Masukkan kata kunci untuk menerima cadangan",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD": "Tiada Keputusan",
+  "ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY": "Tiada keputusan carian ditemui untuk input ini",
+
+  "ICON_CHOOSER_ROW_TITLE": "Ikon",
+  "NAME_ENTRY_ROW_TITLE": "Nama",
+  "COMMENT_ENTRY_ROW_TITLE": "Komen",
+  "COMMAND_CHOOSER_ROW_TITLE": "Perintah",
+  "KEYWORDS_ENTRY_ROW_TITLE": "Kata Kunci",
+  "TERMINAL_SWITCH_ROW_TITLE": "Tunjukkan Tetingkap Terminal semasa Pelaksanaan",
+  "NOTIFY_SWITCH_ROW_TITLE": "Tunjukkan Animasi sehingga Aplikasi Kelihatan",
+  "VISIBLE_SWITCH_ROW_TITLE": "Tunjukkan Aplikasi ini dalam Menu Utama",
+  "CATEGORIES_COMBO_ROW_TITLE": "Kategori Menu Aplikasi Tradisional",
+  "EDIT_FILE_ACTION_ROW_TITLE": "Buka tetapan dalam penyunting teks",
+
+  "LINK_CONVERTER_ROW_LABEL": "Tukar Pautan ke Perintah",
+  "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Arahan lalai",
+  "ACTION_NAME_ENTRY_ROW_TITLE": "Nama tindakan",
+
+  "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
+  "DEVELOPMENT_CATEGORY_LABEL": "Pembangunan",
+  "EDUCATION_CATEGORY_LABEL": "Pendidikan",
+  "GAME_CATEGORY_LABEL": "Permainan",
+  "GRAPHICS_CATEGORY_LABEL": "Grafik",
+  "NETWORK_CATEGORY_LABEL": "Internet",
+  "OFFICE_CATEGORY_LABEL": "Pejabat",
+  "SCIENCE_CATEGORY_LABEL": "Sains",
+  "SETTINGS_CATEGORY_LABEL": "Tetapan",
+  "SYSTEM_CATEGORY_LABEL": "Sistem",
+  "UTILITY_CATEGORY_LABEL": "Aksesori",
+
+  "LOAD_MULTIPLE_ERROR_TEXT": "Gagal memuatkan %s Fail",
+  "LOAD_SINGLE_ERROR_TEXT": "Gagal memuatkan Fail '%s'",
+  "OPEN_FILE_ERROR_TEXT": "Gagal membuka konfigurasi",
+
+  "STARTER_SAVE_MESSAGE_TEXT": "Konfigurasi untuk '%s' telah disimpan",
+  "STARTER_SAVE_ERROR_TEXT": "Gagal menyimpan konfigurasi",
+
+  "STARTER_CREATE_MESSAGE_TEXT": "Pelancar untuk '%s' telah dicipta",
+  "STARTER_CREATE_ERROR_TEXT": "Gagal mencipta pelancar",
+
+  "STARTER_RESET_MESSAGE_TEXT": "Pelancar untuk '%s' telah direset",
+  "STARTER_RESET_ERROR_TEXT": "Gagal mereset pelancar",
+
+  "STARTER_DELETE_MESSAGE_TEXT": "Pelancar untuk '%s' telah dipadam",
+  "STARTER_DELETE_ERROR_TEXT": "Gagal memadam pelancar",
+
+  "STARTER_REMOVE_MESSAGE_TEXT": "Pelancar untuk '%s' telah dibuang"
+
+}
