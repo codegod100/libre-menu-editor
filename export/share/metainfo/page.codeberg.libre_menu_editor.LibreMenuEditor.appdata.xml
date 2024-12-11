@@ -170,7 +170,7 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="1.8.1" date="2024-12-06"/>
+    <release version="1.8.2" date="2024-12-11"/>
   </releases>
   <recommends>
     <control>touch</control>
