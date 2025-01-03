@@ -2081,6 +2081,8 @@ class ComboRow(Adw.ActionRow):
 
         self._icon_finder.hook("changed", self._on_icon_finder_changed)
 
+        self._popover_height = 10
+
         self._flow_row = None
 
         self._buttons = {}
@@ -2090,6 +2092,14 @@ class ComboRow(Adw.ActionRow):
         self._list_box.set_sort_func(self._do_list_box_sort)
 
         self._list_box.connect("row-activated", self._on_row_activated)
+
+        self._scrolled_window = Gtk.ScrolledWindow()
+
+        self._scrolled_window.set_propagate_natural_height(True)
+
+        self._scrolled_window.set_propagate_natural_width(True)
+
+        self._scrolled_window.set_child(self._list_box)
 
         self._popover = Gtk.Popover()
 
@@ -2103,7 +2113,7 @@ class ComboRow(Adw.ActionRow):
 
         self._popover.connect("closed", self._on_popover_closed)
 
-        self._popover.set_child(self._list_box)
+        self._popover.set_child(self._scrolled_window)
 
         self._menu_button = Gtk.MenuButton()
 
@@ -2125,9 +2135,11 @@ class ComboRow(Adw.ActionRow):
 
     def _on_popover_show(self, popover):
 
+        child = self._popover.get_child()
+
         self._popover.set_child(None)
 
-        self._popover.set_child(self._list_box)
+        self._popover.set_child(child)
 
         self._update_buttons_sensitive()
 
@@ -2136,6 +2148,8 @@ class ComboRow(Adw.ActionRow):
         if len(visible_children):
 
             visible_children[0].grab_focus()
+
+        self._update_scrolled_window_height()
 
     def _on_popover_closed(self, popover):
 
@@ -2150,6 +2164,8 @@ class ComboRow(Adw.ActionRow):
         else:
 
             self.grab_focus()
+
+        self._update_scrolled_window_height()
 
     def _on_icon_finder_changed(self, event, icon_finder):
 
@@ -2237,6 +2253,8 @@ class ComboRow(Adw.ActionRow):
 
                 tags[text].set_icon_name(buttons[text].image.get_icon_name())
 
+        self._update_scrolled_window_height()
+
     def _get_visible_children(self):
 
         children = []
@@ -2255,6 +2273,20 @@ class ComboRow(Adw.ActionRow):
 
             return children
 
+    def _update_scrolled_window_height(self):
+
+        first_button = self._list_box.get_first_child()
+
+        if first_button:
+
+            self._latest_button_height = self._list_box.get_first_child().get_preferred_size()[1].height
+
+        if self._latest_button_height:
+
+            max_height = (self._popover_height * self._latest_button_height) + (2 * Margin.DEFAULT)
+
+            self._scrolled_window.set_max_content_height(max_height)
+
     def _update_buttons_sensitive(self):
 
         tag_texts = [tag.get_text() for tag in self._flow_row.get_tags()]
@@ -2266,6 +2298,16 @@ class ComboRow(Adw.ActionRow):
             button.set_visible(not button.label.get_text() in tag_texts)
 
         self._menu_button.set_sensitive(len(self._get_visible_children()))
+
+    def get_popover_height(self):
+
+        return self._popover_height
+
+    def set_popover_height(self, n_buttons):
+
+        self._popover_height = value
+
+        self._update_scrolled_window_height()
 
     def add_button(self, name, text, icon_name=None):
 
