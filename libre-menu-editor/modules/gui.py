@@ -2081,6 +2081,8 @@ class ComboRow(Adw.ActionRow):
 
         self._icon_finder.hook("changed", self._on_icon_finder_changed)
 
+        self._latest_button_height = None
+
         self._popover_height = 10
 
         self._flow_row = None
