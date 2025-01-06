@@ -43,6 +43,11 @@ from configparser import ConfigParser
 from modules import gui, basic
 
 
+class NoAccessError(Exception):
+
+    pass
+
+
 class DesktopParser():
 
     def __init__(self, app, load_path, save_path):
@@ -349,9 +354,21 @@ class DesktopParser():
 
             path = self._load_path
 
-        if not os.access(path, os.R_OK):
+        if os.path.exists(path):
 
-            raise OSError(f"no access: {path}")
+            try:
+
+                with open(path, "r") as file:
+
+                    pass
+
+            except Exception as e:
+
+                raise NoAccessError(e)
+
+        else:
+
+            OSError(f"not found: {path}")
 
     def check_write(self, path=None):
 
@@ -359,19 +376,49 @@ class DesktopParser():
 
             path = self._save_path
 
-        while not path == os.path.abspath(os.sep):
+        while True:
 
-            if not os.path.exists(path):
+            if os.path.exists(path):
 
-                path = os.path.dirname(path)
+                if os.path.isdir(path):
 
-            elif not os.access(path, os.W_OK):
+                    if not os.access(path, os.W_OK):
 
-                raise OSError(f"no access: {path}")
+                        raise NoAccessError(f"no access: {path}")
+
+                    else:
+
+                        return
+
+                else:
+
+                    break
 
             else:
 
-                break
+                dirname = os.path.dirname(path)
+
+                if not os.path.abspath(dirname) == os.path.abspath(path):
+
+                    path = dirname
+
+                else:
+
+                    raise NoAccessError(f"no access: {path}")
+
+        else:
+
+            raise NoAccessError(f"no access: {path}")
+
+        try:
+
+            with open(path, "a") as file:
+
+                pass
+
+        except Exception as e:
+
+            raise NoAccessError(e)
 
     def load(self, path=None):
 
@@ -617,29 +664,29 @@ class DebugLog():
 
         self._messages = []
 
-        self._messages.append(str(subprocess.getstatusoutput("cat /etc/*-release")[-1]))
+        self._system_info = []
 
-        self._messages.append("")
+        self._system_info.append(str(subprocess.getstatusoutput("cat /etc/*-release")[-1]))
 
-        self._messages.append(str(subprocess.getstatusoutput("uname -a")[-1]))
+        self._system_info.append("")
 
-        self._messages.append("")
+        self._system_info.append(str(subprocess.getstatusoutput("uname -a")[-1]))
 
-        self._messages.append("XDG_SESSION_DESKTOP={}".format(str(os.getenv("XDG_SESSION_DESKTOP"))))
+        self._system_info.append("")
 
-        self._messages.append("XDG_SESSION_TYPE={}".format(str(os.getenv("XDG_SESSION_TYPE"))))
+        self._system_info.append("XDG_SESSION_DESKTOP={}".format(str(os.getenv("XDG_SESSION_DESKTOP"))))
 
-        self._messages.append("")
+        self._system_info.append("XDG_SESSION_TYPE={}".format(str(os.getenv("XDG_SESSION_TYPE"))))
 
-        self._messages.append("LANG={}".format(str(os.getenv("LANG"))))
+        self._system_info.append("")
 
-        self._messages.append("XDG_DATA_DIRS={}".format(str(os.getenv("XDG_DATA_DIRS"))))
+        self._system_info.append("LANG={}".format(str(os.getenv("LANG"))))
 
-        self._messages.append("")
+        self._system_info.append("XDG_DATA_DIRS={}".format(str(os.getenv("XDG_DATA_DIRS"))))
 
-        self._messages.append("APP_RUNNING_AS_FLATPAK={}".format(str(os.getenv("APP_RUNNING_AS_FLATPAK"))))
+        self._system_info.append("")
 
-        self._messages.append("")
+        self._system_info.append("APP_RUNNING_AS_FLATPAK={}".format(str(os.getenv("APP_RUNNING_AS_FLATPAK"))))
 
     def get_raise_errors(self):
 
@@ -679,7 +726,13 @@ class DebugLog():
 
     def get(self):
 
-        return "\n".join(self._messages)
+        if len(self._messages):
+
+            return "\n".join(self._messages + [""] + self._system_info)
+
+        else:
+
+            return "\n".join(self._system_info)
 
 
 class DesktopActionGroup(Adw.PreferencesGroup):
@@ -2128,6 +2181,8 @@ class Application(gui.Application):
 
         super().__init__(*args, **kwargs)
 
+        self._application_window.install_action("toast.details", None, self._on_toast_details_button_clicked)
+
         self._current_desktop_starter_name = None
 
         self._desktop_starter_parsers = {}
@@ -2498,8 +2553,6 @@ class Application(gui.Application):
 
             getattr(self, f"_{name}_menu").append_section(None, self._view_menu_section)
 
-            getattr(self, f"_{name}_menu").append_section(None, self._add_menu_section)
-
         ###############################################################################################################
 
         for name in ["big_reset_starter", "small_reset_starter"]:
@@ -2513,6 +2566,12 @@ class Application(gui.Application):
         for name in ["big_discard_starter", "small_discard_starter"]:
 
             getattr(self, f"_{name}_menu").append_section(None, self._discard_starter_menu_section)
+
+        ###############################################################################################################
+
+        for name in ["big_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+
+            getattr(self, f"_{name}_menu").append_section(None, self._add_menu_section)
 
         ###############################################################################################################
 
@@ -2948,7 +3007,7 @@ class Application(gui.Application):
 
             self.log(error, error=error)
 
-            self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=True)
+            self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=error)
 
         else:
 
@@ -3117,6 +3176,14 @@ class Application(gui.Application):
         elif control_modifier_pressed and keyval == 113: # Q
 
             self._application_window.close()
+
+        elif control_modifier_pressed and keyval == 119: # W
+
+            self._application_window.close()
+
+    def _on_toast_details_button_clicked(self, widget, action_name, parameter):
+
+        self._on_show_about_button_clicked(None)
 
     def _on_open_file_chooser_dialog_show(self, dialog):
 
@@ -4066,7 +4133,7 @@ class Application(gui.Application):
 
                 self.log(error, error=error)
 
-                self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=True)
+                self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=error)
 
                 return True
 
@@ -4180,23 +4247,27 @@ class Application(gui.Application):
 
                         except Exception as error:
 
-                            self.log(error, error=error)
-
-                            exceptions[os.path.basename(path)] = name
+                            exceptions[os.path.basename(path)] = (name, error, path)
 
                     else:
 
-                        exceptions[os.path.basename(path)] = None
+                        exceptions[os.path.basename(path)] = None, None, path
 
                 else:
 
                     if len(exceptions):
 
-                        for name in exceptions.values():
+                        for name, error, path in exceptions.values():
 
                             if not name is None:
 
+                                self.log(error, error=error)
+
                                 del self._unsaved_custom_starters[name]
+
+                            else:
+
+                                self.log(f"not readable file: {path}")
 
                         if len(exceptions) == 1:
 
@@ -4298,7 +4369,7 @@ class Application(gui.Application):
 
             self.log(error, error=error)
 
-            self.notify(self._locale_manager.get("STARTER_RESET_ERROR_TEXT"), error=True)
+            self.notify(self._locale_manager.get("STARTER_RESET_ERROR_TEXT"), error=error)
 
             return True
 
@@ -4334,7 +4405,7 @@ class Application(gui.Application):
 
             self.log(error, error=error)
 
-            self.notify(self._locale_manager.get("STARTER_DELETE_ERROR_TEXT"), error=True)
+            self.notify(self._locale_manager.get("STARTER_DELETE_ERROR_TEXT"), error=error)
 
             return True
 
@@ -4360,7 +4431,7 @@ class Application(gui.Application):
 
             self.log(error, error=error)
 
-            self.notify(self._locale_manager.get("OPEN_FILE_ERROR_TEXT"), error=True)
+            self.notify(self._locale_manager.get("OPEN_FILE_ERROR_TEXT"), error=error)
 
     def _add_search_list_item(self, name):
 
@@ -4591,6 +4662,18 @@ class Application(gui.Application):
         if not error:
 
             toast.set_timeout(gui.Timeout.DEFAULT)
+
+        else:
+
+            if isinstance(error, NoAccessError):
+
+                toast.set_title("Editing this launcher requires elevated permissions") #FIXME: translate
+
+            toast.set_timeout(0)
+
+            toast.set_action_name("toast.details")
+
+            toast.set_button_label("Help") #FIXME: translate
 
         self._toast_overlay.add_toast(toast)
 
