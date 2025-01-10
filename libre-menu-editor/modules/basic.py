@@ -573,21 +573,29 @@ class ConfigManager():
 
     def load(self):
 
-        data = self._read_json_data(self._modified_path)
+        try:
 
-        for key in data:
+            data = self._read_json_data(self._modified_path)
 
-            try:
+        except json.decoder.JSONDecodeError:
 
-                self.set(key, data[key])
+            pass
 
-            except SettingNotFoundError:
+        else:
 
-                pass
+            for key in data:
 
-            except ValueWrongTypeError:
+                try:
 
-                pass
+                    self.set(key, data[key])
+
+                except SettingNotFoundError:
+
+                    pass
+
+                except ValueWrongTypeError:
+
+                    pass
 
     def save(self):
 
