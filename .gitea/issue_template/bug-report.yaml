@@ -5,11 +5,11 @@ body:
   attributes:
     label: "1. Please confirm"
     options:
+      - label: I am using the latest version of the program
       - label: I was unable to find this issue in the [issue tracker](https://codeberg.org/libre-menu-editor/libre-menu-editor/issues)
-      - label: I am using the latest stable version of the program
 - type: textarea
   attributes:
-    label: "2. Please describe the issue and upload screenshots"
+    label: "2. Please describe the issue and/or upload screenshots"
 - type: textarea
   attributes:
     label: "3. Please enter debugging-information"
