@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Opis",
   "EXECUTION_GROUP_TITLE": "Izvrševanje",
   "DISCOVERY_GROUP_TITLE": "Iskanje",
+  "WINDOW_GROUP_TITLE": "Okno",
   "VISIBLE_GROUP_TITLE": "Vidnost",
   "MENU_GROUP_TITLE": "Meni",
   "ADVANCED_GROUP_TITLE": "Napredno",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Prikaži terminalsko okno med izvrševanjem",
   "NOTIFY_SWITCH_ROW_TITLE": "Prikaži animacijo, dokler aplikacija ni vidna",
   "VISIBLE_SWITCH_ROW_TITLE": "Prikaži to aplikacijo v glavnem meniju",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Pokaži to aplikacijo samo v določenih okoljih",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Skrij to aplikacijo v določenih okoljih",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradicionalne kategorije aplikacije v meniju",
   "EDIT_FILE_ACTION_ROW_TITLE": "Odpri nastavitev v besedilnem urejevalniku",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Nastavitve",
   "SYSTEM_CATEGORY_LABEL": "Sistem",
   "UTILITY_CATEGORY_LABEL": "Pripomočki",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Pomoč",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Urejanje tega začetnika zahteva povišane dovoljenja",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Ni mogoče naložiti %s datotek",
   "LOAD_SINGLE_ERROR_TEXT": "Ni mogoče naložiti datoteke '%s'",

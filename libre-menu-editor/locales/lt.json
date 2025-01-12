@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Aprašymas",
   "EXECUTION_GROUP_TITLE": "Vykdyti",
   "DISCOVERY_GROUP_TITLE": "Paieška",
+  "WINDOW_GROUP_TITLE": "Langas",
   "VISIBLE_GROUP_TITLE": "Matomumas",
   "MENU_GROUP_TITLE": "Meniu",
   "ADVANCED_GROUP_TITLE": "Pažangus",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Rodyti terminalo langą vykdyti metu",
   "NOTIFY_SWITCH_ROW_TITLE": "Rodyti animaciją, kol programa bus matoma",
   "VISIBLE_SWITCH_ROW_TITLE": "Rodyti šią programą pagrindiniame meniu",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Rodyti šią programą tik tam tikrose aplinkose",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Slėpti šią programą kai kuriose aplinkose",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradicioniniai meniu kategorijos",
   "EDIT_FILE_ACTION_ROW_TITLE": "Atverti nustatymus teksto redaktoriuje",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Nustatymai",
   "SYSTEM_CATEGORY_LABEL": "Sistema",
   "UTILITY_CATEGORY_LABEL": "Priedai",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Pagalba",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Šio paleidėjo redagavimas reikalauja didesnių teisių",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Nepavyko įkelti %s failų",
   "LOAD_SINGLE_ERROR_TEXT": "Nepavyko įkelti failo '%s'",

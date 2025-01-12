@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Описание",
   "EXECUTION_GROUP_TITLE": "Выполнить",
   "DISCOVERY_GROUP_TITLE": "Поиск",
+  "WINDOW_GROUP_TITLE": "Окно",
   "VISIBLE_GROUP_TITLE": "Обзор",
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Расширенный",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Показывать окно терминала во время выполнения",
   "NOTIFY_SWITCH_ROW_TITLE": "Показывайте анимацию до тех пор, пока приложение не станет видимым",
   "VISIBLE_SWITCH_ROW_TITLE": "Покажите это приложение в главном меню",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Показывать это приложение только в определенных средах",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Скрыть это приложение в определенных средах",
   "CATEGORIES_COMBO_ROW_TITLE": "Традиционные категории меню приложения",
   "EDIT_FILE_ACTION_ROW_TITLE": "Открыть настройки в текстовом редакторе",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Настройки",
   "SYSTEM_CATEGORY_LABEL": "Система",
   "UTILITY_CATEGORY_LABEL": "Аксессуары",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Помощь",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Редактирование этого лаунчера требует повышенных разрешений",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Не удалось загрузить %s файлы",
   "LOAD_SINGLE_ERROR_TEXT": "Не удалось загрузить файл '%s'",

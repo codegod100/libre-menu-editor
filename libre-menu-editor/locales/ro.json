@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Descriere",
   "EXECUTION_GROUP_TITLE": "Execuție",
   "DISCOVERY_GROUP_TITLE": "Căutare",
+  "WINDOW_GROUP_TITLE": "Fereastră",
   "VISIBLE_GROUP_TITLE": "Vizibilitate",
   "MENU_GROUP_TITLE": "Meniu",
   "ADVANCED_GROUP_TITLE": "Avansat",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Arată o fereastră de terminal în timpul executării",
   "NOTIFY_SWITCH_ROW_TITLE": "Arată o animație până când aplicația este vizibilă",
   "VISIBLE_SWITCH_ROW_TITLE": "Arată această aplicație în meniul principal",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Afișați această aplicație doar în anumite medii",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Ascunde această aplicație în anumite medii",
   "CATEGORIES_COMBO_ROW_TITLE": "Categorii tradiționale de meniu ale aplicației",
   "EDIT_FILE_ACTION_ROW_TITLE": "Deschideți setările în editor de text",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Setări",
   "SYSTEM_CATEGORY_LABEL": "Sistem",
   "UTILITY_CATEGORY_LABEL": "Accesorii",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Ajutor",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Editarea acestui lansator necesită permisiuni ridicate",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Eșec la încărcarea %s fișiere",
   "LOAD_SINGLE_ERROR_TEXT": "Eșec la încărcarea fișierului '%s'",

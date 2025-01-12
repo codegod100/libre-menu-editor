@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beskrivning",
   "EXECUTION_GROUP_TITLE": "Avrättning",
   "DISCOVERY_GROUP_TITLE": "Sök",
+  "WINDOW_GROUP_TITLE": "Fönster",
   "VISIBLE_GROUP_TITLE": "Synlighet",
   "MENU_GROUP_TITLE": "Meny",
   "ADVANCED_GROUP_TITLE": "Avancerat",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Visa en terminalfönster under körning",
   "NOTIFY_SWITCH_ROW_TITLE": "Visa en animation tills applikationen är synlig",
   "VISIBLE_SWITCH_ROW_TITLE": "Visa den här applikationen i huvudmenyn",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Visa denna applikation endast i vissa miljöer",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Dölj den här applikationen i vissa miljöer",
   "CATEGORIES_COMBO_ROW_TITLE": "Traditionella menykategorier för applikationen",
   "EDIT_FILE_ACTION_ROW_TITLE": "Öppna inställningar i textredigerare",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Inställningar",
   "SYSTEM_CATEGORY_LABEL": "System",
   "UTILITY_CATEGORY_LABEL": "Tillbehör",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hjälp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Redigering av den här lansern kräver förhöjda behörigheter",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Misslyckades med att ladda %s filer",
   "LOAD_SINGLE_ERROR_TEXT": "Misslyckades med att ladda fil '%s'",

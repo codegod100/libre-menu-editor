@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beschreibung",
   "EXECUTION_GROUP_TITLE": "Ausführung",
   "DISCOVERY_GROUP_TITLE": "Suche",
+  "WINDOW_GROUP_TITLE": "Fenster",
   "VISIBLE_GROUP_TITLE": "Sichtbarkeit",
   "MENU_GROUP_TITLE": "Menü",
   "ADVANCED_GROUP_TITLE": "Erweitert",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Konsolenfenster während der Ausführung anzeigen",
   "NOTIFY_SWITCH_ROW_TITLE": "Startanimation abspielen bis die Anwendung sichtbar ist",
   "VISIBLE_SWITCH_ROW_TITLE": "Anwendung im Hauptmenü anzeigen",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Zeige diese Anwendung nur in bestimmten Umgebungen",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Verberge diese Anwendung in bestimmten Umgebungen",
   "CATEGORIES_COMBO_ROW_TITLE": "Traditionelle Menükategorien der Anwendung",
   "EDIT_FILE_ACTION_ROW_TITLE": "Konfigurationen im Textbearbeitungsprogramm öffnen",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Einstellungen",
   "SYSTEM_CATEGORY_LABEL": "System",
   "UTILITY_CATEGORY_LABEL": "Zubehör",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hilfe",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Das Bearbeiten dieses Starters erfordert erhöhte Berechtigungen",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s Starter konnten nicht geladen werden",
   "LOAD_SINGLE_ERROR_TEXT": "Starter '%s' konnte nicht geladen werden",

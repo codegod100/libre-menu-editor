@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Tavsif",
   "EXECUTION_GROUP_TITLE": "Bajarilish",
   "DISCOVERY_GROUP_TITLE": "Qidirish",
+  "WINDOW_GROUP_TITLE": "Oyna",
   "VISIBLE_GROUP_TITLE": "Ko'rinish",
   "MENU_GROUP_TITLE": "Menyu",
   "ADVANCED_GROUP_TITLE": "Ishlab chiqilgan",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Bajarilish paytida terminal oynasini ko'rsatish",
   "NOTIFY_SWITCH_ROW_TITLE": "Ilkova ko'rinishga kelguncha animatsiya ko'rsatish",
   "VISIBLE_SWITCH_ROW_TITLE": "Bu ilkovani asosiy menyuda ko'rsatish",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Ushbu ilovani faqat ayrim muhitlarda ko'rsatish",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Baʼzi muhitlarda ushbu ilovani yashirish",
   "CATEGORIES_COMBO_ROW_TITLE": "Ilkova an'anaviy kategoriyalari",
   "EDIT_FILE_ACTION_ROW_TITLE": "Sozlamalarni matn muharriri orqali ochish",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Sozlash",
   "SYSTEM_CATEGORY_LABEL": "Tizim",
   "UTILITY_CATEGORY_LABEL": "Qo'llanmalar",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Yordam",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Ushbu ishga tushiruvchi tahrirlash uchun yuqori imtiyozlar kerak",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s Fayllarni yuklashda xatolik",
   "LOAD_SINGLE_ERROR_TEXT": "'%s' Faylini yuklashda xatolik",

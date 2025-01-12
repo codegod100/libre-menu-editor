@@ -206,6 +206,22 @@ class DesktopParser():
 
         self._set("Keywords", comment, section=section, localized=True)
 
+    def get_only_show_in(self, section="Desktop Entry"):
+
+        return self._get_str("OnlyShowIn", section=section)
+
+    def set_only_show_in(self, comment, section="Desktop Entry"):
+
+        self._set("OnlyShowIn", comment, section=section)
+
+    def get_not_show_in(self, section="Desktop Entry"):
+
+        return self._get_str("NotShowIn", section=section)
+
+    def set_not_show_in(self, comment, section="Desktop Entry"):
+
+        self._set("NotShowIn", comment, section=section)
+
     def get_categories(self, section="Desktop Entry"):
 
         return self._get_str("Categories", section=section)
@@ -317,6 +333,10 @@ class DesktopParser():
         data.append(self.get_keywords())
 
         data.append(self.get_categories())
+
+        data.append(self.get_only_show_in())
+
+        data.append(self.get_not_show_in())
 
         data.append(self._get_str("MimeType"))
 
@@ -676,6 +696,8 @@ class DebugLog():
 
         self._system_info.append("XDG_SESSION_DESKTOP={}".format(str(os.getenv("XDG_SESSION_DESKTOP"))))
 
+        self._system_info.append("XDG_CURRENT_DESKTOP={}".format(str(os.getenv("XDG_CURRENT_DESKTOP"))))
+
         self._system_info.append("XDG_SESSION_TYPE={}".format(str(os.getenv("XDG_SESSION_TYPE"))))
 
         self._system_info.append("")
@@ -973,7 +995,7 @@ class KeywordsFilter():
         self._flow_row.reset()
 
 
-class CategoriesFilter():
+class ComboFilter():
 
     def __init__(self, app):
 
@@ -984,6 +1006,10 @@ class CategoriesFilter():
         self._locale_manager = app.get_locale_manager()
 
         self._icon_finder = app.get_icon_finder()
+
+        self._unknown_values_history = set()
+
+        self._show_unknown_values = False
 
         self._ends_with_delimiter = None
 
@@ -999,7 +1025,241 @@ class CategoriesFilter():
 
         self._delimiter = ";"
 
-        self._main_categories = {
+        self._options_dict = {}
+
+    def _on_combo_row_item_selected(self, event, name, label):
+
+        self._flow_row.add_tags(label, allow_duplicates=False, warning_timeout=1)
+
+    def _on_flow_row_text_changed(self, event, child, text):
+
+        self._events.trigger("text-changed", self, self._filtered_to_default(text))
+
+    def _join_text(self, strings):
+
+        return self._delimiter.join(strings)
+
+    def _split_text(self, text):
+
+        return list(filter(None, text.split(self._delimiter)))
+
+    def _default_to_filtered(self, text, join_text=True):
+
+        labels = []
+
+        for item in self._split_text(text):
+
+            if item in self._options_dict:
+
+                label = self._options_dict[item]["label"]
+
+                if not label in labels:
+
+                    labels.append(label)
+
+            elif self._show_unknown_values:
+
+                labels.append(item)
+
+        if join_text:
+
+            return self._join_text(labels) + int(bool(self._ends_with_delimiter)) * ";"
+
+        else:
+
+            return labels
+
+    def _filtered_to_default(self, text):
+
+        old_items = self._split_text(self._current_default_text)
+
+        old_labels = self._default_to_filtered(self._current_default_text, join_text=False)
+
+        new_labels = self._split_text(text)
+
+        if sorted(old_labels) == sorted(new_labels):
+
+            return self._current_default_text
+
+        else:
+
+            if not self._show_unknown_values:
+
+                old_unknown_items = [item for item in old_items if not item in self._options_dict]
+
+            else:
+
+                old_unknown_items = []
+
+            new_items = []
+
+            for label in new_labels:
+
+                label_found = False
+
+                for item in self._options_dict:
+
+                    if self._options_dict[item]["label"] == label:
+
+                        new_items.append(item)
+
+                        label_found = True
+
+                else:
+
+                    if not label_found and self._show_unknown_values:
+
+                        new_items.append(label)
+
+            return self._join_text(sorted(new_items + old_unknown_items)) + int(bool(self._ends_with_delimiter)) * ";"
+
+    def _update_combo_row_buttons(self):
+
+        if self._show_unknown_values:
+
+            history = self._unknown_values_history
+
+            current_names = self._split_text(self._current_default_text)
+
+            buttons = self._combo_row.get_buttons()
+
+            for name in current_names:
+
+                if not name in self._options_dict:
+
+                    if not name in history:
+
+                        history.add(name)
+
+            for name in buttons:
+
+                if not name in self._options_dict and not name in history:
+
+                    self._combo_row.remove_button(name, section="unknown")
+
+            for name in history:
+
+                if not name in buttons:
+
+                    self._combo_row.add_button(name, name, self._fallback_icon_name, section="unknown")
+
+    def get_combo_row(self):
+
+        return self._combo_row
+
+    def set_combo_row(self, widget):
+
+        if self._combo_row_connection_id:
+
+            for name in self._combo_row.get_buttons():
+
+                self._combo_row.remove_button(name)
+
+            self._combo_row.disconnect(self._combo_row_connection_id)
+
+        self._combo_row = widget
+
+        added_labels = set()
+
+        for name in self._options_dict:
+
+            label = self._options_dict[name]["label"]
+
+            if not label in added_labels:
+
+                added_labels.add(label)
+
+                self._combo_row.add_button(name, label, self._options_dict[name]["icon-name"])
+
+        self._combo_row_connection_id = self._combo_row.hook("item-selected", self._on_combo_row_item_selected)
+
+        self._update_combo_row_buttons()
+
+    def get_fallback_icon_name(self):
+
+        return self._fallback_icon_name
+
+    def set_fallback_icon_name(self, icon_name):
+
+        self._fallback_icon_name = icon_name
+
+        if self._combo_row:
+
+            self._update_combo_row_buttons()
+
+    def get_default_options(self):
+
+        return self._options_dict
+
+    def add_default_option(self, name, data):
+
+        self._options_dict[name] = data
+
+    def get_show_unknown_values(self):
+
+        return self._show_unknown_values
+
+    def set_show_unknown_values(self, value):
+
+        self._show_unknown_values = value
+
+    def get_flow_row(self):
+
+        return self._flow_row
+
+    def set_flow_row(self, widget):
+
+        if self._flow_row_connection_id:
+
+            self._flow_row.disconnect(self._flow_row_connection_id)
+
+        self._flow_row = widget
+
+        self._flow_row_connection_id = self._flow_row.hook("text-changed", self._on_flow_row_text_changed)
+
+    def get_text(self):
+
+        return self._filtered_to_default(self._flow_row.get_text())
+
+    def set_text(self, text):
+
+        self._current_default_text = text
+
+        self._ends_with_delimiter = text.endswith(self._delimiter)
+
+        self._flow_row.set_text(self._default_to_filtered(text))
+
+        self._update_combo_row_buttons()
+
+    def get_unknown_values_history(self):
+
+        return self._unknown_values_history
+
+    def set_unknown_values_history(self, history):
+
+        self._unknown_values_history = history
+
+    def hook(self, event, callback):
+
+        return self._events.hook(event, callback)
+
+    def release(self, id):
+
+        self._events.release(id)
+
+    def reset(self):
+
+        self._current_default_text = ""
+
+        self._flow_row.reset()
+
+class CategoriesFilter(ComboFilter):
+
+    def __init__(self, app):
+
+        super().__init__(app)
+
+        self._options_dict = {
 
             "AudioVideo": {
 
@@ -1091,131 +1351,156 @@ class CategoriesFilter():
 
             }
 
-    def _on_combo_row_item_selected(self, event, name, label):
 
-        self._flow_row.add_tags(label, allow_duplicates=False, warning_timeout=1)
+class ShowInFilter(ComboFilter):
 
-    def _on_flow_row_text_changed(self, event, child, text):
+    def __init__(self, app):
 
-        self._events.trigger("text-changed", self, self._filtered_to_default(text))
+        super().__init__(app)
 
-    def _join_text(self, strings):
+        self.set_show_unknown_values(True)
 
-        return self._delimiter.join(strings)
+        self.set_fallback_icon_name("desktop-environment-nologo")
 
-    def _split_text(self, text):
+        for name in ["Budgie"]:
 
-        return list(filter(None, text.split(self._delimiter)))
+            self.add_default_option(name, {
 
-    def _default_to_filtered(self, text, join_text=True):
+                "label": "Budgie",
 
-        items = []
+                "icon-name": "desktop-environment-budgie"
 
-        for item in self._split_text(text):
+                })
 
-            if item in self._main_categories:
+        for name in ["X-Cinnamon"]:
 
-                items.append(self._main_categories[item]["label"])
+            self.add_default_option(name, {
 
-        if join_text:
+                "label": "Cinnamon",
 
-            return self._join_text(items) + int(bool(self._ends_with_delimiter)) * ";"
+                "icon-name": "desktop-environment-cinnamon"
 
-        else:
+                })
 
-            return items
+        for name in ["COSMIC"]:
 
-    def _filtered_to_default(self, text):
+            self.add_default_option(name, {
 
-        old_items = self._split_text(self._current_default_text)
+                "label": "COSMIC",
 
-        old_labels = self._default_to_filtered(self._current_default_text, join_text=False)
+                "icon-name": "desktop-environment-cosmic"
 
-        new_labels = self._split_text(text)
+                })
 
-        if sorted(old_labels) == sorted(new_labels):
+        for name in ["DDE"]:
 
-            return self._current_default_text
+            self.add_default_option(name, {
 
-        else:
+                "label": "Deepin",
 
-            old_subcategories = [item for item in old_items if not item in self._main_categories]
+                "icon-name": "desktop-environment-deepin"
 
-            new_items = []
+                })
 
-            for label in new_labels:
+        for name in ["Endless"]:
 
-                for item in self._main_categories:
+            self.add_default_option(name, {
 
-                    if self._main_categories[item]["label"] == label:
+                "label": "Endless",
 
-                        new_items.append(item)
+                "icon-name": "desktop-environment-endless"
 
-                        break
+                })
 
-            return self._join_text(sorted(new_items + old_subcategories)) + int(bool(self._ends_with_delimiter)) * ";"
+        for name in ["GNOME"]:
 
-    def get_combo_row(self):
+            self.add_default_option(name, {
 
-        return self._combo_row
+                "label": "GNOME",
 
-    def set_combo_row(self, widget):
+                "icon-name": "desktop-environment-gnome"
 
-        if self._combo_row_connection_id:
+                })
 
-            for name in self._main_categories:
+        for name in ["KDE"]:
 
-                self._combo_row.remove_button(name)
+            self.add_default_option(name, {
 
-            self._combo_row.disconnect(self._combo_row_connection_id)
+                "label": "KDE",
 
-        self._combo_row = widget
+                "icon-name": "desktop-environment-kde"
 
-        for name in self._main_categories:
+                })
 
-            self._combo_row.add_button(name, self._main_categories[name]["label"], self._main_categories[name]["icon-name"])
+        for name in ["LXDE"]:
 
-        self._combo_row_connection_id = self._combo_row.hook("item-selected", self._on_combo_row_item_selected)
+            self.add_default_option(name, {
 
-    def get_flow_row(self):
+                "label": "LXDE",
 
-        return self._flow_row
+                "icon-name": "desktop-environment-lxde"
 
-    def set_flow_row(self, widget):
+                })
 
-        if self._flow_row_connection_id:
+        for name in ["LXQt"]:
 
-            self._flow_row.disconnect(self._flow_row_connection_id)
+            self.add_default_option(name, {
 
-        self._flow_row = widget
+                "label": "LXQt",
 
-        self._flow_row_connection_id = self._flow_row.hook("text-changed", self._on_flow_row_text_changed)
+                "icon-name": "desktop-environment-lxqt"
 
-    def get_text(self):
+                })
 
-        return self._filtered_to_default(self._flow_row.get_text())
+        for name in ["MATE"]:
 
-    def set_text(self, text):
+            self.add_default_option(name, {
 
-        self._current_default_text = text
+                "label": "MATE",
 
-        self._ends_with_delimiter = text.endswith(self._delimiter)
+                "icon-name": "desktop-environment-mate"
 
-        self._flow_row.set_text(self._default_to_filtered(text))
+                })
 
-    def hook(self, event, callback):
+        for name in ["Pantheon"]:
 
-        return self._events.hook(event, callback)
+            self.add_default_option(name, {
 
-    def release(self, id):
+                "label": "Pantheon",
 
-        self._events.release(id)
+                "icon-name": "desktop-environment-pantheon"
 
-    def reset(self):
+                })
 
-        self._current_default_text = ""
+        for name in ["TDE"]:
 
-        self._flow_row.reset()
+            self.add_default_option(name, {
+
+                "label": "Trinity",
+
+                "icon-name": "desktop-environment-tde"
+
+                })
+
+        for name in ["Unity"]:
+
+            self.add_default_option(name, {
+
+                "label": "Unity",
+
+                "icon-name": "desktop-environment-unity"
+
+                })
+
+        for name in ["XFCE"]:
+
+            self.add_default_option(name, {
+
+                "label": "XFCE",
+
+                "icon-name": "desktop-environment-xfce"
+
+                })
 
 
 class SettingsPage(Gtk.Box):
@@ -1261,6 +1546,8 @@ class SettingsPage(Gtk.Box):
         self._current_desktop_action_groups = {}
 
         self._input_children_changes = {}
+
+        self._show_in_filter_histories = {}
 
         ###############################################################################################################
 
@@ -1496,21 +1783,75 @@ class SettingsPage(Gtk.Box):
 
         self._notify_switch_row.hook("value-changed", self._on_input_child_data_changed)
 
+        self._window_preferences_group = Adw.PreferencesGroup()
+
+        self._window_preferences_group.set_title(self._locale_manager.get("WINDOW_GROUP_TITLE"))
+
+        self._window_preferences_group.add(self._terminal_switch_row)
+
+        self._window_preferences_group.add(self._notify_switch_row)
+
+        ###############################################################################################################
+
         self._visible_switch_row = gui.SwitchRow()
 
         self._visible_switch_row.set_title(self._locale_manager.get("VISIBLE_SWITCH_ROW_TITLE"))
 
         self._visible_switch_row.hook("value-changed", self._on_input_child_data_changed)
 
+        self._visible_switch_row.hook("value-changed", self._on_visibility_widgets_changed)
+
+        self._only_show_in_flow_row = gui.TaggedFlowRow(app)
+
+        self._only_show_in_combo_row = gui.ComboRow(app)
+
+        self._only_show_in_combo_row.set_title(self._locale_manager.get("ONLYSHOWIN_COMBO_ROW_TITLE"))
+
+        self._only_show_in_combo_row.set_flow_row(self._only_show_in_flow_row)
+
+        self._only_show_in_filter = ShowInFilter(app)
+
+        self._only_show_in_filter.set_flow_row(self._only_show_in_flow_row)
+
+        self._only_show_in_filter.set_combo_row(self._only_show_in_combo_row)
+
+        self._only_show_in_filter.hook("text-changed", self._on_input_child_data_changed)
+
+        self._only_show_in_filter.hook("text-changed", self._on_visibility_widgets_changed)
+
+        self._not_show_in_flow_row = gui.TaggedFlowRow(app)
+
+        self._not_show_in_combo_row = gui.ComboRow(app)
+
+        self._not_show_in_combo_row.set_title(self._locale_manager.get("NOTSHOWIN_COMBO_ROW_TITLE"))
+
+        self._not_show_in_combo_row.set_flow_row(self._not_show_in_flow_row)
+
+        self._not_show_in_filter = ShowInFilter(app)
+
+        self._not_show_in_filter.set_flow_row(self._not_show_in_flow_row)
+
+        self._not_show_in_filter.set_combo_row(self._not_show_in_combo_row)
+
+        self._not_show_in_filter.hook("text-changed", self._on_input_child_data_changed)
+
+        self._not_show_in_filter.hook("text-changed", self._on_visibility_widgets_changed)
+
+        ###############################################################################################################
+
         self._visible_preferences_group = Adw.PreferencesGroup()
 
         self._visible_preferences_group.set_title(self._locale_manager.get("VISIBLE_GROUP_TITLE"))
 
-        self._visible_preferences_group.add(self._terminal_switch_row)
-
-        self._visible_preferences_group.add(self._notify_switch_row)
-
         self._visible_preferences_group.add(self._visible_switch_row)
+
+        self._visible_preferences_group.add(self._only_show_in_combo_row)
+
+        self._visible_preferences_group.add(self._only_show_in_flow_row)
+
+        self._visible_preferences_group.add(self._not_show_in_combo_row)
+
+        self._visible_preferences_group.add(self._not_show_in_flow_row)
 
         ###############################################################################################################
 
@@ -1576,6 +1917,8 @@ class SettingsPage(Gtk.Box):
 
         self._bottom_box.append(self._keywords_preferences_group)
 
+        self._bottom_box.append(self._window_preferences_group)
+
         self._bottom_box.append(self._visible_preferences_group)
 
         self._bottom_box.append(self._categories_preferences_group)
@@ -1623,6 +1966,10 @@ class SettingsPage(Gtk.Box):
         self._update_action_children_sensitive(False)
 
         self._update_top_desktop_action_group_header()
+
+    def _on_visibility_widgets_changed(self, event, child, data):
+
+        self._update_visibility_widgets()
 
     def _on_page_controller_key_pressed(self, controller, keyval, keycode, state):
 
@@ -1697,6 +2044,14 @@ class SettingsPage(Gtk.Box):
             elif child == self._categories_filter:
 
                 self._input_children_changes[child] = data == self._current_parser.get_categories()
+
+            elif child == self._only_show_in_filter:
+
+                self._input_children_changes[child] = data == self._current_parser.get_only_show_in()
+
+            elif child == self._not_show_in_filter:
+
+                self._input_children_changes[child] = data == self._current_parser.get_not_show_in()
 
             elif child == self._command_chooser_row:
 
@@ -1878,6 +2233,28 @@ class SettingsPage(Gtk.Box):
 
         self._update_action_children_sensitive()
 
+    def _update_visibility_widgets(self):
+
+        rows_sensitive = self._visible_switch_row.get_active()
+
+        self._only_show_in_combo_row.set_sensitive(rows_sensitive)
+
+        self._only_show_in_flow_row.set_sensitive(rows_sensitive)
+
+        self._not_show_in_combo_row.set_sensitive(rows_sensitive)
+
+        self._not_show_in_flow_row.set_sensitive(rows_sensitive)
+
+        if len(self._only_show_in_flow_row.get_tags()):
+
+            self._not_show_in_combo_row.set_sensitive(False)
+
+            self._not_show_in_flow_row.set_sensitive(False)
+
+        elif len(self._not_show_in_flow_row.get_tags()):
+
+            self._only_show_in_combo_row.set_sensitive(False)
+
     def _update_top_desktop_action_group_header(self):
 
         self._primary_action_delete_button.set_sensitive(len(self._current_desktop_action_groups))
@@ -1998,6 +2375,16 @@ class SettingsPage(Gtk.Box):
 
             self._add_desktop_action(action)
 
+        if not self._current_name in self._show_in_filter_histories:
+
+            self._show_in_filter_histories[self._current_name] = set()
+
+        history = self._show_in_filter_histories[self._current_name]
+
+        self._only_show_in_filter.set_unknown_values_history(history)
+
+        self._not_show_in_filter.set_unknown_values_history(history)
+
         self._icon_chooser_row.set_text(self._current_parser.get_icon())
 
         self._name_entry_row.set_text(self._current_parser.get_name())
@@ -2007,6 +2394,10 @@ class SettingsPage(Gtk.Box):
         self._keywords_filter.set_text(self._current_parser.get_keywords())
 
         self._categories_filter.set_text(self._current_parser.get_categories())
+
+        self._only_show_in_filter.set_text(self._current_parser.get_only_show_in())
+
+        self._not_show_in_filter.set_text(self._current_parser.get_not_show_in())
 
         self._command_chooser_row.set_text(self._current_parser.get_command())
 
@@ -2019,6 +2410,8 @@ class SettingsPage(Gtk.Box):
         self._loading_desktop_starter = False
 
         self._update_action_children_sensitive(False)
+
+        self._update_visibility_widgets()
 
     def save_desktop_starter(self):
 
@@ -2059,6 +2452,10 @@ class SettingsPage(Gtk.Box):
         self._current_parser.set_keywords(self._keywords_filter.get_text())
 
         self._current_parser.set_categories(self._categories_filter.get_text())
+
+        self._current_parser.set_only_show_in(self._only_show_in_filter.get_text())
+
+        self._current_parser.set_not_show_in(self._not_show_in_filter.get_text())
 
         self._current_parser.set_command(self._command_chooser_row.get_text())
 
@@ -2121,6 +2518,10 @@ class SettingsPage(Gtk.Box):
             self._keywords_filter.reset()
 
             self._categories_filter.reset()
+
+            self._only_show_in_filter.reset()
+
+            self._not_show_in_filter.reset()
 
             self._icon_chooser_row.reset()
 
@@ -2198,6 +2599,18 @@ class Application(gui.Application):
         self._back_button_fade_timeout_id = None
 
         self._back_button_fade_duration = 45
+
+        ###############################################################################################################
+
+        xdg_current_desktop = os.getenv("XDG_CURRENT_DESKTOP")
+
+        if isinstance(xdg_current_desktop, str):
+
+            self._xdg_current_desktop_values = set(filter(None, xdg_current_desktop.split(":")))
+
+        else:
+
+            self._xdg_current_desktop_values = set()
 
         ###############################################################################################################
 
@@ -4433,13 +4846,42 @@ class Application(gui.Application):
 
             self.notify(self._locale_manager.get("OPEN_FILE_ERROR_TEXT"), error=error)
 
-    def _add_search_list_item(self, name):
+
+    def _get_parser_should_be_shown(self, parser):
 
         if not self._config_manager.get("show.hidden"):
 
-            if not self._desktop_starter_parsers[name].get_visible():
+            if not parser.get_visible():
 
-                return True
+                return
+
+            else:
+
+                only_show_in_values = set(filter(None, parser.get_only_show_in().split(";")))
+
+                not_show_in_values = set(filter(None, parser.get_not_show_in().split(";")))
+
+                if only_show_in_values and not only_show_in_values.intersection(self._xdg_current_desktop_values):
+
+                    return
+
+                elif not_show_in_values and not_show_in_values.intersection(self._xdg_current_desktop_values):
+
+                    return
+
+                else:
+
+                    return True
+
+        else:
+
+            return True
+
+    def _add_search_list_item(self, name):
+
+        if not self._get_parser_should_be_shown(self._desktop_starter_parsers[name]):
+
+            return True
 
         text = self._desktop_starter_parsers[name].get_name()
 
@@ -4475,7 +4917,7 @@ class Application(gui.Application):
 
         parser = self._desktop_starter_parsers[name]
 
-        if not parser.get_visible() and not self._config_manager.get("show.hidden"):
+        if not self._get_parser_should_be_shown(parser):
 
             self._remove_search_list_item(name)
 
@@ -4667,13 +5109,13 @@ class Application(gui.Application):
 
             if isinstance(error, NoAccessError):
 
-                toast.set_title("Editing this launcher requires elevated permissions") #FIXME: translate
+                toast.set_title(self._locale_manager.get("STARTER_NO_ACCESS_ERROR_TEXT"))
 
             toast.set_timeout(0)
 
             toast.set_action_name("toast.details")
 
-            toast.set_button_label("Help") #FIXME: translate
+            toast.set_button_label(self._locale_manager.get("TOAST_SHOW_DETAILS_BUTTON_LABEL"))
 
         self._toast_overlay.add_toast(toast)
 

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Popis",
   "EXECUTION_GROUP_TITLE": "Provedení",
   "DISCOVERY_GROUP_TITLE": "Hledání",
+  "WINDOW_GROUP_TITLE": "Okno",
   "VISIBLE_GROUP_TITLE": "Viditelnost",
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Pokročilé",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Zobrazit terminál během provádění",
   "NOTIFY_SWITCH_ROW_TITLE": "Zobrazit animaci, dokud aplikace není viditelná",
   "VISIBLE_SWITCH_ROW_TITLE": "Zobrazit tuto aplikaci v hlavním menu",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Zobrazit tuto aplikaci pouze v určitých prostředích",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Skrýt tuto aplikaci v určitých prostředích",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradiční kategorie menu aplikace",
   "EDIT_FILE_ACTION_ROW_TITLE": "Otevřít konfigurace v textovém editoru",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Nastavení",
   "SYSTEM_CATEGORY_LABEL": "Systém",
   "UTILITY_CATEGORY_LABEL": "Příslušenství",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Nápověda",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Úprava tohoto spuštění vyžaduje zvýšená oprávnění",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Nepodařilo se načíst %s souborů",
   "LOAD_SINGLE_ERROR_TEXT": "Nepodařilo se načíst soubor '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Leírás",
   "EXECUTION_GROUP_TITLE": "Végrehajtás",
   "DISCOVERY_GROUP_TITLE": "Keresés",
+  "WINDOW_GROUP_TITLE": "Ablak",
   "VISIBLE_GROUP_TITLE": "Láthatóság",
   "MENU_GROUP_TITLE": "Menü",
   "ADVANCED_GROUP_TITLE": "Speciális",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Terminálablak megjelenítése a végrehajtás során",
   "NOTIFY_SWITCH_ROW_TITLE": "Animáció megjelenítése az alkalmazás megjelenéséig",
   "VISIBLE_SWITCH_ROW_TITLE": "Az alkalmazás megjelenítése a főmenüben",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Csak bizonyos környezetekben jelenítse meg ezt az alkalmazást",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Rejtse el ezt az alkalmazást bizonyos környezetekben",
   "CATEGORIES_COMBO_ROW_TITLE": "Az alkalmazás hagyományos menükategóriái",
   "EDIT_FILE_ACTION_ROW_TITLE": "Megnyitás a szövegszerkesztőben",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Beállítások",
   "SYSTEM_CATEGORY_LABEL": "Rendszer",
   "UTILITY_CATEGORY_LABEL": "Segédeszközök",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Súgó",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Ez a kezdőprogram szerkesztéséhez emelt szintű jogosultságok szükségesek",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "A(z) %s fájlok betöltése sikertelen",
   "LOAD_SINGLE_ERROR_TEXT": "A(z) „%s” fájl betöltése sikertelen",

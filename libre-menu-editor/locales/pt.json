@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Descrição",
   "EXECUTION_GROUP_TITLE": "Execução",
   "DISCOVERY_GROUP_TITLE": "Pesquisa",
+  "WINDOW_GROUP_TITLE": "Janela",
   "VISIBLE_GROUP_TITLE": "Visibilidade",
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Avançado",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Mostrar uma janela de terminal durante a execução",
   "NOTIFY_SWITCH_ROW_TITLE": "Mostrar uma animação até que a aplicação seja visível",
   "VISIBLE_SWITCH_ROW_TITLE": "Mostrar essa aplicação no menu principal",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Mostrar esta aplicação apenas em ambientes específicos",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Ocultar esta aplicação em certos ambientes",
   "CATEGORIES_COMBO_ROW_TITLE": "Categorias de menu tradicionais da aplicação",
   "EDIT_FILE_ACTION_ROW_TITLE": "Abrir configurações no editor de texto",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Configurações",
   "SYSTEM_CATEGORY_LABEL": "Sistema",
   "UTILITY_CATEGORY_LABEL": "Acessórios",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Ajuda",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "A edição deste lançador requer privilégios elevados",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Falha ao carregar %s Arquivos",
   "LOAD_SINGLE_ERROR_TEXT": "Falha ao carregar Arquivo '%s'",

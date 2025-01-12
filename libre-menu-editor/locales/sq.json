@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Përshkrim",
   "EXECUTION_GROUP_TITLE": "Ekzekutim",
   "DISCOVERY_GROUP_TITLE": "Kërko",
+  "WINDOW_GROUP_TITLE": "Dritare",
   "VISIBLE_GROUP_TITLE": "Dukshmëria",
   "MENU_GROUP_TITLE": "Meny",
   "ADVANCED_GROUP_TITLE": "Avancuar",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Shfaq një dritare të terminalit gjatë ekzekutimit",
   "NOTIFY_SWITCH_ROW_TITLE": "Shfaq një animacion deri sa aplikacioni të jetë i dukshëm",
   "VISIBLE_SWITCH_ROW_TITLE": "Shfaq këtë aplikacion në menunë kryesor",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Shfaq këtë aplikacion vetëm në mjedise të caktuara",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Fshih këtë aplikacion në ambiente të caktuara",
   "CATEGORIES_COMBO_ROW_TITLE": "Kategoritë tradicionale të menuse të aplikacionit",
   "EDIT_FILE_ACTION_ROW_TITLE": "Hapni rregullimet në redaktor teksti",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Konfigurim",
   "SYSTEM_CATEGORY_LABEL": "Sistem",
   "UTILITY_CATEGORY_LABEL": "Aksesori",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Ndihmë",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Për të redaktuar këtë lançues kërkohen të drejta të larta",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Dështoi të ngarkojë %s skedarë",
   "LOAD_SINGLE_ERROR_TEXT": "Dështoi të ngarkojë skedarin '%s'",

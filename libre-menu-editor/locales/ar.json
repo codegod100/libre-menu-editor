@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "الوصف",
   "EXECUTION_GROUP_TITLE": "تنفيذ",
   "DISCOVERY_GROUP_TITLE": "البحث",
+  "WINDOW_GROUP_TITLE": "نافذة",
   "VISIBLE_GROUP_TITLE": "الرؤية",
   "MENU_GROUP_TITLE": "قائمة",
   "ADVANCED_GROUP_TITLE": "متقدم",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "إظهار نافذة طرفية أثناء التنفيذ",
   "NOTIFY_SWITCH_ROW_TITLE": "إظهار رسالة تنبيه حتى يصبح التطبيق مرئيا",
   "VISIBLE_SWITCH_ROW_TITLE": "إظهار هذا التطبيق في القائمة الرئيسية",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "عرض هذا التطبيق فقط في بيئات معينة",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "إخفاء هذا التطبيق في بعض البيئات",
   "CATEGORIES_COMBO_ROW_TITLE": "فئات القائمة التقليدية للتطبيق",
   "EDIT_FILE_ACTION_ROW_TITLE": "فتح الإعدادات في محرر نص",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "إعدادات",
   "SYSTEM_CATEGORY_LABEL": "نظام",
   "UTILITY_CATEGORY_LABEL": "أدوات",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "مساعدة",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "تحرير هذا المُشغل يتطلب صلاحيات مُرفعة",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "فشل تحميل %s الملفات",
   "LOAD_SINGLE_ERROR_TEXT": "فشل تحميل الملف '%s'",

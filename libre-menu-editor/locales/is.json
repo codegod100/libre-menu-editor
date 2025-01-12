@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Lýsing",
   "EXECUTION_GROUP_TITLE": "Framkvæmd",
   "DISCOVERY_GROUP_TITLE": "Leit",
+  "WINDOW_GROUP_TITLE": "Gluggi",
   "VISIBLE_GROUP_TITLE": "Sjáanleiki",
   "MENU_GROUP_TITLE": "Valmynd",
   "ADVANCED_GROUP_TITLE": "Ítarlegt",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Sýna flugstöðvarglugga meðan á framkvæmd stendur",
   "NOTIFY_SWITCH_ROW_TITLE": "Sýna animation þar til forritið er sjáanlegt",
   "VISIBLE_SWITCH_ROW_TITLE": "Sýna þetta forrit í aðalvalmyndinni",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Sýna þetta forrit einungis í ákveðnum umhverfum",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Fela þessa forriti í ákveðnum umhverfum",
   "CATEGORIES_COMBO_ROW_TITLE": "Hefðbundnar valmyndarflokkar forritsins",
   "EDIT_FILE_ACTION_ROW_TITLE": "Opna stillingar í textaritli",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Stillingar",
   "SYSTEM_CATEGORY_LABEL": "Kerfi",
   "UTILITY_CATEGORY_LABEL": "Veitur",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hjálp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Breytingar á þessum upphafsstillingum krefjast aukinnar réttinda",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Gat ekki hlaðið %s skrám",
   "LOAD_SINGLE_ERROR_TEXT": "Gat ekki hlaðið skrá '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "विवरण",
   "EXECUTION_GROUP_TITLE": "निष्पादन",
   "DISCOVERY_GROUP_TITLE": "खोज",
+  "WINDOW_GROUP_TITLE": "विंडो",
   "VISIBLE_GROUP_TITLE": "दृश्यता",
   "MENU_GROUP_TITLE": "मेनू",
   "ADVANCED_GROUP_TITLE": "उन्नत",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "निष्पादन के दौरान टर्मिनल विंडो दिखाएं",
   "NOTIFY_SWITCH_ROW_TITLE": "एप्लिकेशन दृश्य होने तक एनिमेशन दिखाएं",
   "VISIBLE_SWITCH_ROW_TITLE": "मुख्य मेनू में इस एप्लिकेशन को दिखाएं",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "केवल निश्चित वातावरणों में इस अनुप्रयोग को दिखाएं",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "कुछ वातावरणों में इस अनुप्रयोग को छिपाएं",
   "CATEGORIES_COMBO_ROW_TITLE": "एप्लिकेशन की पारंपरिक मेनू श्रेणियां",
   "EDIT_FILE_ACTION_ROW_TITLE": "सेटिंग्स को टेक्स्ट एडिटर में खोलें",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "सेटिंग्स",
   "SYSTEM_CATEGORY_LABEL": "सिस्टम",
   "UTILITY_CATEGORY_LABEL": "एक्सेसरीज़",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "मदद",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "इस लॉन्चर को संपादित करने के लिए उच्च अनुमतियाँ आवश्यक हैं",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s फ़ाइलें लोड नहीं हुईं",
   "LOAD_SINGLE_ERROR_TEXT": "फ़ाइल '%s' लोड नहीं हुई",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Açıklama",
   "EXECUTION_GROUP_TITLE": "Yürütme",
   "DISCOVERY_GROUP_TITLE": "Araştırıcı",
+  "WINDOW_GROUP_TITLE": "Pencere",
   "VISIBLE_GROUP_TITLE": "Göster",
   "MENU_GROUP_TITLE": "Menü",
   "ADVANCED_GROUP_TITLE": "Gelişmiş",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Yürütme sırasında uçbirim penceresi göster",
   "NOTIFY_SWITCH_ROW_TITLE": "Uygulama görününceye kadar canlandırma göster",
   "VISIBLE_SWITCH_ROW_TITLE": "Bu uygulamayı ana menüde göster",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Bu uygulamayı yalnızca belirli ortamlarda göster",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Bu uygulamayı bazı ortamlarda gizle",
   "CATEGORIES_COMBO_ROW_TITLE": "Uygulamanın geleneksel menü kategorileri",
   "EDIT_FILE_ACTION_ROW_TITLE": "Metin düzenleyicide ayarları aç",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Ayarlar",
   "SYSTEM_CATEGORY_LABEL": "Sistem",
   "UTILITY_CATEGORY_LABEL": "İzlenceler",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Yardım",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Bu başlatıcının düzenlenmesi için yükseltilmiş izinler gerekir",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s dosyaları yüklenemedi",
   "LOAD_SINGLE_ERROR_TEXT": "'%s' dosyası yüklenemedi",

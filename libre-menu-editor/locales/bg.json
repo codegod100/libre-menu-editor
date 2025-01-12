@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Описание",
   "EXECUTION_GROUP_TITLE": "Изпълнение",
   "DISCOVERY_GROUP_TITLE": "Търсене",
+  "WINDOW_GROUP_TITLE": "Прозорец",
   "VISIBLE_GROUP_TITLE": "Видимост",
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Напреднали",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминално окно по време на изпълнение",
   "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимация до това приложението да стане видимо",
   "VISIBLE_SWITCH_ROW_TITLE": "Покажи това приложение в главното меню",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Показвай това приложение само в определени среди",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Скрий тази приложение в някои среди",
   "CATEGORIES_COMBO_ROW_TITLE": "Традиционни категории на менюто на приложението",
   "EDIT_FILE_ACTION_ROW_TITLE": "Отворете настройките в текстов редактор",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Настройки",
   "SYSTEM_CATEGORY_LABEL": "Система",
   "UTILITY_CATEGORY_LABEL": "Утилити",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Помощ",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Редактирането на този стартер изисква повишени права",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Неуспешно зареждане на %s файлове",
   "LOAD_SINGLE_ERROR_TEXT": "Неуспешно зареждане на файла '%s'",

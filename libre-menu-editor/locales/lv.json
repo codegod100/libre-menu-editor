@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Apraksts",
   "EXECUTION_GROUP_TITLE": "Izpilde",
   "DISCOVERY_GROUP_TITLE": "Meklēšana",
+  "WINDOW_GROUP_TITLE": "Logs",
   "VISIBLE_GROUP_TITLE": "Redzamība",
   "MENU_GROUP_TITLE": "Iestatījumu sadaļa",
   "ADVANCED_GROUP_TITLE": "Papildu",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Rādīt terminālu logu izpildes laikā",
   "NOTIFY_SWITCH_ROW_TITLE": "Rādīt animāciju līdz lietotne kļūst redzama",
   "VISIBLE_SWITCH_ROW_TITLE": "Rādīt šo lietotni galvenajā izvēlnei",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Rādīt šo lietotni tik noteiktās vidē",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Paslēpt šo lietotni noteiktos vidēs",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradicionālās izvēlnes kategorijas",
   "EDIT_FILE_ACTION_ROW_TITLE": "Atvērt iestatījumus teksta redaktorā",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Iestatījumi",
   "SYSTEM_CATEGORY_LABEL": "Sistēma",
   "UTILITY_CATEGORY_LABEL": "Pielietojumi",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Palīdzība",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Šīs palaišanas rīka labošanai nepieciešamas papildu tiesības",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Neizdevās ielādēt %s failus",
   "LOAD_SINGLE_ERROR_TEXT": "Neizdevās ielādēt failu '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beskrivelse",
   "EXECUTION_GROUP_TITLE": "Henrettelse",
   "DISCOVERY_GROUP_TITLE": "Søk",
+  "WINDOW_GROUP_TITLE": "Vindu",
   "VISIBLE_GROUP_TITLE": "Synlighet",
   "MENU_GROUP_TITLE": "Meny",
   "ADVANCED_GROUP_TITLE": "Avansert",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Vis et terminalvindu under utførelse",
   "NOTIFY_SWITCH_ROW_TITLE": "Vis en animasjon til applikasjonen er synlig",
   "VISIBLE_SWITCH_ROW_TITLE": "Vis denne applikasjonen i hovedmenyen",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Vis denne applikasjonen bare i bestemte miljøer",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Skjul denne applikasjonen i noen miljøer",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradisjonelle menukategorier for applikasjonen",
   "EDIT_FILE_ACTION_ROW_TITLE": "Åpne innstillinger i teksteditor",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Innstillinger",
   "SYSTEM_CATEGORY_LABEL": "System",
   "UTILITY_CATEGORY_LABEL": "Tilbehør",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hjelp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Redigering av denne launcheren krever høyere rettigheter",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Kunne ikke laste %s filer",
   "LOAD_SINGLE_ERROR_TEXT": "Kunne ikke laste fil '%s'",

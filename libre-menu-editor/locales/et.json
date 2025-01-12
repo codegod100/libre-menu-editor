@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Kirjeldus",
   "EXECUTION_GROUP_TITLE": "Käivitamine",
   "DISCOVERY_GROUP_TITLE": "Otsing",
+  "WINDOW_GROUP_TITLE": "Aken",
   "VISIBLE_GROUP_TITLE": "Nähtavus",
   "MENU_GROUP_TITLE": "Menüü",
   "ADVANCED_GROUP_TITLE": "Täpsemalt",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Näita terminali akent käivitamise ajal",
   "NOTIFY_SWITCH_ROW_TITLE": "Näita animatsiooni, kuni rakendus on nähtav",
   "VISIBLE_SWITCH_ROW_TITLE": "Näita seda rakendust põhimenüüs",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Näita seda rakendust ainult kindlates keskkondades",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Peida see rakendus mõningates keskkondades",
   "CATEGORIES_COMBO_ROW_TITLE": "Rakenduse traditsioonilised menükategooriad",
   "EDIT_FILE_ACTION_ROW_TITLE": "Ava seaded tekstiredaktoris",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Seaded",
   "SYSTEM_CATEGORY_LABEL": "Süsteem",
   "UTILITY_CATEGORY_LABEL": "Abivahendid",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Abi",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Selle käivitaja redigeerimiseks on vaja suurendatud õigusi",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Ei õnnestunud laadida %s faile",
   "LOAD_SINGLE_ERROR_TEXT": "Ei õnnestunud laadida faili '%s'",

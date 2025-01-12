@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Апісанне",
   "EXECUTION_GROUP_TITLE": "Выкананне",
   "DISCOVERY_GROUP_TITLE": "Пошук",
+  "WINDOW_GROUP_TITLE": "Акно",
   "VISIBLE_GROUP_TITLE": "Відымасць",
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Пашыраны",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Паказаць тэрмінальнае акно падчас выканання",
   "NOTIFY_SWITCH_ROW_TITLE": "Паказаць анімацыю да таго, як прыкладанне стане відным",
   "VISIBLE_SWITCH_ROW_TITLE": "Паказаць гэта прыкладанне ў галоўным меню",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Паказаць гэта прыкладанне толькі ў пэўных асяроддзях",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Схаваць гэта прыкладанне ў пэўных асяроддзях",
   "CATEGORIES_COMBO_ROW_TITLE": "Традыцыйныя катэгорыі меню прыкладання",
   "EDIT_FILE_ACTION_ROW_TITLE": "Адкрыць параметры ў тэкставым рэдактары",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Наладка",
   "SYSTEM_CATEGORY_LABEL": "Сістэма",
   "UTILITY_CATEGORY_LABEL": "Утыліты",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Дапамога",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Рэдагаванне гэтага запускальніка патрабуе павышаных паўнамоцтваў",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Не ўдалося загрузіць %s файлаў",
   "LOAD_SINGLE_ERROR_TEXT": "Не ўдалося загрузіць файл '%s'",

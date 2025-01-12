@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Περιγραφή",
   "EXECUTION_GROUP_TITLE": "Εκτέλεση",
   "DISCOVERY_GROUP_TITLE": "Αναζήτηση",
+  "WINDOW_GROUP_TITLE": "Παράθυρο",
   "VISIBLE_GROUP_TITLE": "Ορατότητα",
   "MENU_GROUP_TITLE": "Μενού",
   "ADVANCED_GROUP_TITLE": "Προηγμένα",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Εμφάνιση παραθύρου τερματικού κατά την εκτέλεση",
   "NOTIFY_SWITCH_ROW_TITLE": "Εμφάνιση animation μέχρι να γίνει ορατή η εφαρμογή",
   "VISIBLE_SWITCH_ROW_TITLE": "Εμφάνιση αυτής της εφαρμογής στο κύριο μενού",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Εμφάνιση αυτής της εφαρμογής μόνο σε συγκεκριμένα περιβάλλοντα",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Απόκρυψη αυτής της εφαρμογής σε ορισμένα περιβάλλοντα",
   "CATEGORIES_COMBO_ROW_TITLE": "Παραδοσιακές κατηγορίες μενού της εφαρμογής",
   "EDIT_FILE_ACTION_ROW_TITLE": "Άνοιγμα παραμέτρων σε επεξεργαστή κειμένου",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Ρυθμίσεις",
   "SYSTEM_CATEGORY_LABEL": "Σύστημα",
   "UTILITY_CATEGORY_LABEL": "Εργαλεία",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Βοήθεια",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Η επεξεργασία αυτής της εφαρμογής απαιτεί αυξημένα δικαιώματα",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Απέτυχε η φόρτωση %s Αρχείων",
   "LOAD_SINGLE_ERROR_TEXT": "Απέτυχε η φόρτωση Αρχείου '%s'",

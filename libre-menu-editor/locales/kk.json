@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Сипаттама",
   "EXECUTION_GROUP_TITLE": "Орындау",
   "DISCOVERY_GROUP_TITLE": "Іздеу",
+  "WINDOW_GROUP_TITLE": "Терезе",
   "VISIBLE_GROUP_TITLE": "Көріну",
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Өркендеу",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Орындау кезінде терминалдық жүйені көрсету",
   "NOTIFY_SWITCH_ROW_TITLE": "Қосымшаның көрінуіне дейін анимация көрсету",
   "VISIBLE_SWITCH_ROW_TITLE": "Бұл қосымшаны басты менюде көрсету",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Бұл қосымшаны тек белгілі бір ортада ғана көрсету",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Белгілі бір ортада бұл қосымшаны жасыру",
   "CATEGORIES_COMBO_ROW_TITLE": "Традициялық меню категориялары",
   "EDIT_FILE_ACTION_ROW_TITLE": "Параметрлерді мәтіндік редакторда ашу",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Параметрлер",
   "SYSTEM_CATEGORY_LABEL": "Жүйе",
   "UTILITY_CATEGORY_LABEL": "Қосымша құралдар",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Көмек",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Бұл лаунчерді өңдеу үшін жоғары рұқсаттар қажет",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s Файлдарды жүктеу сәтсіз болды",
   "LOAD_SINGLE_ERROR_TEXT": "'%s' Файлын жүктеу сәтсіз болды",

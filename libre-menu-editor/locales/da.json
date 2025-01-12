@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beskrivelse",
   "EXECUTION_GROUP_TITLE": "Henrettelse",
   "DISCOVERY_GROUP_TITLE": "Søg",
+  "WINDOW_GROUP_TITLE": "Vindue",
   "VISIBLE_GROUP_TITLE": "Synlighed",
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Avanceret",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Vis et terminalvindue under udførelsen",
   "NOTIFY_SWITCH_ROW_TITLE": "Vis en animation, indtil applikationen er synlig",
   "VISIBLE_SWITCH_ROW_TITLE": "Vis denne applikation i hovedmenuen",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Vis denne applikation kun i bestemte miljøer",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Skjul denne applikation i visse miljøer",
   "CATEGORIES_COMBO_ROW_TITLE": "Traditionelle menukategorier for applikationen",
   "EDIT_FILE_ACTION_ROW_TITLE": "Åbn indstillinger i teksteditor",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Indstillinger",
   "SYSTEM_CATEGORY_LABEL": "System",
   "UTILITY_CATEGORY_LABEL": "Tilbehør",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hjælp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Redigering af denne launcher kræver forhøjede tilladelser",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Kunne ikke indlæse %s filer",
   "LOAD_SINGLE_ERROR_TEXT": "Kunne ikke indlæse fil '%s'",

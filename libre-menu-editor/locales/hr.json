@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Opis",
   "EXECUTION_GROUP_TITLE": "Izvršenje",
   "DISCOVERY_GROUP_TITLE": "Pretraživanje",
+  "WINDOW_GROUP_TITLE": "Prozor",
   "VISIBLE_GROUP_TITLE": "Vidljivost",
   "MENU_GROUP_TITLE": "Izbornik",
   "ADVANCED_GROUP_TITLE": "Napredno",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Prikaži terminalski prozor tijekom izvršenja",
   "NOTIFY_SWITCH_ROW_TITLE": "Prikaži animaciju dok se aplikacija ne pojavi",
   "VISIBLE_SWITCH_ROW_TITLE": "Prikaži ovu aplikaciju u glavnom izborniku",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Prikaži ovu aplikaciju samo u određenim okruženjima",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Sakrij ovu aplikaciju u nekim okruženjima",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradicionalne kategorije aplikacije u izborniku",
   "EDIT_FILE_ACTION_ROW_TITLE": "Otvorite postavke u tekstualnom uređivaču",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Postavke",
   "SYSTEM_CATEGORY_LABEL": "Sustav",
   "UTILITY_CATEGORY_LABEL": "Pomoćne alatke",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Pomoć",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Uređivanje ovog pokretača zahtijeva povećana ovlasti",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Neuspješno učitavanje %s datoteka",
   "LOAD_SINGLE_ERROR_TEXT": "Neuspješno učitavanje datoteke '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Опис",
   "EXECUTION_GROUP_TITLE": "Виконання",
   "DISCOVERY_GROUP_TITLE": "Пошук",
+  "WINDOW_GROUP_TITLE": "Вікно",
   "VISIBLE_GROUP_TITLE": "Видимість",
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Просунутий",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Показати вікно консолі під час виконання",
   "NOTIFY_SWITCH_ROW_TITLE": "Показати анімацію до тих пір, поки програмне забезпечення не стане видимим",
   "VISIBLE_SWITCH_ROW_TITLE": "Показати це програмне забезпечення в головному меню",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Показувати цю програму лише в певних середовищах",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Приховати цю програму в певних середовищах",
   "CATEGORIES_COMBO_ROW_TITLE": "Традиційні категорії меню програми",
   "EDIT_FILE_ACTION_ROW_TITLE": "Відкрити налаштування в текстовому редакторі",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Налаштування",
   "SYSTEM_CATEGORY_LABEL": "Система",
   "UTILITY_CATEGORY_LABEL": "Утиліти",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Довідка",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Редагування цього стартового меню вимагає підвищених привілеїв",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Не вдалося завантажити %s файлів",
   "LOAD_SINGLE_ERROR_TEXT": "Не вдалося завантажити файл «%s»",

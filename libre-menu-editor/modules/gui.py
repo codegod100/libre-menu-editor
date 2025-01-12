@@ -2067,6 +2067,229 @@ class SwitchRow(Adw.ActionRow):
         self._events.release(id)
 
 
+class MultiListBox(Gtk.Box):
+
+    def __init__(self, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._events = basic.EventManager()
+
+        self._events.add("row-activated", object, object)
+
+        self._sort_data = {}
+
+        self._order = []
+
+        self._sections = {}
+
+        self.set_orientation(Gtk.Orientation.VERTICAL)
+
+    def _on_row_activated(self, list_box, row):
+
+        self._events.trigger("row-activated", list_box, row)
+
+    def _do_list_box_sort(self, row_1, row_2):
+
+        items = [
+
+            self._sort_data[row_1],
+
+            self._sort_data[row_2]
+
+            ]
+
+        if items[0] == items[1]:
+
+            return 0
+
+        else:
+
+            if sorted(items, key=str.lower)[0] == items[0]:
+
+                return -1
+
+            else:
+
+                return 1
+
+    def _update_separator_visible(self):
+
+        sections_left = list(self._order)
+
+        for section in reversed(self._order):
+
+            has_children = self._sections[section]["list_box"].get_first_child()
+
+            if section == sections_left[-1]:
+
+                show_separator = False
+
+            else:
+
+                show_separator = has_children
+
+            if not has_children:
+
+                sections_left.remove(section)
+
+            self._sections[section]["separator"].set_visible(show_separator)
+
+    def get_visible_children(self):
+
+        children = []
+
+        for section in self._order:
+
+            list_box = self._sections[section]["list_box"]
+
+            child = list_box.get_first_child()
+
+            if child:
+
+                children.append(child)
+
+                while True:
+
+                    child = child.get_next_sibling()
+
+                    if child:
+
+                        children.append(child)
+
+                    else:
+
+                        break
+
+        else:
+
+            return children
+
+    def get_first_child(self):
+
+        for section in self._order:
+
+            first_child = self._sections[section]["list_box"].get_first_child()
+
+            if first_child:
+
+                return first_child
+
+        else:
+
+            return None
+
+    def get_pixel_height_for_n_rows(self, n_rows):
+
+        first_child = self.get_first_child()
+
+        if first_child:
+
+            child_height = first_child.get_preferred_size()[1].height
+
+        else:
+
+            child_height = 0
+
+        return child_height * n_rows
+
+    def has_section(self, section):
+
+        return section in self._sections
+
+    def has_row(self, row, section):
+
+        return row.get_parent() == self._sections[section]["list_box"]
+
+    def append_section(self, name):
+
+        if not name in self._sections:
+
+            self._sections[name] = {
+
+                "list_box": Gtk.ListBox(),
+
+                "separator": Gtk.Separator(),
+
+                "sort_data": []
+
+                }
+
+            self._order.append(name)
+
+            self.append(self._sections[name]["list_box"])
+
+            self.append(self._sections[name]["separator"])
+
+            self._sections[name]["list_box"].set_sort_func(self._do_list_box_sort)
+
+            self._sections[name]["list_box"].connect("row-activated", self._on_row_activated)
+
+            self._update_separator_visible()
+
+        else:
+
+            raise ItemAlreadyExistingError(name)
+
+    def remove_section(self, name):
+
+        if name in self._sections:
+
+            self.remove(self._sections[name]["list_box"])
+
+            self.remove(self._sections[name]["separator"])
+
+            del self._sections[name]
+
+            self._order.remove(name)
+
+            self._update_separator_visible()
+
+        else:
+
+            raise ItemNotFoundError(name)
+
+    def append_row(self, widget, section, sort_data=None):
+
+        if not self.has_row(widget, section):
+
+            list_box = self._sections[section]["list_box"]
+
+            self._sort_data[widget] = str(sort_data)
+
+            list_box.append(widget)
+
+            self._update_separator_visible()
+
+        else:
+
+            raise ItemAlreadyExistingError(widget)
+
+    def remove_row(self, widget, section):
+
+        if self.has_row(widget, section):
+
+            list_box = self._sections[section]["list_box"]
+
+            del self._sort_data[widget]
+
+            list_box.remove(widget)
+
+            self._update_separator_visible()
+
+        else:
+
+            raise ItemNotFoundError(widget)
+
+    def hook(self, event, callback, *args):
+
+        self._events.hook(event, callback, *args)
+
+    def release(self, id):
+
+        self._events.release(id)
+
+
 class ComboRow(Adw.ActionRow):
 
     def __init__(self, app, *args, **kwargs):
@@ -2081,19 +2304,23 @@ class ComboRow(Adw.ActionRow):
 
         self._icon_finder.hook("changed", self._on_icon_finder_changed)
 
-        self._latest_button_height = None
-
-        self._popover_height = 10
+        self._display_n_buttons = 10
 
         self._flow_row = None
 
         self._buttons = {}
 
-        self._list_box = Gtk.ListBox()
+        self._multi_list_box = MultiListBox()
 
-        self._list_box.set_sort_func(self._do_list_box_sort)
+        self._multi_list_box.hook("row-activated", self._on_multi_list_box_row_activated)
 
-        self._list_box.connect("row-activated", self._on_row_activated)
+        self._multi_list_box.set_margin_top(Margin.DEFAULT)
+
+        self._multi_list_box.set_margin_bottom(Margin.DEFAULT)
+
+        self._multi_list_box.set_margin_start(Margin.DEFAULT)
+
+        self._multi_list_box.set_margin_end(Margin.DEFAULT)
 
         self._scrolled_window = Gtk.ScrolledWindow()
 
@@ -2101,7 +2328,7 @@ class ComboRow(Adw.ActionRow):
 
         self._scrolled_window.set_propagate_natural_width(True)
 
-        self._scrolled_window.set_child(self._list_box)
+        self._scrolled_window.set_child(self._multi_list_box)
 
         self._popover = Gtk.Popover()
 
@@ -2145,11 +2372,11 @@ class ComboRow(Adw.ActionRow):
 
         self._update_buttons_sensitive()
 
-        visible_children = self._get_visible_children()
+        first_button = self._multi_list_box.get_first_child()
 
-        if len(visible_children):
+        if first_button:
 
-            visible_children[0].grab_focus()
+            first_button.grab_focus()
 
         self._update_scrolled_window_height()
 
@@ -2177,7 +2404,7 @@ class ComboRow(Adw.ActionRow):
 
         self._popover.popup()
 
-    def _on_row_activated(self, list_box, row):
+    def _on_multi_list_box_row_activated(self, event, list_box, row):
 
         self._update_buttons_sensitive()
 
@@ -2190,30 +2417,6 @@ class ComboRow(Adw.ActionRow):
         self._update_buttons_sensitive()
 
         GLib.idle_add(self._update_buttons_icon_names)
-
-    def _do_list_box_sort(self, row_1, row_2):
-
-        labels = [
-
-            row_1.label.get_text(),
-
-            row_2.label.get_text()
-
-            ]
-
-        if labels[0] == labels[1]:
-
-            return 0
-
-        else:
-
-            if sorted(labels, key=str.lower)[0] == labels[0]:
-
-                return -1
-
-            else:
-
-                return 1
 
     def _update_buttons_icon_names(self):
 
@@ -2257,37 +2460,11 @@ class ComboRow(Adw.ActionRow):
 
         self._update_scrolled_window_height()
 
-    def _get_visible_children(self):
-
-        children = []
-
-        child = self._list_box.get_first_child()
-
-        for name in self._buttons:
-
-            if child.get_visible():
-
-                children.append(child)
-
-            child = child.get_next_sibling()
-
-        else:
-
-            return children
-
     def _update_scrolled_window_height(self):
 
-        first_button = self._list_box.get_first_child()
+        height = self._multi_list_box.get_pixel_height_for_n_rows(self._display_n_buttons)
 
-        if first_button:
-
-            self._latest_button_height = self._list_box.get_first_child().get_preferred_size()[1].height
-
-        if self._latest_button_height:
-
-            max_height = (self._popover_height * self._latest_button_height) + (2 * Margin.DEFAULT)
-
-            self._scrolled_window.set_max_content_height(max_height)
+        self._scrolled_window.set_max_content_height(height + (2 * Margin.DEFAULT))
 
     def _update_buttons_sensitive(self):
 
@@ -2297,57 +2474,85 @@ class ComboRow(Adw.ActionRow):
 
             button = self._buttons[name]
 
-            button.set_visible(not button.label.get_text() in tag_texts)
+            if not button.label.get_text() in tag_texts:
 
-        self._menu_button.set_sensitive(len(self._get_visible_children()))
+                if not self._multi_list_box.has_row(button, button.section):
 
-    def get_popover_height(self):
+                    self._multi_list_box.append_row(button, button.section, sort_data=button.label.get_text())
 
-        return self._popover_height
+            else:
 
-    def set_popover_height(self, n_buttons):
+                if self._multi_list_box.has_row(button, button.section):
 
-        self._popover_height = value
+                    self._multi_list_box.remove_row(button, button.section)
+
+        self._menu_button.set_sensitive(len(self._multi_list_box.get_visible_children()))
+
+    def get_display_n_buttons(self):
+
+        return self._display_n_buttons
+
+    def set_display_n_buttons(self, n_buttons):
+
+        self._display_n_buttons = value
 
         self._update_scrolled_window_height()
 
-    def add_button(self, name, text, icon_name=None):
+    def add_button(self, name, text, icon_name=None, section="default"):
 
-        row = Gtk.ListBoxRow()
+        button = Gtk.ListBoxRow()
 
-        row.image = Gtk.Image()
+        button.image = Gtk.Image()
 
-        row.image.set_margin_end(Margin.DEFAULT)
+        button.image.set_margin_end(Margin.DEFAULT)
 
-        row.label = Gtk.Label()
+        button.label = Gtk.Label()
 
-        row.label.set_text(text)
+        button.label.set_text(text)
 
-        row.box = Gtk.Box()
+        button.box = Gtk.Box()
 
-        row.box.append(row.image)
+        button.box.append(button.image)
 
-        row.box.append(row.label)
+        button.box.append(button.label)
 
-        row.set_child(row.box)
+        button.set_child(button.box)
 
-        row.set_activatable(True)
+        button.set_activatable(True)
 
-        row.name = name
+        button.name = name
 
-        row.icon_name = icon_name
+        button.icon_name = icon_name
 
-        self._buttons[name] = row
+        button.section = section
 
-        self._list_box.append(row)
+        self._buttons[name] = button
+
+        if not self._multi_list_box.has_section(section):
+
+            self._multi_list_box.append_section(section)
 
         self._update_buttons_icon_names()
 
-    def remove_button(self, name):
+        self._update_buttons_sensitive()
 
-        row = self._buttons.pop(name)
+    def remove_button(self, name, section="default"):
 
-        self._list_box.remove(row)
+        button = self._buttons.pop(name)
+
+        try:
+
+            self._multi_list_box.remove_row(button, section)
+
+        except ItemNotFoundError:
+
+            pass
+
+        self._update_buttons_sensitive()
+
+    def get_buttons(self):
+
+        return list(self._buttons.keys())
 
     def get_flow_row(self):
 

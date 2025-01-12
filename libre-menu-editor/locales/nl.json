@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beschrijving",
   "EXECUTION_GROUP_TITLE": "Executie",
   "DISCOVERY_GROUP_TITLE": "Zoeken",
+  "WINDOW_GROUP_TITLE": "Venster",
   "VISIBLE_GROUP_TITLE": "Zichtbaarheid",
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Geavanceerd",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Toon een terminalvenster tijdens executie",
   "NOTIFY_SWITCH_ROW_TITLE": "Toon een animatie totdat de applicatie zichtbaar is",
   "VISIBLE_SWITCH_ROW_TITLE": "Toon deze applicatie in het hoofdmenu",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Toon deze applicatie alleen in bepaalde omgevingen",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Deze applicatie verbergen in bepaalde omgevingen",
   "CATEGORIES_COMBO_ROW_TITLE": "Traditionele menucategorieën van de applicatie",
   "EDIT_FILE_ACTION_ROW_TITLE": "Instellingen openen in teksteditor",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Instellingen",
   "SYSTEM_CATEGORY_LABEL": "Systeem",
   "UTILITY_CATEGORY_LABEL": "Accessoires",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Help",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Het bewerken van deze launcher vereist verhoogde machtigingen",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Kon %s bestanden niet laden",
   "LOAD_SINGLE_ERROR_TEXT": "Kon bestand '%s' niet laden",

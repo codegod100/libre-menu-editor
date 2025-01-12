@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Опис",
   "EXECUTION_GROUP_TITLE": "Извршување",
   "DISCOVERY_GROUP_TITLE": "Пребарај",
+  "WINDOW_GROUP_TITLE": "Прозорец",
   "VISIBLE_GROUP_TITLE": "Видливост",
   "MENU_GROUP_TITLE": "Мени",
   "ADVANCED_GROUP_TITLE": "Напредно",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминал прозорец за време на извршување",
   "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимација додека апликацијата не е видлива",
   "VISIBLE_SWITCH_ROW_TITLE": "Покажи ја оваа апликација во главното мени",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Прикажи оваа апликација само во одредени средини",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Скријте овој апликација во одредени средини",
   "CATEGORIES_COMBO_ROW_TITLE": "Традиционални менуетки категории на апликацијата",
   "EDIT_FILE_ACTION_ROW_TITLE": "Отвори ги поставките во текстуален уредник",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Поставки",
   "SYSTEM_CATEGORY_LABEL": "Систем",
   "UTILITY_CATEGORY_LABEL": "Прилози",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Помош",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Уредувањето на овој лансер бара повисоки дозволи",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Неуспешно читање на %s датотеки",
   "LOAD_SINGLE_ERROR_TEXT": "Неуспешно читање на датотека '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Maelezo",
   "EXECUTION_GROUP_TITLE": "Utekelezaji",
   "DISCOVERY_GROUP_TITLE": "Tafuta",
+  "WINDOW_GROUP_TITLE": "Dirisha",
   "VISIBLE_GROUP_TITLE": "Uonekano",
   "MENU_GROUP_TITLE": "Menyu",
   "ADVANCED_GROUP_TITLE": "Kuongeza",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Onyesha dirisha la terminali wakati wa utekelezaji",
   "NOTIFY_SWITCH_ROW_TITLE": "Onyesha animesheni hadi programu iwe naonekana",
   "VISIBLE_SWITCH_ROW_TITLE": "Onyesha programu hii kwenye menyu kuu",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Onyesha programu hii tu katika mazingira fulani",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Ficha hii programu katika mazingira fulani",
   "CATEGORIES_COMBO_ROW_TITLE": "Jamii za menyu za kawaida za programu",
   "EDIT_FILE_ACTION_ROW_TITLE": "Fungua mipangilio katika haririo la maandishi",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Mipangilio",
   "SYSTEM_CATEGORY_LABEL": "Mfumo",
   "UTILITY_CATEGORY_LABEL": "Vifaa vya kuwasaidia",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Msaada",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Kuandika kipengele hiki kinahitaji ruhusa za juu",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Kushindwa kufanya %s faili",
   "LOAD_SINGLE_ERROR_TEXT": "Kushindwa kufanya faili '%s'",

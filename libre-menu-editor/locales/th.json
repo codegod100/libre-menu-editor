@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "คำอธิบาย",
   "EXECUTION_GROUP_TITLE": "การดำเนินการ",
   "DISCOVERY_GROUP_TITLE": "ค้นหา",
+  "WINDOW_GROUP_TITLE": "หน้าต่าง",
   "VISIBLE_GROUP_TITLE": "ความเห็น",
   "MENU_GROUP_TITLE": "เมนู",
   "ADVANCED_GROUP_TITLE": "ขั้นสูง",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "แสดงหน้าต่างเทอร์มินัลระหว่างการดำเนินการ",
   "NOTIFY_SWITCH_ROW_TITLE": "แสดงแอนิเมชันจนกว่าแอปพลิเคชันจะปรากฏ",
   "VISIBLE_SWITCH_ROW_TITLE": "แสดงแอปพลิเคชันนี้ในเมนูหลัก",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "แสดงแอปพลิเคชันนี้เฉพาะในบางสภาพแวดล้อม",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "ซ่อนแอปพลิเคชันนี้ในบางสภาพแวดล้อม",
   "CATEGORIES_COMBO_ROW_TITLE": "หมวดหมู่เมนูแบบดั้งเดิมของแอปพลิเคชัน",
   "EDIT_FILE_ACTION_ROW_TITLE": "เปิดการตั้งค่าในโปรแกรมแก้ไขข้อความ",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "การตั้งค่า",
   "SYSTEM_CATEGORY_LABEL": "ระบบ",
   "UTILITY_CATEGORY_LABEL": "เครื่องมือ",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "ช่วยเหลือ",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "การแก้ไขตัวเริ่มต้นนี้ต้องใช้สิทธิ์ที่สูงกว่า",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "ล้มเหลวในการโหลดไฟล์ %s",
   "LOAD_SINGLE_ERROR_TEXT": "ล้มเหลวในการโหลดไฟล์ '%s'",

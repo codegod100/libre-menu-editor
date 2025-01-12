@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Mô tả",
   "EXECUTION_GROUP_TITLE": "Thực thi",
   "DISCOVERY_GROUP_TITLE": "Tìm kiếm",
+  "WINDOW_GROUP_TITLE": "Cửa sổ",
   "VISIBLE_GROUP_TITLE": "Hiển thị",
   "MENU_GROUP_TITLE": "Thực đơn",
   "ADVANCED_GROUP_TITLE": "Nâng cao",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Hiển thị một cửa sổ terminal trong quá trình thực thi",
   "NOTIFY_SWITCH_ROW_TITLE": "Hiển thị một hiệu ứng động cho đến khi ứng dụng trở nên rõ ràng",
   "VISIBLE_SWITCH_ROW_TITLE": "Hiển thị ứng dụng này trong menu chính",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Chỉ hiển thị ứng dụng này trong một số môi trường",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Ẩn ứng dụng này trong một số môi trường",
   "CATEGORIES_COMBO_ROW_TITLE": "Danh mục menu truyền thống của ứng dụng",
   "EDIT_FILE_ACTION_ROW_TITLE": "Mở cài đặt trong trình soạn thảo văn bản",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Cài đặt",
   "SYSTEM_CATEGORY_LABEL": "Hệ thống",
   "UTILITY_CATEGORY_LABEL": "Tiện ích",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Trợ giúp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Chỉnh sửa trình khởi chạy này cần có quyền truy cập nâng cao",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Không thể tải %s tệp",
   "LOAD_SINGLE_ERROR_TEXT": "Không thể tải tệp '%s'",

@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Təsvir",
   "EXECUTION_GROUP_TITLE": "İcrası",
   "DISCOVERY_GROUP_TITLE": "Axtarış",
+  "WINDOW_GROUP_TITLE": "Pəncərə",
   "VISIBLE_GROUP_TITLE": "Görünürlük",
   "MENU_GROUP_TITLE": "Menyu",
   "ADVANCED_GROUP_TITLE": "İleri",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "İcrası zamanı terminal pəncərəsini göstər",
   "NOTIFY_SWITCH_ROW_TITLE": "Tətbiq görünənə qədər animasiya göstər",
   "VISIBLE_SWITCH_ROW_TITLE": "Bu tətbiqi əsas menyuə göstər",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Bu proqramı yalnız müəyyən mühitlərdə göstər",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Bu proqramı müəyyən mühitlərdə gizlə",
   "CATEGORIES_COMBO_ROW_TITLE": "Tətbiqin ənənəvi menyu kateqoriyaları",
   "EDIT_FILE_ACTION_ROW_TITLE": "Texniki redaktorda parametrləri açın",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Quraşdırma",
   "SYSTEM_CATEGORY_LABEL": "Sistem",
   "UTILITY_CATEGORY_LABEL": "Aksesuarlar",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Kömək",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Bu başladıcının redaktəsi yüksək səlahiyyətlər tələb edir",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "%s Faylların yüklənməsi uğursuz oldu",
   "LOAD_SINGLE_ERROR_TEXT": "'%s' Faylının yüklənməsi uğursuz oldu",

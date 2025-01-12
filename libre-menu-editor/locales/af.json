@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Beskrywing",
   "EXECUTION_GROUP_TITLE": "Uitvoering",
   "DISCOVERY_GROUP_TITLE": "Soek",
+  "WINDOW_GROUP_TITLE": "Venster",
   "VISIBLE_GROUP_TITLE": "Sigbaarheid",
   "MENU_GROUP_TITLE": "Kieslys",
   "ADVANCED_GROUP_TITLE": "Geavanceerd",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Wys 'n terminaal-venster tydens uitvoering",
   "NOTIFY_SWITCH_ROW_TITLE": "Wys 'n animasie tot die toepassing sigbaar is",
   "VISIBLE_SWITCH_ROW_TITLE": "Wys hierdie toepassing in die hoofmenu",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Wys hierdie toepassing slegs in sekere omgewings",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Versteek hierdie toepassing in sekere omgewings",
   "CATEGORIES_COMBO_ROW_TITLE": "Tradisionele menu-kategorieë van die toepassing",
   "EDIT_FILE_ACTION_ROW_TITLE": "Instellingen openen in teksteditor",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Instellings",
   "SYSTEM_CATEGORY_LABEL": "Stelsel",
   "UTILITY_CATEGORY_LABEL": "Bykomstighede",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Hulp",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "Die wysiging van hierdie lanser vereis verhoogde toegangsregte",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Kon nie %s lêers laai nie",
   "LOAD_SINGLE_ERROR_TEXT": "Kon nie lêer '%s' laai nie",

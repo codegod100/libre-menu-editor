@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Descripción",
   "EXECUTION_GROUP_TITLE": "Ejecución",
   "DISCOVERY_GROUP_TITLE": "Buscar",
+  "WINDOW_GROUP_TITLE": "Ventana",
   "VISIBLE_GROUP_TITLE": "Visibilidad",
   "MENU_GROUP_TITLE": "Menú",
   "ADVANCED_GROUP_TITLE": "Avanzado",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Mostrar una ventana de terminal durante la ejecución",
   "NOTIFY_SWITCH_ROW_TITLE": "Mostrar una animación hasta que la aplicación sea visible",
   "VISIBLE_SWITCH_ROW_TITLE": "Mostrar esta aplicación en menú principal",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Mostrar esta aplicación solo en ciertos entornos",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Ocultar esta aplicación en algunos entornos",
   "CATEGORIES_COMBO_ROW_TITLE": "Categorías de menú tradicionales de la aplicación",
   "EDIT_FILE_ACTION_ROW_TITLE": "Abrir configuraciones en editor de texto",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Preferencias",
   "SYSTEM_CATEGORY_LABEL": "Sistema",
   "UTILITY_CATEGORY_LABEL": "Utilidades",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Ayuda",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "La edición de este lanzador requiere permisos elevados",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "No se pudo cargar %s archivos",
   "LOAD_SINGLE_ERROR_TEXT": "No se pudo cargar el archivo '%s'",

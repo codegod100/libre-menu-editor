@@ -78,6 +78,7 @@
   "DESCRIPTION_GROUP_TITLE": "Descrizione",
   "EXECUTION_GROUP_TITLE": "Esecuzione",
   "DISCOVERY_GROUP_TITLE": "Indagatore",
+  "WINDOW_GROUP_TITLE": "Finestra",
   "VISIBLE_GROUP_TITLE": "Mostra",
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Avanzato",
@@ -96,6 +97,8 @@
   "TERMINAL_SWITCH_ROW_TITLE": "Mostra una finestra terminale durante l'esecuzione",
   "NOTIFY_SWITCH_ROW_TITLE": "Mostra un'animazione fino a quando l'applicazione non è visibile",
   "VISIBLE_SWITCH_ROW_TITLE": "Mostra questa applicazione nel menu principale",
+  "ONLYSHOWIN_COMBO_ROW_TITLE": "Mostra questa applicazione solo in determinati ambienti",
+  "NOTSHOWIN_COMBO_ROW_TITLE": "Nascondi questa applicazione in alcuni ambienti",
   "CATEGORIES_COMBO_ROW_TITLE": "Categorie di menu tradizionali dell'applicazione",
   "EDIT_FILE_ACTION_ROW_TITLE": "Apri le impostazioni nell'editor di testo",
 
@@ -114,6 +117,9 @@
   "SETTINGS_CATEGORY_LABEL": "Impostazioni",
   "SYSTEM_CATEGORY_LABEL": "Sistema",
   "UTILITY_CATEGORY_LABEL": "Accessori",
+
+  "TOAST_SHOW_DETAILS_BUTTON_LABEL": "Aiuto",
+  "STARTER_NO_ACCESS_ERROR_TEXT": "La modifica di questo launcher richiede autorizzazioni elevate",
 
   "LOAD_MULTIPLE_ERROR_TEXT": "Impossibile caricare %s file",
   "LOAD_SINGLE_ERROR_TEXT": "Impossibile caricare il file '%s'",
