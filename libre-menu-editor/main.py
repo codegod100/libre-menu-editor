@@ -58,7 +58,7 @@ class DesktopParser():
 
         self._config_parser.optionxform = str
 
-        self._system_locale_names = [
+        self._system_locale_names = list(filter(None, [
 
             os.getenv("LANG").split(".")[0].split("_")[0],
 
@@ -66,7 +66,7 @@ class DesktopParser():
 
             os.getenv("LANG")
 
-            ]
+            ]))
 
         self._load_path = load_path
 
@@ -693,7 +693,9 @@ class DefaultTextEditor():
 
                 else:
 
-                    os.rmdir(self._edit_dir)
+                    if os.path.exists(self._edit_dir):
+
+                        os.rmdir(self._edit_dir)
 
     def hook(self, event, callback):
 
