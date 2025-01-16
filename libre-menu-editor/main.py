@@ -140,6 +140,10 @@ class DesktopParser():
 
         if len(value):
 
+            if section == "Desktop Entry" and not self._config_parser.has_section(section):
+
+                self._config_parser.add_section(section)
+
             self._config_parser.set(section, key, value)
 
             if localized:
@@ -527,13 +531,13 @@ class DefaultTextEditor():
 
     def _on_path_inspector_changed(self, event, edit_path, timestamp):
 
-        name = os.path.basename(edit_path)[:-len(".ini")]
+        name = self._get_name_from_edit_path(edit_path)
 
         GLib.idle_add(self._trigger_update_event, name)
 
     def _on_path_inspector_created(self, event, edit_path, timestamp):
 
-        name = os.path.basename(edit_path)[:-len(".ini")]
+        name = self._get_name_from_edit_path(edit_path)
 
         GLib.idle_add(self._trigger_update_event, name)
 
@@ -541,9 +545,13 @@ class DefaultTextEditor():
 
         GLib.idle_add(self._path_inspector.remove, edit_path)
 
-        name = os.path.basename(edit_path)[:-len(".ini")]
+        name = self._get_name_from_edit_path(edit_path)
 
         del self._original_paths[name]
+
+    def _get_name_from_edit_path(self, edit_path):
+
+        return os.path.relpath(edit_path, self._edit_dir)[:-len(".ini")].strip(os.path.sep)
 
     def _get_files_identical(self, first, second):
 
@@ -591,11 +599,13 @@ class DefaultTextEditor():
 
     def launch(self, name, parser):
 
-        if not os.path.exists(self._edit_dir):
+        full_path = os.path.join(self._edit_dir, name)
 
-            os.makedirs(self._edit_dir, exist_ok=True)
+        if not os.path.exists(os.path.dirname(full_path)):
 
-        edit_path = os.path.join(self._edit_dir, f"{name}.ini")
+            os.makedirs(os.path.dirname(full_path), exist_ok=True)
+
+        edit_path = os.path.join(f"{full_path}.ini")
 
         self._parsers[name] = {
 
@@ -651,19 +661,39 @@ class DefaultTextEditor():
 
     def exit(self):
 
-        self._parsers.clear()
-
         for path in self._path_inspector.get_paths():
 
             self._path_inspector.remove(path)
 
         self._path_inspector.set_active(False)
 
-        if os.path.exists(self._edit_dir):
+        for name in self._parsers:
 
-            for basename in os.listdir(self._edit_dir):
+            edit_path = self._parsers[name]["edit-path"]
 
-                os.remove(os.path.join(self._edit_dir, basename))
+            if os.path.abspath(edit_path).startswith(os.path.abspath(self._edit_dir)):
+
+                os.remove(os.path.join(edit_path))
+
+        else:
+
+            empty_dirs = []
+
+            for dirpath, dirnames, filenames in os.walk(self._edit_dir):
+
+                for dirname in dirnames:
+
+                    empty_dirs.append(os.path.join(dirpath, dirname))
+
+            else:
+
+                for empty_dir in reversed(empty_dirs):
+
+                    os.rmdir(empty_dir)
+
+                else:
+
+                    os.rmdir(self._edit_dir)
 
     def hook(self, event, callback):
 
@@ -2574,9 +2604,13 @@ class Application(gui.Application):
 
         self._debug_log = DebugLog(self)
 
-        if "--debug" in sys.argv:
+        if len(args) and "--debug" in sys.argv:
+
+            self._debug_log.set_raise_errors(True)
 
             sys.stdout.write(self._debug_log.get())
+
+            sys.argv.remove("--debug")
 
         ###############################################################################################################
 
@@ -2837,22 +2871,6 @@ class Application(gui.Application):
                 os.path.join(self.get_flatpak_real_home(), ".config", "mimeapps.list")
 
                 ])
-
-        self._mimeinfo_override_paths = {
-
-            "MIME Cache": [
-
-                os.path.join(self._desktop_starter_override_dir, "mimeinfo.cache")
-
-                ],
-
-            "Added Associations": [
-
-                os.path.join(GLib.get_user_config_dir(), "mimeapps.list")
-
-                ]
-
-            }
 
         ###############################################################################################################
 
@@ -3910,39 +3928,37 @@ class Application(gui.Application):
 
     def _get_desktop_starter_names(self):
 
-        names = []
+        directories = []
 
         for directory in self._system_data_dirs:
 
-            directory = os.path.join(directory, "applications")
+            directories.append(os.path.join(directory, "applications"))
+
+        else:
+
+            directories.append(self._desktop_starter_override_dir)
+
+        names = []
+
+        for directory in directories:
 
             if os.path.exists(directory):
 
-                for file in os.listdir(directory):
+                for dirpath, dirnames, filenames in os.walk(directory):
 
-                    if file.endswith(".desktop"):
+                    for filename in filenames:
 
-                        name = file[:-len(".desktop")]
+                        if filename.endswith(".desktop"):
 
-                        if not name in names:
+                            full_path = os.path.join(dirpath, filename)
 
-                            names.append(name)
+                            relative_path = os.path.relpath(full_path, directory)
 
-        if os.path.exists(self._desktop_starter_override_dir):
+                            name = relative_path[:-len(".desktop")].strip(os.path.sep)
 
-            for file in os.listdir(self._desktop_starter_override_dir):
+                            if not name in names:
 
-                if file.endswith(".desktop"):
-
-                    name = file[:-len(".desktop")]
-
-                    if not name in names:
-
-                        names.append(name)
-
-            else:
-
-                return names
+                                names.append(name)
 
         else:
 
@@ -4412,9 +4428,35 @@ class Application(gui.Application):
 
     def _update_mime_data(self, parser, delete=False):
 
-        for section in self._mimeinfo_override_paths:
+        operations = [{
 
-            paths = self._mimeinfo_override_paths[section]
+            "section": "Added Associations",
+
+            "path": os.path.join(GLib.get_user_config_dir(), "mimeapps.list"),
+
+            "desktop-id": os.path.relpath(parser.get_save_path(), self._desktop_starter_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
+
+            }]
+
+        if os.path.abspath(parser.get_save_path()).startswith(os.path.abspath(self._desktop_starter_override_dir)):
+
+            operations.append({
+
+                "section": "MIME Cache",
+
+                "path": os.path.join(os.path.dirname(parser.get_save_path()), "mimeinfo.cache"),
+
+                "desktop-id": os.path.basename(parser.get_save_path())
+
+                })
+
+        for operation in operations:
+
+            section = operation["section"]
+
+            path = operation["path"]
+
+            desktop_id = operation["desktop-id"]
 
             mime_parser = ConfigParser(interpolation=None, strict=False)
 
@@ -4426,13 +4468,9 @@ class Application(gui.Application):
 
             mimeinfo_changed = False
 
-            for path in paths:
+            if os.access(path, os.R_OK):
 
-                if os.access(path, os.R_OK):
-
-                    mime_parser.read(path)
-
-            app_name = os.path.basename(parser.get_save_path())
+                mime_parser.read(path)
 
             app_mimetypes = parser.get_mimetypes()
 
@@ -4442,9 +4480,9 @@ class Application(gui.Application):
 
                 mime_data_names = list(filter(None, mime_data_dict[mime_data_mimetype].split(";")))
 
-                if app_name in mime_data_names and (not mime_data_mimetype in app_mimetypes or delete):
+                if desktop_id in mime_data_names and (not mime_data_mimetype in app_mimetypes or delete):
 
-                    mime_data_names.remove(app_name)
+                    mime_data_names.remove(desktop_id)
 
                     if len(mime_data_names):
 
@@ -4462,15 +4500,15 @@ class Application(gui.Application):
 
                     if not app_mimetype in mime_data_dict:
 
-                        mime_parser.set(section, app_mimetype, f"{app_name};")
+                        mime_parser.set(section, app_mimetype, f"{desktop_id};")
 
                         mimeinfo_changed = True
 
-                    elif not app_name in mime_data_dict[app_mimetype]:
+                    elif not desktop_id in mime_data_dict[app_mimetype]:
 
                         mime_data_names = list(filter(None, mime_data_dict[app_mimetype].split(";")))
 
-                        mime_data_names.append(app_name)
+                        mime_data_names.append(desktop_id)
 
                         mime_parser.set(section, app_mimetype, f"{';'.join(mime_data_names)};")
 
@@ -4478,13 +4516,11 @@ class Application(gui.Application):
 
             if mimeinfo_changed:
 
-                for path in paths:
+                os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
 
-                    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+                with open(path, "w") as file:
 
-                    with open(path, "w") as file:
-
-                        mime_parser.write(file, space_around_delimiters=False)
+                    mime_parser.write(file, space_around_delimiters=False)
 
     def _load_settings_page(self, name):
 
@@ -4664,11 +4700,11 @@ class Application(gui.Application):
 
                         except Exception as error:
 
-                            exceptions[os.path.basename(path)] = (name, error, path)
+                            exceptions[path] = (name, error, path)
 
                     else:
 
-                        exceptions[os.path.basename(path)] = None, None, path
+                        exceptions[path] = None, None, path
 
                 else:
 
@@ -4690,7 +4726,7 @@ class Application(gui.Application):
 
                             self.notify(
 
-                                self._locale_manager.get("LOAD_SINGLE_ERROR_TEXT") % list(exceptions.keys())[0],
+                                self._locale_manager.get("LOAD_SINGLE_ERROR_TEXT") % os.path.basename(list(exceptions.keys())[0]),
 
                                 error=True
 
@@ -5082,12 +5118,6 @@ class Application(gui.Application):
         return parser
 
     def _parse_command_line_args(self, args):
-
-        if len(args) and "--debug" in args:
-
-            self._debug_log.set_raise_errors(True)
-
-            args.remove("--debug")
 
         if len(args) and "--new" in args:
 
