@@ -677,25 +677,23 @@ class DefaultTextEditor():
 
         else:
 
-            empty_dirs = []
-
-            for dirpath, dirnames, filenames in os.walk(self._edit_dir):
+            for dirpath, dirnames, filenames in os.walk(self._edit_dir, topdown=False):
 
                 for dirname in dirnames:
 
-                    empty_dirs.append(os.path.join(dirpath, dirname))
+                    try:
+
+                        os.rmdir(os.path.join(dirpath, dirname))
+
+                    except OSError as error:
+
+                        self._application.log(error, error=error)
 
             else:
 
-                for empty_dir in reversed(empty_dirs):
+                if os.path.exists(self._edit_dir) and not len(os.listdir(self._edit_dir)):
 
-                    os.rmdir(empty_dir)
-
-                else:
-
-                    if os.path.exists(self._edit_dir):
-
-                        os.rmdir(self._edit_dir)
+                    os.rmdir(self._edit_dir)
 
     def hook(self, event, callback):
 
