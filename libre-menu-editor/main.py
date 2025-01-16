@@ -2956,19 +2956,19 @@ class Application(gui.Application):
 
         ###############################################################################################################
 
-        for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
 
             setattr(self, f"_{name}_menu", gui.Menu(self))
 
         ###############################################################################################################
 
-        for name in ["big_start", "big_reset_starter", "big_delete_starter", "big_discard_starter"]:
+        for name in ["big_start", "small_start", "big_reset_starter", "big_delete_starter", "big_discard_starter"]:
 
             getattr(self, f"_{name}_menu").append_section(None, self._view_menu_section)
 
         ###############################################################################################################
 
-        for name in ["big_reset_starter", "small_reset_starter"]:
+        for name in ["big_reset_starter", "small_reset_starter", "big_start"]:
 
             getattr(self, f"_{name}_menu").append_section(None, self._reset_starter_menu_section)
 
@@ -2982,13 +2982,13 @@ class Application(gui.Application):
 
         ###############################################################################################################
 
-        for name in ["big_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
 
             getattr(self, f"_{name}_menu").append_section(None, self._add_menu_section)
 
         ###############################################################################################################
 
-        for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
 
             getattr(self, f"_{name}_menu").append_section(None, self._help_menu_section)
 
@@ -3008,7 +3008,7 @@ class Application(gui.Application):
 
         self._greeter_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
 
-        self._greeter_menu_button.set_menu_model(self._small_start_menu)
+        self._greeter_menu_button.set_menu_model(self._greeter_menu)
 
         self._greeter_menu_button.set_primary(True)
 
@@ -4302,7 +4302,7 @@ class Application(gui.Application):
 
             if hasattr(self._main_split_layout, "get_collapsed") and self._main_split_layout.get_collapsed():
 
-                self._left_menu_button.set_menu_model(self._big_start_menu)
+                self._left_menu_button.set_menu_model(self._small_start_menu)
 
                 self._left_menu_button.set_primary(True)
 
@@ -4315,6 +4315,8 @@ class Application(gui.Application):
                 sub_menu_name = "small"
 
             else:
+
+                self._left_menu_button.set_menu_model(self._big_start_menu)
 
                 self._left_menu_button.set_primary(True)
 
@@ -4361,6 +4363,8 @@ class Application(gui.Application):
             if self._main_stack.get_visible_child() == self._start_page:
 
                 self._current_menu_button.set_menu_model(self._current_start_menu)
+
+                self._reset_starter_menu_section.set_enabled("reset_starter", False)
 
             elif self._main_stack.get_visible_child() == self._settings_page:
 
