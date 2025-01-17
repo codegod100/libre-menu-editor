@@ -525,6 +525,8 @@ class IconBrowser(Gtk.Box):
 
         self._results_limit = -1
 
+        self._start_search_timeout_id = None
+
         self._lower_string = ""
 
         self._search_delay = 60
@@ -849,7 +851,11 @@ class IconBrowser(Gtk.Box):
 
         self._add_new_list_store(self._search_id)
 
-        GLib.timeout_add(self._search_delay, self._start_search_thread, text, self._search_id, exclude)
+        if self._start_search_timeout_id:
+
+            GLib.source_remove(self._start_search_timeout_id)
+
+        self._start_search_timeout_id = GLib.timeout_add(self._search_delay, self._start_search_thread, text, self._search_id, exclude)
 
     def _start_search_thread(self, text, search_id, exclude=[]):
 
@@ -860,6 +866,10 @@ class IconBrowser(Gtk.Box):
         self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key, search_id], kwargs={"exclude": exclude})
 
         self._search_thread.start()
+
+        self._start_search_timeout_id = None
+
+        return GLib.SOURCE_REMOVE
 
     def _search_thread_target(self, text, keywords, results_key, search_id, exclude=[]):
 
