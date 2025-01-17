@@ -67,6 +67,8 @@ class Spacing():
 
 class Margin():
 
+    SMALL = 3
+
     DEFAULT = 6
 
     LARGE = 11
@@ -421,7 +423,73 @@ class IconName(GObject.Object):
         self.name = name
 
 
-class IconBrowser(Gtk.ScrolledWindow):
+class LabeledImage(Gtk.Box):
+
+    def __init__(self, max_label_width=192, breakpoint=128, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._image = Gtk.Image()
+
+        self._label = Gtk.Label()
+
+        self._image.set_hexpand(False)
+
+        self._label.set_hexpand(True)
+
+        self._label.set_ellipsize(Pango.EllipsizeMode.END)
+
+        self._max_label_width = max_label_width
+
+        self._breakpoint = breakpoint
+
+        self.append(self._image)
+
+        self.append(self._label)
+
+    def set_pixel_size(self, value):
+
+        if value >= self._breakpoint:
+
+            self.set_orientation(Gtk.Orientation.VERTICAL)
+
+            self.set_property("width-request", value)
+
+            self._label.set_halign(Gtk.Align.CENTER)
+
+            self._label.set_margin_top(Margin.DEFAULT)
+
+            self._label.set_margin_start(0)
+
+        else:
+
+            self.set_orientation(Gtk.Orientation.HORIZONTAL)
+
+            total_width = value + self._max_label_width + self._label.get_margin_start() + self._label.get_margin_end()
+
+            self.set_property("width-request", total_width)
+
+            self._label.set_halign(Gtk.Align.START)
+
+            self._label.set_margin_start(Margin.DEFAULT)
+
+            self._label.set_margin_top(0)
+
+        self._image.set_pixel_size(value)
+
+    def set_from_icon_name(self, icon_name):
+
+        self._image.set_from_icon_name(icon_name)
+
+        self._label.set_text(icon_name)
+
+
+class IconSizeNotSupportedError(Exception):
+
+    pass
+
+
+class IconBrowser(Gtk.Box):
 
     def __init__(self, app, *args, **kwargs):
 
@@ -436,6 +504,8 @@ class IconBrowser(Gtk.ScrolledWindow):
         self._events.add("updated", object)
 
         self._events.add("item-selected", str)
+
+        self._icon_sizes = [16, 24, 32, 48, 64, 96, 128, 192, 256]
 
         self._icon_names = []
 
@@ -453,27 +523,25 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._results_key = None
 
-        self._lower_string = ""
+        self._results_limit = -1
 
-        self._search_timeout_id = None
+        self._lower_string = ""
 
         self._search_delay = 60
 
-        self._search_thread = None
-
-        self._search_interrupted = False
-
         self._name_slices = []
 
-        self._slice_length = 90
+        self._slice_length = 10
 
-        self._slice_call_id = None
+        self._search_id = 0
 
-        self._list_store = Gio.ListStore()
+        self._operations = {}
 
-        self._selection_model = Gtk.NoSelection()
+        self._current_grid_child_class = Gtk.Image
 
-        self._selection_model.set_model(self._list_store)
+        self._current_grid_child_icon_size = 48
+
+        self._add_new_list_store(self._search_id)
 
         self._factory = Gtk.SignalListItemFactory()
 
@@ -481,9 +549,11 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._factory.connect("bind", self._on_factory_bind)
 
+        self._factory.connect("unbind", self._on_factory_unbind)
+
         self._grid_view = Gtk.GridView()
 
-        self._grid_view.set_max_columns(150)
+        self._grid_view.set_hexpand(True)
 
         self._grid_view.set_halign(Gtk.Align.FILL)
 
@@ -499,61 +569,241 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._grid_view.connect("activate", self._on_grid_view_activate)
 
-        self._grid_view.set_model(self._selection_model)
-
         self._grid_view.set_factory(self._factory)
 
-        self.set_child(self._grid_view)
+        self._scrolled_window = Gtk.ScrolledWindow()
 
-        self.set_size_request(-1, 175)
+        self._scrolled_window.set_child(self._grid_view)
+
+        self._resize_frame = ResizeFrame()
+
+        self._resize_frame.set_child(self._scrolled_window)
+
+        self._resize_frame.set_property("height-request", self._icon_sizes[-1] + (Margin.DEFAULT * 4))
+
+        self._resize_frame.hook("resized", self._on_resize_frame_resized)
+
+        self._icon_size_increase_button = Gtk.Button()
+
+        self._icon_size_increase_button.connect("clicked", self._on_icon_size_increase_button_clicked)
+
+        self._icon_size_increase_button.set_child(self._icon_finder.get_image("list-add-symbolic"))
+
+        self._icon_size_increase_button.add_css_class("flat")
+
+        self._icon_size_decrease_button = Gtk.Button()
+
+        self._icon_size_decrease_button.connect("clicked", self._on_icon_size_decrease_button_clicked)
+
+        self._icon_size_decrease_button.set_child(self._icon_finder.get_image("list-remove-symbolic"))
+
+        self._icon_size_decrease_button.add_css_class("flat")
+
+        self._icon_size_scale = Gtk.Scale.new_with_range(Gtk.Orientation.VERTICAL, 0, len(self._icon_sizes) - 1, 1)
+
+        self._icon_size_scale.set_value(self._icon_sizes.index(self._current_grid_child_icon_size))
+
+        self._icon_size_scale.set_increments(1, len(self._icon_sizes) -1)
+
+        self._icon_size_scale.connect("value-changed", self._on_icon_size_scale_value_changed)
+
+        self._icon_size_scale.set_round_digits(False)
+
+        self._icon_size_scale.set_vexpand(True)
+
+        self._icon_size_scale.set_inverted(True)
+
+        self._icon_size_widgets_box = Gtk.Box()
+
+        self._icon_size_widgets_box.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self._icon_size_widgets_box.append(self._icon_size_increase_button)
+
+        self._icon_size_widgets_box.append(self._icon_size_scale)
+
+        self._icon_size_widgets_box.append(self._icon_size_decrease_button)
+
+        self._toolbar_separator = Gtk.Separator()
+
+        self._toolbar_separator.add_css_class("spacer")
+
+        self._show_labels_toggle = Gtk.ToggleButton()
+
+        self._show_labels_toggle.set_child(self._icon_finder.get_image("font-symbolic"))
+
+        self._show_labels_toggle.connect("toggled", self._on_show_labels_toggle_toggled)
+
+        self._show_labels_toggle.add_css_class("flat")
+
+        self._toolbar = Gtk.Box()
+
+        self._toolbar.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self._toolbar.add_css_class("toolbar")
+
+        self._toolbar.add_css_class("osd")
+
+        self._toolbar.append(self._icon_size_widgets_box)
+
+        self._toolbar.append(self._toolbar_separator)
+
+        self._toolbar.append(self._show_labels_toggle)
+
+        self._toolbar.set_margin_top(Margin.DEFAULT)
+
+        self._toolbar.set_margin_bottom(Margin.DEFAULT)
+
+        self._toolbar.set_margin_start(Margin.DEFAULT)
+
+        self._toolbar.set_margin_end(Margin.DEFAULT / 2 )
+
+        self.append(self._toolbar)
+
+        self.append(self._resize_frame)
 
         self.add_css_class("view")
 
-        GLib.idle_add(self._update_search_data)
+        GLib.idle_add(self._update_search_data, priority=GLib.PRIORITY_LOW)
 
-        GLib.idle_add(self._connect_icon_finder_changed)
+        GLib.idle_add(self._connect_icon_finder_changed, priority=GLib.PRIORITY_LOW)
+
+    def _on_resize_frame_resized(self, event, width, height):
+
+        self._update_max_columns()
+
+    def _on_icon_size_increase_button_clicked(self, button):
+
+        self._increase_scale_value(1)
+
+    def _on_icon_size_decrease_button_clicked(self, button):
+
+        self._increase_scale_value(-1)
+
+    def _on_icon_size_scale_value_changed(self, scale):
+
+        allow_increase = int(scale.get_value()) < len(self._icon_sizes) -1
+
+        allow_decrease = scale.get_value()
+
+        if ((not allow_increase and self._icon_size_increase_button.has_focus())
+
+        or (not allow_decrease and self._icon_size_decrease_button.has_focus())):
+
+            self._icon_size_scale.grab_focus()
+
+        self._icon_size_increase_button.set_sensitive(allow_increase)
+
+        self._icon_size_decrease_button.set_sensitive(allow_decrease)
+
+        self._update_grid_children_style()
+
+    def _on_show_labels_toggle_toggled(self, toggle_button):
+
+        self._update_grid_children_style()
+
+    def _increase_scale_value(self, step):
+
+        current_size = self._icon_sizes[int(self._icon_size_scale.get_value())]
+
+        new_value = self._icon_sizes.index(current_size) + step
+
+        self._icon_size_scale.set_value(new_value)
+
+    def _update_max_columns(self):
+
+        width = self._resize_frame.get_width()
+
+        first_child = self._grid_view.get_first_child()
+
+        min_image_width = self._current_grid_child_icon_size + (Margin.DEFAULT * 2)
+
+        item_width = 0
+
+        if width < min_image_width:
+
+            return
+
+        if first_child:
+
+            item_width = first_child.get_allocated_width()
+
+        if item_width < min_image_width:
+
+            item_width = min_image_width
+
+        spots_float = width / item_width
+
+        spots_int = int(spots_float)
+
+        if not spots_int >= spots_float:
+
+            spots_int += 1
+
+        if not self._grid_view.get_max_columns() == spots_int:
+
+            self._grid_view.set_max_columns(spots_int)
+
+    def _update_grid_children_style(self):
+
+        show_names = self._show_labels_toggle.get_active()
+
+        icon_size = self._icon_sizes[int(self._icon_size_scale.get_value())]
+
+        if not show_names == self.get_show_names() or not icon_size == self.get_icon_size():
+
+            if show_names:
+
+                self._current_grid_child_class = LabeledImage
+
+            else:
+
+                self._current_grid_child_class = Gtk.Image
+
+            self._current_grid_child_icon_size = icon_size
+
+            if self._grid_view.get_model() and len(self._grid_view.get_model().get_model()):
+
+                self.clear()
+
+                self._start_search()
+
+            self._update_max_columns()
 
     def _on_icon_finder_changed(self, event, icon_finder):
 
-        self._results_key = None
-
-        self._list_store.remove_all()
-
-        self._results_cache.clear()
+        self.clear()
 
         self._update_search_data()
 
-        self._start_search(self._last_text)
+        self._start_search()
 
     def _on_factory_setup(self, factory, list_item):
 
-        image = Gtk.Image()
+        image = self._current_grid_child_class()
 
-        image.set_pixel_size(48)
+        image.set_pixel_size(self._current_grid_child_icon_size)
+
+        image.set_margin_top(Margin.SMALL)
+
+        image.set_margin_bottom(Margin.SMALL)
+
+        image.set_margin_start(Margin.SMALL)
+
+        image.set_margin_end(Margin.SMALL)
 
         list_item.set_child(image)
 
     def _on_factory_bind(self, factory, list_item):
 
-        GLib.idle_add(list_item.get_child().set_from_icon_name, list_item.get_item().name)
+        GLib.idle_add(list_item.get_child().set_from_icon_name, list_item.get_item().name, priority=GLib.PRIORITY_LOW)
+
+    def _on_factory_unbind(self, factory, list_item):
+
+        list_item.get_child().set_from_icon_name("")
 
     def _on_grid_view_activate(self, grid_view, position):
 
-        self._events.trigger("item-selected", self._list_store[position].name)
-
-    def _start_search(self, text, exclude=[]):
-
-        self._stop_search_thread()
-
-        self._search_timeout_id = GLib.timeout_add(self._search_delay, self._after_search_started, text, exclude)
-
-    def _after_search_started(self, text, exclude=[]):
-
-        self._start_search_thread(text, exclude=exclude)
-
-        self._search_timeout_id = None
-
-        return GLib.SOURCE_REMOVE
+        self._events.trigger("item-selected", grid_view.get_model().get_model()[position].name)
 
     def _connect_icon_finder_changed(self):
 
@@ -567,51 +817,55 @@ class IconBrowser(Gtk.ScrolledWindow):
 
         self._lower_string = self._search_string.lower()
 
-    def _start_search_thread(self, text, exclude=[]):
+    def _add_new_list_store(self, search_id):
+
+        list_store = Gio.ListStore()
+
+        selection_model = Gtk.NoSelection()
+
+        selection_model.set_model(list_store)
+
+        self._operations[search_id] = {
+
+            "list-store": list_store,
+
+            "selection-model": selection_model
+
+            }
+
+    def _start_search(self, text=None, exclude=[]):
+
+        if text == None:
+
+            text = self._last_text
+
+        else:
+
+            self._last_text = text
+
+        del self._operations[self._search_id]
+
+        self._search_id += 1
+
+        self._add_new_list_store(self._search_id)
+
+        GLib.timeout_add(self._search_delay, self._start_search_thread, text, self._search_id, exclude)
+
+    def _start_search_thread(self, text, search_id, exclude=[]):
 
         keywords = set(filter(None, text.lower().replace(self._string_separator, self._keyword_separator).split(self._keyword_separator)))
 
         results_key = self._keyword_separator.join(keywords)
 
-        if not results_key == self._results_key:
+        self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key, search_id], kwargs={"exclude": exclude})
 
-            self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key], kwargs={"exclude": exclude})
+        self._search_thread.start()
 
-            self._search_thread.start()
-
-        else:
-
-            self._after_search_finished()
-
-    def _stop_search_thread(self):
-
-        self._search_interrupted = True
-
-        if self._search_timeout_id:
-
-            GLib.source_remove(self._search_timeout_id)
-
-            self._search_timeout_id = None
-
-        if self._slice_call_id:
-
-            GLib.source_remove(self._slice_call_id)
-
-            self._slice_call_id = None
-
-        if self._search_thread:
-
-            self._search_thread.join()
-
-            self._search_thread = None
-
-        self._search_interrupted = False
-
-    def _search_thread_target(self, text, keywords, results_key, exclude=[]):
+    def _search_thread_target(self, text, keywords, results_key, search_id, exclude=[]):
 
         try:
 
-            names = self._results_cache[results_key]
+            names = self._results_cache[results_key]["names"]
 
         except KeyError:
 
@@ -621,7 +875,11 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             else:
 
-                names = self._get_names(keywords, exclude=exclude)
+                names = self._get_names(keywords, search_id, exclude=exclude)
+
+        GLib.idle_add(self._after_search_thread, names, results_key, search_id, priority=GLib.PRIORITY_LOW)
+
+    def _after_search_thread(self, names, results_key, search_id):
 
         try:
 
@@ -631,89 +889,81 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             pass
 
-        if self._results_key and self._results_key in self._results_cache and names == self._results_cache[self._results_key]:
+        try:
 
-            self._results_cache[results_key] = names
+            if (self._results_key and self._results_key in self._results_cache and names == self._results_cache[self._results_key]["names"]
 
-            if not self._search_interrupted:
+            and self._results_cache[self._results_key]["selection-model"] == self._grid_view.get_model()):
 
-                self._slice_call_id = GLib.idle_add(self._after_search_finished)
+                self._operations[search_id] = self._results_cache[self._results_key]
 
-        else:
-
-            self._results_cache[results_key] = names
-
-            if len(names):
-
-                icon_names = [IconName(name) for name in names]
-
-                self._name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names), self._slice_length)]
-
-                if not self._search_interrupted:
-
-                    GLib.idle_add(self._events.trigger, "drawing-icons")
-
-                    self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key, True)
-
-            elif not self._search_interrupted:
-
-                self._slice_call_id = GLib.idle_add(self._after_search_finished, True)
-
-        self._search_thread = None
-
-    def _after_search_finished(self, clear_store=False):
-
-        if not self._search_interrupted:
-
-            if clear_store:
-
-                self._stop_search_thread()
-
-                self._list_store.remove_all()
-
-                self._results_key = None
-
-            self._events.trigger("updated", self._list_store)
-
-            self._slice_call_id = None
-
-            return GLib.SOURCE_REMOVE
-
-    def _add_next_slice(self, results_key, first_run=False):
-
-        if not self._search_interrupted:
-
-            if first_run:
-
-                self._results_key = None
-
-                self._list_store.remove_all()
-
-                self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key)
-
-                return GLib.SOURCE_REMOVE
-
-            try:
-
-                self._list_store.splice(len(self._list_store), 0, self._name_slices.pop(0))
-
-            except IndexError:
-
-                self._slice_call_id = None
-
-                self._results_key = results_key
-
-                self._slice_call_id = GLib.idle_add(self._after_search_finished)
-
-                return GLib.SOURCE_REMOVE
+                self._after_search_finished(results_key, search_id)
 
             else:
 
-                self._slice_call_id = GLib.idle_add(self._add_next_slice, results_key)
+                self._operations[search_id]["names"] = names
 
-                return GLib.SOURCE_REMOVE
+                selection_model = self._operations[search_id]["selection-model"]
 
-    def _get_names(self, keywords, exclude=[]):
+                self._grid_view.set_model(selection_model)
+
+                if len(names):
+
+                    icon_names = [IconName(name) for name in names][:self._results_limit]
+
+                    name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names), self._slice_length)]
+
+                    self._operations[search_id]["name-slices"] = name_slices
+
+                    GLib.idle_add(self._add_next_slice, results_key, search_id, priority=GLib.PRIORITY_LOW)
+
+                else:
+
+                    self._after_search_finished(results_key, search_id)
+
+        except KeyError as error:
+
+            if search_id in self._operations:
+
+                raise error
+
+    def _add_next_slice(self, results_key, search_id):
+
+        try:
+
+            self._events.trigger("drawing-icons")
+
+            list_store = self._operations[search_id]["list-store"]
+
+            name_slices = self._operations[search_id]["name-slices"]
+
+            list_store.splice(len(list_store), 0, name_slices.pop(0))
+
+        except IndexError:
+
+            self._after_search_finished(results_key, search_id)
+
+        except KeyError as error:
+
+            if search_id in self._operations:
+
+                raise error
+
+        else:
+
+            return True
+
+    def _after_search_finished(self, results_key, search_id):
+
+        self._results_cache[results_key] = self._operations[search_id]
+
+        self._results_key = results_key
+
+        list_store = self._operations[search_id]["list-store"]
+
+        self._events.trigger("updated", list_store)
+
+    def _get_names(self, keywords, search_id, exclude=[]):
 
         names = []
 
@@ -723,7 +973,7 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             start_pos = 0
 
-            while not self._search_interrupted:
+            while search_id == self._search_id:
 
                 try:
 
@@ -801,21 +1051,43 @@ class IconBrowser(Gtk.ScrolledWindow):
 
             return first_list
 
+    def get_show_names(self):
+
+        return self._current_grid_child_class == LabeledImage
+
+    def set_show_names(self, value):
+
+        self._show_labels_toggle.set_active(value)
+
+    def get_icon_size(self):
+
+        return self._current_grid_child_icon_size
+
+    def set_icon_size(self, value):
+
+        try:
+
+            self._icon_size_scale.set_value(self._icon_sizes.index(value))
+
+        except IndexError:
+
+            raise IconSizeNotSupportedError(value)
+
     def get_results(self):
 
-        return self._list_store
+        return self._grid_view.get_model().get_model()
 
     def update(self, text, exclude=[]):
-
-        self._last_text = text
 
         self._start_search(text, exclude=exclude)
 
     def clear(self):
 
-        self._after_search_finished(clear_store=True)
+        self._results_cache.clear()
 
-        self._last_text = ""
+        self._grid_view.set_model(None)
+
+        self._results_key = None
 
     def hook(self, event, callback, *args):
 
@@ -1309,6 +1581,8 @@ class IconChooserRow(FileChooserRow):
 
         self._icon_finder = app.get_icon_finder()
 
+        self._ignore_text_changed = False
+
         self._default_entry_title = None
 
         self._search_entry_title = None
@@ -1453,15 +1727,13 @@ class IconChooserRow(FileChooserRow):
 
             self._icon_view.update(text)
 
+        elif not self._ignore_text_changed:
+
+            self._icon_browser.update(text)
+
         else:
 
-            if len(text):
-
-                self._icon_browser.update(text)
-
-            else:
-
-                self._icon_browser.clear()
+            self._ignore_text_changed = False
 
     def _on_icon_view_updated(self, event, update_successful):
 
@@ -1521,7 +1793,11 @@ class IconChooserRow(FileChooserRow):
 
         if value:
 
+            self._ignore_text_changed = True
+
             self.set_text("")
+
+            self._ignore_text_changed = False
 
             self.remove_css_class("warning")
 
@@ -1542,6 +1818,8 @@ class IconChooserRow(FileChooserRow):
             if self._default_entry_title:
 
                 self.set_title(self._default_entry_title)
+
+            self._icon_browser_needs_cleanup = True
 
             self._icon_browser_row.set_active(False)
 
@@ -2563,6 +2841,89 @@ class ComboRow(Adw.ActionRow):
         flow_row.hook("text-changed", self._on_flow_row_text_changed)
 
         self._flow_row = flow_row
+
+    def hook(self, event, callback, *args):
+
+        self._events.hook(event, callback, *args)
+
+    def release(self, id):
+
+        self._events.release(id)
+
+
+class ResizeFrame(Gtk.Box):
+
+    def __init__(self):
+
+        super().__init__()
+
+        self._events = basic.EventManager()
+
+        self._events.add("resized", int, int)
+
+        self._last_width = 0
+
+        self._last_height = 0
+
+        self._widget = None
+
+        self._drawing_area = Gtk.DrawingArea()
+
+        self._drawing_area.connect("resize", self._on_drawing_area_resize)
+
+        self._size_group = Gtk.SizeGroup()
+
+        self._size_group.add_widget(self._drawing_area)
+
+        self._overlay = Gtk.Overlay()
+
+        self._overlay.set_child(self._drawing_area)
+
+        self._overlay.set_hexpand(True)
+
+        self._overlay.set_vexpand(True)
+
+        self._overlay.set_halign(Gtk.Align.FILL)
+
+        self._overlay.set_valign(Gtk.Align.FILL)
+
+        self.append(self._overlay)
+
+    def _on_drawing_area_resize(self, drawing_area, width, height):
+
+        if not width == self._last_width or not height == self._last_height:
+
+            self._last_width = width
+
+            self._last_height = height
+
+            self._events.trigger("resized", width, height)
+
+    def get_child(self):
+
+        return self._widget
+
+    def set_child(self, widget):
+
+        if self._widget:
+
+            self._overlay.remove_overlay(self._widget)
+
+            self._size_group.remove_widget(self._widget)
+
+        self._widget = widget
+
+        self._size_group.add_widget(widget)
+
+        self._overlay.add_overlay(widget)
+
+    def get_width(self):
+
+        return self._last_width
+
+    def get_height(self):
+
+        return self._last_height
 
     def hook(self, event, callback, *args):
 

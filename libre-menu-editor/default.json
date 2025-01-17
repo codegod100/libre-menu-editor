@@ -8,6 +8,10 @@
 
     "window.maximized": false,
 
-    "show.hidden": false
+    "show.hidden": false,
+
+    "icon-browser.show-names": false,
+
+    "icon-browser.icon-size": 48
 
 }

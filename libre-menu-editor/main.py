@@ -1543,6 +1543,8 @@ class SettingsPage(Gtk.Box):
 
         self._events.add("changed-changed", bool, bool)
 
+        self._config_manager = app.get_config_manager()
+
         self._locale_manager = app.get_locale_manager()
 
         self._icon_finder = app.get_icon_finder()
@@ -1626,6 +1628,8 @@ class SettingsPage(Gtk.Box):
         self._icon_browser_row = self._icon_chooser_row.get_icon_browser_row()
 
         self._icon_browser_row.set_margin_top(1)
+
+        self._icon_browser = self._icon_browser_row.get_icon_browser()
 
         self._icon_view_row = self._icon_chooser_row.get_icon_view_row()
 
@@ -1996,6 +2000,8 @@ class SettingsPage(Gtk.Box):
         self._update_action_children_sensitive(False)
 
         self._update_top_desktop_action_group_header()
+
+        self.load_icon_browser_configs()
 
     def _on_visibility_widgets_changed(self, event, child, data):
 
@@ -2525,6 +2531,24 @@ class SettingsPage(Gtk.Box):
 
         return self._changed
 
+    def load_icon_browser_configs(self):
+
+        self._icon_browser.set_show_names(self._config_manager.get("icon-browser.show-names"))
+
+        try:
+
+            self._icon_browser.set_icon_size(self._config_manager.get("icon-browser.icon-size"))
+
+        except gui.IconSizeNotSupportedError:
+
+            pass
+
+    def save_icon_brwser_configs(self):
+
+        self._config_manager.set("icon-browser.show-names", self._icon_browser.get_show_names())
+
+        self._config_manager.set("icon-browser.icon-size", self._icon_browser.get_icon_size())
+
     def reset(self, reset_data=True):
 
         if reset_data:
@@ -2615,6 +2639,10 @@ class Application(gui.Application):
         ###############################################################################################################
 
         super().__init__(*args, **kwargs)
+
+        if self._debug_log.get_raise_errors():
+
+            self._application_window.add_css_class("devel")
 
         self._application_window.install_action("toast.details", None, self._on_toast_details_button_clicked)
 
@@ -2849,6 +2877,14 @@ class Application(gui.Application):
             "applications-accessories",
 
             f"{ignore_prefix}applications-utilities"
+
+            )
+
+        self._icon_finder.add_alternatives(
+
+            "font-symbolic",
+
+            f"{ignore_prefix}font-symbolic"
 
             )
 
@@ -3469,6 +3505,8 @@ class Application(gui.Application):
         self._process_manager.set_active(False)
 
     def _on_application_window_close_request(self, window):
+
+        self._settings_page.save_icon_brwser_configs()
 
         if self._settings_page.get_changed():
 
