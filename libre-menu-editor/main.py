@@ -1422,6 +1422,16 @@ class ShowInFilter(ComboFilter):
 
                 })
 
+        for name in ["Cutefish"]:
+
+            self.add_default_option(name, {
+
+                "label": "Cutefish",
+
+                "icon-name": "desktop-environment-cutefish"
+
+                })
+
         for name in ["DDE"]:
 
             self.add_default_option(name, {
