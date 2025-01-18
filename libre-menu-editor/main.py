@@ -2890,14 +2890,6 @@ class Application(gui.Application):
 
             )
 
-        self._icon_finder.add_alternatives(
-
-            "font-symbolic",
-
-            f"{ignore_prefix}font-symbolic"
-
-            )
-
         ###############################################################################################################
 
         self._desktop_starter_custom_create_name = "custom-desktop-starter"

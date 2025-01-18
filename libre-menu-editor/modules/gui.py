@@ -67,7 +67,9 @@ class Spacing():
 
 class Margin():
 
-    SMALL = 3
+    SMALLEST = 2
+
+    SMALL = 4
 
     DEFAULT = 6
 
@@ -423,6 +425,83 @@ class IconName(GObject.Object):
         self.name = name
 
 
+class FlowingToolbar(Gtk.Box):
+
+    def __init__(self, breakpoint=540, *args, **kwargs):
+
+        super().__init__(*args, **kwargs)
+
+        self._breakpoint = breakpoint
+
+        self._resize_frame = ResizeFrame()
+
+        self._resize_frame.hook("resized", self._on_resize_frame_resized)
+
+        self._start_clamp = Adw.Clamp(maximum_size=breakpoint / 2)
+
+        self._end_clamp = Adw.Clamp(maximum_size=breakpoint / 2)
+
+        self._content_box = Gtk.Box()
+
+        self._content_box.set_spacing(Spacing.DEFAULT)
+
+        self._content_box.set_margin_top(Margin.LARGE + Margin.SMALLEST)
+
+        self._content_box.set_margin_bottom(Margin.LARGE)
+
+        self._content_box.set_margin_start(Margin.LARGE)
+
+        self._content_box.set_margin_end(Margin.LARGE)
+
+        self._content_box.append(self._start_clamp)
+
+        self._content_box.append(self._end_clamp)
+
+        self.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self.append(self._resize_frame)
+
+        self.append(self._content_box)
+
+        self.set_spacing = self._content_box.set_spacing
+
+    def _on_resize_frame_resized(self, event, width, height):
+
+        collapse = width < (self._breakpoint)
+
+        if collapse:
+
+            self._content_box.set_orientation(Gtk.Orientation.VERTICAL)
+
+            self._start_clamp.set_halign(Gtk.Align.FILL)
+
+            self._end_clamp.set_halign(Gtk.Align.FILL)
+
+            self._start_clamp.set_maximum_size(width * 2)
+
+            self._end_clamp.set_maximum_size(width * 2)
+
+        else:
+
+            self._content_box.set_orientation(Gtk.Orientation.HORIZONTAL)
+
+            self._start_clamp.set_halign(Gtk.Align.START)
+
+            self._end_clamp.set_halign(Gtk.Align.END)
+
+            self._start_clamp.set_maximum_size(self._breakpoint / 2)
+
+            self._end_clamp.set_maximum_size(self._breakpoint / 2)
+
+    def set_start_widget(self, widget):
+
+        self._start_clamp.set_child(widget)
+
+    def set_end_widget(self, widget):
+
+        self._end_clamp.set_child(widget)
+
+
 class LabeledImage(Gtk.Box):
 
     def __init__(self, max_label_width=192, breakpoint=128, *args, **kwargs):
@@ -569,6 +648,8 @@ class IconBrowser(Gtk.Box):
 
         self._grid_view.set_single_click_activate(True)
 
+        self._grid_view.set_tab_behavior(Gtk.ListTabBehavior.CELL)
+
         self._grid_view.connect("activate", self._on_grid_view_activate)
 
         self._grid_view.set_factory(self._factory)
@@ -585,21 +666,27 @@ class IconBrowser(Gtk.Box):
 
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
 
+        self._resize_frame.add_css_class("view")
+
         self._icon_size_increase_button = Gtk.Button()
+
+        self._icon_size_increase_button.set_hexpand(False)
+
+        self._icon_size_increase_button.add_css_class("flat")
 
         self._icon_size_increase_button.connect("clicked", self._on_icon_size_increase_button_clicked)
 
         self._icon_size_increase_button.set_child(self._icon_finder.get_image("list-add-symbolic"))
 
-        self._icon_size_increase_button.add_css_class("flat")
-
         self._icon_size_decrease_button = Gtk.Button()
+
+        self._icon_size_decrease_button.set_hexpand(False)
+
+        self._icon_size_decrease_button.add_css_class("flat")
 
         self._icon_size_decrease_button.connect("clicked", self._on_icon_size_decrease_button_clicked)
 
         self._icon_size_decrease_button.set_child(self._icon_finder.get_image("list-remove-symbolic"))
-
-        self._icon_size_decrease_button.add_css_class("flat")
 
         self._icon_size_scale = Gtk.Scale.new_with_range(Gtk.Orientation.VERTICAL, 0, len(self._icon_sizes) - 1, 1)
 
@@ -607,63 +694,49 @@ class IconBrowser(Gtk.Box):
 
         self._icon_size_scale.set_increments(1, len(self._icon_sizes) -1)
 
-        self._icon_size_scale.connect("value-changed", self._on_icon_size_scale_value_changed)
-
         self._icon_size_scale.set_round_digits(False)
 
-        self._icon_size_scale.set_vexpand(True)
+        self._icon_size_scale.set_orientation(Gtk.Orientation.HORIZONTAL)
 
-        self._icon_size_scale.set_inverted(True)
+        self._icon_size_scale.connect("value-changed", self._on_icon_size_scale_value_changed)
 
-        self._icon_size_widgets_box = Gtk.Box()
+        self._icon_size_scale.set_hexpand(True)
 
-        self._icon_size_widgets_box.set_orientation(Gtk.Orientation.VERTICAL)
+        self._icon_size_box = Gtk.Box()
 
-        self._icon_size_widgets_box.append(self._icon_size_increase_button)
+        self._icon_size_box.append(self._icon_size_decrease_button)
 
-        self._icon_size_widgets_box.append(self._icon_size_scale)
+        self._icon_size_box.append(self._icon_size_scale)
 
-        self._icon_size_widgets_box.append(self._icon_size_decrease_button)
+        self._icon_size_box.append(self._icon_size_increase_button)
 
-        self._toolbar_separator = Gtk.Separator()
+        self._icon_size_box.set_hexpand(True)
 
-        self._toolbar_separator.add_css_class("spacer")
+        self._show_names_toggle_label = Gtk.Label()
 
-        self._show_labels_toggle = Gtk.ToggleButton()
+        self._show_names_toggle_label.set_text("Show icon names") #FIXME
 
-        self._show_labels_toggle.set_child(self._icon_finder.get_image("font-symbolic"))
+        self._show_names_toggle_label.set_ellipsize(Pango.EllipsizeMode.END)
 
-        self._show_labels_toggle.connect("toggled", self._on_show_labels_toggle_toggled)
+        self._show_names_toggle = Gtk.ToggleButton()
 
-        self._show_labels_toggle.add_css_class("flat")
+        self._show_names_toggle.set_hexpand(True)
 
-        self._toolbar = Gtk.Box()
+        self._show_names_toggle.add_css_class("flat")
 
-        self._toolbar.set_orientation(Gtk.Orientation.VERTICAL)
+        self._show_names_toggle.connect("toggled", self._on_show_names_toggle_toggled)
 
-        self._toolbar.add_css_class("toolbar")
+        self._show_names_toggle.set_child(self._show_names_toggle_label)
 
-        self._toolbar.add_css_class("osd")
+        self._toolbar = FlowingToolbar()
 
-        self._toolbar.append(self._icon_size_widgets_box)
+        self._toolbar.set_start_widget(self._icon_size_box)
 
-        self._toolbar.append(self._toolbar_separator)
+        self._toolbar.set_end_widget(self._show_names_toggle)
 
-        self._toolbar.append(self._show_labels_toggle)
-
-        self._toolbar.set_margin_top(Margin.DEFAULT)
-
-        self._toolbar.set_margin_bottom(Margin.DEFAULT)
-
-        self._toolbar.set_margin_start(Margin.DEFAULT)
-
-        self._toolbar.set_margin_end(Margin.DEFAULT / 2 )
-
-        self.append(self._toolbar)
+        self.set_orientation(Gtk.Orientation.VERTICAL)
 
         self.append(self._resize_frame)
-
-        self.add_css_class("view")
 
         GLib.idle_add(self._update_search_data, priority=GLib.PRIORITY_LOW)
 
@@ -699,7 +772,7 @@ class IconBrowser(Gtk.Box):
 
         self._update_grid_children_style()
 
-    def _on_show_labels_toggle_toggled(self, toggle_button):
+    def _on_show_names_toggle_toggled(self, toggle_button):
 
         self._update_grid_children_style()
 
@@ -747,7 +820,7 @@ class IconBrowser(Gtk.Box):
 
     def _update_grid_children_style(self):
 
-        show_names = self._show_labels_toggle.get_active()
+        show_names = self._show_names_toggle.get_active()
 
         icon_size = self._icon_sizes[int(self._icon_size_scale.get_value())]
 
@@ -1067,7 +1140,7 @@ class IconBrowser(Gtk.Box):
 
     def set_show_names(self, value):
 
-        self._show_labels_toggle.set_active(value)
+        self._show_names_toggle.set_active(value)
 
     def get_icon_size(self):
 
@@ -1086,6 +1159,10 @@ class IconBrowser(Gtk.Box):
     def get_results(self):
 
         return self._grid_view.get_model().get_model()
+
+    def get_toolbar(self):
+
+        return self._toolbar
 
     def update(self, text, exclude=[]):
 
@@ -1126,6 +1203,14 @@ class RevealerRow(Adw.PreferencesRow):
 
         self._stack.set_transition_duration(90)
 
+        self._revealer_box = Gtk.Box()
+
+        self._revealer_box.set_vexpand(True)
+
+        self._revealer_box.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self._revealer_box.append(self._stack)
+
         self._revealer = Gtk.Revealer()
 
         self._revealer.set_transition_duration(300)
@@ -1134,7 +1219,7 @@ class RevealerRow(Adw.PreferencesRow):
 
         self._revealer.connect("notify::child-revealed", self._on_revealer_child_revealed_changed)
 
-        self._revealer.set_child(self._stack)
+        self._revealer.set_child(self._revealer_box)
 
         self.set_activatable(False)
 
@@ -1206,6 +1291,14 @@ class RevealerRow(Adw.PreferencesRow):
 
         return self._toggle_button
 
+    def append(self, widget):
+
+        self._revealer_box.append(widget)
+
+    def remove(self, widget):
+
+        self._revealer_box.remove(widget)
+
 
 class IconViewRow(RevealerRow):
 
@@ -1231,7 +1324,7 @@ class IconViewRow(RevealerRow):
 
             box.set_spacing(Spacing.DEFAULT)
 
-        self._revealer.set_child(None)
+        self.remove(self._stack)
 
         self._center_box = Gtk.CenterBox()
 
@@ -1270,9 +1363,17 @@ class IconBrowserRow(RevealerRow):
 
         self._icon_browser = IconBrowser(app)
 
+        self._toolbar = self._icon_browser.get_toolbar()
+
         self.add_page(self._icon_browser)
 
-        self.add_css_class("view")
+        self.append(self._toolbar)
+
+        self._stack.connect("notify::visible-child", self._on_stack_visible_child_changed)
+
+    def _on_stack_visible_child_changed(self, stack, gparam):
+
+        self._toolbar.set_sensitive(self._stack.get_visible_child() == self._icon_browser)
 
     def get_icon_browser(self):
 
@@ -1607,9 +1708,13 @@ class IconChooserRow(FileChooserRow):
 
         self._help_status_page.set_can_focus(False)
 
+        self._help_status_page.add_css_class("view")
+
         self._none_status_page = Adw.StatusPage()
 
         self._none_status_page.set_can_focus(False)
+
+        self._none_status_page.add_css_class("view")
 
         self._icon_view_row = IconViewRow(app)
 
