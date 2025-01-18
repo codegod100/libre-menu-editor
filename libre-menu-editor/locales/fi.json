@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Valikko",
   "ADVANCED_GROUP_TITLE": "Edistynyt",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Näytä kuvakkeiden nimet",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Hakusanat",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Etsi kuvakkeita",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Anna avainsanat saadaksesi ehdotuksia",

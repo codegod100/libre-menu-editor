@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Meny",
   "ADVANCED_GROUP_TITLE": "Avancerat",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Visa ikonernas namn",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Söktermer",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Sök ikoner",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Skriv in nyckelord för att få förslag",

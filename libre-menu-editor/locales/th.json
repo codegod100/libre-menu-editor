@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "เมนู",
   "ADVANCED_GROUP_TITLE": "ขั้นสูง",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "แสดงชื่อไอคอน",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "คำค้นหา",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "ค้นหาไอคอน",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "ป้อนคำค้นหาเพื่อรับคำแนะนำ",

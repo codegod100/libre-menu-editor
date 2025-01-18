@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Menü",
   "ADVANCED_GROUP_TITLE": "Speciális",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Ikonnevek megjelenítése",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Keresési kifejezések",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Keresés ikonok között",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Adja meg a kulcsszavakat, hogy javaslatokat kapjon",

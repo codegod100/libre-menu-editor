@@ -714,8 +714,6 @@ class IconBrowser(Gtk.Box):
 
         self._show_names_toggle_label = Gtk.Label()
 
-        self._show_names_toggle_label.set_text("Show icon names") #FIXME
-
         self._show_names_toggle_label.set_ellipsize(Pango.EllipsizeMode.END)
 
         self._show_names_toggle = Gtk.ToggleButton()
@@ -1155,6 +1153,14 @@ class IconBrowser(Gtk.Box):
         except IndexError:
 
             raise IconSizeNotSupportedError(value)
+
+    def get_show_names_toggle_label(self):
+
+        return self._show_names_toggle_label.get_text()
+
+    def set_show_names_toggle_label(self, text):
+
+        self._show_names_toggle_label.set_text(text)
 
     def get_results(self):
 

@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Menü",
   "ADVANCED_GROUP_TITLE": "Erweitert",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Symbolnamen anzeigen",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Suchbegriffe",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Symbole suchen",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Geben Sie Suchbegriffe ein, um Vorschläge zu erhalten",

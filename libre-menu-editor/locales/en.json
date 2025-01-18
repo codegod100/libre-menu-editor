@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Advanced",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Show icon names",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Keywords",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Icon search",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Enter keywords to receive suggestions",

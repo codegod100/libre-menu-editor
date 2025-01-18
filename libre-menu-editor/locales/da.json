@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Avanceret",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Vis ikonnavne",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Søgeord",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Søg efter ikoner",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Indtast nøgleord for at få forslag",

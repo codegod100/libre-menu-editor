@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Menu",
   "ADVANCED_GROUP_TITLE": "Avanzato",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Mostra nomi delle icone",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Termini di ricerca",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Cerca icone",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Inserisci parole chiave per ricevere suggerimenti",

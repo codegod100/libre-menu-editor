@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "قائمة",
   "ADVANCED_GROUP_TITLE": "متقدم",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "عرض أسماء الرموز",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "كلمات مفتاحية",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "بحث الأيقونات",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "أدخل كلمات مفتاحية للحصول على اقتراحات",

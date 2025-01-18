@@ -83,6 +83,7 @@
   "MENU_GROUP_TITLE": "Меню",
   "ADVANCED_GROUP_TITLE": "Расширенный",
 
+  "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Показати імена значків",
   "ICON_CHOOSER_ROW_SEARCH_MODE_TITLE": "Поисковые запросы",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD": "Поиск иконок",
   "ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY": "Введите ключевые слова, чтобы получить предложения",

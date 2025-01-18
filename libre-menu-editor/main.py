@@ -1641,6 +1641,8 @@ class SettingsPage(Gtk.Box):
 
         self._icon_browser = self._icon_browser_row.get_icon_browser()
 
+        self._icon_browser.set_show_names_toggle_label(self._locale_manager.get("ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL"))
+
         self._icon_view_row = self._icon_chooser_row.get_icon_view_row()
 
         ###############################################################################################################
