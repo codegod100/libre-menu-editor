@@ -1637,8 +1637,6 @@ class SettingsPage(Gtk.Box):
 
         self._icon_browser_row = self._icon_chooser_row.get_icon_browser_row()
 
-        self._icon_browser_row.set_margin_top(1)
-
         self._icon_browser = self._icon_browser_row.get_icon_browser()
 
         self._icon_browser.set_show_names_toggle_label(self._locale_manager.get("ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL"))
@@ -3245,8 +3243,6 @@ class Application(gui.Application):
             self._window_breakpoint.set_condition(Adw.BreakpointCondition.parse(f"max-width: {window_breakpoint_limit}sp"))
 
             self._application_window.add_breakpoint(self._window_breakpoint)
-
-            self._application_window.set_size_request(*self._right_area_box.get_size_request())
 
         else:
 

@@ -385,7 +385,7 @@ class IconView(Gtk.CenterBox):
 
         self._icon_image = image
 
-        self._icon_image.set_pixel_size(128)
+        self._icon_image.set_pixel_size(192)
 
         self._icon_image.set_margin_top(Margin.LARGER)
 
@@ -443,7 +443,7 @@ class FlowingToolbar(Gtk.Box):
 
         self._content_box.set_spacing(Spacing.DEFAULT)
 
-        self._content_box.set_margin_top(Margin.LARGE + Margin.SMALLEST)
+        self._content_box.set_margin_top(Margin.LARGE)
 
         self._content_box.set_margin_bottom(Margin.LARGE)
 
@@ -470,6 +470,16 @@ class FlowingToolbar(Gtk.Box):
         self.set_margin_start = self._content_box.set_margin_start
 
         self.set_margin_end = self._content_box.set_margin_end
+
+        self.get_spacing = self._content_box.get_spacing
+
+        self.get_margin_top = self._content_box.get_margin_top
+
+        self.get_margin_bottom = self._content_box.get_margin_bottom
+
+        self.get_margin_start = self._content_box.get_margin_start
+
+        self.get_margin_end = self._content_box.get_margin_end
 
         self._update_clamps()
 
@@ -720,6 +730,8 @@ class IconBrowser(Gtk.Box):
 
         self._icon_size_increase_button.set_hexpand(False)
 
+        self._icon_size_increase_button.set_focus_on_click(False)
+
         self._icon_size_increase_button.add_css_class("flat")
 
         self._icon_size_increase_button.connect("clicked", self._on_icon_size_increase_button_clicked)
@@ -729,6 +741,8 @@ class IconBrowser(Gtk.Box):
         self._icon_size_decrease_button = Gtk.Button()
 
         self._icon_size_decrease_button.set_hexpand(False)
+
+        self._icon_size_decrease_button.set_focus_on_click(False)
 
         self._icon_size_decrease_button.add_css_class("flat")
 
@@ -770,6 +784,8 @@ class IconBrowser(Gtk.Box):
 
         self._show_names_toggle.set_hexpand(True)
 
+        self._show_names_toggle.set_focus_on_click(False)
+
         self._show_names_toggle.add_css_class("flat")
 
         self._show_names_toggle.connect("toggled", self._on_show_names_toggle_toggled)
@@ -777,6 +793,8 @@ class IconBrowser(Gtk.Box):
         self._show_names_toggle.set_child(self._show_names_toggle_label)
 
         self._toolbar = FlowingToolbar()
+
+        self._toolbar.set_margin_top(self._toolbar.get_margin_top() + Margin.SMALLEST)
 
         self._toolbar.set_start_widget(self._icon_size_box)
 
@@ -1439,13 +1457,31 @@ class IconBrowserRow(RevealerRow):
 
         self._icon_browser = IconBrowser(app)
 
+        self._bottom_separator = Gtk.Separator()
+
         self._toolbar = self._icon_browser.get_toolbar()
+
+        self._style_manager = Adw.StyleManager.get_default()
+
+        self._style_manager.connect("notify::dark", self._on_style_manager_dark_changed)
+
+        self._stack.connect("notify::visible-child", self._on_stack_visible_child_changed)
 
         self.add_page(self._icon_browser)
 
+        self.append(self._bottom_separator)
+
         self.append(self._toolbar)
 
-        self._stack.connect("notify::visible-child", self._on_stack_visible_child_changed)
+        self._update_bottom_separator_visibility()
+
+    def _on_style_manager_dark_changed(self, style_manager, gparam):
+
+        self._update_bottom_separator_visibility()
+
+    def _update_bottom_separator_visibility(self):
+
+        self._bottom_separator.set_visible(self._style_manager.get_dark() == False)
 
     def _on_stack_visible_child_changed(self, stack, gparam):
 
