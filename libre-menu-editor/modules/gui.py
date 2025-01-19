@@ -427,19 +427,19 @@ class IconName(GObject.Object):
 
 class FlowingToolbar(Gtk.Box):
 
-    def __init__(self, breakpoint=540, *args, **kwargs):
+    def __init__(self, max_child_width=540, *args, **kwargs):
 
         super().__init__(*args, **kwargs)
 
-        self._breakpoint = breakpoint
+        self._max_child_width = max_child_width
 
         self._resize_frame = ResizeFrame()
 
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
 
-        self._start_clamp = Adw.Clamp(maximum_size=breakpoint / 2)
+        self._start_clamp = Adw.Clamp()
 
-        self._end_clamp = Adw.Clamp(maximum_size=breakpoint / 2)
+        self._end_clamp = Adw.Clamp()
 
         self._content_box = Gtk.Box()
 
@@ -465,9 +465,39 @@ class FlowingToolbar(Gtk.Box):
 
         self.set_spacing = self._content_box.set_spacing
 
+        self.set_margin_top = self._content_box.set_margin_top
+
+        self.set_margin_bottom = self._content_box.set_margin_bottom
+
+        self.set_margin_start = self._content_box.set_margin_start
+
+        self.set_margin_end = self._content_box.set_margin_end
+
+        self._update_clamps()
+
     def _on_resize_frame_resized(self, event, width, height):
 
-        collapse = width < (self._breakpoint)
+        self._update_clamps()
+
+    def _update_clamps(self):
+
+        width = self._resize_frame.get_width()
+
+        collapse = width < (
+
+            (self._max_child_width * 2) +
+
+            self._content_box.get_margin_start() +
+
+            self._content_box.get_margin_end() +
+
+            self._content_box.get_spacing()
+
+            )
+
+        GLib.idle_add(self._after_update_clamps, width, collapse, priority=GLib.PRIORITY_HIGH)
+
+    def _after_update_clamps(self, width, collapse):
 
         if collapse:
 
@@ -477,9 +507,7 @@ class FlowingToolbar(Gtk.Box):
 
             self._end_clamp.set_halign(Gtk.Align.FILL)
 
-            self._start_clamp.set_maximum_size(width * 2)
-
-            self._end_clamp.set_maximum_size(width * 2)
+            clamp_child_width = width * 2
 
         else:
 
@@ -489,9 +517,25 @@ class FlowingToolbar(Gtk.Box):
 
             self._end_clamp.set_halign(Gtk.Align.END)
 
-            self._start_clamp.set_maximum_size(self._breakpoint / 2)
+            clamp_child_width = self._max_child_width
 
-            self._end_clamp.set_maximum_size(self._breakpoint / 2)
+        self._start_clamp.set_maximum_size(clamp_child_width)
+
+        self._end_clamp.set_maximum_size(clamp_child_width)
+
+        self._start_clamp.set_tightening_threshold(clamp_child_width)
+
+        self._end_clamp.set_tightening_threshold(clamp_child_width)
+
+    def get_max_child_width(self):
+
+        return self._max_child_width
+
+    def set_max_child_width(self, value):
+
+        self._max_child_width = value
+
+        self._update_clamps()
 
     def set_start_widget(self, widget):
 
@@ -585,6 +629,8 @@ class IconBrowser(Gtk.Box):
         self._events.add("item-selected", str)
 
         self._icon_sizes = [16, 24, 32, 48, 64, 96, 128, 192, 256]
+
+        self._control_widgets_min_width = 250
 
         self._icon_names = []
 
@@ -716,6 +762,8 @@ class IconBrowser(Gtk.Box):
 
         self._show_names_toggle_label.set_ellipsize(Pango.EllipsizeMode.END)
 
+        self._show_names_toggle_label.connect("notify::label", self._on_show_names_toggle_label_changed)
+
         self._show_names_toggle = Gtk.ToggleButton()
 
         self._show_names_toggle.set_hexpand(True)
@@ -739,6 +787,12 @@ class IconBrowser(Gtk.Box):
         GLib.idle_add(self._update_search_data, priority=GLib.PRIORITY_LOW)
 
         GLib.idle_add(self._connect_icon_finder_changed, priority=GLib.PRIORITY_LOW)
+
+        self._update_toolbar_max_child_width()
+
+    def _on_show_names_toggle_label_changed(self, label, gparam):
+
+        self._update_toolbar_max_child_width()
 
     def _on_resize_frame_resized(self, event, width, height):
 
@@ -841,6 +895,20 @@ class IconBrowser(Gtk.Box):
                 self._start_search()
 
             self._update_max_columns()
+
+    def _update_toolbar_max_child_width(self):
+
+        max_child_width = tuple(sorted((
+
+            len(self._icon_sizes) * 20,
+
+            self._show_names_toggle.get_preferred_size()[1].width,
+
+            self._control_widgets_min_width
+
+            )))[-1]
+
+        self._toolbar.set_max_child_width(max_child_width)
 
     def _on_icon_finder_changed(self, event, icon_finder):
 
