@@ -602,7 +602,7 @@ class IconBrowser(Gtk.Box):
 
         self._results_key = None
 
-        self._results_limit = -1
+        self._results_limit = 10000
 
         self._start_search_timeout_id = None
 
@@ -990,7 +990,7 @@ class IconBrowser(Gtk.Box):
 
                 if len(names):
 
-                    icon_names = [IconName(name) for name in names][:self._results_limit]
+                    icon_names = [IconName(name) for n, name in zip(range(self._results_limit), names)]
 
                     name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names), self._slice_length)]
 
