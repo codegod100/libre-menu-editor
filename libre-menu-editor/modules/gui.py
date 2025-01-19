@@ -69,8 +69,6 @@ class Margin():
 
     SMALLEST = 2
 
-    SMALL = 4
-
     DEFAULT = 6
 
     LARGE = 11
@@ -584,6 +582,8 @@ class LabeledImage(Gtk.Box):
 
             self._label.set_margin_start(0)
 
+            self._label.set_margin_end(0)
+
         else:
 
             self.set_orientation(Gtk.Orientation.HORIZONTAL)
@@ -594,9 +594,11 @@ class LabeledImage(Gtk.Box):
 
             self._label.set_halign(Gtk.Align.START)
 
+            self._label.set_margin_top(0)
+
             self._label.set_margin_start(Margin.DEFAULT)
 
-            self._label.set_margin_top(0)
+            self._label.set_margin_end(Margin.DEFAULT)
 
         self._image.set_pixel_size(value)
 
@@ -666,7 +668,7 @@ class IconBrowser(Gtk.Box):
 
         self._current_grid_child_class = Gtk.Image
 
-        self._current_grid_child_icon_size = 48
+        self._current_grid_child_icon_size = 64
 
         self._add_new_list_store(self._search_id)
 
@@ -684,14 +686,6 @@ class IconBrowser(Gtk.Box):
 
         self._grid_view.set_halign(Gtk.Align.FILL)
 
-        self._grid_view.set_margin_top(Margin.DEFAULT)
-
-        self._grid_view.set_margin_bottom(Margin.DEFAULT)
-
-        self._grid_view.set_margin_start(Margin.DEFAULT)
-
-        self._grid_view.set_margin_end(Margin.DEFAULT)
-
         self._grid_view.set_single_click_activate(True)
 
         self._grid_view.set_tab_behavior(Gtk.ListTabBehavior.CELL)
@@ -702,13 +696,21 @@ class IconBrowser(Gtk.Box):
 
         self._scrolled_window = Gtk.ScrolledWindow()
 
+        self._scrolled_window.set_margin_top(Margin.SMALLEST)
+
+        self._scrolled_window.set_margin_bottom(Margin.SMALLEST)
+
+        self._scrolled_window.set_margin_start(Margin.SMALLEST)
+
+        self._scrolled_window.set_margin_end(Margin.SMALLEST)
+
         self._scrolled_window.set_child(self._grid_view)
 
         self._resize_frame = ResizeFrame()
 
         self._resize_frame.set_child(self._scrolled_window)
 
-        self._resize_frame.set_property("height-request", self._icon_sizes[-1] + (Margin.DEFAULT * 4))
+        self._resize_frame.set_property("height-request", self._icon_sizes[-1] + (Margin.SMALLEST * 4) + Margin.DEFAULT)
 
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
 
@@ -924,13 +926,13 @@ class IconBrowser(Gtk.Box):
 
         image.set_pixel_size(self._current_grid_child_icon_size)
 
-        image.set_margin_top(Margin.SMALL)
+        image.set_margin_top(Margin.SMALLEST)
 
-        image.set_margin_bottom(Margin.SMALL)
+        image.set_margin_bottom(Margin.SMALLEST)
 
-        image.set_margin_start(Margin.SMALL)
+        image.set_margin_start(Margin.SMALLEST)
 
-        image.set_margin_end(Margin.SMALL)
+        image.set_margin_end(Margin.SMALLEST)
 
         list_item.set_child(image)
 
