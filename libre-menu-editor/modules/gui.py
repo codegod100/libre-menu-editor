@@ -644,6 +644,12 @@ class IconBrowser(Gtk.Box):
 
         self._control_widgets_min_width = 250
 
+        self._grid_view_list_item_border_width = 3
+
+        self._default_inner_margin = Margin.DEFAULT
+
+        self._image_margin = Margin.SMALLEST
+
         self._icon_names = []
 
         self._string_separator = ";"
@@ -698,6 +704,14 @@ class IconBrowser(Gtk.Box):
 
         self._grid_view.set_single_click_activate(True)
 
+        self._grid_view.set_margin_top(self._default_inner_margin)
+
+        self._grid_view.set_margin_bottom(self._default_inner_margin)
+
+        self._grid_view.set_margin_start(self._default_inner_margin)
+
+        self._grid_view.set_margin_end(self._default_inner_margin)
+
         self._grid_view.set_tab_behavior(Gtk.ListTabBehavior.CELL)
 
         self._grid_view.connect("activate", self._on_grid_view_activate)
@@ -706,21 +720,29 @@ class IconBrowser(Gtk.Box):
 
         self._scrolled_window = Gtk.ScrolledWindow()
 
-        self._scrolled_window.set_margin_top(Margin.SMALLEST)
-
-        self._scrolled_window.set_margin_bottom(Margin.SMALLEST)
-
-        self._scrolled_window.set_margin_start(Margin.SMALLEST)
-
-        self._scrolled_window.set_margin_end(Margin.SMALLEST)
-
         self._scrolled_window.set_child(self._grid_view)
 
         self._resize_frame = ResizeFrame()
 
         self._resize_frame.set_child(self._scrolled_window)
 
-        self._resize_frame.set_property("height-request", self._icon_sizes[-1] + (Margin.SMALLEST * 4) + Margin.DEFAULT)
+        self._resize_frame.set_property("height-request",
+
+            self._icon_sizes[-1] +
+
+            self.get_inner_margin_top() +
+
+            self.get_inner_margin_bottom() +
+
+            (self._grid_view_list_item_border_width * 2) +
+
+            (self._image_margin * 2) +
+
+            Gtk.Label().get_preferred_size()[1].height +
+
+            Margin.DEFAULT
+
+            )
 
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
 
@@ -862,7 +884,7 @@ class IconBrowser(Gtk.Box):
 
         first_child = self._grid_view.get_first_child()
 
-        min_image_width = self._current_grid_child_icon_size + (Margin.DEFAULT * 2)
+        min_image_width = self._current_grid_child_icon_size + (self._image_margin * 2) + (self._grid_view_list_item_border_width * 2)
 
         item_width = 0
 
@@ -878,7 +900,7 @@ class IconBrowser(Gtk.Box):
 
             item_width = min_image_width
 
-        spots_float = width / item_width
+        spots_float = (width - ((self.get_inner_margin_start() + self.get_inner_margin_end()) * 2)) / item_width
 
         spots_int = int(spots_float)
 
@@ -944,13 +966,13 @@ class IconBrowser(Gtk.Box):
 
         image.set_pixel_size(self._current_grid_child_icon_size)
 
-        image.set_margin_top(Margin.SMALLEST)
+        image.set_margin_top(self._image_margin)
 
-        image.set_margin_bottom(Margin.SMALLEST)
+        image.set_margin_bottom(self._image_margin)
 
-        image.set_margin_start(Margin.SMALLEST)
+        image.set_margin_start(self._image_margin)
 
-        image.set_margin_end(Margin.SMALLEST)
+        image.set_margin_end(self._image_margin)
 
         list_item.set_child(image)
 
@@ -1238,7 +1260,7 @@ class IconBrowser(Gtk.Box):
 
             self._icon_size_scale.set_value(self._icon_sizes.index(value))
 
-        except IndexError:
+        except ValueError:
 
             raise IconSizeNotSupportedError(value)
 
@@ -1249,6 +1271,38 @@ class IconBrowser(Gtk.Box):
     def set_show_names_toggle_label(self, text):
 
         self._show_names_toggle_label.set_text(text)
+
+    def get_inner_margin_top(self):
+
+        return self._grid_view.get_margin_top()
+
+    def set_inner_margin_top(self, value):
+
+        self._grid_view.set_margin_top(value)
+
+    def get_inner_margin_bottom(self):
+
+        return self._grid_view.get_margin_bottom()
+
+    def set_inner_margin_bottom(self, value):
+
+        self._grid_view.set_margin_bottom(value)
+
+    def get_inner_margin_start(self):
+
+        return self._grid_view.get_margin_start()
+
+    def set_inner_margin_start(self, value):
+
+        self._grid_view.set_margin_start(value)
+
+    def get_inner_margin_end(self):
+
+        return self._grid_view.get_margin_end()
+
+    def set_inner_margin_end(self, value):
+
+        self._grid_view.set_margin_end(value)
 
     def get_results(self):
 
@@ -1457,9 +1511,15 @@ class IconBrowserRow(RevealerRow):
 
         self._icon_browser = IconBrowser(app)
 
+        self._icon_browser.set_vexpand(True)
+
         self._bottom_separator = Gtk.Separator()
 
+        self._bottom_separator.set_vexpand(False)
+
         self._toolbar = self._icon_browser.get_toolbar()
+
+        self._toolbar.set_vexpand(False)
 
         self._style_manager = Adw.StyleManager.get_default()
 
@@ -1473,6 +1533,8 @@ class IconBrowserRow(RevealerRow):
 
         self.append(self._toolbar)
 
+        self._default_inner_margin_bottom = self._icon_browser.get_inner_margin_bottom()
+
         self._update_bottom_separator_visibility()
 
     def _on_style_manager_dark_changed(self, style_manager, gparam):
@@ -1481,7 +1543,11 @@ class IconBrowserRow(RevealerRow):
 
     def _update_bottom_separator_visibility(self):
 
-        self._bottom_separator.set_visible(self._style_manager.get_dark() == False)
+        dark_mode_enabled = self._style_manager.get_dark()
+
+        self._bottom_separator.set_visible(dark_mode_enabled == False)
+
+        self._icon_browser.set_inner_margin_bottom(self._default_inner_margin_bottom * (bool(dark_mode_enabled)))
 
     def _on_stack_visible_child_changed(self, stack, gparam):
 

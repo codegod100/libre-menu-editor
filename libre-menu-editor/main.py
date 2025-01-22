@@ -3244,6 +3244,8 @@ class Application(gui.Application):
 
             self._application_window.add_breakpoint(self._window_breakpoint)
 
+            self._application_window.set_size_request(360, 300)
+
         else:
 
             self._left_header_bar.set_show_start_title_buttons(False)
