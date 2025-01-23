@@ -84,19 +84,16 @@ Comment[sw]=Badilisha menyu
 Comment[sl]=Prilagodi meni
 Comment[be]=Наладка меню
 Keywords=libre-menu-editor;app;desktop;editor;entry;launch;menu;shortcut;start
-
 Type=Application
 Icon=page.codeberg.libre_menu_editor.LibreMenuEditor
 Exec=libre-menu-editor %F
 MimeType=application/x-desktop
 Categories=GNOME;GTK;Utility
-
 StartupNotify=true
 StartupWMClass=page.codeberg.libre_menu_editor.LibreMenuEditor
 X-GNOME-SingleWindow=true
 X-Purism-FormFactor=Workstation;Mobile;
 X-Flatpak=page.codeberg.libre_menu_editor.LibreMenuEditor
-
 Actions=new-launcher
 
 [Desktop Action new-launcher]
