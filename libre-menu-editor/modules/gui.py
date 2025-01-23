@@ -419,7 +419,8 @@ class IconBrowser(Gtk.Box):
         self._grid_view.set_margin_bottom(self._default_inner_margin)
         self._grid_view.set_margin_start(self._default_inner_margin)
         self._grid_view.set_margin_end(self._default_inner_margin)
-        self._grid_view.set_tab_behavior(Gtk.ListTabBehavior.CELL)
+        if hasattr(self._grid_view, "set_tab_behavior"):
+            self._grid_view.set_tab_behavior(Gtk.ListTabBehavior.CELL)
         self._grid_view.connect("activate", self._on_grid_view_activate)
         self._grid_view.set_factory(self._factory)
         self._scrolled_window = Gtk.ScrolledWindow()
@@ -495,8 +496,10 @@ class IconBrowser(Gtk.Box):
     def _on_icon_size_scale_value_changed(self, scale):
         allow_increase = int(scale.get_value()) < len(self._icon_sizes) - 1
         allow_decrease = scale.get_value()
-        if ((not allow_increase and self._icon_size_increase_button.has_focus())
-                or (not allow_decrease and self._icon_size_decrease_button.has_focus())):
+        if (
+            (not allow_increase and self._icon_size_increase_button.has_focus())
+            or (not allow_decrease and self._icon_size_decrease_button.has_focus())
+        ):
             self._icon_size_scale.grab_focus()
         self._icon_size_increase_button.set_sensitive(allow_increase)
         self._icon_size_decrease_button.set_sensitive(allow_decrease)
@@ -513,7 +516,8 @@ class IconBrowser(Gtk.Box):
     def _update_max_columns(self):
         width = self._resize_frame.get_width()
         first_child = self._grid_view.get_first_child()
-        min_image_width = self._current_grid_child_icon_size + (self._image_margin * 2) + (self._grid_view_list_item_border_width * 2)
+        min_image_width = self._current_grid_child_icon_size + (self._image_margin * 2) + (
+            self._grid_view_list_item_border_width * 2)
         item_width = 0
         if width < min_image_width:
             return
@@ -600,12 +604,15 @@ class IconBrowser(Gtk.Box):
         self._add_new_list_store(self._search_id)
         if self._start_search_timeout_id:
             GLib.source_remove(self._start_search_timeout_id)
-        self._start_search_timeout_id = GLib.timeout_add(self._search_delay, self._start_search_thread, text, self._search_id, exclude)
+        self._start_search_timeout_id = GLib.timeout_add(self._search_delay, self._start_search_thread, text,
+            self._search_id, exclude)
 
     def _start_search_thread(self, text, search_id, exclude=[]):
-        keywords = set(filter(None, text.lower().replace(self._string_separator, self._keyword_separator).split(self._keyword_separator)))
+        keywords = set(filter(None, text.lower().replace(self._string_separator,
+            self._keyword_separator).split(self._keyword_separator)))
         results_key = self._keyword_separator.join(keywords)
-        self._search_thread = threading.Thread(target=self._search_thread_target, args=[text, keywords, results_key, search_id], kwargs={"exclude": exclude})
+        self._search_thread = threading.Thread(target=self._search_thread_target,
+            args=[text, keywords, results_key, search_id], kwargs={"exclude": exclude})
         self._search_thread.start()
         self._start_search_timeout_id = None
         return GLib.SOURCE_REMOVE
@@ -626,8 +633,11 @@ class IconBrowser(Gtk.Box):
         except IndexError:
             pass
         try:
-            if (self._results_key and self._results_key in self._results_cache and names == self._results_cache[self._results_key]["names"]
-                    and self._results_cache[self._results_key]["selection-model"] == self._grid_view.get_model()):
+            if (
+                self._results_key and self._results_key in self._results_cache
+                and names == self._results_cache[self._results_key]["names"]
+                and self._results_cache[self._results_key]["selection-model"] == self._grid_view.get_model()
+            ):
                 self._operations[search_id] = self._results_cache[self._results_key]
                 self._after_search_finished(results_key, search_id)
             else:
@@ -636,7 +646,8 @@ class IconBrowser(Gtk.Box):
                 self._grid_view.set_model(selection_model)
                 if len(names):
                     icon_names = [IconName(name) for n, name in zip(range(self._results_limit), names)]
-                    name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names), self._slice_length)]
+                    name_slices = [icon_names[i:i+self._slice_length] for i in range(0, len(icon_names),
+                        self._slice_length)]
                     self._operations[search_id]["name-slices"] = name_slices
                     GLib.idle_add(self._add_next_slice, results_key, search_id, priority=GLib.PRIORITY_LOW)
                 else:
@@ -677,7 +688,10 @@ class IconBrowser(Gtk.Box):
                     break
                 else:
                     start_pos -= 1
-                    while not self._search_string[start_pos:start_pos + len(self._string_separator)] == self._string_separator:
+                    while (
+                        not self._search_string[start_pos:start_pos + len(
+                        self._string_separator)] == self._string_separator
+                    ):
                         start_pos -= 1
                         if start_pos < 1:
                             start_pos = 0
@@ -1745,7 +1759,8 @@ class ComboRow(Adw.ActionRow):
 
     def _update_buttons_icon_names(self):
         ignore_prefix = self._icon_finder.get_ignore_prefix()
-        names = [self._icon_finder.has_name(self._buttons[name].icon_name, use_alternatives=True) for name in self._buttons]
+        names = [self._icon_finder.has_name(self._buttons[name].icon_name,
+            use_alternatives=True) for name in self._buttons]
         if False in names or True in [name.startswith(ignore_prefix) for name in names]:
             for name in self._buttons:
                 icon_name = f"{ignore_prefix}{self._buttons[name].icon_name}"
@@ -2171,7 +2186,8 @@ class TaggedFlowRow(Adw.PreferencesRow):
         self._delimiters = list(*strings)
 
     def get_text(self):
-        return self._delimiters[0].join([tag.get_text() for tag in self.get_tags()]) + int(bool(self._ends_with_delimiter)) * ";"
+        return self._delimiters[0].join([tag.get_text() for tag in self.get_tags()]) + int(
+            bool(self._ends_with_delimiter)) * ";"
 
     def set_text(self, *strings):
         self._ends_with_delimiter = strings[-1].endswith(self._delimiters[0])
@@ -2196,7 +2212,8 @@ class TaggedFlowRow(Adw.PreferencesRow):
     def add_tags(self, *strings, allow_duplicates=True, warning_timeout=None):
         strings = self._split_text(*strings)
         if not allow_duplicates:
-            duplicate_strings, duplicate_tags = self._get_duplicates(*strings, mark_duplicates=True, warning_timeout=warning_timeout)
+            duplicate_strings, duplicate_tags = self._get_duplicates(*strings, mark_duplicates=True,
+                warning_timeout=warning_timeout)
             strings = [string for string in strings if not string in duplicate_strings]
         for string in strings:
             self.add(string, send_signals=False)
@@ -2347,7 +2364,10 @@ class SearchList(Gtk.Box):
             else:
                 self._list_box.child_focus(Gtk.DirectionType.DOWN)
             return True
-        elif keyval == Keyval.TAB and self._last_activated and not self._children[self._last_activated]["widget"].get_visible():
+        elif (
+            keyval == Keyval.TAB and self._last_activated
+            and not self._children[self._last_activated]["widget"].get_visible()
+        ):
             self._list_box.set_selection_mode(Gtk.SelectionMode.NONE)
             self._list_box.set_selection_mode(Gtk.SelectionMode.BROWSE)
 
@@ -2649,8 +2669,10 @@ class Application(Adw.Application):
                 if self.get_flatpak_host_environment_variable("XDG_DATA_DIRS"):
                     raise e
             self._icon_search_dirs = [
-                self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".local", "share", "icons"),
-                self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".local", "share", "pixmaps"),
+                self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".local", "share",
+                    "icons"),
+                self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".local", "share",
+                    "pixmaps"),
                 self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".icons"),
                 self._join_path_prefix(self._flatpak_filesystem_prefix, self._flatpak_real_home, ".pixmaps")
             ]

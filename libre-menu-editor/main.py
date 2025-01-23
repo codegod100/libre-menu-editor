@@ -443,16 +443,16 @@ class DebugLog():
         self._messages = []
         self._system_info = []
         self._system_info.append(str(subprocess.getstatusoutput("cat /etc/*-release")[-1]))
-        self._system_info.append("")
+        if len(self._system_info[-1]):
+            self._system_info.append("")
         self._system_info.append(str(subprocess.getstatusoutput("uname -a")[-1]))
-        self._system_info.append("")
+        if len(self._system_info[-1]):
+            self._system_info.append("")
         self._system_info.append("XDG_SESSION_DESKTOP={}".format(str(os.getenv("XDG_SESSION_DESKTOP"))))
         self._system_info.append("XDG_CURRENT_DESKTOP={}".format(str(os.getenv("XDG_CURRENT_DESKTOP"))))
         self._system_info.append("XDG_SESSION_TYPE={}".format(str(os.getenv("XDG_SESSION_TYPE"))))
-        self._system_info.append("")
         self._system_info.append("LANG={}".format(str(os.getenv("LANG"))))
         self._system_info.append("XDG_DATA_DIRS={}".format(str(os.getenv("XDG_DATA_DIRS"))))
-        self._system_info.append("")
         self._system_info.append("APP_RUNNING_AS_FLATPAK={}".format(str(os.getenv("APP_RUNNING_AS_FLATPAK"))))
 
     def get_raise_errors(self):
@@ -500,8 +500,10 @@ class DesktopActionGroup(Adw.PreferencesGroup):
         self._command_chooser_row = gui.CommandChooserRow(app)
         self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_TITLE"))
         self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
-        self._command_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
-        self._command_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
+        self._command_chooser_row.set_dialog_accept_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+        self._command_chooser_row.set_dialog_cancel_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._command_chooser_row.hook("text-changed", self._on_child_row_text_changed)
         self._link_converter_row = gui.LinkConverterRow(app)
         self._link_converter_row.set_entry(self._command_chooser_row)
@@ -596,7 +598,10 @@ class KeywordsFilter():
         self._events.trigger("text-changed", self, self._get_unfiltered_text(text))
 
     def _get_unfiltered_text(self, text):
-        if not sorted(filter(None, text.split(self._delimiter))) == sorted(filter(None, self._current_default_text.split(self._delimiter))):
+        if (
+            not sorted(filter(None, text.split(self._delimiter)))
+            == sorted(filter(None, self._current_default_text.split(self._delimiter)))
+        ):
             return text
         else:
             return self._current_default_text
@@ -955,21 +960,28 @@ class SettingsPage(Gtk.Box):
         self._icon_chooser_row.set_default_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_TITLE"))
         self._icon_chooser_row.set_search_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_SEARCH_MODE_TITLE"))
         self._icon_chooser_row.set_dialog_title(self._locale_manager.get("ICON_CHOOSER_ROW_DIALOG_TITLE"))
-        self._icon_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
-        self._icon_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
+        self._icon_chooser_row.set_dialog_accept_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+        self._icon_chooser_row.set_dialog_cancel_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._icon_chooser_row.hook("text-changed", self._on_input_child_data_changed)
         self._icon_browser_row = self._icon_chooser_row.get_icon_browser_row()
         self._icon_browser = self._icon_browser_row.get_icon_browser()
-        self._icon_browser.set_show_names_toggle_label(self._locale_manager.get("ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL"))
+        self._icon_browser.set_show_names_toggle_label(
+            self._locale_manager.get("ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL"))
         self._icon_view_row = self._icon_chooser_row.get_icon_view_row()
         self._icon_browser_help_status_page = self._icon_chooser_row.get_help_status_page()
         self._icon_browser_help_status_page.add_css_class("compact")
-        self._icon_browser_help_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD"))
-        self._icon_browser_help_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY"))
+        self._icon_browser_help_status_page.set_title(
+            self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD"))
+        self._icon_browser_help_status_page.set_description(
+            self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY"))
         self._icon_browser_none_status_page = self._icon_chooser_row.get_none_status_page()
         self._icon_browser_none_status_page.add_css_class("compact")
-        self._icon_browser_none_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD"))
-        self._icon_browser_none_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY"))
+        self._icon_browser_none_status_page.set_title(
+            self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD"))
+        self._icon_browser_none_status_page.set_description(
+            self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY"))
         self._appearance_preferences_group = Adw.PreferencesGroup()
         self._appearance_preferences_group.set_title(self._locale_manager.get("APPEARANCE_GROUP_TITLE"))
         self._appearance_preferences_group.add(self._icon_view_row)
@@ -1001,8 +1013,10 @@ class SettingsPage(Gtk.Box):
         self._command_chooser_row = gui.CommandChooserRow(self._application)
         self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
         self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
-        self._command_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
-        self._command_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
+        self._command_chooser_row.set_dialog_accept_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+        self._command_chooser_row.set_dialog_cancel_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._command_chooser_row.hook("text-changed", self._on_input_child_data_changed)
         self._link_converter_row = gui.LinkConverterRow(self._application)
         self._link_converter_row.set_entry(self._command_chooser_row)
@@ -1317,10 +1331,12 @@ class SettingsPage(Gtk.Box):
                     GLib.source_remove(self._reload_button_fade_timeout_id)
                 if value:
                     self._reload_button.set_visible(True)
-                    self._reload_button_fade_timeout_id = GLib.timeout_add(self._reload_button_fade_duration, self._after_reload_button_show)
+                    self._reload_button_fade_timeout_id = GLib.timeout_add(self._reload_button_fade_duration,
+                        self._after_reload_button_show)
                 else:
                     self._reload_button.set_sensitive(False)
-                    self._reload_button_fade_timeout_id = GLib.timeout_add(self._reload_button_fade_duration, self._after_reload_button_hide)
+                    self._reload_button_fade_timeout_id = GLib.timeout_add(self._reload_button_fade_duration,
+                        self._after_reload_button_hide)
 
     def _after_reload_button_show(self):
         self._reload_button.set_sensitive(True)
@@ -1642,18 +1658,24 @@ class Application(gui.Application):
         self._reset_starter_menu_section = gui.Menu(self)
         self._delete_starter_menu_section = gui.Menu(self)
         self._discard_starter_menu_section = gui.Menu(self)
-        self._reset_starter_menu_section.add_button("reset_starter", self._locale_manager.get("RESET_STARTER_MENU_BUTTON_LABEL"))
+        self._reset_starter_menu_section.add_button("reset_starter",
+            self._locale_manager.get("RESET_STARTER_MENU_BUTTON_LABEL"))
         self._reset_starter_menu_section.hook("reset_starter", self._on_reset_starter_button_clicked)
-        self._delete_starter_menu_section.add_button("delete_starter", self._locale_manager.get("DELETE_STARTER_MENU_BUTTON_LABEL"))
+        self._delete_starter_menu_section.add_button("delete_starter",
+            self._locale_manager.get("DELETE_STARTER_MENU_BUTTON_LABEL"))
         self._delete_starter_menu_section.hook("delete_starter", self._on_delete_starter_button_clicked)
-        self._discard_starter_menu_section.add_button("discard_starter", self._locale_manager.get("DISCARD_STARTER_MENU_BUTTON_LABEL"))
+        self._discard_starter_menu_section.add_button("discard_starter",
+            self._locale_manager.get("DISCARD_STARTER_MENU_BUTTON_LABEL"))
         self._discard_starter_menu_section.hook("discard_starter", self._on_discard_starter_button_clicked)
         self._help_menu_section = gui.Menu(self)
-        self._help_menu_section.add_button("show_shortcuts", self._locale_manager.get("SHOW_SHORTCUTS_MENU_BUTTON_LABEL"))
+        self._help_menu_section.add_button("show_shortcuts",
+            self._locale_manager.get("SHOW_SHORTCUTS_MENU_BUTTON_LABEL"))
         self._help_menu_section.hook("show_shortcuts", self._on_show_shortcuts_button_clicked)
         self._help_menu_section.add_button("show_about", self._locale_manager.get("SHOW_ABOUT_MENU_BUTTON_LABEL"))
         self._help_menu_section.hook("show_about", self._on_show_about_button_clicked)
-        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter",
+            "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"
+        ]:
             setattr(self, f"_{name}_menu", gui.Menu(self))
         for name in ["big_start", "small_start", "big_reset_starter", "big_delete_starter", "big_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._view_menu_section)
@@ -1663,9 +1685,13 @@ class Application(gui.Application):
             getattr(self, f"_{name}_menu").append_section(None, self._delete_starter_menu_section)
         for name in ["big_discard_starter", "small_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._discard_starter_menu_section)
-        for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter",
+            "small_delete_starter", "big_discard_starter", "small_discard_starter"
+        ]:
             getattr(self, f"_{name}_menu").append_section(None, self._add_menu_section)
-        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
+        for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter",
+            "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"
+        ]:
             getattr(self, f"_{name}_menu").append_section(None, self._help_menu_section)
         self._left_menu_button = Gtk.MenuButton()
         self._left_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
@@ -1753,10 +1779,12 @@ class Application(gui.Application):
             self._main_split_layout.set_sidebar(self._split_view_sidebar)
             self._main_split_layout.set_content(self._split_view_content)
             self._main_split_layout.connect("notify::collapsed", self._on_main_split_layout_collapsed_changed)
-            window_breakpoint_limit = self._left_area_box.get_property("width-request") + self._right_area_box.get_property("width-request") * 4 / 3
+            window_breakpoint_limit = self._left_area_box.get_property("width-request") + (
+                self._right_area_box.get_property("width-request") * 4 / 3)
             self._window_breakpoint = Adw.Breakpoint()
             self._window_breakpoint.add_setter(self._main_split_layout, "collapsed", True)
-            self._window_breakpoint.set_condition(Adw.BreakpointCondition.parse(f"max-width: {window_breakpoint_limit}sp"))
+            self._window_breakpoint.set_condition(
+                Adw.BreakpointCondition.parse(f"max-width: {window_breakpoint_limit}sp"))
             self._application_window.add_breakpoint(self._window_breakpoint)
             self._application_window.set_size_request(360, 300)
         else:
@@ -1788,9 +1816,8 @@ class Application(gui.Application):
         self._toast_overlay.set_vexpand(True)
         self._toast_overlay.set_child(self._greeter_stack)
         self._about_window = Adw.AboutWindow()
-        self._about_window.set_application_icon(
-            self._icon_finder.get_name("page.codeberg.libre_menu_editor.LibreMenuEditor")
-        )
+        self._about_window.set_application_icon(self._icon_finder.get_name(
+            "page.codeberg.libre_menu_editor.LibreMenuEditor"))
         self._about_window.set_application_name(self._locale_manager.get("APPLICATION_NAME"))
         self._about_window.set_developer_name("libre-menu-editor")
         self._about_window.set_issue_url("https://codeberg.org/libre-menu-editor/libre-menu-editor/issues")
@@ -1800,8 +1827,10 @@ class Application(gui.Application):
         self._about_window.set_transient_for(self._application_window)
         self._about_window.set_modal(True)
         self._application_window_event_controller_key = Gtk.EventControllerKey()
-        self._application_window_event_controller_key.connect("key-pressed", self._on_application_window_event_controller_key_pressed)
-        self._application_window.set_icon_name(self._icon_finder.get_name("page.codeberg.libre_menu_editor.LibreMenuEditor"))
+        self._application_window_event_controller_key.connect("key-pressed",
+            self._on_application_window_event_controller_key_pressed)
+        self._application_window.set_icon_name(self._icon_finder.get_name(
+            "page.codeberg.libre_menu_editor.LibreMenuEditor"))
         self._application_window.set_title(self._locale_manager.get("APPLICATION_NAME"))
         self._application_window.add_controller(self._application_window_event_controller_key)
         self._application_window.connect("map", self._on_application_window_map)
@@ -1812,14 +1841,18 @@ class Application(gui.Application):
         self._open_dialog_file_filter = Gtk.FileFilter()
         self._open_dialog_file_filter.add_mime_type("application/x-desktop")
         if not os.getenv("APP_RUNNING_AS_FLATPAK") == "true" or os.getenv("USE_NATIVE_DIALOGS") == "true":
-            self._open_file_chooser_dialog = Gtk.FileChooserNative(select_multiple=True, filter=self._open_dialog_file_filter)
+            self._open_file_chooser_dialog = Gtk.FileChooserNative(select_multiple=True,
+                filter=self._open_dialog_file_filter)
         else:
             self._open_dialog_accept_button = Gtk.Button()
             self._open_dialog_accept_button.add_css_class("suggested-action")
-            self._open_dialog_accept_button.set_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+            self._open_dialog_accept_button.set_label(
+                self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
             self._open_dialog_cancel_button = Gtk.Button()
-            self._open_dialog_cancel_button.set_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
-            self._open_file_chooser_dialog = Gtk.FileChooserDialog(select_multiple=True, filter=self._open_dialog_file_filter)
+            self._open_dialog_cancel_button.set_label(
+                self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
+            self._open_file_chooser_dialog = Gtk.FileChooserDialog(select_multiple=True,
+                filter=self._open_dialog_file_filter)
             self._open_file_chooser_dialog.add_action_widget(self._open_dialog_accept_button, Gtk.ResponseType.ACCEPT)
             self._open_file_chooser_dialog.add_action_widget(self._open_dialog_cancel_button, Gtk.ResponseType.CANCEL)
             self._open_file_chooser_dialog.set_default_response(Gtk.ResponseType.ACCEPT)
@@ -1902,54 +1935,84 @@ class Application(gui.Application):
 
     def _on_application_window_event_controller_key_pressed(self, window, keyval, keycode, state):
         control_modifier_pressed = state == state | Gdk.ModifierType.CONTROL_MASK
-        if not hasattr(self, "_split_view_content") or not self._main_split_layout.get_collapsed() or not self._main_split_layout.get_show_content():
-            if (control_modifier_pressed and keyval == 102 and  # F
-                    not self._greeter_stack.get_visible_child() == self._greeter_page):
-                if (self._search_list.get_search_mode() and (
-                    not len(self._search_list.get_search_entry().get_text())
-                        or not self._search_list.get_search_entry().get_focus_child() == None)):
+        if (
+            not hasattr(self, "_split_view_content") or not self._main_split_layout.get_collapsed()
+            or not self._main_split_layout.get_show_content()
+        ):
+            if (
+                control_modifier_pressed and keyval == 102  # F
+                and not self._greeter_stack.get_visible_child() == self._greeter_page
+            ):
+                if (
+                    self._search_list.get_search_mode()
+                    and (not len(self._search_list.get_search_entry().get_text())
+                    or not self._search_list.get_search_entry().get_focus_child() == None)
+                ):
                     self._search_list.set_search_mode(False)
                 else:
                     self._search_list.grab_focus()
                 return True
-            elif (control_modifier_pressed and keyval == 104 and  # H
-                  not self._greeter_stack.get_visible_child() == self._greeter_page):
+            elif (
+                control_modifier_pressed and keyval == 104  # H
+                and not self._greeter_stack.get_visible_child() == self._greeter_page
+            ):
                 state = self._view_menu_section.get_switch_state("show_hidden")
                 self._view_menu_section.set_switch_state("show_hidden", state == False)
                 return True
-        if (control_modifier_pressed and keyval == 110 and  # N
-            not self._greeter_stack.get_visible_child() == self._greeter_page and
-                self._add_menu_section.get_enabled("new_starter")):
+        if (
+            control_modifier_pressed and keyval == 110  # N
+            and not self._greeter_stack.get_visible_child() == self._greeter_page
+            and self._add_menu_section.get_enabled("new_starter")
+        ):
             self._on_new_starter_button_clicked(None)
             return True
-        elif (control_modifier_pressed and keyval == 111 and  # O
-              not self._greeter_stack.get_visible_child() == self._greeter_page):
+        elif (
+            control_modifier_pressed and keyval == 111  # O
+            and not self._greeter_stack.get_visible_child() == self._greeter_page
+        ):
             self._on_open_file_button_clicked(None)
             return True
-        if not hasattr(self, "_split_view_content") or not self._main_split_layout.get_collapsed() or self._main_split_layout.get_show_content():
-            if (control_modifier_pressed and keyval == 115 and  # S
-                self._main_stack.get_visible_child() == self._settings_page and
-                    self._save_settings_button.get_sensitive() and self._save_settings_button.get_visible()):
+        if (
+            not hasattr(self, "_split_view_content") or not self._main_split_layout.get_collapsed()
+            or self._main_split_layout.get_show_content()
+        ):
+            if (
+                control_modifier_pressed and keyval == 115  # S
+                and self._main_stack.get_visible_child() == self._settings_page
+                and self._save_settings_button.get_sensitive() and self._save_settings_button.get_visible()
+            ):
                 self._on_save_settings_button_clicked(None)
                 return True
-            elif (control_modifier_pressed and keyval == 114 and  # R
-                  self._main_stack.get_visible_child() == self._settings_page and
-                  self._reload_settings_button.get_sensitive() and self._reload_settings_button.get_visible()):
+            elif (
+                control_modifier_pressed and keyval == 114  # R
+                and self._main_stack.get_visible_child() == self._settings_page
+                and self._reload_settings_button.get_sensitive() and self._reload_settings_button.get_visible()
+            ):
                 self._on_reload_settings_button_clicked(None)
                 return True
-            elif (control_modifier_pressed and keyval == 101 and  # E
-                  self._main_stack.get_visible_child() == self._settings_page):
+            elif (
+                control_modifier_pressed and keyval == 101  # E
+                and self._main_stack.get_visible_child() == self._settings_page
+            ):
                 self._on_edit_file_button_clicked(None)
-            elif (control_modifier_pressed and keyval == 100 and  # D
-                  self._main_stack.get_visible_child() == self._settings_page):
-                if (self._current_menu_button.get_menu_model() == self._current_reset_starter_menu and
-                        self._reset_starter_menu_section.get_enabled("reset_starter")):
+            elif (
+                control_modifier_pressed and keyval == 100  # D
+                and self._main_stack.get_visible_child() == self._settings_page
+            ):
+                if (
+                    self._current_menu_button.get_menu_model() == self._current_reset_starter_menu
+                    and self._reset_starter_menu_section.get_enabled("reset_starter")
+                ):
                     self._on_reset_starter_button_clicked(None)
-                elif (self._current_menu_button.get_menu_model() == self._current_delete_starter_menu and
-                      self._delete_starter_menu_section.get_enabled("delete_starter")):
+                elif (
+                    self._current_menu_button.get_menu_model() == self._current_delete_starter_menu
+                    and self._delete_starter_menu_section.get_enabled("delete_starter")
+                ):
                     self._on_delete_starter_button_clicked(None)
-                elif (self._current_menu_button.get_menu_model() == self._current_discard_starter_menu and
-                      self._discard_starter_menu_section.get_enabled("discard_starter")):
+                elif (
+                    self._current_menu_button.get_menu_model() == self._current_discard_starter_menu
+                    and self._discard_starter_menu_section.get_enabled("discard_starter")
+                ):
                     self._on_discard_starter_button_clicked(None)
                 return True
         if control_modifier_pressed and keyval == 223:  # ?
@@ -2018,7 +2081,8 @@ class Application(gui.Application):
             if current_value:
                 self._split_view_content.set_can_pop(False)
             else:
-                self._back_button_fade_timeout_id = GLib.timeout_add(self._back_button_fade_duration, self._after_settings_page_changed_changed)
+                self._back_button_fade_timeout_id = GLib.timeout_add(self._back_button_fade_duration,
+                    self._after_settings_page_changed_changed)
 
     def _after_settings_page_changed_changed(self):
         if hasattr(self, "_split_view_content"):
@@ -2081,7 +2145,8 @@ class Application(gui.Application):
 
     def _on_discard_starter_button_clicked(self, event):
         if self._settings_page.get_changed():
-            self._show_discard_dialog(self._remove_desktop_starter, self._current_desktop_starter_name, notify_user=True)
+            self._show_discard_dialog(self._remove_desktop_starter, self._current_desktop_starter_name,
+                notify_user=True)
         else:
             self._remove_desktop_starter(self._current_desktop_starter_name, notify_user=True)
 
@@ -2112,8 +2177,10 @@ class Application(gui.Application):
         self._about_window.set_visible(True)
 
     def _on_new_starter_button_clicked(self, button):
-        if (not self._current_desktop_starter_name in self._unsaved_custom_starters or
-                self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]):
+        if (
+            not self._current_desktop_starter_name in self._unsaved_custom_starters
+            or self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+        ):
             self._check_unsaved_data(self._create_desktop_starter)
         else:
             self._create_desktop_starter()
@@ -2388,7 +2455,9 @@ class Application(gui.Application):
                 self._right_menu_button.set_visible(False)
                 self._right_menu_button.set_primary(False)
                 sub_menu_name = "big"
-            for menu_name in ["_{}_start_menu", "_{}_reset_starter_menu", "_{}_delete_starter_menu", "_{}_discard_starter_menu"]:
+            for menu_name in ["_{}_start_menu", "_{}_reset_starter_menu", "_{}_delete_starter_menu",
+                "_{}_discard_starter_menu"
+            ]:
                 setattr(self, menu_name.format("current"), getattr(self, menu_name.format(sub_menu_name)))
             else:
                 self._update_menu_button_menu_model()
@@ -2436,7 +2505,8 @@ class Application(gui.Application):
         operations = [{
             "section": "Added Associations",
             "path": os.path.join(GLib.get_user_config_dir(), "mimeapps.list"),
-            "desktop-id": os.path.relpath(parser.get_save_path(), self._desktop_starter_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
+            "desktop-id": os.path.relpath(parser.get_save_path(),
+                self._desktop_starter_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
         }]
         if os.path.abspath(parser.get_save_path()).startswith(os.path.abspath(self._desktop_starter_override_dir)):
             operations.append({
@@ -2498,15 +2568,20 @@ class Application(gui.Application):
 
     def _save_settings_page(self, skip_dialog=False):
         parser = self._desktop_starter_parsers[self._current_desktop_starter_name]
-        if (self._current_desktop_starter_name in self._unsaved_custom_starters and
-            self._unsaved_custom_starters[self._current_desktop_starter_name]["external"] and
-                not skip_dialog):
+        if (
+            self._current_desktop_starter_name in self._unsaved_custom_starters
+            and self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+            and not skip_dialog
+        ):
             self._show_install_dialog(self._install_external_starter, self._current_desktop_starter_name)
             return True
         else:
             try:
                 parser.check_write()
-                if not self._current_desktop_starter_name in self._unsaved_custom_starters or not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]:
+                if (
+                    not self._current_desktop_starter_name in self._unsaved_custom_starters
+                    or not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+                ):
                     self._settings_page.set_always_show_save_button(False)
                     self._update_mime_data(parser)
                 self._settings_page.save_desktop_starter()
@@ -2517,7 +2592,10 @@ class Application(gui.Application):
                 self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=error)
                 return True
             else:
-                if self._current_desktop_starter_name in self._unsaved_custom_starters and not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]:
+                if (
+                    self._current_desktop_starter_name in self._unsaved_custom_starters
+                    and not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+                ):
                     del self._unsaved_custom_starters[self._current_desktop_starter_name]
                 text = parser.get_name()
                 if not len(text):
@@ -2587,7 +2665,8 @@ class Application(gui.Application):
                                 self.log(f"not readable file: {path}")
                         if len(exceptions) == 1:
                             self.notify(
-                                self._locale_manager.get("LOAD_SINGLE_ERROR_TEXT") % os.path.basename(list(exceptions.keys())[0]),
+                                self._locale_manager.get("LOAD_SINGLE_ERROR_TEXT")
+                                    % os.path.basename(list(exceptions.keys())[0]),
                                 error=True
                             )
                         else:
@@ -2603,8 +2682,10 @@ class Application(gui.Application):
                         self._load_settings_page(name)
 
     def _create_desktop_starter(self):
-        if (self._current_desktop_starter_name in self._unsaved_custom_starters and
-                not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]):
+        if (
+            self._current_desktop_starter_name in self._unsaved_custom_starters
+            and not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+        ):
             self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
             self._focus_settings_page()
         else:
