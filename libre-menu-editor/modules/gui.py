@@ -234,7 +234,7 @@ class IconView(Gtk.CenterBox):
 
     def set_image(self, image):
         self._icon_image = image
-        self._icon_image.set_pixel_size(192)
+        self._icon_image.set_pixel_size(128)
         self._icon_image.set_margin_top(Margin.LARGER)
         self._icon_image.set_margin_bottom(Margin.LARGER)
         self.set_center_widget(self._icon_image)

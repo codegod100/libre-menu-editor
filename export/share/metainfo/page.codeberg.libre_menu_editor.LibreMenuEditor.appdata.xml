@@ -111,6 +111,8 @@
       <li xml:lang="de">Starter-Aktionen erstellen, bearbeiten und löschen</li>
       <li>show or hide launchers in the main menu</li>
       <li xml:lang="de">Starter im Hauptmenü anzeigen oder verstecken</li>
+      <li>show or hide launchers in certain desktop environments</li>
+      <li xml:lang="de">Starter in bestimmten Desktopumgebungen anzeigen oder verstecken</li>
       <li>change the launcher's menu-categories</li>
       <li xml:lang="de">Menükategorien von Anwendungsstartern bearbeiten</li>
       <li>enable or disable launcher's startup-animations</li>
@@ -170,7 +172,7 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="1.8.2" date="2024-12-11"/>
+    <release version="1.9.0" date="2025-01-23"/>
   </releases>
   <recommends>
     <control>touch</control>
