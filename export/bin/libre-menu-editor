@@ -15,30 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+import os
+import sys
 
-import os, sys
 
 try:
-
     project_dir = os.path.join(os.path.sep, "app", "share", "libre-menu-editor")
-
     sys.path.append(project_dir)
-
     from main import Application
-
     os.environ["APP_RUNNING_AS_FLATPAK"] = "true"
-
 except ModuleNotFoundError:
-
     project_dir = os.path.join(os.path.sep, "usr", "share", "libre-menu-editor")
-
     sys.path.append(project_dir)
-
     from main import Application
 
 
 if __name__ == "__main__":
-
     app = Application(project_dir, application_id="page.codeberg.libre_menu_editor.LibreMenuEditor")
-
     app.run()
