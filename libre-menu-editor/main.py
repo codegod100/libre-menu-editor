@@ -940,10 +940,8 @@ class SettingsPage(Gtk.Box):
         self._current_desktop_action_groups = {}
         self._input_children_changes = {}
         self._show_in_filter_histories = {}
-        ###############################################################################################################
         self._save_button = Gtk.Button()
         self._reload_button = Gtk.Button()
-        ###############################################################################################################
         if hasattr(Adw, "Banner"):
             self._banner_event_controller_key = Gtk.EventControllerKey()
             self._banner_event_controller_key.connect("key-pressed", self._on_banner_event_controller_key_pressed)
@@ -953,7 +951,6 @@ class SettingsPage(Gtk.Box):
             self._banner.connect("button-clicked", self._on_banner_button_clicked)
             self._banner.add_controller(self._banner_event_controller_key)
             self.append(self._banner)
-        ###############################################################################################################
         self._icon_chooser_row = gui.IconChooserRow(app)
         self._icon_chooser_row.set_default_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_TITLE"))
         self._icon_chooser_row.set_search_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_SEARCH_MODE_TITLE"))
@@ -961,28 +958,23 @@ class SettingsPage(Gtk.Box):
         self._icon_chooser_row.set_dialog_accept_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
         self._icon_chooser_row.set_dialog_cancel_button_label(self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._icon_chooser_row.hook("text-changed", self._on_input_child_data_changed)
-        ###############################################################################################################
         self._icon_browser_row = self._icon_chooser_row.get_icon_browser_row()
         self._icon_browser = self._icon_browser_row.get_icon_browser()
         self._icon_browser.set_show_names_toggle_label(self._locale_manager.get("ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL"))
         self._icon_view_row = self._icon_chooser_row.get_icon_view_row()
-        ###############################################################################################################
         self._icon_browser_help_status_page = self._icon_chooser_row.get_help_status_page()
         self._icon_browser_help_status_page.add_css_class("compact")
         self._icon_browser_help_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_HEAD"))
         self._icon_browser_help_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_HELP_BODY"))
-        ###############################################################################################################
         self._icon_browser_none_status_page = self._icon_chooser_row.get_none_status_page()
         self._icon_browser_none_status_page.add_css_class("compact")
         self._icon_browser_none_status_page.set_title(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_HEAD"))
         self._icon_browser_none_status_page.set_description(self._locale_manager.get("ICON_CHOOSER_ROW_STATUS_PAGE_NONE_BODY"))
-        ###############################################################################################################
         self._appearance_preferences_group = Adw.PreferencesGroup()
         self._appearance_preferences_group.set_title(self._locale_manager.get("APPEARANCE_GROUP_TITLE"))
         self._appearance_preferences_group.add(self._icon_view_row)
         self._appearance_preferences_group.add(self._icon_chooser_row)
         self._appearance_preferences_group.add(self._icon_browser_row)
-        ###############################################################################################################
         self._name_entry_row = gui.EntryRow(app)
         self._name_entry_row.set_title(self._locale_manager.get("NAME_ENTRY_ROW_TITLE"))
         self._name_entry_row.hook("text-changed", self._on_input_child_data_changed)
@@ -993,7 +985,6 @@ class SettingsPage(Gtk.Box):
         self._description_preferences_group.set_title(self._locale_manager.get("DESCRIPTION_GROUP_TITLE"))
         self._description_preferences_group.add(self._name_entry_row)
         self._description_preferences_group.add(self._comment_entry_row)
-        ###############################################################################################################
         self._keywords_entry_row = gui.EntryRow(app)
         self._keywords_entry_row.set_placeholder_image(self._icon_finder.get_name("list-add-symbolic"))
         self._keywords_entry_row.set_title(self._locale_manager.get("KEYWORDS_ENTRY_ROW_TITLE"))
@@ -1007,7 +998,6 @@ class SettingsPage(Gtk.Box):
         self._keywords_preferences_group.set_title(self._locale_manager.get("DISCOVERY_GROUP_TITLE"))
         self._keywords_preferences_group.add(self._keywords_entry_row)
         self._keywords_preferences_group.add(self._keywords_flow_row)
-        ###############################################################################################################
         self._command_chooser_row = gui.CommandChooserRow(self._application)
         self._command_chooser_row.set_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DEFAULT_TITLE"))
         self._command_chooser_row.set_dialog_title(self._locale_manager.get("COMMAND_CHOOSER_ROW_DIALOG_TITLE"))
@@ -1017,7 +1007,6 @@ class SettingsPage(Gtk.Box):
         self._link_converter_row = gui.LinkConverterRow(self._application)
         self._link_converter_row.set_entry(self._command_chooser_row)
         self._link_converter_row.set_label(self._locale_manager.get("LINK_CONVERTER_ROW_LABEL"))
-        ###############################################################################################################
         self._primary_event_controller_key = Gtk.EventControllerKey()
         self._primary_action_create_button = Gtk.Button()
         self._primary_action_create_button.set_icon_name(self._icon_finder.get_name("list-add-symbolic"))
@@ -1032,13 +1021,11 @@ class SettingsPage(Gtk.Box):
         self._primary_header_suffix_box.append(self._primary_action_create_button)
         self._primary_header_suffix_box.append(self._primary_action_delete_button)
         self._primary_header_suffix_box.add_controller(self._primary_event_controller_key)
-        ###############################################################################################################
         self._execution_preferences_group = Adw.PreferencesGroup()
         self._execution_preferences_group.set_title(self._locale_manager.get("EXECUTION_GROUP_TITLE"))
         self._execution_preferences_group.add(self._command_chooser_row)
         self._execution_preferences_group.add(self._link_converter_row)
         self._execution_preferences_group.set_header_suffix(self._primary_header_suffix_box)
-        ###############################################################################################################
         self._categories_flow_row = gui.TaggedFlowRow(app)
         self._categories_combo_row = gui.ComboRow(app)
         self._categories_combo_row.set_title(self._locale_manager.get("CATEGORIES_COMBO_ROW_TITLE"))
@@ -1051,7 +1038,6 @@ class SettingsPage(Gtk.Box):
         self._categories_preferences_group.set_title(self._locale_manager.get("MENU_GROUP_TITLE"))
         self._categories_preferences_group.add(self._categories_combo_row)
         self._categories_preferences_group.add(self._categories_flow_row)
-        ###############################################################################################################
         self._terminal_switch_row = gui.SwitchRow()
         self._terminal_switch_row.set_title(self._locale_manager.get("TERMINAL_SWITCH_ROW_TITLE"))
         self._terminal_switch_row.hook("value-changed", self._on_input_child_data_changed)
@@ -1062,7 +1048,6 @@ class SettingsPage(Gtk.Box):
         self._window_preferences_group.set_title(self._locale_manager.get("WINDOW_GROUP_TITLE"))
         self._window_preferences_group.add(self._terminal_switch_row)
         self._window_preferences_group.add(self._notify_switch_row)
-        ###############################################################################################################
         self._visible_switch_row = gui.SwitchRow()
         self._visible_switch_row.set_title(self._locale_manager.get("VISIBLE_SWITCH_ROW_TITLE"))
         self._visible_switch_row.hook("value-changed", self._on_input_child_data_changed)
@@ -1085,7 +1070,6 @@ class SettingsPage(Gtk.Box):
         self._not_show_in_filter.set_combo_row(self._not_show_in_combo_row)
         self._not_show_in_filter.hook("text-changed", self._on_input_child_data_changed)
         self._not_show_in_filter.hook("text-changed", self._on_visibility_widgets_changed)
-        ###############################################################################################################
         self._visible_preferences_group = Adw.PreferencesGroup()
         self._visible_preferences_group.set_title(self._locale_manager.get("VISIBLE_GROUP_TITLE"))
         self._visible_preferences_group.add(self._visible_switch_row)
@@ -1093,7 +1077,6 @@ class SettingsPage(Gtk.Box):
         self._visible_preferences_group.add(self._only_show_in_flow_row)
         self._visible_preferences_group.add(self._not_show_in_combo_row)
         self._visible_preferences_group.add(self._not_show_in_flow_row)
-        ###############################################################################################################
         self._edit_file_action_row_image = self._icon_finder.get_image("adw-external-link-symbolic")
         self._edit_file_action_row_button = Gtk.Button()
         self._edit_file_action_row_button.add_css_class("flat")
@@ -1108,10 +1091,8 @@ class SettingsPage(Gtk.Box):
         self._advanced_preferences_group = Adw.PreferencesGroup()
         self._advanced_preferences_group.set_title(self._locale_manager.get("ADVANCED_GROUP_TITLE"))
         self._advanced_preferences_group.add(self._edit_file_action_row)
-        ###############################################################################################################
         self._page_event_controller_key = Gtk.EventControllerKey()
         self._page_event_controller_key.connect("key-pressed", self._on_page_controller_key_pressed)
-        ###############################################################################################################
         self._top_box = Gtk.Box()
         self._top_box.set_spacing(gui.Spacing.LARGER)
         self._top_box.set_orientation(Gtk.Orientation.VERTICAL)
@@ -1144,10 +1125,8 @@ class SettingsPage(Gtk.Box):
         self._scrolled_window = Gtk.ScrolledWindow()
         self._scrolled_window.set_child(self._clamp)
         self._scrolled_window.set_vexpand(True)
-        ###############################################################################################################
         self.set_orientation(Gtk.Orientation.VERTICAL)
         self.append(self._scrolled_window)
-        ###############################################################################################################
         self._update_action_children_sensitive(False)
         self._update_top_desktop_action_group_header()
         self.load_icon_browser_configs()
@@ -1501,13 +1480,11 @@ class StarterNotFoundError(Exception):
 
 class Application(gui.Application):
     def __init__(self, *args, **kwargs):
-        ###############################################################################################################
         self._debug_log = DebugLog(self)
         if len(args) and "--debug" in sys.argv:
             self._debug_log.set_raise_errors(True)
             sys.stdout.write(self._debug_log.get())
             sys.argv.remove("--debug")
-        ###############################################################################################################
         super().__init__(*args, **kwargs)
         if self._debug_log.get_raise_errors():
             self._application_window.add_css_class("devel")
@@ -1517,16 +1494,13 @@ class Application(gui.Application):
         self._unsaved_custom_starters = {}
         self._ignore_show_hidden_switch_changes = False
         self._previous_discard_dialog = None
-        ###############################################################################################################
         self._back_button_fade_timeout_id = None
         self._back_button_fade_duration = 45
-        ###############################################################################################################
         xdg_current_desktop = os.getenv("XDG_CURRENT_DESKTOP")
         if isinstance(xdg_current_desktop, str):
             self._xdg_current_desktop_values = set(filter(None, xdg_current_desktop.split(":")))
         else:
             self._xdg_current_desktop_values = set()
-        ###############################################################################################################
         ignore_prefix = "page.codeberg.libre_menu_editor.LibreMenuEditor.fallback."
         self._icon_finder.set_ignore_prefix(ignore_prefix)
         self._icon_finder.add_alternatives(
@@ -1629,29 +1603,23 @@ class Application(gui.Application):
             "applications-accessories",
             f"{ignore_prefix}applications-utilities"
         )
-        ###############################################################################################################
         self._desktop_starter_custom_create_name = "custom-desktop-starter"
         self._desktop_starter_template_path = os.path.join(self.get_project_dir(), "default.desktop")
         self._desktop_starter_override_dir = os.path.join(GLib.get_user_data_dir(), "applications")
-        ###############################################################################################################
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
             subprocess.Popen([
                 "flatpak-spawn", "--host", "touch",
                 os.path.join(self.get_flatpak_real_home(), ".config", "mimeapps.list")
             ])
-        ###############################################################################################################
         self._start_page = Adw.StatusPage()
         self._start_page.set_title(self._locale_manager.get("START_PAGE_HEAD"))
         self._start_page.set_description(self._locale_manager.get("START_PAGE_BODY"))
         self._start_page.set_icon_name(self._icon_finder.get_name("edit-find-replace-symbolic"))
-        ###############################################################################################################
         self._settings_page = SettingsPage(self)
         self._settings_page.hook("changed-changed", self._on_settings_page_changed_changed)
         self._settings_page.get_edit_file_action_row().connect("activated", self._on_edit_file_button_clicked)
-        ###############################################################################################################
         self._search_list = gui.SearchList(self)
         self._search_list.hook("item-activated", self._on_search_list_item_activated)
-        ###############################################################################################################
         self._save_settings_button = self._settings_page.get_save_button()
         self._save_settings_button.set_label(self._locale_manager.get("SAVE_SETTINGS_BUTTON_LABEL"))
         self._save_settings_button.set_focus_on_click(False)
@@ -1662,18 +1630,15 @@ class Application(gui.Application):
         self._reload_settings_button.set_focus_on_click(False)
         self._reload_settings_button.connect("clicked", self._on_reload_settings_button_clicked)
         self._search_button = self._search_list.get_search_button()
-        ###############################################################################################################
         self._view_menu_section = gui.Menu(self)
         self._view_menu_section.add_switch("show_hidden", self._locale_manager.get("SHOW_HIDDEN_SWITCH_LABEL"))
         self._view_menu_section.set_switch_state("show_hidden", self._config_manager.get("show.hidden"))
         self._view_menu_section.hook("show_hidden", self._on_show_hidden_switch_changed)
-        ###############################################################################################################
         self._add_menu_section = gui.Menu(self)
         self._add_menu_section.add_button("new_starter", self._locale_manager.get("NEW_STARTER_MENU_BUTTON_LABEL"))
         self._add_menu_section.hook("new_starter", self._on_new_starter_button_clicked)
         self._add_menu_section.add_button("open_file", self._locale_manager.get("OPEN_FILE_MENU_BUTTON_LABEL"))
         self._add_menu_section.hook("open_file", self._on_open_file_button_clicked)
-        ###############################################################################################################
         self._reset_starter_menu_section = gui.Menu(self)
         self._delete_starter_menu_section = gui.Menu(self)
         self._discard_starter_menu_section = gui.Menu(self)
@@ -1683,37 +1648,29 @@ class Application(gui.Application):
         self._delete_starter_menu_section.hook("delete_starter", self._on_delete_starter_button_clicked)
         self._discard_starter_menu_section.add_button("discard_starter", self._locale_manager.get("DISCARD_STARTER_MENU_BUTTON_LABEL"))
         self._discard_starter_menu_section.hook("discard_starter", self._on_discard_starter_button_clicked)
-        ###############################################################################################################
         self._help_menu_section = gui.Menu(self)
         self._help_menu_section.add_button("show_shortcuts", self._locale_manager.get("SHOW_SHORTCUTS_MENU_BUTTON_LABEL"))
         self._help_menu_section.hook("show_shortcuts", self._on_show_shortcuts_button_clicked)
         self._help_menu_section.add_button("show_about", self._locale_manager.get("SHOW_ABOUT_MENU_BUTTON_LABEL"))
         self._help_menu_section.hook("show_about", self._on_show_about_button_clicked)
-        ###############################################################################################################
         for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
             setattr(self, f"_{name}_menu", gui.Menu(self))
-        ###############################################################################################################
         for name in ["big_start", "small_start", "big_reset_starter", "big_delete_starter", "big_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._view_menu_section)
-        ###############################################################################################################
         for name in ["big_reset_starter", "small_reset_starter", "big_start"]:
             getattr(self, f"_{name}_menu").append_section(None, self._reset_starter_menu_section)
         for name in ["big_delete_starter", "small_delete_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._delete_starter_menu_section)
         for name in ["big_discard_starter", "small_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._discard_starter_menu_section)
-        ###############################################################################################################
         for name in ["big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._add_menu_section)
-        ###############################################################################################################
         for name in ["greeter", "big_start", "small_start", "big_reset_starter", "small_reset_starter", "big_delete_starter", "small_delete_starter", "big_discard_starter", "small_discard_starter"]:
             getattr(self, f"_{name}_menu").append_section(None, self._help_menu_section)
-        ###############################################################################################################
         self._left_menu_button = Gtk.MenuButton()
         self._left_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
         self._right_menu_button = Gtk.MenuButton()
         self._right_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
-        ###############################################################################################################
         self._greeter_menu_button = Gtk.MenuButton()
         self._greeter_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
         self._greeter_menu_button.set_menu_model(self._greeter_menu)
@@ -1747,7 +1704,6 @@ class Application(gui.Application):
         self._greeter_page.set_orientation(Gtk.Orientation.VERTICAL)
         self._greeter_page.append(self._greeter_top_header_bar)
         self._greeter_page.append(self._greeter_window_handle)
-        ###############################################################################################################
         self._left_event_controller_key = Gtk.EventControllerKey()
         self._left_event_controller_key.connect("key-pressed", self._on_left_event_controller_key_pressed)
         self._left_header_bar_label = Gtk.Label()
@@ -1763,18 +1719,14 @@ class Application(gui.Application):
         self._right_header_bar.set_title_widget(self._right_header_bar_label)
         self._right_header_bar.add_controller(self._right_event_controller_key)
         self._right_header_bar.pack_end(self._right_menu_button)
-        ###############################################################################################################
         self._header_bar_size_group = Gtk.SizeGroup()
         self._header_bar_size_group.add_widget(self._left_header_bar)
         self._header_bar_size_group.add_widget(self._right_header_bar)
         self._header_bar_size_group.set_mode(Gtk.SizeGroupMode.VERTICAL)
-        ###############################################################################################################
         self._start_page.set_margin_bottom(self._right_header_bar.get_preferred_size()[1].height)
-        ###############################################################################################################
         self._main_stack = Gtk.Stack()
         self._main_stack.add_child(self._start_page)
         self._main_stack.add_child(self._settings_page)
-        ###############################################################################################################
         if hasattr(Adw, "NavigationSplitView") and hasattr(Adw, "ToolbarView"):
             self._search_bar = self._search_list.get_search_bar()
             self._search_bar.unparent()
@@ -1828,16 +1780,13 @@ class Application(gui.Application):
             self._main_split_layout.append(self._left_area_box)
             self._main_split_layout.append(self._main_separator)
             self._main_split_layout.append(self._right_area_box)
-        ###############################################################################################################
         self._main_stack.connect("notify::visible-child", self._on_main_stack_visible_child_changed)
-        ###############################################################################################################
         self._greeter_stack = Gtk.Stack()
         self._greeter_stack.add_child(self._greeter_page)
         self._greeter_stack.add_child(self._main_split_layout)
         self._toast_overlay = Adw.ToastOverlay()
         self._toast_overlay.set_vexpand(True)
         self._toast_overlay.set_child(self._greeter_stack)
-        ###############################################################################################################
         self._about_window = Adw.AboutWindow()
         self._about_window.set_application_icon(
             self._icon_finder.get_name("page.codeberg.libre_menu_editor.LibreMenuEditor")
@@ -1850,7 +1799,6 @@ class Application(gui.Application):
         self._about_window.set_hide_on_close(True)
         self._about_window.set_transient_for(self._application_window)
         self._about_window.set_modal(True)
-        ###############################################################################################################
         self._application_window_event_controller_key = Gtk.EventControllerKey()
         self._application_window_event_controller_key.connect("key-pressed", self._on_application_window_event_controller_key_pressed)
         self._application_window.set_icon_name(self._icon_finder.get_name("page.codeberg.libre_menu_editor.LibreMenuEditor"))
@@ -1859,10 +1807,8 @@ class Application(gui.Application):
         self._application_window.connect("map", self._on_application_window_map)
         self._application_window.connect("close-request", self._on_application_window_close_request)
         self._application_window.set_content(self._toast_overlay)
-        ###############################################################################################################
         self._text_editor = DefaultTextEditor(self)
         self._text_editor.hook("update", self._on_text_editor_update)
-        ###############################################################################################################
         self._open_dialog_file_filter = Gtk.FileFilter()
         self._open_dialog_file_filter.add_mime_type("application/x-desktop")
         if not os.getenv("APP_RUNNING_AS_FLATPAK") == "true" or os.getenv("USE_NATIVE_DIALOGS") == "true":
@@ -1886,18 +1832,15 @@ class Application(gui.Application):
         self._open_file_chooser_dialog.connect("response", self._on_open_file_chooser_dialog_response)
         self._open_file_chooser_dialog.set_transient_for(self._application_window)
         self._open_file_chooser_dialog.set_modal(True)
-        ###############################################################################################################
         self._process_manager = basic.ProcessManager(
             os.path.join(self._config_dir, "lock"),
             os.path.join(self._config_dir, "argv")
         )
         self._process_manager.hook("activate", self._on_process_manager_activate)
-        ###############################################################################################################
         self._application_window_drop_target = Gtk.DropTarget.new(Gdk.FileList, Gdk.DragAction.COPY)
         self._application_window_drop_target.set_gtypes([Gdk.FileList])
         self._application_window_drop_target.connect("drop", self._on_application_window_drop_target_drop)
         self._application_window.add_controller(self._application_window_drop_target)
-        ###############################################################################################################
         self.connect("shutdown", self._on_application_shutdown)
         self._update_menu_button()
         self._load_desktop_starter_dirs()
@@ -1969,13 +1912,11 @@ class Application(gui.Application):
                 else:
                     self._search_list.grab_focus()
                 return True
-        ###############################################################################################################
             elif (control_modifier_pressed and keyval == 104 and  # H
                   not self._greeter_stack.get_visible_child() == self._greeter_page):
                 state = self._view_menu_section.get_switch_state("show_hidden")
                 self._view_menu_section.set_switch_state("show_hidden", state == False)
                 return True
-        ###############################################################################################################
         if (control_modifier_pressed and keyval == 110 and  # N
             not self._greeter_stack.get_visible_child() == self._greeter_page and
                 self._add_menu_section.get_enabled("new_starter")):
@@ -1985,7 +1926,6 @@ class Application(gui.Application):
               not self._greeter_stack.get_visible_child() == self._greeter_page):
             self._on_open_file_button_clicked(None)
             return True
-        ###############################################################################################################
         if not hasattr(self, "_split_view_content") or not self._main_split_layout.get_collapsed() or self._main_split_layout.get_show_content():
             if (control_modifier_pressed and keyval == 115 and  # S
                 self._main_stack.get_visible_child() == self._settings_page and
@@ -2012,7 +1952,6 @@ class Application(gui.Application):
                       self._discard_starter_menu_section.get_enabled("discard_starter")):
                     self._on_discard_starter_button_clicked(None)
                 return True
-        ###############################################################################################################
         if control_modifier_pressed and keyval == 223:  # ?
             self._on_show_shortcuts_button_clicked(None)
         elif control_modifier_pressed and keyval == 113:  # Q

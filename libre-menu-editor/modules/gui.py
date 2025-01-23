@@ -2610,7 +2610,6 @@ class Application(Adw.Application):
         self._config_dir = os.path.join(GLib.get_user_data_dir(), self._app_name)
         self._cache_dir = os.path.join(GLib.get_user_cache_dir(), self._app_name)
         self._flatpak_filesystem_prefix = os.path.join(os.path.sep, "run", "host")
-        ###############################################################################################################
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
             home_var = self.get_flatpak_host_environment_variable("HOME")
             if home_var:
@@ -2619,7 +2618,6 @@ class Application(Adw.Application):
                 self._flatpak_real_home = os.path.join(os.path.sep, "home", os.getenv("USER"))
         else:
             self._flatpak_real_home = None
-        ###############################################################################################################
         self._config_manager = basic.ConfigManager(
             os.path.join(self._project_dir, "default.json"),
             os.path.join(self._config_dir, "config.json")
@@ -2627,11 +2625,9 @@ class Application(Adw.Application):
         self._locale_manager = basic.LocaleManager(
             os.path.join(self._project_dir, "locales")
         )
-        ###############################################################################################################
         self._icon_finder = IconFinder(self)
         self._style_manager = Adw.StyleManager.get_default()
         self._style_manager.set_color_scheme(Adw.ColorScheme.DEFAULT)
-        ###############################################################################################################
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
             self._system_data_dirs = [
                 os.path.join(GLib.get_user_data_dir(), "flatpak", "exports", "share"),
@@ -2687,12 +2683,9 @@ class Application(Adw.Application):
             for path in self._system_data_dirs:
                 self._icon_search_dirs.append(os.path.join(path, "icons"))
                 self._icon_search_dirs.append(os.path.join(path, "pixmaps"))
-        ###############################################################################################################
         self._icon_search_dirs.append(os.path.join(self.get_project_dir(), "icons"))
         self._icon_finder.add_search_paths(*self._icon_search_dirs)
-        ###############################################################################################################
         self._command_dirs = []
-        ###############################################################################################################
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
             self._command_lookup_cwd = self._flatpak_real_home
             try:
@@ -2718,7 +2711,6 @@ class Application(Adw.Application):
             except AttributeError as e:
                 if os.getenv("PATH"):
                     raise e
-        ###############################################################################################################
         self.connect("activate", self._on_activate)
         self.connect("shutdown", self._on_shutdown)
 
