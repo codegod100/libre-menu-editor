@@ -16,13 +16,6 @@
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 from modules import basic
-from gi.repository import Pango
-from gi.repository import GObject
-from gi.repository import GLib
-from gi.repository import Gio
-from gi.repository import Gdk
-from gi.repository import Gtk
-from gi.repository import Adw
 import os
 import threading
 import subprocess
@@ -35,6 +28,13 @@ gi.require_version("Gio", "2.0")
 gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("Pango", "1.0")
+from gi.repository import Pango
+from gi.repository import GObject
+from gi.repository import GLib
+from gi.repository import Gio
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import Adw
 
 
 class Timeout():

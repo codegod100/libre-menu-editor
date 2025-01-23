@@ -17,11 +17,6 @@
 
 from modules import gui, basic
 from configparser import ConfigParser
-from gi.repository import GLib
-from gi.repository import Gio
-from gi.repository import Gdk
-from gi.repository import Gtk
-from gi.repository import Adw
 import os
 import sys
 import string
@@ -35,6 +30,11 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("GLib", "2.0")
+from gi.repository import GLib
+from gi.repository import Gio
+from gi.repository import Gdk
+from gi.repository import Gtk
+from gi.repository import Adw
 
 
 class NoAccessError(Exception):
