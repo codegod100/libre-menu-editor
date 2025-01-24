@@ -21,8 +21,6 @@
 ## First: Download the code
 ```
 git clone https://codeberg.org/libre-menu-editor/libre-menu-editor
-```
-```
 cd libre-menu-editor
 ```
 
@@ -34,19 +32,13 @@ libre-menu-editor/main.py
 ## Option 2: Install with flatpak-builder
 ```
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-```
-```
 flatpak install org.gnome.Platform/x86_64/46
-```
-```
 flatpak-builder --user --install --force-clean .build-dir flatpak.yml
 ```
 
 ## Option 3: Install with make
 ```
 sudo make install
-```
-```
 sudo gtk-update-icon-cache -f /usr/share/icons/hicolor
 ```
 
@@ -56,15 +48,11 @@ sudo gtk-update-icon-cache -f /usr/share/icons/hicolor
 
 ### Option 1: Improving the translation
 
-If you want to improve a translation, it is recommended to do so through the [weblate](https://translate.codeberg.org/projects/libre-menu-editor). Alternatively, you can edit the [translation files](libre-menu-editor/locales) directly and contribute your changes in a pull request.
+If you want to improve a translation, it is recommended to do so through the [weblate](https://translate.codeberg.org/projects/libre-menu-editor). Alternatively, you can edit the [translation files](libre-menu-editor/locales) directly and contribute your changes in a [pull request](https://codeberg.org/libre-menu-editor/libre-menu-editor/pulls).
 
 ### Option 2: Reporting bugs and giving feedback
 
-Bug reports, feedback, and feature requests can be made through the [issue tracker](https://codeberg.org/libre-menu-editor/libre-menu-editor/issues).
-
-### Option 3: Suggesting changes to the code
-
-If you have written bug fixes and want to merge them into the upstream project, feel free to make a [pull request](https://codeberg.org/libre-menu-editor/libre-menu-editor/pulls). If you want to contribute code that introduces new features, changes existing features or makes changes to the interface, please open an issue to first discuss your ideas with the project's maintainers.
+If you have encountered a problem, and/or have ideas for how the project can be improved, please open an [issue](https://codeberg.org/libre-menu-editor/libre-menu-editor/issues).
 
 ---
 
@@ -83,4 +71,6 @@ If you have written bug fixes and want to merge them into the upstream project, 
 **2024-08-26**: [meskobalazs](https://translate.codeberg.org/user/meskobalazs) added hungarian translations: [hu.json](libre-menu-editor/locales/hu.json)
 
 **2024-11-04**: [SomeTr](https://translate.codeberg.org/user/SomeTr) improved ukrainian translations: [uk.json](libre-menu-editor/locales/uk.json)
+
+**2025-01-20**: [NaumovSN](https://translate.codeberg.org/user/NaumovSN) improved russian translations: [ru.json](libre-menu-editor/locales/ru.json)
 
