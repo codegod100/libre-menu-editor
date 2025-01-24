@@ -87,7 +87,7 @@
   <summary xml:lang="sl">Prilagodi meni</summary>
   <summary xml:lang="be">Наладка меню</summary>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>GPL-3.0</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <developer_name>LibreMenuEditor Contributors</developer_name>
   <description>
     <p>This program lists all application launchers that are installed on your system. You can then use a clean, modern, and intuitive interface to customize the main menu to your liking.</p>
