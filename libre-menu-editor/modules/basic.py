@@ -432,10 +432,17 @@ class LocaleManager():
                 locales.append(item.split(".")[0])
         return locales
 
-    def get_path(self, locale):
-        for item in os.listdir(self._directory):
-            path = os.path.join(self._directory, item)
-            if os.path.isfile(path) and item.split(".")[0] == locale:
+    def get_path(self, locale=None):
+        if locale == None:
+            locale = os.getenv("LANG")
+        langs = list(filter(None, [
+            locale,
+            locale.split(".")[0],
+            locale.split(".")[0].split("_")[0]
+        ]))
+        for lang in langs:
+            path = os.path.join(self._directory, f"{lang}.json")
+            if os.path.exists(path) and os.path.isfile(path):
                 return path
 
     def get(self, key):
@@ -448,8 +455,7 @@ class LocaleManager():
         if not self._override == None:
             default_path = self.get_path(self._override)
         else:
-            system_lang = os.getenv("LANG").split(".")[0].split("_")[0]
-            default_path = self.get_path(system_lang)
+            default_path = self.get_path()
         if not default_path == None and os.access(default_path, os.R_OK):
             with open(default_path, mode="r") as file:
                 self._data = json.loads(file.read())
