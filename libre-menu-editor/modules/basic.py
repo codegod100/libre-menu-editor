@@ -428,8 +428,8 @@ class LocaleManager():
         locales = []
         for item in os.listdir(self._directory):
             path = os.path.join(self._directory, item)
-            if os.path.isfile(path):
-                locales.append(item.split(".")[0])
+            if os.path.isfile(path) and os.path.basename(path).endswith(".json"):
+                locales.append(item[:-len(".json")])
         return locales
 
     def get_path(self, locale=None):
