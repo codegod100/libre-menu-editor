@@ -616,7 +616,11 @@ class KeywordsFilter():
         self._flow_row_connection_id = self._flow_row.hook("text-changed", self._on_flow_row_text_changed)
 
     def get_text(self):
-        return self._get_unfiltered_text(self._flow_row.get_text())
+        text = self._get_unfiltered_text(self._flow_row.get_text())
+        if not text == self._delimiter:
+            return text
+        else:
+            return ""
 
     def set_text(self, text):
         self._current_default_text = text
@@ -657,7 +661,10 @@ class ComboFilter():
         self._events.trigger("text-changed", self, self._filtered_to_default(text))
 
     def _join_text(self, strings):
-        return self._delimiter.join(strings)
+        joined_text = self._delimiter.join(strings)
+        if len(strings) and self._ends_with_delimiter:
+            joined_text += self._delimiter
+        return joined_text
 
     def _split_text(self, text):
         return list(filter(None, text.split(self._delimiter)))
@@ -672,7 +679,7 @@ class ComboFilter():
             elif self._show_unknown_values:
                 labels.append(item)
         if join_text:
-            return self._join_text(labels) + int(bool(self._ends_with_delimiter)) * ";"
+            return self._join_text(labels)
         else:
             return labels
 
@@ -697,7 +704,7 @@ class ComboFilter():
                 else:
                     if not label_found and self._show_unknown_values:
                         new_items.append(label)
-            return self._join_text(sorted(new_items + old_unknown_items)) + int(bool(self._ends_with_delimiter)) * ";"
+            return self._join_text(sorted(new_items + old_unknown_items))
 
     def _update_combo_row_buttons(self):
         if self._show_unknown_values:
@@ -763,7 +770,11 @@ class ComboFilter():
         self._flow_row_connection_id = self._flow_row.hook("text-changed", self._on_flow_row_text_changed)
 
     def get_text(self):
-        return self._filtered_to_default(self._flow_row.get_text())
+        text = self._filtered_to_default(self._flow_row.get_text())
+        if not text == self._delimiter:
+            return text
+        else:
+            return ""
 
     def set_text(self, text):
         self._current_default_text = text
