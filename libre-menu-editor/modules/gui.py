@@ -2833,6 +2833,7 @@ class Application(Adw.Application):
             if command.startswith(os.path.sep):
                 if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not path.startswith(self._flatpak_real_home):
                     path = self._join_path_prefix(self._flatpak_filesystem_prefix, path)
+                    path = self.get_flatpak_sandbox_system_path(path)
             elif include_lookup_cwd:
                 path = os.path.join(self._command_lookup_cwd, path)
             if os.access(path, os.X_OK) and os.path.isfile(path):
@@ -2845,6 +2846,8 @@ class Application(Adw.Application):
                 command_dirs.append(self._command_lookup_cwd)
             for command_dir in command_dirs:
                 path = self._join_path_prefix(command_dir, command)
+                if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not path.startswith(self._flatpak_real_home):
+                    path = self.get_flatpak_sandbox_system_path(path)
                 if os.access(path, os.X_OK) and os.path.isfile(path):
                     return path
 
