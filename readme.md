@@ -52,7 +52,7 @@ If you want to improve a translation, it is recommended to do so through the [we
 
 ### Option 2: Reporting bugs and giving feedback
 
-If you have encountered a problem, and/or have ideas for how the project can be improved, please open an [issue](https://codeberg.org/libre-menu-editor/libre-menu-editor/issues).
+If you have encountered a problem or think that an important feature is missing, please open an [issue](https://codeberg.org/libre-menu-editor/libre-menu-editor/issues).
 
 ---
 
