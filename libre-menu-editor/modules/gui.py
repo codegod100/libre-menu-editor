@@ -269,23 +269,25 @@ class FlowingToolbar(Gtk.Box):
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
         self._start_clamp = Adw.Clamp()
         self._end_clamp = Adw.Clamp()
-        self._content_box = Gtk.Box()
-        self._content_box.set_spacing(Spacing.DEFAULT)
+        self._spacer_child = Gtk.Box()
+        self._spacer_child.set_hexpand(True)
+        self._spacer_child.set_halign(Gtk.Align.FILL)
+        self.set_spacing(Spacing.DEFAULT)
+        self._content_box = Gtk.CenterBox()
         self._content_box.set_margin_top(Margin.LARGE)
         self._content_box.set_margin_bottom(Margin.LARGE)
         self._content_box.set_margin_start(Margin.LARGE)
         self._content_box.set_margin_end(Margin.LARGE)
-        self._content_box.append(self._start_clamp)
-        self._content_box.append(self._end_clamp)
+        self._content_box.set_start_widget(self._start_clamp)
+        self._content_box.set_center_widget(self._spacer_child)
+        self._content_box.set_end_widget(self._end_clamp)
         self.set_orientation(Gtk.Orientation.VERTICAL)
         self.append(self._resize_frame)
         self.append(self._content_box)
-        self.set_spacing = self._content_box.set_spacing
         self.set_margin_top = self._content_box.set_margin_top
         self.set_margin_bottom = self._content_box.set_margin_bottom
         self.set_margin_start = self._content_box.set_margin_start
         self.set_margin_end = self._content_box.set_margin_end
-        self.get_spacing = self._content_box.get_spacing
         self.get_margin_top = self._content_box.get_margin_top
         self.get_margin_bottom = self._content_box.get_margin_bottom
         self.get_margin_start = self._content_box.get_margin_start
@@ -301,20 +303,16 @@ class FlowingToolbar(Gtk.Box):
             (self._max_child_width * 2) +
             self._content_box.get_margin_start() +
             self._content_box.get_margin_end() +
-            self._content_box.get_spacing()
+            self.get_spacing()
         )
         GLib.idle_add(self._after_update_clamps, width, collapse, priority=GLib.PRIORITY_HIGH)
 
     def _after_update_clamps(self, width, collapse):
         if collapse:
             self._content_box.set_orientation(Gtk.Orientation.VERTICAL)
-            self._start_clamp.set_halign(Gtk.Align.FILL)
-            self._end_clamp.set_halign(Gtk.Align.FILL)
             clamp_child_width = width * 2
         else:
             self._content_box.set_orientation(Gtk.Orientation.HORIZONTAL)
-            self._start_clamp.set_halign(Gtk.Align.START)
-            self._end_clamp.set_halign(Gtk.Align.END)
             clamp_child_width = self._max_child_width
         self._start_clamp.set_maximum_size(clamp_child_width)
         self._end_clamp.set_maximum_size(clamp_child_width)
@@ -327,6 +325,13 @@ class FlowingToolbar(Gtk.Box):
     def set_max_child_width(self, value):
         self._max_child_width = value
         self._update_clamps()
+
+    def get_spacing(self):
+        return self._spacer_child.get_property("width-request")
+
+    def set_spacing(self, spacing):
+        self._spacer_child.set_property("width-request", spacing)
+        self._spacer_child.set_property("height-request", spacing)
 
     def set_start_widget(self, widget):
         self._start_clamp.set_child(widget)
