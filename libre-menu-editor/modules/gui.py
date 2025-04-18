@@ -57,6 +57,7 @@ class Margin():
 
 
 class Keyval():
+    ENTER = 65293
     TAB = 65289
     ESCAPE = 65307
     LEFT = 65361
@@ -1049,11 +1050,13 @@ class PathChooserRow(EntryRow):
 
     def _on_chooser_button_event_controller_key_pressed(self, controller, keyval, keycode, state):
         text = self._editable.get_text()
-        controller.forward(self._editable)
-        if not text == self._editable.get_text():
-            if not self._editable.has_focus():
-                self._editable.grab_focus_without_selecting()
-            return True
+        if not keyval == Keyval.ENTER:
+            self._editable.set_position(-1)
+            controller.forward(self._editable)
+            if not text == self._editable.get_text():
+                if not self._editable.has_focus():
+                    self._editable.grab_focus_without_selecting()
+                return True
 
     def _on_file_chooser_dialog_show(self, dialog):
         self._file_chooser_dialog.set_current_folder(Gio.File.new_for_path(GLib.get_home_dir()))
