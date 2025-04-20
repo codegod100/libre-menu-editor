@@ -74,3 +74,5 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-01-20**: [NaumovSN](https://translate.codeberg.org/user/NaumovSN) improved russian translations: [ru.json](libre-menu-editor/locales/ru.json)
 
+**2025-04-20**: [jrtcdbrg](https://translate.codeberg.org/user/jrtcdbrg) improved estonian translations: [et.json](libre-menu-editor/locales/et.json)
+
