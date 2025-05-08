@@ -24,7 +24,7 @@
     "RESET_DIALOG_BACK_BUTTON_LABEL": "Назад",
     "RESET_DIALOG_CONTINUE_BUTTON_LABEL": "Продовжити",
     "DELETE_DIALOG_HEAD": "Видалити",
-    "DELETE_DIALOG_BODY": "Ви хочете видалити це програмне забезпечення? Це дія не може бути скасована",
+    "DELETE_DIALOG_BODY": "Ви хочете видалити це програмне забезпечення? Цю дію не можна буде скасувати",
     "DELETE_DIALOG_BACK_BUTTON_LABEL": "Назад",
     "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Продовжити",
     "SHOW_HIDDEN_SWITCH_LABEL": "Показати прихований",
