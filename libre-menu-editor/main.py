@@ -1451,6 +1451,9 @@ class SettingsPage(Gtk.Box):
     def get_changed(self):
         return self._changed
 
+    def get_icon_browser(self):
+        return self._icon_browser
+
     def load_icon_browser_configs(self):
         self._icon_browser.set_show_names(self._config_manager.get("icon-browser.show-names"))
         try:
@@ -1820,6 +1823,10 @@ class Application(gui.Application):
             self._main_split_layout.append(self._main_separator)
             self._main_split_layout.append(self._right_area_box)
         self._main_stack.connect("notify::visible-child", self._on_main_stack_visible_child_changed)
+        self._icon_browser_toolbar = self._settings_page.get_icon_browser().get_toolbar()
+        if hasattr(Adw, "NavigationSplitView"):
+            self._icon_browser_toolbar.set_expand_condition(self._get_navigation_split_view_sidebar_expanded)
+            self._navigation_split_view_sidebar_collapsed = self._main_split_layout.get_collapsed()
         self._greeter_stack = Gtk.Stack()
         self._greeter_stack.add_child(self._greeter_page)
         self._greeter_stack.add_child(self._main_split_layout)
@@ -2082,6 +2089,8 @@ class Application(gui.Application):
         self._process_manager.set_active(True)
 
     def _on_main_split_layout_collapsed_changed(self, widget, gparam):
+        GLib.idle_add(setattr, self, "_navigation_split_view_sidebar_collapsed", widget.get_collapsed(),
+            priority=GLib.PRIORITY_LOW)
         self._update_menu_button()
 
     def _on_settings_page_changed_changed(self, event, previous_value, current_value):
@@ -2247,6 +2256,9 @@ class Application(gui.Application):
                                 names.append(name)
         else:
             return names
+
+    def _get_navigation_split_view_sidebar_expanded(self):
+        return not self._navigation_split_view_sidebar_collapsed
 
     def _set_show_hidden_switch_state_without_triggering(self, state):
         self._ignore_show_hidden_switch_changes = True

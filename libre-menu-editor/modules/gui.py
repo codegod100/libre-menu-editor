@@ -265,6 +265,8 @@ class IconName(GObject.Object):
 class FlowingToolbar(Gtk.Box):
     def __init__(self, max_child_width=540, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self._collapse_condition = None
+        self._expand_condition = None
         self._max_child_width = max_child_width
         self._resize_frame = ResizeFrame()
         self._resize_frame.hook("resized", self._on_resize_frame_resized)
@@ -306,19 +308,25 @@ class FlowingToolbar(Gtk.Box):
             self._content_box.get_margin_end() +
             self.get_spacing()
         )
-        GLib.idle_add(self._after_update_clamps, width, collapse, priority=GLib.PRIORITY_HIGH)
+        GLib.idle_add(self._after_update_clamps, width, collapse, priority=GLib.PRIORITY_LOW)
 
     def _after_update_clamps(self, width, collapse):
-        if collapse:
+        if collapse and self.get_can_collapse():
             self._content_box.set_orientation(Gtk.Orientation.VERTICAL)
             clamp_child_width = width * 2
-        else:
+        elif not collapse and self.get_can_expand():
             self._content_box.set_orientation(Gtk.Orientation.HORIZONTAL)
             clamp_child_width = self._max_child_width
+        else:
+            return
         self._start_clamp.set_maximum_size(clamp_child_width)
         self._end_clamp.set_maximum_size(clamp_child_width)
         self._start_clamp.set_tightening_threshold(clamp_child_width)
         self._end_clamp.set_tightening_threshold(clamp_child_width)
+
+    def _check_callable(self, func):
+        if not callable(func):
+            raise TypeError(f"not callable: {func}")
 
     def get_max_child_width(self):
         return self._max_child_width
@@ -339,6 +347,26 @@ class FlowingToolbar(Gtk.Box):
 
     def set_end_widget(self, widget):
         self._end_clamp.set_child(widget)
+
+    def set_collapse_condition(self, func):
+        self._check_callable(func)
+        self._collapse_condition = func
+
+    def set_expand_condition(self, func):
+        self._check_callable(func)
+        self._expand_condition = func
+
+    def get_can_collapse(self):
+        if self._collapse_condition:
+            return self._collapse_condition()
+        else:
+            return True
+
+    def get_can_expand(self):
+        if self._expand_condition:
+            return self._expand_condition()
+        else:
+            return True
 
 
 class LabeledImage(Gtk.Box):
@@ -390,7 +418,7 @@ class IconBrowser(Gtk.Box):
         self._events.add("updated", object)
         self._events.add("item-selected", str)
         self._icon_sizes = [16, 24, 32, 48, 64, 96, 128, 192, 256]
-        self._control_widgets_min_width = 250
+        self._control_widgets_min_width = 0
         self._grid_view_list_item_border_width = 3
         self._default_inner_margin = Margin.DEFAULT
         self._image_margin = Margin.SMALLEST
