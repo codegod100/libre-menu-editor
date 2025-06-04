@@ -78,3 +78,4 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-05-01**: [SomeTr](https://translate.codeberg.org/user/SomeTr) improved ukrainian translations: [uk.json](libre-menu-editor/locales/uk.json)
 
+**2025-06-04**: [norlin](mailto:norlin@noreply.codeberg.org) improved swedish translations: [sv.json](libre-menu-editor/locales/sv.json)
