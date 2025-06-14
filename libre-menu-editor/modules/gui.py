@@ -1452,7 +1452,7 @@ class LinkConverterRow(Gtk.Box):
     def _update_widgets(self):
         if self._url_open_command:
             text = self._entry.get_text()
-            if self._application.get_command_exists(text):
+            if self._application.get_command_exists(text, desktop_entry=True):
                 self._revealer.set_reveal_child(False)
                 self._entry.remove_css_class("error")
                 if not text.split(" ")[0] in self._url_open_commands and self._group_focused:
@@ -1484,7 +1484,7 @@ class LinkConverterRow(Gtk.Box):
         self._entry.set_position(-1)
 
     def _get_string_is_valid_url(self, text):
-        if not " " in text and not self._application.get_command_exists(text, include_lookup_cwd=True):
+        if not " " in text and not self._application.get_command_exists(text, desktop_entry=True, include_lookup_cwd=True):
             for pattern in self._url_regex_patterns:
                 if re.match(pattern, text):
                     return True
@@ -1511,20 +1511,22 @@ class CommandChooserRow(FileChooserRow):
     def __init__(self, app, *args, **kwargs):
         super().__init__(app, *args, **kwargs)
         self._application = app
+        self._command_arg_escaper = basic.DesktopEntryCommandArgEscaper()
         self.add_css_class("error")
 
     def _on_file_chooser_dialog_response(self, dialog, response):
         self._file_chooser_dialog.hide()
         if response == Gtk.ResponseType.ACCEPT:
-            path = self._file_chooser_dialog.get_file().get_path().replace(" ", "\ ")
-            self.set_text(path)
+            path = self._file_chooser_dialog.get_file().get_path()
+            escaped_path = self._command_arg_escaper.get_escaped_arg(path)
+            self.set_text(escaped_path)
 
     def _on_changed(self, editable):
         text = editable.get_text()
         self._events.trigger("text-changed", self, text)
         if not len(text.strip()):
             self.add_css_class("error")
-        elif not self._application.get_command_exists(text, skip_empty_path=True, include_lookup_cwd=True):
+        elif not self._application.get_command_exists(text, desktop_entry=True, skip_empty_path=True, include_lookup_cwd=True):
             self.add_css_class("error")
         else:
             self.remove_css_class("error")
@@ -2674,6 +2676,7 @@ class Application(Adw.Application):
                 self._flatpak_real_home = os.path.join(os.path.sep, "home", os.getenv("USER"))
         else:
             self._flatpak_real_home = None
+        self._command_arg_escaper = basic.DesktopEntryCommandArgEscaper()
         self._config_manager = basic.ConfigManager(
             os.path.join(self._project_dir, "default.json"),
             os.path.join(self._config_dir, "config.json")
@@ -2854,38 +2857,39 @@ class Application(Adw.Application):
                 if len(decoded_stdout):
                     return decoded_stdout
 
-    def get_command_exists(self, text, skip_empty_path=False, include_lookup_cwd=False):
-        filtered_pieces = []
-        escaped_pieces = text.strip().split("\ ")
-        for escaped_piece in escaped_pieces:
-            if not " " in escaped_piece:
-                filtered_pieces.append(escaped_piece)
+    def get_command_exists(self, text, desktop_entry=False, skip_empty_path=False, include_lookup_cwd=False):
+        if len(text):
+            first_arg = self._command_arg_escaper.get_first_arg_from_command(text)
+            if desktop_entry:
+                if (self._command_arg_escaper.get_has_quotes(first_arg)
+                    and self._command_arg_escaper.get_has_escaped_chars(first_arg)
+                ):
+                    executable = self._command_arg_escaper.get_unescaped_arg(first_arg)
+                else:
+                    executable = first_arg
             else:
-                filtered_pieces.append(escaped_piece.split(" ")[0])
-                break
-        command = "\ ".join(filtered_pieces)
-        if os.path.sep in command:
-            path = command.replace("\ ", " ")
-            if command.startswith(os.path.sep):
-                if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not path.startswith(self._flatpak_real_home):
-                    path = self._join_path_prefix(self._flatpak_filesystem_prefix, path)
-                    path = self.get_flatpak_sandbox_system_path(path)
-            elif include_lookup_cwd:
-                path = os.path.join(self._command_lookup_cwd, path)
-            if os.access(path, os.X_OK) and os.path.isfile(path):
-                return path
-        elif skip_empty_path and not len(self._command_dirs):
-            return True
-        elif len(command):
-            command_dirs = self._command_dirs
-            if include_lookup_cwd:
-                command_dirs.append(self._command_lookup_cwd)
-            for command_dir in command_dirs:
-                path = self._join_path_prefix(command_dir, command)
-                if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not path.startswith(self._flatpak_real_home):
-                    path = self.get_flatpak_sandbox_system_path(path)
-                if os.access(path, os.X_OK) and os.path.isfile(path):
-                    return path
+                executable = first_arg
+            if os.path.sep in executable:
+                if executable.startswith(os.path.sep):
+                    if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not executable.startswith(self._flatpak_real_home):
+                        executable = self._join_path_prefix(self._flatpak_filesystem_prefix, executable)
+                        executable = self.get_flatpak_sandbox_system_path(executable)
+                elif include_lookup_cwd:
+                    executable = os.path.join(self._command_lookup_cwd, executable)
+                if os.access(executable, os.X_OK) and os.path.isfile(executable):
+                    return executable
+            elif skip_empty_path and not len(self._command_dirs):
+                return True
+            elif len(executable):
+                command_dirs = self._command_dirs
+                if include_lookup_cwd:
+                    command_dirs.append(self._command_lookup_cwd)
+                for command_dir in command_dirs:
+                    path = self._join_path_prefix(command_dir, executable)
+                    if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and not path.startswith(self._flatpak_real_home):
+                        path = self.get_flatpak_sandbox_system_path(path)
+                    if os.access(path, os.X_OK) and os.path.isfile(path):
+                        return path
 
     def get_flatpak_real_home(self):
         return self._flatpak_real_home

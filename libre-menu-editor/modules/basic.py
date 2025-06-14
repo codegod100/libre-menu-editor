@@ -23,6 +23,127 @@ import time
 import fcntl
 
 
+class DesktopEntryCommandArgEscaper():
+    def __init__(self):
+        self._replacements = [
+            ("\\", "\\\\\\\\"),
+            ("$", "\\\\$"),
+            ("`", "\\\\`"),
+            ('"', '\\\\"'),
+            ("%", "%%")
+            ]
+        self._whitespace_replacements = [
+            (" ", "\\s"),
+            ("\t", "\\t"),
+            ("\n", "\\n"),
+            ("\r", "\\r")
+            ]
+        self._reserved_characters = [
+            " ",
+            "\t",
+            "\n",
+            "\\",
+            '"',
+            "'",
+            ">",
+            "<",
+            "~",
+            "|",
+            "&",
+            ";",
+            "$",
+            "*",
+            "?",
+            "#",
+            "(",
+            ")",
+            "`",
+            "%"
+            ]
+
+    def get_first_arg_from_command(self, text):
+        if text.startswith('"'):
+            end_pos = 1
+            while end_pos:
+                end_pos = text.find('" ', end_pos)
+                if not end_pos >= 0:
+                    return text
+                else:
+                    return text[:end_pos+1]
+        else:
+            return text.strip().split(" ")[0]
+
+    def get_has_reserved_chars(self, arg):
+        arg = self.get_unquoted_arg(arg)
+        for char in self._reserved_characters:
+            if char in arg:
+                return True
+
+    def get_has_quotes(self, arg):
+        return arg.startswith('"') and arg.endswith('"')
+
+    def get_has_escaped_chars(self, arg, replace_whitespace=True):
+        arg = self.get_unquoted_arg(arg)
+        for unescaped_str, escaped_str in self.get_replacements(replace_whitespace=replace_whitespace):
+            if escaped_str in arg:
+                return True
+
+    def get_has_unescaped_chars(self, arg, replace_whitespace=True):
+        arg = self.get_unquoted_arg(arg)
+        for unescaped_str, escaped_str in self.get_replacements(replace_whitespace=replace_whitespace):
+            if not len(escaped_str.replace(unescaped_str, "")):
+                escaped_count = len(arg.split(escaped_str)) - 1
+                ratio = escaped_str.count(unescaped_str)
+            else:
+                escaped_count = arg.count(escaped_str)
+                ratio = 1
+            unescaped_count = arg.count(unescaped_str)
+            if unescaped_count and not (unescaped_count / ratio) == escaped_count:
+                return True
+
+    def get_escaped_arg(self, arg, replace_whitespace=True):
+        original_arg = arg
+        had_quotes = self.get_has_quotes(arg)
+        arg = self.get_unquoted_arg(arg)
+        if self.get_has_unescaped_chars(arg) or not had_quotes:
+            for unescaped_str, escaped_str in self.get_replacements(replace_whitespace=replace_whitespace):
+                arg = arg.replace(unescaped_str, escaped_str)
+        if had_quotes or self.get_has_reserved_chars(arg):
+            arg = self.get_quoted_arg(arg)
+        return arg
+
+    def get_unescaped_arg(self, arg, replace_whitespace=True):
+        if self.get_has_quotes(arg) and self.get_has_escaped_chars(arg):
+            pieces = []
+            arg = self.get_unquoted_arg(arg)
+            for piece in arg.split("\\\\\\\\"):
+                for unescaped_str, escaped_str in self.get_replacements(replace_whitespace=replace_whitespace):
+                    piece = piece.replace(escaped_str, unescaped_str)
+                else:
+                    pieces.append(piece)
+            return "\\".join(pieces)
+        else:
+            return arg
+
+    def get_quoted_arg(self, arg):
+        if not self.get_has_quotes(arg):
+            return '"' + arg + '"'
+        else:
+            return arg
+
+    def get_unquoted_arg(self, arg):
+        if self.get_has_quotes(arg):
+            return arg[1:-1]
+        else:
+            return arg
+
+    def get_replacements(self, replace_whitespace=True):
+        if replace_whitespace:
+            return self._replacements + self._whitespace_replacements
+        else:
+            return self._replacements
+
+
 class PathInspector():
     def __init__(self):
         self._paths = {}
