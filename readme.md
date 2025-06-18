@@ -78,6 +78,10 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-05-01**: [SomeTr](https://translate.codeberg.org/user/SomeTr) improved ukrainian translations: [uk.json](libre-menu-editor/locales/uk.json)
 
+**2025-05-16**: [butterflyoffire](https://translate.codeberg.org/user/butterflyoffire) improved Kabyle translations: [kab.json](libre-menu-editor/locales/kab.json)
+
+**2025-05-18**: [Moonshadow](https://translate.codeberg.org/user/Moonshadow) improved Kabyle translations: [kab.json](libre-menu-editor/locales/kab.json)
+
 **2025-06-04**: [norlin](mailto:norlin@noreply.codeberg.org) improved swedish translations: [sv.json](libre-menu-editor/locales/sv.json)
 
 **2025-06-15**: [Poesty Li](https://translate.codeberg.org/user/poesty) added chinese translations: [zh_Hans.json](libre-menu-editor/locales/zh_Hans.json)
