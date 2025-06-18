@@ -580,6 +580,12 @@ class LocaleManager():
         if not default_path == None and os.access(default_path, os.R_OK):
             with open(default_path, mode="r") as file:
                 self._data = json.loads(file.read())
+            missing_translations = [key for key in self._data if not len(self._data[key])]
+            if len(missing_translations):
+                with open(self.get_path(self._fallback), mode="r") as file:
+                    fallback_data = json.loads(file.read())
+                for key in missing_translations:
+                    self._data[key] = fallback_data[key]
         else:
             with open(self.get_path(self._fallback), mode="r") as file:
                 self._data = json.loads(file.read())
