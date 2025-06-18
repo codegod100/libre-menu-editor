@@ -491,6 +491,7 @@ class IconBrowser(Gtk.Box):
         self._icon_size_scale.set_orientation(Gtk.Orientation.HORIZONTAL)
         self._icon_size_scale.connect("value-changed", self._on_icon_size_scale_value_changed)
         self._icon_size_scale.set_hexpand(True)
+        self._icon_size_scale.set_property("width-request", len(self._icon_sizes) * 10)
         self._icon_size_box = Gtk.Box()
         self._icon_size_box.append(self._icon_size_decrease_button)
         self._icon_size_box.append(self._icon_size_scale)
