@@ -44,6 +44,8 @@
   <name xml:lang="sw">Menyu Kuu</name>
   <name xml:lang="sl">Glavno meni</name>
   <name xml:lang="be">Галоўнае меню</name>
+  <name xml:lang="zh_Hans">主菜单</name>
+  <name xml:lang="kab">Umuɣ agejdan</name>
   <summary>Customize the menu</summary>
   <summary xml:lang="af">Pas die menu aan</summary>
   <summary xml:lang="cs">Přizpůsobit menu</summary>
@@ -86,6 +88,8 @@
   <summary xml:lang="sw">Badilisha menyu</summary>
   <summary xml:lang="sl">Prilagodi meni</summary>
   <summary xml:lang="be">Наладка меню</summary>
+  <summary xml:lang="zh_Hans">自定义菜单</summary>
+  <summary xml:lang="kab">Sagen umuɣ</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <developer_name>LibreMenuEditor Contributors</developer_name>
