@@ -86,3 +86,4 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-06-15**: [Poesty Li](https://translate.codeberg.org/user/poesty) added chinese translations: [zh_Hans.json](libre-menu-editor/locales/zh_Hans.json)
 
+**2025-06-20**: [Merik](https://translate.codeberg.org/user/Merik) improved polish translation: [pl.json](libre-menu-editor/locales/pl.json)
