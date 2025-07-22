@@ -281,8 +281,11 @@ class DesktopParser():
         else:
             raise NoAccessError(f"no access: {path}")
         try:
-            with open(path, "a") as file:
+            if os.path.islink(path) and os.access(path, os.W_OK, follow_symlinks=False):
                 pass
+            else:
+                with open(path, "a") as file:
+                    pass
         except Exception as e:
             raise NoAccessError(e)
 
@@ -301,8 +304,12 @@ class DesktopParser():
         self._set("Actions", f"{';'.join(actions)}{bool(len(actions))*';'}")
         if not os.path.exists(path):
             os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-        else:
-            os.remove(path)
+        elif os.path.islink(path):
+            realpath = os.path.realpath(path)
+            if os.access(realpath, os.W_OK):
+                path = realpath
+            else:
+                os.remove(path)
         with open(path, "w") as file:
             self._config_parser.write(file, space_around_delimiters=False)
 
