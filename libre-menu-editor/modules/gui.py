@@ -313,12 +313,12 @@ class FlowingToolbar(Gtk.Box):
     def _after_update_clamps(self, width, collapse):
         if collapse and self.get_can_collapse():
             self._content_box.set_orientation(Gtk.Orientation.VERTICAL)
-            clamp_child_width = width * 2
         elif not collapse and self.get_can_expand():
             self._content_box.set_orientation(Gtk.Orientation.HORIZONTAL)
-            clamp_child_width = self._max_child_width
+        if self._content_box.get_orientation() == Gtk.Orientation.VERTICAL:
+            clamp_child_width = width * 2
         else:
-            return
+            clamp_child_width = self._max_child_width
         self._start_clamp.set_maximum_size(clamp_child_width)
         self._end_clamp.set_maximum_size(clamp_child_width)
         self._start_clamp.set_tightening_threshold(clamp_child_width)
