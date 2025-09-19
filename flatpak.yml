@@ -1,8 +1,7 @@
 app-id: page.codeberg.libre_menu_editor.LibreMenuEditor
 runtime: org.gnome.Platform
-runtime-version: "48"
-sdk: org.gnome.Platform
-# sdk: org.gnome.Sdk
+runtime-version: "49"
+sdk: org.gnome.Sdk
 command: libre-menu-editor
 finish-args:
   - --share=ipc

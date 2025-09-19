@@ -32,7 +32,8 @@ libre-menu-editor/main.py
 ## Option 2: Install with flatpak-builder
 ```
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak install org.gnome.Platform/x86_64/48
+flatpak install org.gnome.Platform/x86_64/49
+flatpak install org.gnome.Sdk/x86_64/49
 flatpak-builder --user --install --force-clean .build-dir flatpak.yml
 ```
 
