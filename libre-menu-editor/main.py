@@ -953,7 +953,7 @@ class SettingsPage(Gtk.Box):
         self._never_hide_reload_button = False
         self._reload_button_fade_duration = 45
         self._reload_button_fade_timeout_id = None
-        self._loading_desktop_starter = False
+        self._loading_desktop_launcher = False
         self._changed = False
         self._current_name = None
         self._current_parser = None
@@ -1340,7 +1340,7 @@ class SettingsPage(Gtk.Box):
         if self._never_hide_reload_button:
             skip_reload_button = True
         input_children_changed = self._get_input_children_changed()
-        if not self._loading_desktop_starter:
+        if not self._loading_desktop_launcher:
             if value and not input_children_changed:
                 value = False
             if value or self._always_show_save_button:
@@ -1386,8 +1386,8 @@ class SettingsPage(Gtk.Box):
             if value:
                 self._current_desktop_action_groups[self._current_desktop_actions[0]].grab_focus()
 
-    def load_desktop_starter(self, name, parser):
-        self._loading_desktop_starter = True
+    def load_desktop_launcher(self, name, parser):
+        self._loading_desktop_launcher = True
         self.reset(reset_data=False)
         self._current_name = name
         self._current_parser = parser
@@ -1411,11 +1411,11 @@ class SettingsPage(Gtk.Box):
         self._visible_switch_row.set_active(self._current_parser.get_visible())
         self._notify_switch_row.set_active(self._current_parser.get_notify())
         self._terminal_switch_row.set_active(self._current_parser.get_terminal())
-        self._loading_desktop_starter = False
+        self._loading_desktop_launcher = False
         self._update_action_children_sensitive(False)
         self._update_visibility_widgets()
 
-    def save_desktop_starter(self):
+    def save_desktop_launcher(self):
         for action in self._current_parser.get_actions():
             if not action in self._current_desktop_actions:
                 self._current_parser.remove_action(action)
@@ -1555,9 +1555,9 @@ class Application(gui.Application):
         if self._debug_log.get_raise_errors():
             self._application_window.add_css_class("devel")
         self._application_window.install_action("toast.details", None, self._on_toast_details_button_clicked)
-        self._current_desktop_starter_name = None
-        self._desktop_starter_parsers = {}
-        self._unsaved_custom_starters = {}
+        self._current_desktop_launcher_name = None
+        self._desktop_launcher_parsers = {}
+        self._unsaved_custom_launchers = {}
         self._ignore_show_hidden_switch_changes = False
         self._previous_discard_dialog = None
         self._back_button_fade_timeout_id = None
@@ -1669,9 +1669,9 @@ class Application(gui.Application):
             "applications-accessories",
             f"{ignore_prefix}applications-utilities"
         )
-        self._desktop_starter_custom_create_name = "custom-desktop-starter"
-        self._desktop_starter_template_path = os.path.join(self.get_project_dir(), "default.desktop")
-        self._desktop_starter_override_dir = os.path.join(GLib.get_user_data_dir(), "applications")
+        self._desktop_launcher_custom_create_name = "custom-launcher"
+        self._desktop_launcher_template_path = os.path.join(self.get_project_dir(), "default.desktop")
+        self._desktop_launcher_override_dir = os.path.join(GLib.get_user_data_dir(), "applications")
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
             subprocess.Popen([
                 "flatpak-spawn", "--host", "touch",
@@ -1689,7 +1689,7 @@ class Application(gui.Application):
         self._search_list = gui.SearchList(self)
         self._search_list.hook("item-activated", self._on_search_list_item_activated)
         self._save_settings_button = self._settings_page.get_save_button()
-        self._save_settings_button.set_label(self._locale_manager.get("SAVE_STARTER_BUTTON_LABEL"))
+        self._save_settings_button.set_label(self._locale_manager.get("SAVE_LAUNCHER_BUTTON_LABEL"))
         self._save_settings_button.set_focus_on_click(False)
         self._save_settings_button.connect("clicked", self._on_save_settings_button_clicked)
         self._discard_settings_button = self._settings_page.get_reload_button()
@@ -1697,34 +1697,34 @@ class Application(gui.Application):
             self._discard_settings_button.set_icon_name(self._icon_finder.get_name("view-refresh-symbolic"))
             self._discard_settings_button.add_css_class("flat")
         else:
-            self._discard_settings_button.set_label(self._locale_manager.get("DISCARD_STARTER_BUTTON_LABEL"))
+            self._discard_settings_button.set_label(self._locale_manager.get("DISCARD_LAUNCHER_BUTTON_LABEL"))
         self._discard_settings_button.set_focus_on_click(False)
         self._discard_settings_button.connect("clicked", self._on_discard_settings_button_clicked)
-        self._reset_starter_button = Gtk.Button()
-        self._reset_starter_button.set_label(self._locale_manager.get("RESET_STARTER_BUTTON_LABEL"))
-        self._reset_starter_button.set_focus_on_click(False)
-        self._reset_starter_button.connect("clicked", self._on_reset_starter_button_clicked)
-        self._delete_starter_button_label = self._locale_manager.get("DELETE_STARTER_BUTTON_LABEL")
+        self._reset_launcher_button = Gtk.Button()
+        self._reset_launcher_button.set_label(self._locale_manager.get("RESET_LAUNCHER_BUTTON_LABEL"))
+        self._reset_launcher_button.set_focus_on_click(False)
+        self._reset_launcher_button.connect("clicked", self._on_reset_launcher_button_clicked)
+        self._delete_launcher_button_label = self._locale_manager.get("DELETE_LAUNCHER_BUTTON_LABEL")
         if hasattr(Adw, "ButtonRow"):
-            self._delete_starter_button = Adw.ButtonRow()
-            self._delete_starter_button.set_title(self._delete_starter_button_label)
-            self._delete_starter_button.add_css_class("destructive-action")
-            self._delete_starter_button_preferences_group = Adw.PreferencesGroup()
-            self._delete_starter_button_preferences_group.add(self._delete_starter_button)
-            self._delete_starter_button.connect("activated", self._on_delete_starter_button_clicked)
-            self._settings_page.get_bottom_area().append(self._delete_starter_button_preferences_group)
-            self._delete_starter_button_preferences_group.set_hexpand(True)
+            self._delete_launcher_button = Adw.ButtonRow()
+            self._delete_launcher_button.set_title(self._delete_launcher_button_label)
+            self._delete_launcher_button.add_css_class("destructive-action")
+            self._delete_launcher_button_preferences_group = Adw.PreferencesGroup()
+            self._delete_launcher_button_preferences_group.add(self._delete_launcher_button)
+            self._delete_launcher_button.connect("activated", self._on_delete_launcher_button_clicked)
+            self._settings_page.get_bottom_area().append(self._delete_launcher_button_preferences_group)
+            self._delete_launcher_button_preferences_group.set_hexpand(True)
         else:
-            self._delete_starter_button = Gtk.Button()
-            self._delete_starter_button.set_label(self._delete_starter_button_label)
-            self._delete_starter_button.add_css_class("destructive-action")
-            self._delete_starter_button.connect("clicked", self._on_delete_starter_button_clicked)
-            self._settings_page.get_bottom_area().append(self._delete_starter_button)
-            self._delete_starter_button.set_hexpand(True)
+            self._delete_launcher_button = Gtk.Button()
+            self._delete_launcher_button.set_label(self._delete_launcher_button_label)
+            self._delete_launcher_button.add_css_class("destructive-action")
+            self._delete_launcher_button.connect("clicked", self._on_delete_launcher_button_clicked)
+            self._settings_page.get_bottom_area().append(self._delete_launcher_button)
+            self._delete_launcher_button.set_hexpand(True)
         for widget in [
             self._save_settings_button,
-            self._reset_starter_button,
-            self._delete_starter_button
+            self._reset_launcher_button,
+            self._delete_launcher_button
         ]:
             if hasattr(widget, "set_can_shrink"):
                 widget.set_can_shrink(True)
@@ -1734,8 +1734,8 @@ class Application(gui.Application):
         self._view_menu_section.set_switch_state("show_hidden", self._config_manager.get("show.hidden"))
         self._view_menu_section.hook("show_hidden", self._on_show_hidden_switch_changed)
         self._add_menu_section = gui.Menu(self)
-        self._add_menu_section.add_button("new_starter", self._locale_manager.get("NEW_STARTER_MENU_BUTTON_LABEL"))
-        self._add_menu_section.hook("new_starter", self._on_new_starter_button_clicked)
+        self._add_menu_section.add_button("new_launcher", self._locale_manager.get("NEW_LAUNCHER_MENU_BUTTON_LABEL"))
+        self._add_menu_section.hook("new_launcher", self._on_new_launcher_button_clicked)
         self._add_menu_section.add_button("open_file", self._locale_manager.get("OPEN_FILE_MENU_BUTTON_LABEL"))
         self._add_menu_section.hook("open_file", self._on_open_file_button_clicked)
         self._help_menu_section = gui.Menu(self)
@@ -1829,7 +1829,7 @@ class Application(gui.Application):
             self._right_area_bottom_toolbar.set_margin_end(gui.Margin.DEFAULT)
             self._right_area_bottom_toolbar.set_max_child_width(tuple(sorted((
                 self._save_settings_button.get_preferred_size()[1].width,
-                self._reset_starter_button.get_preferred_size()[1].width,
+                self._reset_launcher_button.get_preferred_size()[1].width,
             )))[-1])
             self._right_area_bottom_toolbar.set_start_widget(self._right_area_bottom_toolbar_start)
             self._right_area_bottom_toolbar.set_end_widget(self._right_area_bottom_toolbar_end)
@@ -1952,10 +1952,10 @@ class Application(gui.Application):
         self._application_window.add_controller(self._application_window_drop_target)
         self.connect("shutdown", self._on_application_shutdown)
         self._update_button_layout()
-        self._load_desktop_starter_dirs()
+        self._load_desktop_launcher_dirs()
 
     def _on_application_window_drop_target_drop(self, drop_target, value, x, y):
-        self._load_external_starters(*[file.get_path() for file in value.get_files()])
+        self._load_external_launchers(*[file.get_path() for file in value.get_files()])
 
     def _on_process_manager_activate(self, event, args):
         GLib.idle_add(self._after_process_manager_activate, args)
@@ -1966,7 +1966,7 @@ class Application(gui.Application):
         self._application_window.present()
 
     def _on_text_editor_update(self, event, name):
-        if name == self._current_desktop_starter_name:
+        if name == self._current_desktop_launcher_name:
             self._check_unsaved_data(self._after_text_editor_update, name)
         else:
             self._after_text_editor_update(name)
@@ -1975,22 +1975,22 @@ class Application(gui.Application):
         try:
             self._text_editor.save(name)
             parser = self._text_editor.get_parser(name)
-            if not name in self._unsaved_custom_starters or not self._unsaved_custom_starters[name]["external"]:
+            if not name in self._unsaved_custom_launchers or not self._unsaved_custom_launchers[name]["external"]:
                 self._update_mime_data(parser)
         except Exception as error:
             self.log(error, error=error)
-            self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=error)
+            self.notify(self._locale_manager.get("LAUNCHER_SAVE_ERROR_TEXT"), error=error)
         else:
             text = parser.get_name()
             if not len(text):
                 text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-            self.notify(self._locale_manager.get("STARTER_SAVE_MESSAGE_TEXT") % text)
-            if name in self._unsaved_custom_starters and not self._unsaved_custom_starters[name]["external"]:
-                del self._unsaved_custom_starters[name]
-            if name in self._desktop_starter_parsers:
-                parser = self._desktop_starter_parsers[name]
+            self.notify(self._locale_manager.get("LAUNCHER_SAVE_MESSAGE_TEXT") % text)
+            if name in self._unsaved_custom_launchers and not self._unsaved_custom_launchers[name]["external"]:
+                del self._unsaved_custom_launchers[name]
+            if name in self._desktop_launcher_parsers:
+                parser = self._desktop_launcher_parsers[name]
                 self._update_search_list_item(name)
-                if name == self._current_desktop_starter_name:
+                if name == self._current_desktop_launcher_name:
                     self._load_settings_page(name)
 
     def _on_application_shutdown(self, app):
@@ -2038,9 +2038,9 @@ class Application(gui.Application):
         if (
             control_modifier_pressed and keyval == 110 # CTRL+N
             and not self._greeter_stack.get_visible_child() == self._greeter_page
-            and self._add_menu_section.get_enabled("new_starter")
+            and self._add_menu_section.get_enabled("new_launcher")
         ):
-            self._on_new_starter_button_clicked(None)
+            self._on_new_launcher_button_clicked(None)
             return True
         elif (
             control_modifier_pressed and keyval == 111 # CTRL+O
@@ -2053,7 +2053,7 @@ class Application(gui.Application):
             or self._main_split_layout.get_show_content()
         ):
             if (
-                (self._current_desktop_starter_name in self._unsaved_custom_starters
+                (self._current_desktop_launcher_name in self._unsaved_custom_launchers
                 and (control_modifier_pressed and (keyval == 114 or keyval == 100))) # CTRL+R, CTRL+D
                 or (self._main_stack.get_visible_child() == self._settings_page
                 and self._discard_settings_button.get_sensitive() and self._discard_settings_button.get_visible()
@@ -2077,16 +2077,16 @@ class Application(gui.Application):
             elif (
                 control_modifier_pressed and keyval == 114 # CTRL+R
                 and self._main_stack.get_visible_child() == self._settings_page
-                and self._reset_starter_button.get_sensitive()
+                and self._reset_launcher_button.get_sensitive()
             ):
-                self._on_reset_starter_button_clicked(None)
+                self._on_reset_launcher_button_clicked(None)
                 return True
             elif (
                 control_modifier_pressed and keyval == 100 # CTRL+D
                 and self._main_stack.get_visible_child() == self._settings_page
-                and self._delete_starter_button.get_sensitive()
+                and self._delete_launcher_button.get_sensitive()
             ):
-                self._on_delete_starter_button_clicked(None)
+                self._on_delete_launcher_button_clicked(None)
                 return True
         if control_modifier_pressed and keyval == 223: # CTRL+?
             self._on_show_shortcuts_button_clicked(None)
@@ -2109,16 +2109,16 @@ class Application(gui.Application):
         self._open_file_chooser_dialog.hide()
         if response == Gtk.ResponseType.ACCEPT:
             paths = [file.get_path() for file in self._open_file_chooser_dialog.get_files()]
-            self._load_external_starters(*paths, skip_discard_dialog=True)
+            self._load_external_launchers(*paths, skip_discard_dialog=True)
 
     def _on_install_dialog_response(self, message_dialog, response):
         if response == "save":
             self._save_settings_page(skip_dialog=True)
         elif response == "install":
-            self._unsaved_custom_starters[self._current_desktop_starter_name]["external"] = False
+            self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"] = False
             message_dialog.callback(*message_dialog.callback_args, **message_dialog.callback_kwargs)
             if self._save_settings_page(skip_dialog=True):
-                self._unsaved_custom_starters[self._current_desktop_starter_name]["external"] = True
+                self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"] = True
 
     def _on_discard_dialog_response(self, message_dialog, response):
         if response == "save":
@@ -2173,7 +2173,7 @@ class Application(gui.Application):
         if not self._main_stack.get_visible_child() == self._settings_page:
             if hasattr(self._main_split_layout, "set_show_content"):
                 self._main_split_layout.set_show_content(False)
-            self._current_desktop_starter_name = None
+            self._current_desktop_launcher_name = None
             if self._settings_page.get_changed():
                 self._settings_page.reset(reset_data=False)
         self._update_button_layout()
@@ -2192,8 +2192,8 @@ class Application(gui.Application):
         if not self._ignore_show_hidden_switch_changes:
             state = self._view_menu_section.get_switch_state(name)
             if not self._config_manager.get("show.hidden") == state:
-                if self._current_desktop_starter_name:
-                    parser = self._desktop_starter_parsers[self._current_desktop_starter_name]
+                if self._current_desktop_launcher_name:
+                    parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
                     if not state and parser.get_hidden():
                         self._set_show_hidden_switch_state_without_triggering(state == False)
                         self._check_unsaved_data(self._after_show_hidden_switch_changed, state)
@@ -2207,37 +2207,37 @@ class Application(gui.Application):
         self._config_manager.set("show.hidden", state)
         self._reload_search_list_items()
 
-    def _on_reset_starter_button_clicked(self, event):
-        self._show_reset_dialog(self._reset_desktop_starter, self._current_desktop_starter_name)
+    def _on_reset_launcher_button_clicked(self, event):
+        self._show_reset_dialog(self._reset_desktop_launcher, self._current_desktop_launcher_name)
 
-    def _on_delete_starter_button_clicked(self, event):
-        if self._current_desktop_starter_name in self._unsaved_custom_starters:
+    def _on_delete_launcher_button_clicked(self, event):
+        if self._current_desktop_launcher_name in self._unsaved_custom_launchers:
             if self._settings_page.get_changed():
-                self._show_discard_dialog(self._remove_desktop_starter, self._current_desktop_starter_name,
+                self._show_discard_dialog(self._remove_desktop_launcher, self._current_desktop_launcher_name,
                     notify_user=True)
             else:
-                self._remove_desktop_starter(self._current_desktop_starter_name, notify_user=True)
+                self._remove_desktop_launcher(self._current_desktop_launcher_name, notify_user=True)
 
         else:
-            self._show_delete_dialog(self._delete_desktop_starter, self._current_desktop_starter_name)
+            self._show_delete_dialog(self._delete_desktop_launcher, self._current_desktop_launcher_name)
 
     def _on_edit_file_button_clicked(self, event):
         if self._settings_page.get_changed():
             self._check_unsaved_data(self._after_edit_file_button_clicked)
         else:
-            self._edit_desktop_starter(self._current_desktop_starter_name)
+            self._edit_desktop_launcher(self._current_desktop_launcher_name)
 
     def _after_edit_file_button_clicked(self):
-        name = self._current_desktop_starter_name
+        name = self._current_desktop_launcher_name
         self._load_settings_page(name)
-        self._edit_desktop_starter(name)
+        self._edit_desktop_launcher(name)
 
     def _on_open_file_button_clicked(self, event):
         self._check_unsaved_data(self._after_open_file_button_clicked)
 
     def _after_open_file_button_clicked(self):
-        if self._current_desktop_starter_name:
-            self._load_settings_page(self._current_desktop_starter_name)
+        if self._current_desktop_launcher_name:
+            self._load_settings_page(self._current_desktop_launcher_name)
         self._open_file_chooser_dialog.show()
 
     def _on_show_shortcuts_button_clicked(self, event):
@@ -2247,35 +2247,35 @@ class Application(gui.Application):
         self._about_window.set_debug_info(self._debug_log.get())
         self._about_window.set_visible(True)
 
-    def _on_new_starter_button_clicked(self, button):
+    def _on_new_launcher_button_clicked(self, button):
         if (
-            not self._current_desktop_starter_name in self._unsaved_custom_starters
-            or self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+            not self._current_desktop_launcher_name in self._unsaved_custom_launchers
+            or self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
         ):
-            self._check_unsaved_data(self._create_desktop_starter)
+            self._check_unsaved_data(self._create_desktop_launcher)
         else:
-            self._create_desktop_starter()
+            self._create_desktop_launcher()
 
     def _on_save_settings_button_clicked(self, button):
         self._save_settings_page()
 
     def _on_discard_settings_button_clicked(self, button):
-        if self._current_desktop_starter_name in self._unsaved_custom_starters:
-            self._remove_desktop_starter(self._current_desktop_starter_name, notify_user=False)
+        if self._current_desktop_launcher_name in self._unsaved_custom_launchers:
+            self._remove_desktop_launcher(self._current_desktop_launcher_name, notify_user=False)
         else:
-            self._load_settings_page(self._current_desktop_starter_name)
+            self._load_settings_page(self._current_desktop_launcher_name)
 
     def _on_search_list_item_activated(self, event, name):
         self._check_unsaved_data(self._load_settings_page, name, ignore_name=name)
         return True
 
-    def _get_desktop_starter_has_system_default(self, name):
-        return os.path.exists(self._get_desktop_starter_default_path(name, include_host=True))
+    def _get_desktop_launcher_has_system_default(self, name):
+        return os.path.exists(self._get_desktop_launcher_default_path(name, include_host=True))
 
-    def _get_desktop_starter_has_override(self, name):
-        return os.path.exists(self._get_desktop_starter_override_path(name))
+    def _get_desktop_launcher_has_override(self, name):
+        return os.path.exists(self._get_desktop_launcher_override_path(name))
 
-    def _get_desktop_starter_default_path(self, name, include_host=False):
+    def _get_desktop_launcher_default_path(self, name, include_host=False):
         for directory in self._system_data_dirs:
             path = os.path.join(directory, "applications", "%s.desktop" % name)
             if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and include_host:
@@ -2285,18 +2285,18 @@ class Application(gui.Application):
         else:
             return os.path.join(self._system_data_dirs[0], "applications", "%s.desktop" % name)
 
-    def _get_desktop_starter_override_path(self, name, include_host=False):
-        path = os.path.join(self._desktop_starter_override_dir, "%s.desktop" % name)
+    def _get_desktop_launcher_override_path(self, name, include_host=False):
+        path = os.path.join(self._desktop_launcher_override_dir, "%s.desktop" % name)
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true" and include_host:
             path = self.get_flatpak_sandbox_system_path(path)
         return path
 
-    def _get_desktop_starter_names(self):
+    def _get_desktop_launcher_names(self):
         directories = []
         for directory in self._system_data_dirs:
             directories.append(os.path.join(directory, "applications"))
         else:
-            directories.append(self._desktop_starter_override_dir)
+            directories.append(self._desktop_launcher_override_dir)
         names = []
         for directory in directories:
             if os.path.exists(directory):
@@ -2319,10 +2319,10 @@ class Application(gui.Application):
         self._view_menu_section.set_switch_state("show_hidden", state)
         self._ignore_show_hidden_switch_changes = False
 
-    def _load_desktop_starter_dirs(self):
-        for name in reversed(sorted(self._get_desktop_starter_names())):
+    def _load_desktop_launcher_dirs(self):
+        for name in reversed(sorted(self._get_desktop_launcher_names())):
             try:
-                self._add_desktop_starter(name)
+                self._add_desktop_launcher(name)
             except Exception as error:
                 self.log(error, error=error)
 
@@ -2335,7 +2335,7 @@ class Application(gui.Application):
             ignore_name = callback_kwargs.pop("ignore_name")
         else:
             ignore_name = None
-        if (ignore_name and not ignore_name == self._current_desktop_starter_name) or not ignore_name:
+        if (ignore_name and not ignore_name == self._current_desktop_launcher_name) or not ignore_name:
             if self._settings_page.get_changed():
                 if self._previous_discard_dialog and self._previous_discard_dialog.get_visible():
                     self._previous_discard_dialog.destroy()
@@ -2418,12 +2418,12 @@ class Application(gui.Application):
             """.format(
             self._locale_manager.get("EDIT_SHORTCUT_GROUP_TITLE"),
             "&lt;ctrl&gt;o", self._locale_manager.get("OPEN_FILE_SHORTCUT_TEXT"),
-            "&lt;ctrl&gt;n", self._locale_manager.get("NEW_STARTER_SHORTCUT_TEXT"),
+            "&lt;ctrl&gt;n", self._locale_manager.get("NEW_LAUNCHER_SHORTCUT_TEXT"),
             "&lt;ctrl&gt;e", self._locale_manager.get("EDIT_FILE_SHORTCUT_TEXT"),
-            "&lt;ctrl&gt;s", self._locale_manager.get("SAVE_STARTER_SHORTCUT_TEXT"),
-            "&lt;ctrl&gt;r", self._locale_manager.get("RESET_STARTER_SHORTCUT_TEXT"),
-            "&lt;ctrl&gt;d", self._locale_manager.get("DELETE_STARTER_SHORTCUT_TEXT"),
-            "&lt;ctrl&gt;Escape", self._locale_manager.get("DISCARD_STARTER_SHORTCUT_TEXT"),
+            "&lt;ctrl&gt;s", self._locale_manager.get("SAVE_LAUNCHER_SHORTCUT_TEXT"),
+            "&lt;ctrl&gt;r", self._locale_manager.get("RESET_LAUNCHER_SHORTCUT_TEXT"),
+            "&lt;ctrl&gt;d", self._locale_manager.get("DELETE_LAUNCHER_SHORTCUT_TEXT"),
+            "&lt;ctrl&gt;Escape", self._locale_manager.get("DISCARD_LAUNCHER_SHORTCUT_TEXT"),
             self._locale_manager.get("FIND_SHORTCUT_GROUP_TITLE"),
             "&lt;ctrl&gt;f", self._locale_manager.get("TOGGLE_SEARCH_SHORTCUT_TEXT"),
             "&lt;ctrl&gt;h", self._locale_manager.get("SHOW_HIDDEN_SHORTCUT_TEXT"),
@@ -2522,35 +2522,35 @@ class Application(gui.Application):
         delete_dialog.show()
 
     def _update_buttons_sensitive(self):
-        reset_starter_button_sensitive = False
-        delete_starter_button_sensitive = False
+        reset_launcher_button_sensitive = False
+        delete_launcher_button_sensitive = False
         settings_page_never_hide_reload_button = False
-        if not self._current_desktop_starter_name is None:
-            if self._get_desktop_starter_has_system_default(self._current_desktop_starter_name):
-                if self._get_desktop_starter_has_override(self._current_desktop_starter_name):
-                    reset_starter_button_sensitive = True
+        if not self._current_desktop_launcher_name is None:
+            if self._get_desktop_launcher_has_system_default(self._current_desktop_launcher_name):
+                if self._get_desktop_launcher_has_override(self._current_desktop_launcher_name):
+                    reset_launcher_button_sensitive = True
             else:
-                if not self._current_desktop_starter_name in self._unsaved_custom_starters:
-                    delete_starter_button_sensitive = True
+                if not self._current_desktop_launcher_name in self._unsaved_custom_launchers:
+                    delete_launcher_button_sensitive = True
                 else:
                     settings_page_never_hide_reload_button = True
-        self._reset_starter_button.set_sensitive(reset_starter_button_sensitive)
-        self._delete_starter_button.set_sensitive(delete_starter_button_sensitive)
-        if delete_starter_button_sensitive:
-            self._delete_starter_button.add_css_class("destructive-action")
+        self._reset_launcher_button.set_sensitive(reset_launcher_button_sensitive)
+        self._delete_launcher_button.set_sensitive(delete_launcher_button_sensitive)
+        if delete_launcher_button_sensitive:
+            self._delete_launcher_button.add_css_class("destructive-action")
         else:
-            self._delete_starter_button.remove_css_class("destructive-action")
+            self._delete_launcher_button.remove_css_class("destructive-action")
         self._settings_page.set_never_hide_reload_button(settings_page_never_hide_reload_button)
 
     def _update_button_layout(self):
         self._discard_settings_button.unparent()
         if hasattr(Adw, "NavigationSplitView") and self._main_split_layout.get_collapsed():
             self._right_area_box.set_reveal_bottom_bars(True)
-            self._reset_starter_button.set_hexpand(True)
+            self._reset_launcher_button.set_hexpand(True)
             self._save_settings_button.set_hexpand(True)
-            self._reset_starter_button.unparent()
+            self._reset_launcher_button.unparent()
             self._save_settings_button.unparent()
-            self._right_area_bottom_toolbar_start.append(self._reset_starter_button)
+            self._right_area_bottom_toolbar_start.append(self._reset_launcher_button)
             self._right_area_bottom_toolbar_end.append(self._save_settings_button)
             self._right_header_bar.pack_end(self._discard_settings_button)
         else:
@@ -2559,14 +2559,14 @@ class Application(gui.Application):
             except AttributeError:
                 pass
             self._save_settings_button.set_hexpand(False)
-            self._reset_starter_button.set_hexpand(False)
+            self._reset_launcher_button.set_hexpand(False)
             self._save_settings_button.unparent()
-            self._reset_starter_button.unparent()
+            self._reset_launcher_button.unparent()
             if self._main_stack.get_visible_child() == self._settings_page:
                 if not self._save_settings_button.get_parent():
                     self._right_header_bar.pack_end(self._save_settings_button)
-                if not self._reset_starter_button.get_parent():
-                    self._right_header_bar.pack_end(self._reset_starter_button)
+                if not self._reset_launcher_button.get_parent():
+                    self._right_header_bar.pack_end(self._reset_launcher_button)
         if self._main_stack.get_visible_child() == self._settings_page:
             if not self._discard_settings_button.get_parent():
                 self._right_header_bar.pack_start(self._discard_settings_button)
@@ -2574,7 +2574,7 @@ class Application(gui.Application):
 
     def _update_search_list_selection(self, name=None):
         if name is None:
-            name = self._current_desktop_starter_name
+            name = self._current_desktop_launcher_name
         if not self._search_list.get_active_item() == name:
             self._search_list.set_active_item(name)
 
@@ -2583,9 +2583,9 @@ class Application(gui.Application):
             "section": "Added Associations",
             "path": os.path.join(GLib.get_user_config_dir(), "mimeapps.list"),
             "desktop-id": os.path.relpath(parser.get_save_path(),
-                self._desktop_starter_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
+                self._desktop_launcher_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
         }]
-        if os.path.abspath(parser.get_save_path()).startswith(os.path.abspath(self._desktop_starter_override_dir)):
+        if os.path.abspath(parser.get_save_path()).startswith(os.path.abspath(self._desktop_launcher_override_dir)):
             operations.append({
                 "section": "MIME Cache",
                 "path": os.path.join(os.path.dirname(parser.get_save_path()), "mimeinfo.cache"),
@@ -2630,13 +2630,13 @@ class Application(gui.Application):
 
     def _load_settings_page(self, name):
         self._focus_settings_page()
-        if name in self._unsaved_custom_starters and self._unsaved_custom_starters[name]["external"]:
+        if name in self._unsaved_custom_launchers and self._unsaved_custom_launchers[name]["external"]:
             self._settings_page.set_always_show_save_button(True)
         else:
             self._settings_page.set_always_show_save_button(False)
-        self._current_desktop_starter_name = name
-        parser = self._desktop_starter_parsers[name]
-        self._settings_page.load_desktop_starter(name, parser)
+        self._current_desktop_launcher_name = name
+        parser = self._desktop_launcher_parsers[name]
+        self._settings_page.load_desktop_launcher(name, parser)
         if not self._main_stack.get_visible_child() == self._settings_page:
             self._main_stack.set_visible_child(self._settings_page)
         else:
@@ -2645,56 +2645,56 @@ class Application(gui.Application):
         self._settings_page.grab_focus()
 
     def _save_settings_page(self, skip_dialog=False):
-        parser = self._desktop_starter_parsers[self._current_desktop_starter_name]
+        parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
         if (
-            self._current_desktop_starter_name in self._unsaved_custom_starters
-            and self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+            self._current_desktop_launcher_name in self._unsaved_custom_launchers
+            and self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
             and not skip_dialog
         ):
-            self._show_install_dialog(self._install_external_starter, self._current_desktop_starter_name)
+            self._show_install_dialog(self._install_external_launcher, self._current_desktop_launcher_name)
             return True
         else:
             try:
                 parser.check_write()
                 if (
-                    not self._current_desktop_starter_name in self._unsaved_custom_starters
-                    or not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+                    not self._current_desktop_launcher_name in self._unsaved_custom_launchers
+                    or not self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
                 ):
                     self._settings_page.set_always_show_save_button(False)
                     self._update_mime_data(parser)
-                self._settings_page.save_desktop_starter()
-                if self._current_desktop_starter_name in self._text_editor.get_names():
-                    parser.save(path=self._text_editor.get_path(self._current_desktop_starter_name))
+                self._settings_page.save_desktop_launcher()
+                if self._current_desktop_launcher_name in self._text_editor.get_names():
+                    parser.save(path=self._text_editor.get_path(self._current_desktop_launcher_name))
             except Exception as error:
                 self.log(error, error=error)
-                self.notify(self._locale_manager.get("STARTER_SAVE_ERROR_TEXT"), error=error)
+                self.notify(self._locale_manager.get("LAUNCHER_SAVE_ERROR_TEXT"), error=error)
                 return True
             else:
                 if (
-                    self._current_desktop_starter_name in self._unsaved_custom_starters
-                    and not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+                    self._current_desktop_launcher_name in self._unsaved_custom_launchers
+                    and not self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
                 ):
-                    del self._unsaved_custom_starters[self._current_desktop_starter_name]
+                    del self._unsaved_custom_launchers[self._current_desktop_launcher_name]
                 text = parser.get_name()
                 if not len(text):
                     text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-                self.notify(self._locale_manager.get("STARTER_SAVE_MESSAGE_TEXT") % text)
-                self._update_search_list_item(self._current_desktop_starter_name)
+                self.notify(self._locale_manager.get("LAUNCHER_SAVE_MESSAGE_TEXT") % text)
+                self._update_search_list_item(self._current_desktop_launcher_name)
                 self._update_button_layout()
 
-    def _get_random_unused_desktop_starter_name(self):
+    def _get_random_unused_desktop_launcher_name(self):
         while True:
             random_string = ''.join(random.choices(string.digits, k=6))
-            name = "%s.%s" % (self._desktop_starter_custom_create_name, random_string)
-            if not name in self._get_desktop_starter_names() and not name in self._unsaved_custom_starters:
+            name = "%s.%s" % (self._desktop_launcher_custom_create_name, random_string)
+            if not name in self._get_desktop_launcher_names() and not name in self._unsaved_custom_launchers:
                 return name
 
-    def _install_external_starter(self, name):
-        parser = self._desktop_starter_parsers[name]
-        save_path = self._get_desktop_starter_override_path(name)
+    def _install_external_launcher(self, name):
+        parser = self._desktop_launcher_parsers[name]
+        save_path = self._get_desktop_launcher_override_path(name)
         parser.set_save_path(save_path)
 
-    def _load_external_starters(self, *paths, skip_discard_dialog=False):
+    def _load_external_launchers(self, *paths, skip_discard_dialog=False):
         exceptions = {}
         filtered_paths = []
         duplicate_names = []
@@ -2705,7 +2705,7 @@ class Application(gui.Application):
                 filtered_paths.append(path)
         else:
             paths = filtered_paths
-        for name, data in self._unsaved_custom_starters.items():
+        for name, data in self._unsaved_custom_launchers.items():
             if data["external"] and data["load-path"] in paths:
                 paths.remove(data["load-path"])
                 duplicate_names.append(name)
@@ -2720,14 +2720,14 @@ class Application(gui.Application):
             else:
                 for path in reversed(paths):
                     if os.path.exists(path) and os.path.isfile(path) and os.access(path, os.R_OK):
-                        name = self._get_random_unused_desktop_starter_name()
-                        self._unsaved_custom_starters[name] = {
+                        name = self._get_random_unused_desktop_launcher_name()
+                        self._unsaved_custom_launchers[name] = {
                             "load-path": path,
                             "save-path": path,
                             "external": True
                         }
                         try:
-                            self._add_desktop_starter(name)
+                            self._add_desktop_launcher(name)
                             accepted_names.append(name)
                         except Exception as error:
                             exceptions[path] = (name, error, path)
@@ -2738,7 +2738,7 @@ class Application(gui.Application):
                         for name, error, path in exceptions.values():
                             if not name is None:
                                 self.log(error, error=error)
-                                del self._unsaved_custom_starters[name]
+                                del self._unsaved_custom_launchers[name]
                             else:
                                 self.log(f"not readable file: {path}")
                         if len(exceptions) == 1:
@@ -2759,72 +2759,72 @@ class Application(gui.Application):
                     else:
                         self._load_settings_page(name)
 
-    def _create_desktop_starter(self):
+    def _create_desktop_launcher(self):
         if (
-            self._current_desktop_starter_name in self._unsaved_custom_starters
-            and not self._unsaved_custom_starters[self._current_desktop_starter_name]["external"]
+            self._current_desktop_launcher_name in self._unsaved_custom_launchers
+            and not self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
         ):
-            self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
+            self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
             self._focus_settings_page()
         else:
-            for name in self._unsaved_custom_starters:
-                if not self._unsaved_custom_starters[name]["external"]:
+            for name in self._unsaved_custom_launchers:
+                if not self._unsaved_custom_launchers[name]["external"]:
                     self._search_list.set_active_item(name, activate=False)
                     self._load_settings_page(name)
                     break
             else:
-                name = self._get_random_unused_desktop_starter_name()
-                self._unsaved_custom_starters[name] = {
-                    "load-path": self._desktop_starter_template_path,
-                    "save-path": self._get_desktop_starter_override_path(name),
+                name = self._get_random_unused_desktop_launcher_name()
+                self._unsaved_custom_launchers[name] = {
+                    "load-path": self._desktop_launcher_template_path,
+                    "save-path": self._get_desktop_launcher_override_path(name),
                     "external": False
                 }
-                self._add_desktop_starter(name)
-                parser = self._desktop_starter_parsers[name]
+                self._add_desktop_launcher(name)
+                parser = self._desktop_launcher_parsers[name]
                 text = parser.get_name()
                 if not len(text):
                     text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-                self.notify(self._locale_manager.get("STARTER_CREATE_MESSAGE_TEXT") % text)
-                self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
+                self.notify(self._locale_manager.get("LAUNCHER_CREATE_MESSAGE_TEXT") % text)
+                self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
                 self._load_settings_page(name)
 
-    def _reset_desktop_starter(self, name):
-        path = self._get_desktop_starter_override_path(name)
-        parser = self._desktop_starter_parsers[name]
+    def _reset_desktop_launcher(self, name):
+        path = self._get_desktop_launcher_override_path(name)
+        parser = self._desktop_launcher_parsers[name]
         try:
             self._update_mime_data(parser, delete=True)
             os.remove(path)
         except Exception as error:
             self.log(error, error=error)
-            self.notify(self._locale_manager.get("STARTER_RESET_ERROR_TEXT"), error=error)
+            self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
             return True
         text = parser.get_name()
         if not len(text):
             text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-        self.notify(self._locale_manager.get("STARTER_RESET_MESSAGE_TEXT") % text)
-        self._add_desktop_starter(name, skip_search_list=True, exist_ok=True)
+        self.notify(self._locale_manager.get("LAUNCHER_RESET_MESSAGE_TEXT") % text)
+        self._add_desktop_launcher(name, skip_search_list=True, exist_ok=True)
         self._update_search_list_item(name)
-        if name == self._current_desktop_starter_name:
+        if name == self._current_desktop_launcher_name:
             self._load_settings_page(name)
 
-    def _delete_desktop_starter(self, name):
-        path = self._desktop_starter_parsers[name].get_save_path()
-        parser = self._desktop_starter_parsers[name]
+    def _delete_desktop_launcher(self, name):
+        path = self._desktop_launcher_parsers[name].get_save_path()
+        parser = self._desktop_launcher_parsers[name]
         try:
             self._update_mime_data(parser, delete=True)
             os.remove(path)
         except Exception as error:
             self.log(error, error=error)
-            self.notify(self._locale_manager.get("STARTER_DELETE_ERROR_TEXT"), error=error)
+            self.notify(self._locale_manager.get("LAUNCHER_DELETE_ERROR_TEXT"), error=error)
             return True
         text = parser.get_name()
         if not len(text):
             text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-        self.notify(self._locale_manager.get("STARTER_DELETE_MESSAGE_TEXT") % text)
-        self._remove_desktop_starter(name)
+        self.notify(self._locale_manager.get("LAUNCHER_DELETE_MESSAGE_TEXT") % text)
+        self._remove_desktop_launcher(name)
 
-    def _edit_desktop_starter(self, name):
-        parser = self._desktop_starter_parsers[name]
+    def _edit_desktop_launcher(self, name):
+        parser = self._desktop_launcher_parsers[name]
         try:
             self._text_editor.launch(name, parser)
         except Exception as error:
@@ -2848,11 +2848,11 @@ class Application(gui.Application):
             return True
 
     def _add_search_list_item(self, name):
-        if not self._get_parser_should_be_shown(self._desktop_starter_parsers[name]):
+        if not self._get_parser_should_be_shown(self._desktop_launcher_parsers[name]):
             return True
-        text = self._desktop_starter_parsers[name].get_name()
-        icon = self._desktop_starter_parsers[name].get_icon()
-        search_data = self._desktop_starter_parsers[name].get_search_data()
+        text = self._desktop_launcher_parsers[name].get_name()
+        icon = self._desktop_launcher_parsers[name].get_icon()
+        search_data = self._desktop_launcher_parsers[name].get_search_data()
         if not len(text):
             text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
             search_data.append(text)
@@ -2863,12 +2863,12 @@ class Application(gui.Application):
             self._search_list.remove(name)
         except gui.ItemNotFoundError:
             pass
-        if name == self._current_desktop_starter_name:
+        if name == self._current_desktop_launcher_name:
             self._main_stack.set_visible_child(self._start_page)
-            self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
+            self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
 
     def _update_search_list_item(self, name):
-        parser = self._desktop_starter_parsers[name]
+        parser = self._desktop_launcher_parsers[name]
         if not self._get_parser_should_be_shown(parser):
             self._remove_search_list_item(name)
         else:
@@ -2885,31 +2885,31 @@ class Application(gui.Application):
 
     def _reload_search_list_items(self):
         self._search_list.clear()
-        for name in self._desktop_starter_parsers:
+        for name in self._desktop_launcher_parsers:
             self._add_search_list_item(name)
-        if not self._current_desktop_starter_name in self._search_list.list():
+        if not self._current_desktop_launcher_name in self._search_list.list():
             self._main_stack.set_visible_child(self._start_page)
-            self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
+            self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
         else:
-            self._search_list.set_active_item(self._current_desktop_starter_name, activate=False)
+            self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
 
-    def _add_desktop_starter(self, name, skip_search_list=False, exist_ok=False):
-        if not name in self._desktop_starter_parsers or exist_ok:
-            parser = self._parse_desktop_starter(name)
-            self._desktop_starter_parsers[name] = parser
+    def _add_desktop_launcher(self, name, skip_search_list=False, exist_ok=False):
+        if not name in self._desktop_launcher_parsers or exist_ok:
+            parser = self._parse_desktop_launcher(name)
+            self._desktop_launcher_parsers[name] = parser
             if not skip_search_list:
                 self._add_search_list_item(name)
         else:
             raise StarterAlreadyExistingError(name)
 
-    def _remove_desktop_starter(self, name, skip_search_list=False, notify_user=False):
-        text = self._desktop_starter_parsers[name].get_name()
-        if name is self._current_desktop_starter_name:
+    def _remove_desktop_launcher(self, name, skip_search_list=False, notify_user=False):
+        text = self._desktop_launcher_parsers[name].get_name()
+        if name is self._current_desktop_launcher_name:
             self._settings_page.reset()
-        if name in self._unsaved_custom_starters:
-            del self._unsaved_custom_starters[name]
-        if name in self._desktop_starter_parsers:
-            del self._desktop_starter_parsers[name]
+        if name in self._unsaved_custom_launchers:
+            del self._unsaved_custom_launchers[name]
+        if name in self._desktop_launcher_parsers:
+            del self._desktop_launcher_parsers[name]
             if not skip_search_list:
                 if self._search_list.get_search_mode():
                     items = self._search_list.get_visible_items()
@@ -2934,19 +2934,19 @@ class Application(gui.Application):
         if notify_user:
             if not len(text):
                 text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-            self.notify(self._locale_manager.get("STARTER_REMOVE_MESSAGE_TEXT") % text)
+            self.notify(self._locale_manager.get("LAUNCHER_REMOVE_MESSAGE_TEXT") % text)
 
-    def _parse_desktop_starter(self, name):
-        if name in self._unsaved_custom_starters:
-            load_path = self._unsaved_custom_starters[name]["load-path"]
+    def _parse_desktop_launcher(self, name):
+        if name in self._unsaved_custom_launchers:
+            load_path = self._unsaved_custom_launchers[name]["load-path"]
         else:
-            load_path = self._get_desktop_starter_override_path(name, include_host=True)
-        if name in self._unsaved_custom_starters:
-            save_path = self._unsaved_custom_starters[name]["save-path"]
+            load_path = self._get_desktop_launcher_override_path(name, include_host=True)
+        if name in self._unsaved_custom_launchers:
+            save_path = self._unsaved_custom_launchers[name]["save-path"]
         else:
-            save_path = self._get_desktop_starter_override_path(name, include_host=True)
+            save_path = self._get_desktop_launcher_override_path(name, include_host=True)
         if not os.path.exists(load_path):
-            default_path = self._get_desktop_starter_default_path(name, include_host=True)
+            default_path = self._get_desktop_launcher_default_path(name, include_host=True)
             if os.path.exists(default_path):
                 load_path = default_path
             else:
@@ -2956,9 +2956,9 @@ class Application(gui.Application):
 
     def _parse_command_line_args(self, args):
         if len(args) and "--new" in args:
-            self._create_desktop_starter()
+            self._create_desktop_launcher()
             args.remove("--new")
-        self._load_external_starters(*args)
+        self._load_external_launchers(*args)
 
     def notify(self, text, error=False):
         toast = Adw.Toast.new(text)
@@ -2968,7 +2968,7 @@ class Application(gui.Application):
             toast.set_timeout(gui.Timeout.DEFAULT)
         else:
             if isinstance(error, NoAccessError):
-                toast.set_title(self._locale_manager.get("STARTER_NO_ACCESS_ERROR_TEXT"))
+                toast.set_title(self._locale_manager.get("LAUNCHER_NO_ACCESS_ERROR_TEXT"))
             toast.set_timeout(0)
             toast.set_action_name("toast.details")
             toast.set_button_label(self._locale_manager.get("TOAST_SHOW_DETAILS_BUTTON_LABEL"))
