@@ -126,14 +126,16 @@ class IconFinder():
             for alternative in alternatives:
                 self._alternatives[name].append(alternative)
 
-    def get_image(self, icon, missing_ok=True, use_alternatives=True):
+    def get_image(self, icon, missing_ok=True, use_alternatives=True, allow_symbolic=True):
         image = Gtk.Image()
-        self.set_image(image, icon, missing_ok=missing_ok, use_alternatives=use_alternatives)
+        self.set_image(image, icon, missing_ok=missing_ok, use_alternatives=use_alternatives,
+            allow_symbolic=allow_symbolic)
         return image
 
-    def set_image(self, image, icon, missing_ok=True, use_alternatives=True):
+    def set_image(self, image, icon, missing_ok=True, use_alternatives=True, allow_symbolic=True):
         try:
-            name = self.get_name(icon, missing_ok=False, use_alternatives=use_alternatives)
+            name = self.get_name(icon, missing_ok=False, use_alternatives=use_alternatives,
+                allow_symbolic=allow_symbolic)
             image.set_from_icon_name(name)
             return True
         except IconNotFoundError:
@@ -160,17 +162,22 @@ class IconFinder():
             else:
                 raise IconNotFoundError(icon)
 
-    def get_name(self, name, missing_ok=True, use_alternatives=True):
+    def get_name(self, name, missing_ok=True, use_alternatives=True, allow_symbolic=True):
         if not self._ignore_prefix or not name.startswith(self._ignore_prefix):
-            if self._icon_theme.has_icon(name):
-                return name
-            elif not name.endswith("-symbolic") and self._icon_theme.has_icon(f"{name}-symbolic"):
+            theme_lookup_name = self.theme_find_name(name, allow_symbolic=allow_symbolic)
+            if theme_lookup_name:
+                return theme_lookup_name
+            elif (
+                allow_symbolic and not name.endswith("-symbolic")
+                and self._icon_theme.has_icon(f"{name}-symbolic")
+            ):
                 return f"{name}-symbolic"
             elif use_alternatives and name in self._alternatives:
                 for alternative in self._alternatives[name]:
-                    if self._icon_theme.has_icon(alternative):
-                        return alternative
-                    elif not alternative.endswith("-symbolic") and self._icon_theme.has_icon(f"{alternative}-symbolic"):
+                    if (
+                        allow_symbolic and not alternative.endswith("-symbolic")
+                        and self._icon_theme.has_icon(f"{alternative}-symbolic")
+                    ):
                         return f"{alternative}-symbolic"
             if missing_ok:
                 return name
@@ -181,11 +188,27 @@ class IconFinder():
         else:
             raise IconNotFoundError(name)
 
-    def has_name(self, name, use_alternatives=False):
+    def has_name(self, name, use_alternatives=False, allow_symbolic=True):
         try:
-            return self.get_name(name, missing_ok=False, use_alternatives=use_alternatives)
+            return self.get_name(name, missing_ok=False, use_alternatives=use_alternatives,
+                allow_symbolic=allow_symbolic)
         except IconNotFoundError:
             return False
+
+    def theme_find_name(self, name, allow_symbolic=True):
+        if not allow_symbolic:
+            alternatives = []
+            if name in self._alternatives:
+                alternatives = self._alternatives[name]
+            paintable = self._icon_theme.lookup_icon(name, alternatives, 16, 1, Gtk.TextDirection.NONE, Gtk.IconLookupFlags.FORCE_REGULAR)
+            path = paintable.get_file().get_path()
+            if path:
+                basename = os.path.basename(path)
+                for name in alternatives + [name]:
+                    if basename.startswith(name):
+                        return name
+        elif self._icon_theme.has_icon(name):
+            return name
 
     def get_names(self):
         names = self._icon_theme.get_icon_names()
@@ -1797,16 +1820,21 @@ class ComboRow(Adw.ActionRow):
 
     def _update_buttons_icon_names(self):
         ignore_prefix = self._icon_finder.get_ignore_prefix()
-        names = [self._icon_finder.has_name(self._buttons[name].icon_name,
-            use_alternatives=True) for name in self._buttons]
-        if False in names or True in [name.startswith(ignore_prefix) for name in names]:
+        available_names = {}
+        for original_name in self._buttons.keys():
+            available_name = self._icon_finder.has_name(self._buttons[original_name].icon_name,
+                use_alternatives=True, allow_symbolic=False)
+            available_names[original_name] = available_name
+        if (
+            False in available_names.values()
+            or True in [available_name.startswith(ignore_prefix) for available_name in available_names.values()]
+        ):
             for name in self._buttons:
                 icon_name = f"{ignore_prefix}{self._buttons[name].icon_name}"
                 self._buttons[name].image.set_from_icon_name(icon_name)
         else:
-            for name in self._buttons:
-                icon_name = self._icon_finder.get_name(self._buttons[name].icon_name)
-                self._buttons[name].image.set_from_icon_name(icon_name)
+            for original_name in available_names:
+                self._buttons[original_name].image.set_from_icon_name(available_names[original_name])
         buttons = {}
         for button in self._buttons.values():
             buttons[button.label.get_text()] = button
