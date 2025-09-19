@@ -393,7 +393,7 @@ class FlowingToolbar(Gtk.Box):
 
 
 class LabeledImage(Gtk.Box):
-    def __init__(self, max_label_width=192, breakpoint=128, *args, **kwargs):
+    def __init__(self, max_label_width=192, breakpoint=192, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self._image = Gtk.Image()
         self._label = Gtk.Label()

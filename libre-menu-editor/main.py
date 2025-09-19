@@ -1487,6 +1487,9 @@ class SettingsPage(Gtk.Box):
     def get_icon_browser(self):
         return self._icon_browser
 
+    def get_icon_chooser_row(self):
+        return self._icon_chooser_row
+
     def load_icon_browser_configs(self):
         self._icon_browser.set_show_names(self._config_manager.get("icon-browser.show-names"))
         try:
@@ -1675,6 +1678,8 @@ class Application(gui.Application):
                 os.path.join(self.get_flatpak_real_home(), ".config", "mimeapps.list")
             ])
         self._start_page = Adw.StatusPage()
+        self._start_page.set_margin_start(20)
+        self._start_page.set_margin_end(20)
         self._start_page.set_title(self._locale_manager.get("START_PAGE_HEAD"))
         self._start_page.set_description(self._locale_manager.get("START_PAGE_BODY"))
         self._start_page.set_icon_name(self._icon_finder.get_name("edit-find-replace-symbolic"))
@@ -1845,6 +1850,7 @@ class Application(gui.Application):
             self._main_split_layout.set_sidebar(self._split_view_sidebar)
             self._main_split_layout.set_content(self._split_view_content)
             self._main_split_layout.connect("notify::collapsed", self._on_main_split_layout_collapsed_changed)
+            self._main_split_layout.connect("notify::show-content", self._on_main_split_layout_show_content_changed)
             window_breakpoint_limit = self._left_area_box.get_property("width-request") + (
                 self._right_area_box.get_property("width-request") * 4 / 3)
             self._window_breakpoint = Adw.Breakpoint()
@@ -2141,6 +2147,9 @@ class Application(gui.Application):
         GLib.idle_add(setattr, self, "_navigation_split_view_sidebar_collapsed", widget.get_collapsed(),
             priority=GLib.PRIORITY_LOW)
         self._update_button_layout()
+
+    def _on_main_split_layout_show_content_changed(self, widget, gparam):
+        self._settings_page.get_icon_chooser_row().set_search_mode(False)
 
     def _on_settings_page_changed_changed(self, event, previous_value, current_value):
         if hasattr(self, "_split_view_content"):
