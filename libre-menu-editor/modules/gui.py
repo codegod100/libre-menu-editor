@@ -1202,10 +1202,9 @@ class IconChooserRow(FileChooserRow):
         FileChooserRow._on_chooser_button_clicked(self, button)
 
     def _on_event_controllers_key_pressed(self, controller, keyval, keycode, state):
-        if keyval == Keyval.ESCAPE:
+        if keyval == Keyval.ESCAPE and state == 0:
             self.set_search_mode(self.get_search_mode() == False)
             self.grab_focus_without_selecting()
-            return True
 
     def _on_toggle_button_toggled(self, toggle_button):
         self.set_search_mode(self._toggle_button.get_active())
