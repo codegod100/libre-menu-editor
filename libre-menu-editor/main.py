@@ -1669,6 +1669,9 @@ class Application(gui.Application):
             "applications-accessories",
             f"{ignore_prefix}applications-utilities"
         )
+        self._newly_created_launchers = []
+        self._latest_launcher_override_mtimes = {}
+        self._custom_launcher_backups_dir = os.path.join(self.get_config_dir(), "backups")
         self._desktop_launcher_custom_create_name = "custom-launcher"
         self._desktop_launcher_template_path = os.path.join(self.get_project_dir(), "default.desktop")
         self._desktop_launcher_override_dir = os.path.join(GLib.get_user_data_dir(), "applications")
@@ -1994,6 +1997,7 @@ class Application(gui.Application):
                     self._load_settings_page(name)
 
     def _on_application_shutdown(self, app):
+        self._create_custom_launcher_backups(*self._newly_created_launchers, replace_existing=True)
         self._process_manager.set_active(False)
 
     def _on_application_window_close_request(self, window):
@@ -2275,6 +2279,28 @@ class Application(gui.Application):
     def _get_desktop_launcher_has_override(self, name):
         return os.path.exists(self._get_desktop_launcher_override_path(name))
 
+    def _get_desktop_launcher_has_backup_copy(self, name):
+        return os.path.exists(os.path.join(self._custom_launcher_backups_dir, name))
+
+    def _get_desktop_launcher_can_reset(self, name):
+        if name in self._desktop_launcher_parsers:
+            self._remove_orphaned_launcher_backups(name)
+            if self._get_desktop_launcher_has_system_default(name):
+                return True
+            elif self._get_desktop_launcher_has_backup_copy(name):
+                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                override_path = self._get_desktop_launcher_override_path(name)
+                override_mtime = os.path.getmtime(override_path)
+                if (
+                    not name in self._latest_launcher_override_mtimes
+                    or not self._latest_launcher_override_mtimes[name] == override_mtime
+                ):
+                    with open(backup_path, "r") as backup_file:
+                        with open(override_path, "r") as override_file:
+                            self._latest_launcher_override_mtimes[name] = override_mtime
+                            if not backup_file.read() == override_file.read():
+                                return True
+
     def _get_desktop_launcher_default_path(self, name, include_host=False):
         for directory in self._system_data_dirs:
             path = os.path.join(directory, "applications", "%s.desktop" % name)
@@ -2319,12 +2345,56 @@ class Application(gui.Application):
         self._view_menu_section.set_switch_state("show_hidden", state)
         self._ignore_show_hidden_switch_changes = False
 
+    def _remove_orphaned_launcher_backups(self, *names):
+        if not len(names):
+            if os.path.exists(self._custom_launcher_backups_dir):
+                names = os.listdir(self._custom_launcher_backups_dir)
+            else:
+                return
+        for name in names:
+            if name in self._unsaved_custom_launchers:
+                continue
+            backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+            override_path = self._get_desktop_launcher_override_path(name)
+            if (
+                os.path.exists(backup_path) and (self._get_desktop_launcher_has_system_default(name)
+                or not os.path.exists(override_path))
+            ):
+                os.remove(backup_path)
+
+    def _create_custom_launcher_backups(self, *names, replace_existing=False):
+        self._remove_orphaned_launcher_backups(*names)
+        for name in names:
+            if not self._get_desktop_launcher_has_system_default(name):
+                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                override_path = self._get_desktop_launcher_override_path(name)
+                if os.path.exists(override_path):
+                    if not os.path.exists(backup_path) or replace_existing:
+                        if os.path.exists(backup_path):
+                            os.remove(backup_path)
+                        os.makedirs(os.path.dirname(backup_path), exist_ok=True)
+                        shutil.copy(override_path, backup_path)
+                        return True
+
+    def _restore_custom_launcher_backups(self, *names):
+        self._remove_orphaned_launcher_backups(*names)
+        for name in names:
+            if not self._get_desktop_launcher_has_system_default(name):
+                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                if os.path.exists(backup_path):
+                    override_path = self._get_desktop_launcher_override_path(name)
+                    if os.path.exists(override_path):
+                        os.remove(override_path)
+                    shutil.copy(backup_path, override_path)
+
     def _load_desktop_launcher_dirs(self):
         for name in reversed(sorted(self._get_desktop_launcher_names())):
             try:
                 self._add_desktop_launcher(name)
             except Exception as error:
                 self.log(error, error=error)
+        else:
+            self._remove_orphaned_launcher_backups()
 
     def _focus_settings_page(self):
         if hasattr(self._main_split_layout, "set_show_content"):
@@ -2526,10 +2596,9 @@ class Application(gui.Application):
         delete_launcher_button_sensitive = False
         settings_page_never_hide_reload_button = False
         if not self._current_desktop_launcher_name is None:
-            if self._get_desktop_launcher_has_system_default(self._current_desktop_launcher_name):
-                if self._get_desktop_launcher_has_override(self._current_desktop_launcher_name):
-                    reset_launcher_button_sensitive = True
-            else:
+            if self._get_desktop_launcher_can_reset(self._current_desktop_launcher_name):
+                reset_launcher_button_sensitive = True
+            if not self._get_desktop_launcher_has_system_default(self._current_desktop_launcher_name):
                 if not self._current_desktop_launcher_name in self._unsaved_custom_launchers:
                     delete_launcher_button_sensitive = True
                 else:
@@ -2643,6 +2712,7 @@ class Application(gui.Application):
             self._update_button_layout()
         self._update_search_list_selection()
         self._settings_page.grab_focus()
+        self._create_custom_launcher_backups(name)
 
     def _save_settings_page(self, skip_dialog=False):
         parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
@@ -2670,10 +2740,12 @@ class Application(gui.Application):
                 self.notify(self._locale_manager.get("LAUNCHER_SAVE_ERROR_TEXT"), error=error)
                 return True
             else:
+                self._create_custom_launcher_backups(self._current_desktop_launcher_name)
                 if (
                     self._current_desktop_launcher_name in self._unsaved_custom_launchers
                     and not self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
                 ):
+                    self._newly_created_launchers.append(self._current_desktop_launcher_name)
                     del self._unsaved_custom_launchers[self._current_desktop_launcher_name]
                 text = parser.get_name()
                 if not len(text):
@@ -2684,8 +2756,9 @@ class Application(gui.Application):
 
     def _get_random_unused_desktop_launcher_name(self):
         while True:
-            random_string = ''.join(random.choices(string.digits, k=6))
-            name = "%s.%s" % (self._desktop_launcher_custom_create_name, random_string)
+            now = datetime.datetime.now()
+            timestamp = f"{now.year}{now.month}{now.day}{now.hour}{now.minute}{now.second}{now.microsecond}"
+            name = "%s.%s" % (self._desktop_launcher_custom_create_name, timestamp)
             if not name in self._get_desktop_launcher_names() and not name in self._unsaved_custom_launchers:
                 return name
 
@@ -2791,13 +2864,21 @@ class Application(gui.Application):
     def _reset_desktop_launcher(self, name):
         path = self._get_desktop_launcher_override_path(name)
         parser = self._desktop_launcher_parsers[name]
-        try:
-            self._update_mime_data(parser, delete=True)
-            os.remove(path)
-        except Exception as error:
-            self.log(error, error=error)
-            self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
-            return True
+        if self._get_desktop_launcher_has_system_default(name):
+            try:
+                self._update_mime_data(parser, delete=True)
+                os.remove(path)
+            except Exception as error:
+                self.log(error, error=error)
+                self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
+                return True
+        else:
+            try:
+                self._restore_custom_launcher_backups(name)
+            except Exception as error:
+                self.log(error, error=error)
+                self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
+                return True
         text = parser.get_name()
         if not len(text):
             text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
@@ -2821,6 +2902,7 @@ class Application(gui.Application):
         if not len(text):
             text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
         self.notify(self._locale_manager.get("LAUNCHER_DELETE_MESSAGE_TEXT") % text)
+        self._remove_orphaned_launcher_backups(name)
         self._remove_desktop_launcher(name)
 
     def _edit_desktop_launcher(self, name):
