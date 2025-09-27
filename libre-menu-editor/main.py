@@ -137,26 +137,26 @@ class DesktopParser():
     def get_keywords(self, section="Desktop Entry"):
         return self._get_str("Keywords", section=section, localized=True)
 
-    def set_keywords(self, comment, section="Desktop Entry"):
-        self._set("Keywords", comment, section=section, localized=True)
+    def set_keywords(self, text, section="Desktop Entry"):
+        self._set("Keywords", text, section=section, localized=True)
 
     def get_only_show_in(self, section="Desktop Entry"):
         return self._get_str("OnlyShowIn", section=section)
 
-    def set_only_show_in(self, comment, section="Desktop Entry"):
-        self._set("OnlyShowIn", comment, section=section)
+    def set_only_show_in(self, text, section="Desktop Entry"):
+        self._set("OnlyShowIn", text, section=section)
 
     def get_not_show_in(self, section="Desktop Entry"):
         return self._get_str("NotShowIn", section=section)
 
-    def set_not_show_in(self, comment, section="Desktop Entry"):
-        self._set("NotShowIn", comment, section=section)
+    def set_not_show_in(self, text, section="Desktop Entry"):
+        self._set("NotShowIn", text, section=section)
 
     def get_categories(self, section="Desktop Entry"):
         return self._get_str("Categories", section=section)
 
-    def set_categories(self, comment, section="Desktop Entry"):
-        self._set("Categories", comment, section=section)
+    def set_categories(self, text, section="Desktop Entry"):
+        self._set("Categories", text, section=section)
 
     def get_icon(self, section="Desktop Entry"):
         return self._get_str("Icon", section=section)
@@ -203,6 +203,18 @@ class DesktopParser():
 
     def set_terminal(self, value, section="Desktop Entry"):
         self._set("Terminal", value, section=section)
+
+    def get_working_directory(self, section="Desktop Entry"):
+        text = self._get_str("Path", section=section)
+        if not len(text):
+            return GLib.get_home_dir()
+        else:
+            return text
+
+    def set_working_directory(self, text, section="Desktop Entry"):
+        if text == GLib.get_home_dir():
+            text = ""
+        self._set("Path", text, section=section)
 
     def get_mimetypes(self):
         if self._config_parser.has_option("Desktop Entry", "MimeType"):
@@ -1048,6 +1060,11 @@ class SettingsPage(Gtk.Box):
         self._command_chooser_row.set_dialog_cancel_button_label(
             self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._command_chooser_row.hook("text-changed", self._on_input_child_data_changed)
+        self._workdir_chooser_row = gui.DirectoryChooserRow(app)
+        self._workdir_chooser_row.set_fallback_path(GLib.get_home_dir())
+        self._workdir_chooser_row.set_title(
+            self._locale_manager.get("WORKDIR_CHOOSER_ROW_TITLE"))
+        self._workdir_chooser_row.hook("text-changed", self._on_input_child_data_changed)
         self._link_converter_row = gui.LinkConverterRow(self._application)
         self._link_converter_row.set_entry(self._command_chooser_row)
         self._link_converter_row.set_label(self._locale_manager.get("LINK_CONVERTER_ROW_LABEL"))
@@ -1068,6 +1085,7 @@ class SettingsPage(Gtk.Box):
         self._execution_preferences_group = Adw.PreferencesGroup()
         self._execution_preferences_group.set_title(self._locale_manager.get("EXECUTION_GROUP_TITLE"))
         self._execution_preferences_group.add(self._command_chooser_row)
+        self._execution_preferences_group.add(self._workdir_chooser_row)
         self._execution_preferences_group.add(self._link_converter_row)
         self._execution_preferences_group.set_header_suffix(self._primary_header_suffix_box)
         self._categories_flow_row = gui.TaggedFlowRow(app)
@@ -1229,6 +1247,8 @@ class SettingsPage(Gtk.Box):
                 self._input_children_changes[child] = data == self._current_parser.get_not_show_in()
             elif child == self._command_chooser_row:
                 self._input_children_changes[child] = data == self._current_parser.get_command()
+            elif child == self._workdir_chooser_row:
+                self._input_children_changes[child] = data == self._current_parser.get_working_directory()
             elif child == self._visible_switch_row:
                 self._input_children_changes[child] = data == self._current_parser.get_visible()
             elif child == self._notify_switch_row:
@@ -1292,6 +1312,7 @@ class SettingsPage(Gtk.Box):
             (self._only_show_in_filter, self._only_show_in_filter.get_text(), self._current_parser.get_only_show_in()),
             (self._not_show_in_filter, self._not_show_in_filter.get_text(), self._current_parser.get_not_show_in()),
             (self._command_chooser_row, self._command_chooser_row.get_text(), self._current_parser.get_command()),
+            (self._workdir_chooser_row, self._workdir_chooser_row.get_text(), self._current_parser.get_working_directory()),
             (self._visible_switch_row, self._visible_switch_row.get_active(), self._current_parser.get_visible()),
             (self._notify_switch_row, self._notify_switch_row.get_active(), self._current_parser.get_notify()),
             (self._terminal_switch_row, self._terminal_switch_row.get_active(), self._current_parser.get_terminal())
@@ -1439,6 +1460,7 @@ class SettingsPage(Gtk.Box):
             self._only_show_in_filter.set_text(self._current_parser.get_only_show_in())
             self._not_show_in_filter.set_text(self._current_parser.get_not_show_in())
             self._command_chooser_row.set_text(self._current_parser.get_command())
+            self._workdir_chooser_row.set_text(self._current_parser.get_working_directory())
             self._visible_switch_row.set_active(self._current_parser.get_visible())
             self._notify_switch_row.set_active(self._current_parser.get_notify())
             self._terminal_switch_row.set_active(self._current_parser.get_terminal())
@@ -1473,6 +1495,7 @@ class SettingsPage(Gtk.Box):
         self._current_parser.set_only_show_in(self._only_show_in_filter.get_text())
         self._current_parser.set_not_show_in(self._not_show_in_filter.get_text())
         self._current_parser.set_command(self._command_chooser_row.get_text())
+        self._current_parser.set_working_directory(self._workdir_chooser_row.get_text())
         self._current_parser.set_visible(self._visible_switch_row.get_active())
         self._current_parser.set_notify(self._notify_switch_row.get_active())
         self._current_parser.set_terminal(self._terminal_switch_row.get_active())
@@ -1549,6 +1572,7 @@ class SettingsPage(Gtk.Box):
             self._name_entry_row.set_text("")
             self._comment_entry_row.set_text("")
             self._command_chooser_row.set_text("")
+            self._workdir_chooser_row.set_text("")
             self._visible_switch_row.set_active(False)
             self._notify_switch_row.set_active(False)
             self._terminal_switch_row.set_active(False)
@@ -1654,6 +1678,10 @@ class Application(gui.Application):
         self._icon_finder.add_alternatives(
             "edit-find-replace-symbolic",
             f"{ignore_prefix}edit-find-replace-symbolic"
+        )
+        self._icon_finder.add_alternatives(
+            "folder-open-symbolic",
+            f"{ignore_prefix}folder-open-symbolic"
         )
         self._icon_finder.add_alternatives(
             "system-run-symbolic",

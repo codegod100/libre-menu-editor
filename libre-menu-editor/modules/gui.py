@@ -1058,11 +1058,11 @@ class EntryRow(Adw.EntryRow):
 
 
 class PathChooserRow(EntryRow):
-    def __init__(self, app, action, show_placeholder_image=False, *args, **kwargs):
+    def __init__(self, app, action, show_placeholder_image=False, button_image="document-open-symbolic", *args, **kwargs):
         super().__init__(app, *args, **kwargs)
         self._icon_finder = app.get_icon_finder()
         self._application_window = app.get_application_window()
-        self._default_image = self._icon_finder.get_image("document-open-symbolic")
+        self._default_image = self._icon_finder.get_image(button_image)
         self._chooser_button_event_controller_key = Gtk.EventControllerKey()
         self._chooser_button_event_controller_key.connect(
             "key-pressed", self._on_chooser_button_event_controller_key_pressed
@@ -1154,7 +1154,13 @@ class FileChooserRow(PathChooserRow):
 
 class DirectoryChooserRow(PathChooserRow):
     def __init__(self, app, *args, **kwargs):
-        super().__init__(app, action=Gtk.FileChooserAction.SELECT_FOLDER, *args, **kwargs)
+        super().__init__(app, action=Gtk.FileChooserAction.SELECT_FOLDER, button_image="folder-open-symbolic", *args, **kwargs)
+        self._fallback_path = None
+        self._has_focus = False
+        self._event_controller_focus = Gtk.EventControllerFocus()
+        self._event_controller_focus.connect("enter", self._on_event_controller_focus_enter)
+        self._event_controller_focus.connect("leave", self._on_event_controller_focus_leave)
+        self.add_controller(self._event_controller_focus)
 
     def _on_changed(self, editable):
         text = editable.get_text()
@@ -1166,6 +1172,25 @@ class DirectoryChooserRow(PathChooserRow):
                 self.add_css_class("error")
         else:
             self.remove_css_class("error")
+
+    def _update_fallback_path_visible(self):
+        if not len(self.get_text()) and not self._has_focus:
+            self.set_text(self._fallback_path)
+
+    def _on_event_controller_focus_leave(self, controller):
+        self._has_focus = False
+        self._update_fallback_path_visible()
+
+    def _on_event_controller_focus_enter(self, controller):
+        self._has_focus = True
+        self._update_fallback_path_visible()
+
+    def get_fallback_path(self):
+        return self._fallback_path
+
+    def set_fallback_path(self, path):
+        self._fallback_path = path
+        self._update_fallback_path_visible()
 
 
 class IconChooserRow(FileChooserRow):
