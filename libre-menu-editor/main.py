@@ -216,6 +216,12 @@ class DesktopParser():
             text = ""
         self._set("Path", text, section=section)
 
+    def get_prefers_dgpu(self, section="Desktop Entry"):
+        return self._get_bool("PrefersNonDefaultGPU", section=section)
+
+    def set_prefers_dgpu(self, value, section="Desktop Entry"):
+        self._set("PrefersNonDefaultGPU", value, section=section)
+
     def get_mimetypes(self):
         if self._config_parser.has_option("Desktop Entry", "MimeType"):
             return list(filter(None, self._config_parser.get("Desktop Entry", "MimeType").split(";")))
@@ -1139,6 +1145,9 @@ class SettingsPage(Gtk.Box):
         self._visible_preferences_group.add(self._only_show_in_flow_row)
         self._visible_preferences_group.add(self._not_show_in_combo_row)
         self._visible_preferences_group.add(self._not_show_in_flow_row)
+        self._dgpu_switch_row = gui.SwitchRow()
+        self._dgpu_switch_row.set_title(self._locale_manager.get("DGPU_SWITCH_ROW_TITLE"))
+        self._dgpu_switch_row.hook("value-changed", self._on_input_child_data_changed)
         self._edit_file_action_row_image = self._icon_finder.get_image("adw-external-link-symbolic")
         self._edit_file_action_row_button = Gtk.Button()
         self._edit_file_action_row_button.add_css_class("flat")
@@ -1152,6 +1161,7 @@ class SettingsPage(Gtk.Box):
         self._edit_file_action_row.add_suffix(self._edit_file_action_row_button)
         self._advanced_preferences_group = Adw.PreferencesGroup()
         self._advanced_preferences_group.set_title(self._locale_manager.get("ADVANCED_GROUP_TITLE"))
+        self._advanced_preferences_group.add(self._dgpu_switch_row)
         self._advanced_preferences_group.add(self._edit_file_action_row)
         self._page_event_controller_key = Gtk.EventControllerKey()
         self._page_event_controller_key.connect("key-pressed", self._on_page_controller_key_pressed)
@@ -1249,6 +1259,8 @@ class SettingsPage(Gtk.Box):
                 self._input_children_changes[child] = data == self._current_parser.get_command()
             elif child == self._workdir_chooser_row:
                 self._input_children_changes[child] = data == self._current_parser.get_working_directory()
+            elif child == self._dgpu_switch_row:
+                self._input_children_changes[child] = data == self._current_parser.get_prefers_dgpu()
             elif child == self._visible_switch_row:
                 self._input_children_changes[child] = data == self._current_parser.get_visible()
             elif child == self._notify_switch_row:
@@ -1313,6 +1325,7 @@ class SettingsPage(Gtk.Box):
             (self._not_show_in_filter, self._not_show_in_filter.get_text(), self._current_parser.get_not_show_in()),
             (self._command_chooser_row, self._command_chooser_row.get_text(), self._current_parser.get_command()),
             (self._workdir_chooser_row, self._workdir_chooser_row.get_text(), self._current_parser.get_working_directory()),
+            (self._dgpu_switch_row, self._dgpu_switch_row.get_active(), self._current_parser.get_prefers_dgpu()),
             (self._visible_switch_row, self._visible_switch_row.get_active(), self._current_parser.get_visible()),
             (self._notify_switch_row, self._notify_switch_row.get_active(), self._current_parser.get_notify()),
             (self._terminal_switch_row, self._terminal_switch_row.get_active(), self._current_parser.get_terminal())
@@ -1461,6 +1474,7 @@ class SettingsPage(Gtk.Box):
             self._not_show_in_filter.set_text(self._current_parser.get_not_show_in())
             self._command_chooser_row.set_text(self._current_parser.get_command())
             self._workdir_chooser_row.set_text(self._current_parser.get_working_directory())
+            self._dgpu_switch_row.set_active(self._current_parser.get_prefers_dgpu())
             self._visible_switch_row.set_active(self._current_parser.get_visible())
             self._notify_switch_row.set_active(self._current_parser.get_notify())
             self._terminal_switch_row.set_active(self._current_parser.get_terminal())
@@ -1496,6 +1510,7 @@ class SettingsPage(Gtk.Box):
         self._current_parser.set_not_show_in(self._not_show_in_filter.get_text())
         self._current_parser.set_command(self._command_chooser_row.get_text())
         self._current_parser.set_working_directory(self._workdir_chooser_row.get_text())
+        self._current_parser.set_prefers_dgpu(self._dgpu_switch_row.get_active())
         self._current_parser.set_visible(self._visible_switch_row.get_active())
         self._current_parser.set_notify(self._notify_switch_row.get_active())
         self._current_parser.set_terminal(self._terminal_switch_row.get_active())
@@ -1573,6 +1588,7 @@ class SettingsPage(Gtk.Box):
             self._comment_entry_row.set_text("")
             self._command_chooser_row.set_text("")
             self._workdir_chooser_row.set_text("")
+            self._dgpu_switch_row.set_active(False)
             self._visible_switch_row.set_active(False)
             self._notify_switch_row.set_active(False)
             self._terminal_switch_row.set_active(False)
