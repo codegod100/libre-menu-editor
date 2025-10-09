@@ -323,7 +323,7 @@ class DesktopParser():
         self._config_parser.clear()
         self._config_parser.read(path)
 
-    def save(self, path=None):
+    def save(self, path=None, no_callback=False):
         self.check_write(path=path)
         if path is None:
             path = self._save_path
@@ -339,8 +339,9 @@ class DesktopParser():
                 os.remove(path)
         with open(path, "w") as file:
             self._config_parser.write(file, space_around_delimiters=False)
-        if self._save_callback_callable:
-            self._save_callback_callable(self._save_callback_data)
+        if not no_callback:
+            if self._save_callback_callable:
+                self._save_callback_callable(self._save_callback_data)
 
 
 class DefaultTextEditor():
@@ -1669,6 +1670,10 @@ class Application(gui.Application):
             f"{ignore_prefix}action-unavailable-symbolic"
         )
         self._icon_finder.add_alternatives(
+            "view-more-symbolic",
+            f"{ignore_prefix}view-more-symbolic"
+        )
+        self._icon_finder.add_alternatives(
             "open-menu-symbolic",
             "application-menu-symbolic",
             f"{ignore_prefix}open-menu-symbolic"
@@ -1845,6 +1850,19 @@ class Application(gui.Application):
         self._left_menu_button.set_icon_name(self._icon_finder.get_name("open-menu-symbolic"))
         self._left_menu_button.set_menu_model(self._menu_button_menu)
         self._left_menu_button.set_primary(True)
+        self._more_options_menu_button_menu = gui.Menu(self)
+        self._more_options_menu_button_menu.add_button("duplicate-launcher",
+            self._locale_manager.get("DUPLICATE_LAUNCHER_MENU_BUTTON_LABEL"))
+        self._more_options_menu_button_menu.hook("duplicate-launcher", self._on_duplicate_launcher_button_clicked)
+        self._more_options_menu_button_menu.add_button("export-launcher",
+            self._locale_manager.get("EXPORT_LAUNCHER_MENU_BUTTON_LABEL"))
+        self._more_options_menu_button_menu.hook("export-launcher", self._on_export_launcher_button_clicked)
+        self._more_options_menu_button_menu.add_button("open-location",
+            self._locale_manager.get("OPEN_LOCATION_MENU_BUTTON_LABEL"))
+        self._more_options_menu_button_menu.hook("open-location", self._on_open_location_button_clicked)
+        self._more_options_menu_button = Gtk.MenuButton()
+        self._more_options_menu_button.set_icon_name(self._icon_finder.get_name("view-more-symbolic"))
+        self._more_options_menu_button.set_menu_model(self._more_options_menu_button_menu)
         self._greeter_menu_button_menu = gui.Menu(self)
         self._greeter_menu_button_menu.append_section(None, self._help_menu_section)
         self._greeter_menu_button = Gtk.MenuButton()
@@ -1894,6 +1912,7 @@ class Application(gui.Application):
         self._right_header_bar = Adw.HeaderBar()
         self._right_header_bar.set_title_widget(self._right_header_bar_label)
         self._right_header_bar.add_controller(self._right_event_controller_key)
+        self._right_header_bar.pack_end(self._more_options_menu_button)
         self._header_bar_size_group = Gtk.SizeGroup()
         self._header_bar_size_group.add_widget(self._left_header_bar)
         self._header_bar_size_group.add_widget(self._right_header_bar)
@@ -2233,6 +2252,16 @@ class Application(gui.Application):
         if response == "continue":
             message_dialog.callback(*message_dialog.callback_args, **message_dialog.callback_kwargs)
 
+    def _on_export_dialog_response(self, export_dialog, response):
+        if response == Gtk.ResponseType.ACCEPT:
+            parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
+            path = export_dialog.get_file().get_path()
+            parser.save(path=path, no_callback=True)
+            text = parser.get_name()
+            if not len(text):
+                text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
+            self.notify(self._locale_manager.get("LAUNCHER_SAVE_MESSAGE_TEXT") % text)
+
     def _on_greeter_button_clicked(self, button):
         self._config_manager.set("greeter.confirmed", True)
         self._greeter_stack.set_transition_type(Gtk.StackTransitionType.SLIDE_UP)
@@ -2302,6 +2331,22 @@ class Application(gui.Application):
         self._set_show_hidden_switch_state_without_triggering(state)
         self._config_manager.set("show.hidden", state)
         self._reload_search_list_items()
+
+    def _on_duplicate_launcher_button_clicked(self, event):
+        name = self._current_desktop_launcher_name
+        self._check_unsaved_data(self._duplicate_desktop_launcher, name)
+
+    def _on_export_launcher_button_clicked(self, event):
+        export_dialog = Gtk.FileChooserNative(action=Gtk.FileChooserAction.SAVE)
+        export_dialog.connect("response", self._on_export_dialog_response)
+        export_dialog.set_transient_for(self._application_window)
+        export_dialog.set_modal(True)
+        export_dialog.show()
+
+    def _on_open_location_button_clicked(self, event):
+        parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
+        dirname = os.path.dirname(parser.get_load_path())
+        subprocess.run(["xdg-open", dirname], check=True)
 
     def _on_reset_launcher_button_clicked(self, event):
         self._show_reset_dialog(self._reset_desktop_launcher, self._current_desktop_launcher_name)
@@ -2736,6 +2781,7 @@ class Application(gui.Application):
             self._right_area_bottom_toolbar_start.append(self._reset_launcher_button)
             self._right_area_bottom_toolbar_end.append(self._save_settings_button)
             self._right_header_bar.pack_end(self._discard_settings_button)
+            self._more_options_menu_button.set_visible(True)
         else:
             try:
                 self._right_area_box.set_reveal_bottom_bars(False)
@@ -2750,6 +2796,9 @@ class Application(gui.Application):
                     self._right_header_bar.pack_end(self._save_settings_button)
                 if not self._reset_launcher_button.get_parent():
                     self._right_header_bar.pack_end(self._reset_launcher_button)
+                self._more_options_menu_button.set_visible(True)
+            else:
+                self._more_options_menu_button.set_visible(False)
         if self._main_stack.get_visible_child() == self._settings_page:
             if not self._discard_settings_button.get_parent():
                 self._right_header_bar.pack_start(self._discard_settings_button)
@@ -2961,6 +3010,48 @@ class Application(gui.Application):
                     else:
                         self._load_settings_page(name)
 
+    def _duplicate_desktop_launcher(self, old_name):
+        old_parser = self._desktop_launcher_parsers[old_name]
+        old_load_path = old_parser.get_load_path()
+        name = self._get_random_unused_desktop_launcher_name()
+        self._unsaved_custom_launchers[name] = {
+            "load-path": old_load_path,
+            "save-path": self._get_desktop_launcher_override_path(name),
+            "external": False
+        }
+        parser = self._add_desktop_launcher(name)
+        app_name = parser.get_name()
+        if app_name.endswith(")"):
+            try:
+                text_before_bracket, text_after_bracket = app_name.split("(")
+                int(text_after_bracket[:-1])
+            except (TypeError, ValueError):
+                base_app_name = app_name
+            else:
+                base_app_name = text_before_bracket.rstrip()
+        else:
+            base_app_name = app_name
+        app_names = [parser.get_name() for parser in self._desktop_launcher_parsers.values()]
+        suffix_num = 1
+        while True:
+            new_app_name = f"{base_app_name} ({suffix_num})"
+            if not new_app_name in app_names:
+                parser.set_name(new_app_name)
+                self._update_search_list_item(name)
+                break
+            else:
+                suffix_num += 1
+        parser.save()
+        parser.set_load_path(parser.get_save_path())
+        del self._unsaved_custom_launchers[name]
+        text = parser.get_name()
+        if not len(text):
+            text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
+        self.notify(self._locale_manager.get("LAUNCHER_CREATE_MESSAGE_TEXT") % text)
+        self._search_list.set_active_item(self._current_desktop_launcher_name, activate=False)
+        self._load_settings_page(name)
+        return name
+
     def _create_desktop_launcher(self):
         if (
             self._current_desktop_launcher_name in self._unsaved_custom_launchers
@@ -3169,6 +3260,7 @@ class Application(gui.Application):
             parser = self._parse_desktop_launcher(name)
             self._desktop_launcher_parsers[name] = parser
             self._add_search_list_item(name)
+            return parser
         else:
             raise StarterAlreadyExistingError(name)
 
