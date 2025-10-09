@@ -1068,6 +1068,10 @@ class SettingsPage(Gtk.Box):
             self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._command_chooser_row.hook("text-changed", self._on_input_child_data_changed)
         self._workdir_chooser_row = gui.DirectoryChooserRow(app)
+        self._workdir_chooser_row.set_dialog_accept_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_ACCEPT_BUTTON_LABEL"))
+        self._workdir_chooser_row.set_dialog_cancel_button_label(
+            self._locale_manager.get("PATH_CHOOSER_DIALOG_CANCEL_BUTTON_LABEL"))
         self._workdir_chooser_row.set_fallback_path(GLib.get_home_dir())
         self._workdir_chooser_row.set_title(
             self._locale_manager.get("WORKDIR_CHOOSER_ROW_TITLE"))
