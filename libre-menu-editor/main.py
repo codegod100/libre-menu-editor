@@ -2348,9 +2348,21 @@ class Application(gui.Application):
         export_dialog.show()
 
     def _on_open_location_button_clicked(self, event):
-        parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
-        dirname = os.path.dirname(parser.get_load_path())
-        subprocess.run(["xdg-open", dirname], check=True)
+        if self._get_desktop_launcher_has_override(self._current_desktop_launcher_name):
+            data_home = self.get_flatpak_host_environment_variable("XDG_DATA_HOME")
+            if not data_home or not os.path.exists(data_home):
+                common_data_home = os.path.join(GLib.get_home_dir(), ".local", "share")
+                if not os.path.exists(common_data_home):
+                    FileNotFoundError(data_home)
+                else:
+                    data_home = common_data_home
+            subprocess.run(["xdg-open", data_home], check=True)
+        else:
+            parser = self._desktop_launcher_parsers[self._current_desktop_launcher_name]
+            load_path_dirname = os.path.dirname(parser.get_load_path())
+            if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
+                load_path_dirname = self.get_flatpak_sandbox_system_path(load_path_dirname)
+            subprocess.run(["xdg-open", load_path_dirname], check=True)
 
     def _on_reset_launcher_button_clicked(self, event):
         self._show_reset_dialog(self._reset_desktop_launcher, self._current_desktop_launcher_name)

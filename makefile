@@ -5,9 +5,10 @@ appimage:
 	mkdir -p AppDir/usr/share
 	cp -r libre-menu-editor AppDir/usr/share/libre-menu-editor
 	cp export/share/icons/hicolor/scalable/apps/page.codeberg.libre_menu_editor.LibreMenuEditor.svg AppDir/
+	exec magick -background none -size 256x256 AppDir/page.codeberg.libre_menu_editor.LibreMenuEditor.svg AppDir/page.codeberg.libre_menu_editor.LibreMenuEditor.png | true
 	cp export/share/applications/page.codeberg.libre_menu_editor.LibreMenuEditor.desktop AppDir/
 	ln -s ./usr/share/libre-menu-editor/main.py AppDir/AppRun | true
-	wget -O appimagetool -nc "https://github.com/AppImage/appimagetool/releases/download/1.9.0/appimagetool-${ARCH}.AppImage"
+	if [ ! -f appimagetool ]; then wget -O appimagetool -nc "https://github.com/AppImage/appimagetool/releases/download/1.9.0/appimagetool-${ARCH}.AppImage"; fi
 	echo "46fdd785094c7f6e545b61afcfb0f3d98d8eab243f644b4b17698c01d06083d1 appimagetool" | sha256sum -c
 	chmod +x appimagetool
 	ARCH=aarch64 ./appimagetool AppDir
