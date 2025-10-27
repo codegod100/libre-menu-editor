@@ -47,6 +47,9 @@ sudo gtk-update-icon-cache -f /usr/share/icons/hicolor
 
 # How to contribute
 
+> [!IMPORTANT]
+> This project was created as a learning experience. The code is a complete mess, and no cleanups or rewrites are currently planned. Also, the developer is not skilled at collaboration. Please do not waste your time trying to submit code to this repository. If you want to contribute, please do so in the following ways:
+
 ### Option 1: Improving the translation
 
 If you want to improve a translation, it is recommended to do so through the [weblate](https://translate.codeberg.org/projects/libre-menu-editor). Alternatively, you can edit the [translation files](libre-menu-editor/locales) directly and contribute your changes in a [pull request](https://codeberg.org/libre-menu-editor/libre-menu-editor/pulls).
