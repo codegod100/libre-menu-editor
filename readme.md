@@ -88,3 +88,12 @@ If you have encountered a problem or think that an important feature is missing,
 **2025-06-15**: [Poesty Li](https://translate.codeberg.org/user/poesty) added chinese translations: [zh_Hans.json](libre-menu-editor/locales/zh_Hans.json)
 
 **2025-06-20**: [Merik](https://translate.codeberg.org/user/Merik) improved polish translations: [pl.json](libre-menu-editor/locales/pl.json)
+
+**2025-10-09**: [Merik](https://translate.codeberg.org/user/Merik) improved polish translations: [pl.json](libre-menu-editor/locales/pl.json)
+
+**2025-10-09**: [SomeTr](https://translate.codeberg.org/user/SomeTr) improved ukrainian translations: [uk.json](libre-menu-editor/locales/uk.json)
+
+**2025-10-13**: [Priit Jõerüüt](https://translate.codeberg.org/user/jrtcdbrg) improved estonian translations: [et.json](libre-menu-editor/locales/et.json)
+
+**2025-10-18**: [p-sage](https://translate.codeberg.org/user/p-sage) improved french translations: [fr.json](libre-menu-editor/locales/fr.json)
+
