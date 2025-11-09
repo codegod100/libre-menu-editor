@@ -2093,8 +2093,6 @@ class Application(gui.Application):
         try:
             self._text_editor.save(name)
             parser = self._text_editor.get_parser(name)
-            if not name in self._unsaved_custom_launchers or not self._unsaved_custom_launchers[name]["external"]:
-                self._update_mime_data(parser)
         except Exception as error:
             self.log(error, error=error)
             self.notify(self._locale_manager.get("LAUNCHER_SAVE_ERROR_TEXT"), error=error)
@@ -2110,6 +2108,11 @@ class Application(gui.Application):
                 self._update_search_list_item(name)
                 if name == self._current_desktop_launcher_name:
                     self._load_settings_page(name)
+            if not name in self._unsaved_custom_launchers or not self._unsaved_custom_launchers[name]["external"]:
+                try:
+                    self._update_mime_data(parser)
+                except Exception as error:
+                    self.log(error, error=error)
 
     def _on_application_shutdown(self, app):
         self._create_custom_launcher_backups(*self._newly_created_launchers, replace_existing=True)
@@ -2863,31 +2866,35 @@ class Application(gui.Application):
             mimeinfo_changed = False
             if os.access(path, os.R_OK):
                 mime_parser.read(path)
-            app_mimetypes = parser.get_mimetypes()
-            mime_data_dict = dict(mime_parser.items(section))
-            for mime_data_mimetype in mime_data_dict:
-                mime_data_names = list(filter(None, mime_data_dict[mime_data_mimetype].split(";")))
-                if desktop_id in mime_data_names and (not mime_data_mimetype in app_mimetypes or delete):
-                    mime_data_names.remove(desktop_id)
-                    if len(mime_data_names):
-                        mime_parser.set(section, mime_data_mimetype, f"{';'.join(mime_data_names)};")
-                    else:
-                        mime_parser.remove_option(section, mime_data_mimetype)
-                    mimeinfo_changed = True
-            if not delete:
-                for app_mimetype in app_mimetypes:
-                    if not app_mimetype in mime_data_dict:
-                        mime_parser.set(section, app_mimetype, f"{desktop_id};")
+                app_mimetypes = parser.get_mimetypes()
+                mime_data_dict = dict(mime_parser.items(section))
+                for mime_data_mimetype in mime_data_dict:
+                    mime_data_names = list(filter(None, mime_data_dict[mime_data_mimetype].split(";")))
+                    if desktop_id in mime_data_names and (not mime_data_mimetype in app_mimetypes or delete):
+                        mime_data_names.remove(desktop_id)
+                        if len(mime_data_names):
+                            mime_parser.set(section, mime_data_mimetype, f"{';'.join(mime_data_names)};")
+                        else:
+                            mime_parser.remove_option(section, mime_data_mimetype)
                         mimeinfo_changed = True
-                    elif not desktop_id in mime_data_dict[app_mimetype]:
-                        mime_data_names = list(filter(None, mime_data_dict[app_mimetype].split(";")))
-                        mime_data_names.append(desktop_id)
-                        mime_parser.set(section, app_mimetype, f"{';'.join(mime_data_names)};")
-                        mimeinfo_changed = True
-            if mimeinfo_changed:
-                os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
-                with open(path, "w") as file:
-                    mime_parser.write(file, space_around_delimiters=False)
+                if not delete:
+                    for app_mimetype in app_mimetypes:
+                        if not app_mimetype in mime_data_dict:
+                            mime_parser.set(section, app_mimetype, f"{desktop_id};")
+                            mimeinfo_changed = True
+                        elif not desktop_id in mime_data_dict[app_mimetype]:
+                            mime_data_names = list(filter(None, mime_data_dict[app_mimetype].split(";")))
+                            mime_data_names.append(desktop_id)
+                            mime_parser.set(section, app_mimetype, f"{';'.join(mime_data_names)};")
+                            mimeinfo_changed = True
+                if mimeinfo_changed:
+                    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)
+                    if os.path.exists(path) and not os.access(path, os.W_OK) and os.access(os.path.dirname(path), os.W_OK):
+                        os.remove(path)
+                    with open(path, "w") as file:
+                        mime_parser.write(file, space_around_delimiters=False)
+            else:
+                raise PermissionError(f"path not readable: {path}")
 
     def _load_settings_page(self, name):
         self._focus_settings_page()
@@ -2933,13 +2940,16 @@ class Application(gui.Application):
         else:
             try:
                 parser.check_write()
+                self._settings_page.save_desktop_launcher()
                 if (
                     not self._current_desktop_launcher_name in self._unsaved_custom_launchers
                     or not self._unsaved_custom_launchers[self._current_desktop_launcher_name]["external"]
                 ):
                     self._settings_page.set_always_show_save_button(False)
-                    self._update_mime_data(parser)
-                self._settings_page.save_desktop_launcher()
+                    try:
+                        self._update_mime_data(parser)
+                    except Exception as error:
+                        self.log(error, error=error)
                 if self._current_desktop_launcher_name in self._text_editor.get_names():
                     parser.save(path=self._text_editor.get_path(self._current_desktop_launcher_name))
             except Exception as error:
@@ -3113,46 +3123,54 @@ class Application(gui.Application):
     def _reset_desktop_launcher(self, name):
         path = self._get_desktop_launcher_override_path(name)
         parser = self._desktop_launcher_parsers[name]
+        reset_failed = False
         if self._get_desktop_launcher_has_system_default(name):
             try:
-                self._update_mime_data(parser, delete=True)
                 os.remove(path)
             except Exception as error:
                 self.log(error, error=error)
                 self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
-                return True
+                reset_failed = True
         else:
             try:
                 self._restore_custom_launcher_backups(name)
             except Exception as error:
                 self.log(error, error=error)
                 self.notify(self._locale_manager.get("LAUNCHER_RESET_ERROR_TEXT"), error=error)
-                return True
-        text = parser.get_name()
-        if not len(text):
-            text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-        self.notify(self._locale_manager.get("LAUNCHER_RESET_MESSAGE_TEXT") % text)
-        self._update_desktop_launcher(name, skip_settings_page=True)
-        if name == self._current_desktop_launcher_name:
-            self._load_settings_page(name)
+                reset_failed = True
+        if not reset_failed:
+            text = parser.get_name()
+            if not len(text):
+                text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
+            self.notify(self._locale_manager.get("LAUNCHER_RESET_MESSAGE_TEXT") % text)
+            self._update_desktop_launcher(name, skip_settings_page=True)
+            try:
+                self._update_mime_data(parser)
+            except Exception as error:
+                self.log(error, error=error)
+            if name == self._current_desktop_launcher_name:
+                self._load_settings_page(name)
 
     def _delete_desktop_launcher(self, name):
         path = self._desktop_launcher_parsers[name].get_save_path()
         parser = self._desktop_launcher_parsers[name]
         try:
-            self._update_mime_data(parser, delete=True)
             os.remove(path)
         except Exception as error:
             self.log(error, error=error)
             self.notify(self._locale_manager.get("LAUNCHER_DELETE_ERROR_TEXT"), error=error)
-            return True
-        text = parser.get_name()
-        if not len(text):
-            text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
-        self.notify(self._locale_manager.get("LAUNCHER_DELETE_MESSAGE_TEXT") % text)
-        del self._latest_launcher_mtimes[name]
-        self._remove_orphaned_launcher_backups(name)
-        self._remove_desktop_launcher(name)
+        else:
+            text = parser.get_name()
+            if not len(text):
+                text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
+            self.notify(self._locale_manager.get("LAUNCHER_DELETE_MESSAGE_TEXT") % text)
+            del self._latest_launcher_mtimes[name]
+            self._remove_orphaned_launcher_backups(name)
+            self._remove_desktop_launcher(name)
+            try:
+                self._update_mime_data(parser, delete=True)
+            except Exception as error:
+                self.log(error, error=error)
 
     def _edit_desktop_launcher(self, name):
         parser = self._desktop_launcher_parsers[name]
