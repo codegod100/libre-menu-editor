@@ -2463,13 +2463,18 @@ class Application(gui.Application):
                 override_mtime = os.path.getmtime(override_path)
                 if (
                     not name in self._latest_launcher_override_mtimes
-                    or not self._latest_launcher_override_mtimes[name] == override_mtime
+                    or not self._latest_launcher_override_mtimes[name]["mtime"] == override_mtime
                 ):
                     with open(backup_path, "r") as backup_file:
                         with open(override_path, "r") as override_file:
-                            self._latest_launcher_override_mtimes[name] = override_mtime
-                            if not backup_file.read() == override_file.read():
-                                return True
+                            changed = not backup_file.read() == override_file.read()
+                            self._latest_launcher_override_mtimes[name] = {
+                                "mtime": override_mtime,
+                                "changed": changed
+                                }
+                            return changed
+                else:
+                    return self._latest_launcher_override_mtimes[name]["changed"]
 
     def _get_desktop_launcher_default_path(self, name, include_host=False):
         for directory in self._system_data_dirs:
