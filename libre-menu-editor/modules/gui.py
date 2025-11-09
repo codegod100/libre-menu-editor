@@ -1164,6 +1164,8 @@ class DirectoryChooserRow(PathChooserRow):
 
     def _on_changed(self, editable):
         text = editable.get_text()
+        if not len(text) or self._get_is_fallback_path(text):
+            text = self._fallback_path
         self._events.trigger("text-changed", self, text)
         if len(text):
             if os.path.exists(text) and os.path.isdir(text) and os.access(text, os.R_OK):
@@ -1174,8 +1176,16 @@ class DirectoryChooserRow(PathChooserRow):
             self.remove_css_class("error")
 
     def _update_fallback_path_visible(self):
-        if not len(self.get_text()) and not self._has_focus:
+        if not self._has_focus and (not len(self.get_text()) or self._get_is_fallback_path()):
             self.set_text(self._fallback_path)
+
+    def _get_is_fallback_path(self, path=None):
+        if path is None:
+            path = self.get_text()
+        try:
+            return os.path.samefile(path, self._fallback_path)
+        except FileNotFoundError:
+            return False
 
     def _on_event_controller_focus_leave(self, controller):
         self._has_focus = False

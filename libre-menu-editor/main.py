@@ -212,7 +212,16 @@ class DesktopParser():
             return text
 
     def set_working_directory(self, text, section="Desktop Entry"):
-        if text == GLib.get_home_dir():
+        try:
+            is_same_file = os.path.samefile(text, GLib.get_home_dir())
+        except FileNotFoundError:
+            is_same_file = False
+        if (
+            is_same_file
+            or os.path.abspath(text) == os.path.abspath(GLib.get_home_dir())
+            or (os.getenv("APP_RUNNING_AS_FLATPAK") == "true"
+            and text == self._application.get_flatpak_host_environment_variable("HOME"))
+        ):
             text = ""
         self._set("Path", text, section=section)
 
@@ -1342,10 +1351,9 @@ class SettingsPage(Gtk.Box):
             desktop_action_group = self._desktop_action_groups_cache.pop(0)
         except IndexError:
             desktop_action_group = DesktopActionGroup(self._application)
-        finally:
-            desktop_action_group.hook("row-deleted", self._on_desktop_action_group_row_deleted)
-            desktop_action_group.hook("data-changed", self._on_input_child_data_changed)
-            return desktop_action_group
+        desktop_action_group.hook("row-deleted", self._on_desktop_action_group_row_deleted)
+        desktop_action_group.hook("data-changed", self._on_input_child_data_changed)
+        return desktop_action_group
 
     def _add_desktop_action(self, action, set_focus=False):
         desktop_action_group = self._create_new_desktop_action_group()
