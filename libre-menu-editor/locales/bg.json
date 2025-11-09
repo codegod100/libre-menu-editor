@@ -79,7 +79,7 @@
     "COMMENT_ENTRY_ROW_TITLE": "Коментар",
     "COMMAND_CHOOSER_ROW_TITLE": "Команда",
     "WORKDIR_CHOOSER_ROW_TITLE": "Работна директория",
-    "KEYWORDS_ENTRY_ROW_TITLE": "Ключови думи",
+    "KEYWORDS_ENTRY_ROW_TITLE": "Добави ключови думи",
     "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминално окно по време на изпълнение",
     "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимация до това приложението да стане видимо",
     "VISIBLE_SWITCH_ROW_TITLE": "Покажи това приложение в главното меню",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Неуспешно изтриване на стартър",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Стартърът за '%s' е изтрит"
 }
+

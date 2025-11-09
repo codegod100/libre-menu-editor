@@ -43,7 +43,7 @@
     "TOGGLE_SEARCH_SHORTCUT_TEXT": "Căutare lansatori",
     "SHOW_HIDDEN_SHORTCUT_TEXT": "Arată ascunse",
     "QUIT_APPLICATION_SHORTCUT_TEXT": "Închide aplicația",
-    "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Scurtături de tastatură",
+    "SHOW_SHORTCUTS_SHORTCUT_TEXT": "Afișați scurtăturile",
     "SHOW_MENU_SHORTCUT_TEXT": "Deschide meniu",
     "NEW_LAUNCHER_SHORTCUT_TEXT": "Noul lansator",
     "EDIT_FILE_SHORTCUT_TEXT": "Editează document",
@@ -79,7 +79,7 @@
     "COMMENT_ENTRY_ROW_TITLE": "Comentariu",
     "COMMAND_CHOOSER_ROW_TITLE": "Comandă",
     "WORKDIR_CHOOSER_ROW_TITLE": "Director de lucru",
-    "KEYWORDS_ENTRY_ROW_TITLE": "Cuvinte cheie",
+    "KEYWORDS_ENTRY_ROW_TITLE": "Adaugați cuvinte cheie",
     "TERMINAL_SWITCH_ROW_TITLE": "Arată o fereastră de terminal în timpul executării",
     "NOTIFY_SWITCH_ROW_TITLE": "Arată o animație până când aplicația este vizibilă",
     "VISIBLE_SWITCH_ROW_TITLE": "Arată această aplicație în meniul principal",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Eșec la ștergerea lansatorului",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Lansatorul pentru '%s' a fost eliminat"
 }
+

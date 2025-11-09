@@ -65,7 +65,7 @@
     "EXECUTION_GROUP_TITLE": "Bajarilish",
     "DISCOVERY_GROUP_TITLE": "Qidirish",
     "WINDOW_GROUP_TITLE": "Oyna",
-    "VISIBLE_GROUP_TITLE": "Ko'rinish",
+    "VISIBLE_GROUP_TITLE": "ko'rinarlik",
     "MENU_GROUP_TITLE": "Menyu",
     "ADVANCED_GROUP_TITLE": "Ishlab chiqilgan",
     "ICON_BROWSER_SHOW_NAMES_TOGGLE_LABEL": "Ikon nomlarini ko'rsatish",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "'%s' uchun launcher o'chirishda xatolik",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "'%s' uchun launcher olib tashlandi"
 }
+

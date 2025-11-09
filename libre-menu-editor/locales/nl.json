@@ -34,7 +34,7 @@
     "NEW_LAUNCHER_MENU_BUTTON_LABEL": "Nieuwe launcher",
     "OPEN_FILE_MENU_BUTTON_LABEL": "Launcher openen",
     "EDIT_FILE_MENU_BUTTON_LABEL": "Document bewerken",
-    "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Sneltoetsen weergeven",
+    "SHOW_SHORTCUTS_MENU_BUTTON_LABEL": "Toetsenbord sneltoetsen",
     "SHOW_ABOUT_MENU_BUTTON_LABEL": "Over deze app",
     "SAVE_LAUNCHER_SHORTCUT_TEXT": "Opslaan",
     "DISCARD_LAUNCHER_SHORTCUT_TEXT": "Afdanken",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Kon launcher niet verwijderen",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Launcher voor '%s' is verwijderd"
 }
+

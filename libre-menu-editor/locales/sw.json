@@ -29,7 +29,7 @@
     "DELETE_DIALOG_CONTINUE_BUTTON_LABEL": "Endelea",
     "SHOW_HIDDEN_SWITCH_LABEL": "Onyesha yaliyofichwa",
     "DUPLICATE_LAUNCHER_MENU_BUTTON_LABEL": "Nakili launcher",
-    "EXPORT_LAUNCHER_MENU_BUTTON_LABEL": "Export launcher",
+    "EXPORT_LAUNCHER_MENU_BUTTON_LABEL": "",
     "OPEN_LOCATION_MENU_BUTTON_LABEL": "Fungua mahali",
     "NEW_LAUNCHER_MENU_BUTTON_LABEL": "Launcher mpya",
     "OPEN_FILE_MENU_BUTTON_LABEL": "Fungua launcher",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Kushindwa kufuta launcher",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Launcher ya '%s' imeondolewa"
 }
+

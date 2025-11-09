@@ -91,7 +91,7 @@
     "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Varsayılan komut",
     "ACTION_NAME_ENTRY_ROW_TITLE": "Eylem adı",
     "DGPU_SWITCH_ROW_TITLE": "Bu uygulamayı çalıştırmak için daha güçlü bir GPU tercih et",
-    "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
+    "MULTIMEDIA_CATEGORY_LABEL": "Çoklu Ortam",
     "DEVELOPMENT_CATEGORY_LABEL": "Geliştirme",
     "EDUCATION_CATEGORY_LABEL": "Eğitim",
     "GAME_CATEGORY_LABEL": "Oyunlar",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Başlatıcı silinemedi",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "'%s' başlatıcısı kaldırıldı"
 }
+

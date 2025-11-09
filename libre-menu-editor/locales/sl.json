@@ -91,7 +91,7 @@
     "COMMAND_CHOOSER_ROW_DEFAULT_TITLE": "Privzeta ukaz",
     "ACTION_NAME_ENTRY_ROW_TITLE": "Ime akcije",
     "DGPU_SWITCH_ROW_TITLE": "Izberi močnejšo GPU za zagon te aplikacije",
-    "MULTIMEDIA_CATEGORY_LABEL": "Multimedia",
+    "MULTIMEDIA_CATEGORY_LABEL": "Multimedija",
     "DEVELOPMENT_CATEGORY_LABEL": "Razvoj",
     "EDUCATION_CATEGORY_LABEL": "Izobraževanje",
     "GAME_CATEGORY_LABEL": "Igre",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Ni mogoče izbrisati zaganjalnika",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Zaganjalnik za '%s' je bil odstranjen"
 }
+

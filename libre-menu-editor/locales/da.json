@@ -49,7 +49,7 @@
     "EDIT_FILE_SHORTCUT_TEXT": "Rediger dokument",
     "OPEN_FILE_SHORTCUT_TEXT": "Åbn launcher",
     "EDIT_SHORTCUT_GROUP_TITLE": "Rediger",
-    "FIND_SHORTCUT_GROUP_TITLE": "Find",
+    "FIND_SHORTCUT_GROUP_TITLE": "Finde",
     "GENERAL_SHORTCUT_GROUP_TITLE": "Generelt",
     "ICON_CHOOSER_ROW_DIALOG_TITLE": "Vælg ikon",
     "COMMAND_CHOOSER_ROW_DIALOG_TITLE": "Vælg eksekverbar fil",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Kunne ikke slette launcher",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Starter for '%s' er fjernet"
 }
+

@@ -79,7 +79,7 @@
     "COMMENT_ENTRY_ROW_TITLE": "Коментар",
     "COMMAND_CHOOSER_ROW_TITLE": "Команда",
     "WORKDIR_CHOOSER_ROW_TITLE": "Работна директорија",
-    "KEYWORDS_ENTRY_ROW_TITLE": "Клучни зборови",
+    "KEYWORDS_ENTRY_ROW_TITLE": "додајте клучни зборови",
     "TERMINAL_SWITCH_ROW_TITLE": "Покажи терминал прозорец за време на извршување",
     "NOTIFY_SWITCH_ROW_TITLE": "Покажи анимација додека апликацијата не е видлива",
     "VISIBLE_SWITCH_ROW_TITLE": "Покажи ја оваа апликација во главното мени",
@@ -117,3 +117,4 @@
     "LAUNCHER_DELETE_ERROR_TEXT": "Неуспешно бришење на лансирач",
     "LAUNCHER_REMOVE_MESSAGE_TEXT": "Лансирачот за '%s' е отстранет"
 }
+
