@@ -107,6 +107,8 @@
       <li xml:lang="de">Suchbegriffe hinzufügen und entfernen</li>
       <li>make launchers execute a specific file or command</li>
       <li xml:lang="de">bestimmte Dateien oder Befehle zur Ausführung verwenden</li>
+      <li>set working directory for the execution</li>
+      <li xml:lang="de">Arbeitsverzeichnis für Starter-Befehle festlegen</li>
       <li>convert weblinks into valid commands</li>
       <li xml:lang="de">gültige Befehle für Webseiten-Verknüpfungen generieren</li>
       <li>change launcher names and comments</li>
@@ -123,20 +125,28 @@
       <li xml:lang="de">Startanimation von Anwendungsstartern einschalten oder abschalten</li>
       <li>show a terminal-window when executing launchers</li>
       <li xml:lang="de">während der Ausführung von Startern eine Konsole anzeigen</li>
+      <li>use a more powerful GPU for certain launchers</li>
+      <li xml:lang="de">die Verwendung eines leistungsstärkeren Grafikprozessors einstellen</li>
       <li>change advanced settings with your default text-editor</li>
       <li xml:lang="de">erweiterte Einstellungen mit dem Standard-Textbearbeitungsprogramm bearbeiten</li>
-      <li>reset launchers back to their default states</li>
-      <li xml:lang="de">Starter auf System-Standard zurücksetzen</li>
+      <li>reset launchers back to their original states</li>
+      <li xml:lang="de">Starter auf Urzustand zurücksetzen</li>
       <li>create and delete custom launchers</li>
       <li xml:lang="de">benutzerdefinierte Starter erstellen und entfernen</li>
       <li>use search to find your launchers in the sidebar</li>
       <li xml:lang="de">eine Suchfunktion verwenden um Starter in der Seitenleiste zu finden</li>
       <li>show hidden launchers in the sidebar</li>
       <li xml:lang="de">versteckte Starter in der Seitenleiste anzeigen</li>
+      <li>create duplicates of launchers</li>
+      <li xml:lang="de">Duplikate von Startern erstellen</li>
       <li>open .desktop files through the app-menu, the file-manager, or via drag-and-drop</li>
       <li xml:lang="de">.desktop Dateien über das Menü, den Dateimanager oder durch Ziehen und Ablegen öffnen</li>
       <li>install .desktop files to the desktop-environment's application menu</li>
       <li xml:lang="de">.desktop Dateien ins Anwendungsmenü der Desktopumgebung installieren</li>
+      <li>export .desktop files to custom locations</li>
+      <li xml:lang="de">.desktop Dateien an beliebige Orte exportieren</li>
+      <li>open locations of launcher's .desktop files in file-manager</li>
+      <li xml:lang="de">Speicherorte von .desktop Dateien im Dateimanager öffnen</li>
       <li>use the application on any freedesktop.org compliant desktop-environment</li>
       <li xml:lang="de">die Anwendung unter jeder freedesktop.org konformen Desktopumgebung verwenden</li>
       <li>use the application on small-screen devices</li>
@@ -176,7 +186,7 @@
     </screenshot>
   </screenshots>
   <releases>
-    <release version="1.10.0" date="2025-10-27"/>
+    <release version="1.10.1" date="2025-11-11"/>
   </releases>
   <recommends>
     <control>touch</control>
