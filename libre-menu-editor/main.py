@@ -2872,6 +2872,9 @@ class Application(gui.Application):
             if not mime_parser.has_section(section):
                 mime_parser.add_section(section)
             mimeinfo_changed = False
+            if not os.path.exists(path):
+                with open(path, "w") as file:
+                    pass
             if os.access(path, os.R_OK):
                 mime_parser.read(path)
                 app_mimetypes = parser.get_mimetypes()
