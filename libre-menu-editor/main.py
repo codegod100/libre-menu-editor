@@ -2458,7 +2458,7 @@ class Application(gui.Application):
         return os.path.exists(self._get_desktop_launcher_override_path(name))
 
     def _get_desktop_launcher_has_backup_copy(self, name):
-        return os.path.exists(os.path.join(self._custom_launcher_backups_dir, name))
+        return os.path.exists(os.path.join(self._custom_launcher_backups_dir, f"{name}.desktop"))
 
     def _get_desktop_launcher_can_reset(self, name):
         if name in self._desktop_launcher_parsers:
@@ -2469,7 +2469,7 @@ class Application(gui.Application):
             ):
                 return True
             elif self._get_desktop_launcher_has_backup_copy(name):
-                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                backup_path = os.path.join(self._custom_launcher_backups_dir, f"{name}.desktop")
                 override_path = self._get_desktop_launcher_override_path(name)
                 override_mtime = os.path.getmtime(override_path)
                 if (
@@ -2546,13 +2546,31 @@ class Application(gui.Application):
     def _remove_orphaned_launcher_backups(self, *names):
         if not len(names):
             if os.path.exists(self._custom_launcher_backups_dir):
-                names = os.listdir(self._custom_launcher_backups_dir)
+                names = []
+                for root, dirs, files in os.walk(self._custom_launcher_backups_dir):
+                    for basename in files:
+                        full_path = os.path.join(root, basename)
+                        name = os.path.relpath(full_path, start=self._custom_launcher_backups_dir)
+                        if name.endswith(".desktop"):
+                            name = name[:-len(".desktop")]
+                        else:
+                            # rename backups that predate issue 70 fix
+                            if not os.path.exists(f"{full_path}.desktop"):
+                                os.rename(full_path, f"{full_path}.desktop")
+                            else:
+                                os.remove(full_path)
+                                continue
+                        names.append(name)
+                    for directory in dirs:
+                        dir_path = os.path.join(root, directory)
+                        if not len(os.listdir(dir_path)):
+                            os.rmdir(dir_path)
             else:
                 return
         for name in names:
             if name in self._unsaved_custom_launchers:
                 continue
-            backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+            backup_path = os.path.join(self._custom_launcher_backups_dir, f"{name}.desktop")
             override_path = self._get_desktop_launcher_override_path(name)
             if (
                 os.path.exists(backup_path) and (self._get_desktop_launcher_has_system_default(name)
@@ -2564,7 +2582,7 @@ class Application(gui.Application):
         self._remove_orphaned_launcher_backups(*names)
         for name in names:
             if not self._get_desktop_launcher_has_system_default(name):
-                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                backup_path = os.path.join(self._custom_launcher_backups_dir, f"{name}.desktop")
                 override_path = self._get_desktop_launcher_override_path(name)
                 if os.path.exists(override_path):
                     if not os.path.exists(backup_path) or replace_existing:
@@ -2572,13 +2590,12 @@ class Application(gui.Application):
                             os.remove(backup_path)
                         os.makedirs(os.path.dirname(backup_path), exist_ok=True)
                         shutil.copy(override_path, backup_path)
-                        return True
 
     def _restore_custom_launcher_backups(self, *names):
         self._remove_orphaned_launcher_backups(*names)
         for name in names:
             if not self._get_desktop_launcher_has_system_default(name):
-                backup_path = os.path.join(self._custom_launcher_backups_dir, name)
+                backup_path = os.path.join(self._custom_launcher_backups_dir, f"{name}.desktop")
                 if os.path.exists(backup_path):
                     override_path = self._get_desktop_launcher_override_path(name)
                     if os.path.exists(override_path):
