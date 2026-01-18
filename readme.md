@@ -100,3 +100,7 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-10-18**: [p-sage](https://translate.codeberg.org/user/p-sage) improved french translations: [fr.json](libre-menu-editor/locales/fr.json)
 
+**2025-11-17**: [paraskevasleivadaros](https://translate.codeberg.org/user/paraskevasleivadaros) improved greek translations: [el.json](libre-menu-editor/locales/el.json)
+
+**2025-11-26**: [p-sage](https://translate.codeberg.org/user/p-sage) improved french translations: [fr.json](libre-menu-editor/locales/fr.json)
+
