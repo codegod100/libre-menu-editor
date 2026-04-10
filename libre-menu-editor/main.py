@@ -1872,6 +1872,9 @@ class Application(gui.Application):
         self._more_options_menu_button_menu.add_button("open-location",
             self._locale_manager.get("OPEN_LOCATION_MENU_BUTTON_LABEL"))
         self._more_options_menu_button_menu.hook("open-location", self._on_open_location_button_clicked)
+        self._more_options_menu_button_menu.add_button("delete-launcher",
+            self._locale_manager.get("DELETE_LAUNCHER_BUTTON_LABEL"))
+        self._more_options_menu_button_menu.hook("delete-launcher", self._on_delete_launcher_button_clicked)
         self._more_options_menu_button = Gtk.MenuButton()
         self._more_options_menu_button.set_icon_name(self._icon_finder.get_name("view-more-symbolic"))
         self._more_options_menu_button.set_menu_model(self._more_options_menu_button_menu)
@@ -2821,6 +2824,8 @@ class Application(gui.Application):
                     settings_page_never_hide_reload_button = True
         self._reset_launcher_button.set_sensitive(reset_launcher_button_sensitive)
         self._delete_launcher_button.set_sensitive(delete_launcher_button_sensitive)
+        self._more_options_menu_button_menu.set_enabled("delete-launcher",
+            delete_launcher_button_sensitive)
         if delete_launcher_button_sensitive:
             self._delete_launcher_button.add_css_class("destructive-action")
         else:
