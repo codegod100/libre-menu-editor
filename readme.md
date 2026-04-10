@@ -104,3 +104,5 @@ If you have encountered a problem or think that an important feature is missing,
 
 **2025-11-26**: [p-sage](https://translate.codeberg.org/user/p-sage) improved french translations: [fr.json](libre-menu-editor/locales/fr.json)
 
+**2026-02-01**: [omeritzics](https://translate.codeberg.org/user/omeritzics) added hebrew translations: [he.json](libre-menu-editor/locales/he.json)
+
