@@ -1783,10 +1783,20 @@ class Application(gui.Application):
         self._desktop_launcher_template_path = os.path.join(self.get_project_dir(), "default.desktop")
         self._desktop_launcher_override_dir = os.path.join(GLib.get_user_data_dir(), "applications")
         if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
-            subprocess.Popen([
-                "flatpak-spawn", "--host", "touch",
+            possible_mimeapps_list_paths = [
                 os.path.join(self.get_flatpak_real_home(), ".config", "mimeapps.list")
-            ])
+                ]
+            xdg_config_home = self.get_flatpak_host_environment_variable("XDG_CONFIG_HOME")
+            if isinstance(xdg_config_home, str) and len(xdg_config_home):
+                possible_mimeapps_list_paths.prepend(xdg_config_home)
+            for path in possible_mimeapps_list_paths:
+                if os.path.exists(os.path.dirname(path)):
+                    self._mimeapps_list_path = path
+                    break
+            else:
+                self._mimeapps_list_path = possible_mimeapps_list_paths[0]
+        else:
+            self._mimeapps_list_path = os.path.join(GLib.get_user_config_dir(), "mimeapps.list")
         self._start_page = Adw.StatusPage()
         self._start_page.set_margin_start(20)
         self._start_page.set_margin_end(20)
@@ -2875,7 +2885,7 @@ class Application(gui.Application):
     def _update_mime_data(self, parser, delete=False):
         operations = [{
             "section": "Added Associations",
-            "path": os.path.join(GLib.get_user_config_dir(), "mimeapps.list"),
+            "path": self._mimeapps_list_path,
             "desktop-id": os.path.relpath(parser.get_save_path(),
                 self._desktop_launcher_override_dir).strip(os.path.sep).replace(os.path.sep, "-")
         }]
@@ -2894,7 +2904,10 @@ class Application(gui.Application):
             if not mime_parser.has_section(section):
                 mime_parser.add_section(section)
             mimeinfo_changed = False
+            if os.path.exists(path) and os.path.isdir(path) and not len(os.listdir(path)):
+                os.rmdir(path)
             if not os.path.exists(path):
+                os.makedirs(os.path.dirname(path), exist_ok=True)
                 with open(path, "w") as file:
                     pass
             if os.access(path, os.R_OK):
