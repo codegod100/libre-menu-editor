@@ -10,6 +10,7 @@
   <name xml:lang="es">Menú Principal</name>
   <name xml:lang="fi">Päävalikko</name>
   <name xml:lang="fr">Menu principal</name>
+  <name xml:lang="he">תפריט ראשי</name>
   <name xml:lang="hi">मुख्य मेनू</name>
   <name xml:lang="hu">Főmenü</name>
   <name xml:lang="is">Aðalvalmynd</name>
@@ -54,6 +55,7 @@
   <summary xml:lang="es">Modificar el menú</summary>
   <summary xml:lang="fi">Mukauta valikkoa</summary>
   <summary xml:lang="fr">Modifier le menu</summary>
+  <summary xml:lang="he">התאמה אישית של התפריט</summary>
   <summary xml:lang="hi">मेनू कस्टमाइज़ करें</summary>
   <summary xml:lang="hu">Menü testreszabása</summary>
   <summary xml:lang="is">Sérsníða valmyndina</summary>
