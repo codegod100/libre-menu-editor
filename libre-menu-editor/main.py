@@ -1788,7 +1788,7 @@ class Application(gui.Application):
                 ]
             xdg_config_home = self.get_flatpak_host_environment_variable("XDG_CONFIG_HOME")
             if isinstance(xdg_config_home, str) and len(xdg_config_home):
-                possible_mimeapps_list_paths.prepend(xdg_config_home)
+                possible_mimeapps_list_paths.insert(0, xdg_config_home)
             for path in possible_mimeapps_list_paths:
                 if os.path.exists(os.path.dirname(path)):
                     self._mimeapps_list_path = path
