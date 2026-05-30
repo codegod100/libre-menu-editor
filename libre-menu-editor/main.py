@@ -494,6 +494,11 @@ class DebugLog():
         self._system_info.append(str(subprocess.getstatusoutput("uname -a")[-1]))
         if len(self._system_info[-1]):
             self._system_info.append("")
+        if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
+            xdg_config_home = self._application.get_flatpak_host_environment_variable("XDG_CONFIG_HOME")
+            self._system_info.append("XDG_CONFIG_HOME={}".format(str(xdg_config_home)))
+        else:
+            self._system_info.append("XDG_CONFIG_HOME={}".format(os.getenv("XDG_CONFIG_HOME")))
         self._system_info.append("XDG_SESSION_DESKTOP={}".format(str(os.getenv("XDG_SESSION_DESKTOP"))))
         self._system_info.append("XDG_CURRENT_DESKTOP={}".format(str(os.getenv("XDG_CURRENT_DESKTOP"))))
         self._system_info.append("XDG_SESSION_TYPE={}".format(str(os.getenv("XDG_SESSION_TYPE"))))
