@@ -31,6 +31,7 @@
     "DUPLICATE_LAUNCHER_MENU_BUTTON_LABEL": "Duplicate launcher",
     "EXPORT_LAUNCHER_MENU_BUTTON_LABEL": "Export launcher",
     "OPEN_LOCATION_MENU_BUTTON_LABEL": "Open location",
+    "COPY_PATH_MESSAGE_TEXT": "Path copied to clipboard",
     "NEW_LAUNCHER_MENU_BUTTON_LABEL": "New launcher",
     "OPEN_FILE_MENU_BUTTON_LABEL": "Open launcher",
     "EDIT_FILE_MENU_BUTTON_LABEL": "Edit document",

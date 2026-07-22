@@ -1813,6 +1813,7 @@ class Application(gui.Application):
         self._settings_page.get_edit_file_action_row().connect("activated", self._on_edit_file_button_clicked)
         self._search_list = gui.SearchList(self)
         self._search_list.hook("item-activated", self._on_search_list_item_activated)
+        self._search_list.hook("item-secondary-activated", self._on_search_list_item_secondary_activated)
         self._save_settings_button = self._settings_page.get_save_button()
         self._save_settings_button.set_label(self._locale_manager.get("SAVE_LAUNCHER_BUTTON_LABEL"))
         self._save_settings_button.set_focus_on_click(False)
@@ -2462,6 +2463,28 @@ class Application(gui.Application):
     def _on_search_list_item_activated(self, event, name):
         self._check_unsaved_data(self._load_settings_page, name, ignore_name=name)
         return True
+
+    def _on_search_list_item_secondary_activated(self, event, name):
+        path = self._get_desktop_launcher_path(name)
+        if not path:
+            return
+        if os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
+            path = self.get_flatpak_host_system_path(path)
+        clipboard = self._application_window.get_clipboard()
+        clipboard.set(path)
+        self.notify(self._locale_manager.get("COPY_PATH_MESSAGE_TEXT"))
+
+    def _get_desktop_launcher_path(self, name):
+        if not name in self._desktop_launcher_parsers:
+            return None
+        parser = self._desktop_launcher_parsers[name]
+        save_path = parser.get_save_path()
+        if save_path and os.path.exists(save_path):
+            return save_path
+        load_path = parser.get_load_path()
+        if load_path:
+            return load_path
+        return None
 
     def _on_parser_saved(self, data):
         name, parser = data

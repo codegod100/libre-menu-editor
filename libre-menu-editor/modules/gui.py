@@ -2377,6 +2377,7 @@ class SearchList(Gtk.Box):
         super().__init__(*args, **kwargs)
         self._events = basic.EventManager()
         self._events.add("item-activated", str)
+        self._events.add("item-secondary-activated", str)
         self._names = {}
         self._children = {}
         self._last_activated = None
@@ -2415,6 +2416,10 @@ class SearchList(Gtk.Box):
         self._list_box.connect("selected-rows-changed", self._on_list_box_selected_rows_changed)
         self._list_box.add_controller(self._list_box_event_controller_key)
         self._list_box.connect("row-activated", self._on_list_box_row_activated)
+        self._list_box_secondary_click = Gtk.GestureClick()
+        self._list_box_secondary_click.set_button(Gdk.BUTTON_SECONDARY)
+        self._list_box_secondary_click.connect("pressed", self._on_list_box_secondary_pressed)
+        self._list_box.add_controller(self._list_box_secondary_click)
         self._scrolled_window = Gtk.ScrolledWindow()
         self._scrolled_window.set_vexpand(True)
         self._scrolled_window.set_kinetic_scrolling(True)
@@ -2500,6 +2505,11 @@ class SearchList(Gtk.Box):
             self._last_activated = self._names[row]
         self._list_box.select_row(row)
         self._ignore_selection = False
+
+    def _on_list_box_secondary_pressed(self, gesture, n_press, x, y):
+        row = self._list_box.get_row_at_y(int(y))
+        if row and row in self._names:
+            self._events.trigger("item-secondary-activated", self._names[row])
 
     def _do_list_box_sort(self, row_1, row_2):
         labels = [
