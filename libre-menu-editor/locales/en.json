@@ -61,6 +61,7 @@
     "DELETE_LAUNCHER_BUTTON_LABEL": "Delete launcher",
     "BANNER_LABEL_TEXT": "Please select the actions you want to delete",
     "BANNER_CANCEL_BUTTON_LABEL": "Done",
+    "FILE_LOCATION_GROUP_TITLE": "File location",
     "APPEARANCE_GROUP_TITLE": "Appearance",
     "DESCRIPTION_GROUP_TITLE": "Description",
     "EXECUTION_GROUP_TITLE": "Execution",

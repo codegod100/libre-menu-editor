@@ -30,11 +30,13 @@ gi.require_version("Gtk", "4.0")
 gi.require_version("Gdk", "4.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("GLib", "2.0")
+gi.require_version("Pango", "1.0")
 from gi.repository import GLib
 from gi.repository import Gio
 from gi.repository import Gdk
 from gi.repository import Gtk
 from gi.repository import Adw
+from gi.repository import Pango
 
 
 class NoAccessError(Exception):
@@ -1019,6 +1021,15 @@ class SettingsPage(Gtk.Box):
             self._banner.connect("button-clicked", self._on_banner_button_clicked)
             self._banner.add_controller(self._banner_event_controller_key)
             self.append(self._banner)
+        self._path_row = Adw.ActionRow()
+        self._path_row.add_css_class("property")
+        self._path_row.set_activatable(False)
+        self._path_row.set_subtitle_lines(0)
+        self._path_row.set_subtitle_selectable(True)
+        self._path_preferences_group = Adw.PreferencesGroup()
+        self._path_preferences_group.set_title(self._locale_manager.get("FILE_LOCATION_GROUP_TITLE"))
+        self._path_preferences_group.set_visible(False)
+        self._path_preferences_group.add(self._path_row)
         self._icon_chooser_row = gui.IconChooserRow(app)
         self._icon_chooser_row.set_default_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_TITLE"))
         self._icon_chooser_row.set_search_entry_title(self._locale_manager.get("ICON_CHOOSER_ROW_SEARCH_MODE_TITLE"))
@@ -1187,6 +1198,7 @@ class SettingsPage(Gtk.Box):
         self._top_box = Gtk.Box()
         self._top_box.set_spacing(gui.Spacing.LARGER)
         self._top_box.set_orientation(Gtk.Orientation.VERTICAL)
+        self._top_box.append(self._path_preferences_group)
         self._top_box.append(self._appearance_preferences_group)
         self._top_box.append(self._description_preferences_group)
         self._top_box.append(self._execution_preferences_group)
@@ -1467,6 +1479,14 @@ class SettingsPage(Gtk.Box):
             if value:
                 self._current_desktop_action_groups[self._current_desktop_actions[0]].grab_focus()
 
+    def set_desktop_launcher_path(self, path=None):
+        if path:
+            self._path_row.set_subtitle(path)
+            self._path_preferences_group.set_visible(True)
+        else:
+            self._path_row.set_subtitle("")
+            self._path_preferences_group.set_visible(False)
+
     def load_desktop_launcher(self, name, parser, update_widgets=True):
         self._loading_desktop_launcher = True
         if update_widgets:
@@ -1615,6 +1635,7 @@ class SettingsPage(Gtk.Box):
             self._only_show_in_filter.reset()
             self._not_show_in_filter.reset()
             self._icon_chooser_row.reset()
+            self.set_desktop_launcher_path()
         self._icon_chooser_row.set_search_mode(False)
         self._keywords_entry_row.set_text("")
         self._update_action_children_sensitive(False)
@@ -2486,6 +2507,12 @@ class Application(gui.Application):
             return load_path
         return None
 
+    def _get_display_desktop_launcher_path(self, name):
+        path = self._get_desktop_launcher_path(name)
+        if path and os.getenv("APP_RUNNING_AS_FLATPAK") == "true":
+            path = self.get_flatpak_host_system_path(path)
+        return path
+
     def _on_parser_saved(self, data):
         name, parser = data
         if self._desktop_launcher_parsers[name] == parser:
@@ -2984,6 +3011,7 @@ class Application(gui.Application):
         except StarterNotExternalError:
             pass
         self._settings_page.load_desktop_launcher(name, parser)
+        self._settings_page.set_desktop_launcher_path(self._get_display_desktop_launcher_path(name))
         if not self._main_stack.get_visible_child() == self._settings_page:
             self._main_stack.set_visible_child(self._settings_page)
         else:
@@ -3043,6 +3071,8 @@ class Application(gui.Application):
                     text = self._locale_manager.get("UNNAMED_APPLICATION_PLACEHOLDER_TEXT")
                 self.notify(self._locale_manager.get("LAUNCHER_SAVE_MESSAGE_TEXT") % text)
                 self._update_search_list_item(self._current_desktop_launcher_name)
+                self._settings_page.set_desktop_launcher_path(
+                    self._get_display_desktop_launcher_path(self._current_desktop_launcher_name))
                 self._update_button_layout()
 
     def _get_random_unused_desktop_launcher_name(self):
